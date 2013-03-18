@@ -9,8 +9,6 @@
 	<classpathentry kind="lib" path="lib/httpclient-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.1.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.9b2.jar"/>
-	<classpathentry kind="lib" path="C:/dev/ic3qatools/ResponseCompare/lib/nmg-hashtable.jar"/>
-	<classpathentry kind="lib" path="C:/dev/ic3qatools/ResponseCompare/lib/nmg-units.jar"/>
 	<classpathentry kind="lib" path="lib/serializer.jar"/>
 	<classpathentry kind="lib" path="lib/xalan.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
@@ -20,9 +18,5 @@
 	<classpathentry kind="lib" path="lib/log4j-1.2.14.jar"/>
 	<classpathentry kind="lib" path="lib/sqljdbc4.jar"/>
 	<classpathentry kind="lib" path="lib/json-xml-1.3.jar"/>
-	<classpathentry kind="lib" path="C:/dev/ic3qatools/ResponseCompare/lib/jackson-core-asl-1.5.2.jar"/>
-	<classpathentry kind="lib" path="C:/dev/ic3qatools/ResponseCompare/lib/jackson-jaxrs-1.5.2.jar"/>
-	<classpathentry kind="lib" path="C:/dev/ic3qatools/ResponseCompare/lib/jackson-mapper-asl-1.5.2.jar"/>
-	<classpathentry kind="lib" path="C:/dev/ic3qatools/ResponseCompare/lib/jackson-xc-1.5.2.jar"/>
 	<classpathentry kind="output" path="request/classes"/>
 </classpath>
