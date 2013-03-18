@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<ETag type="string"/>
+<Id type="string">501719367553</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/people/501719367553</Href>
+<Rel type="string">self</Rel>
+</Links>
+</Links>
+<Address type="string">215 CIRCLE DR APT 15</Address>
+<AddressParsed>
+<Name type="string">Circle</Name>
+<Number type="string">215</Number>
+<Suffix type="string">Dr</Suffix>
+<UnitNumber type="string">15</UnitNumber>
+<UnitType type="string">APT</UnitType>
+</AddressParsed>
+<City type="string">CAPE CANAVERAL</City>
+<FirstName type="string">Anna</FirstName>
+<LastName type="string">Kochan</LastName>
+<Location>
+<Latitude type="float">28.394794</Latitude>
+<Longitude type="float">-80.601970</Longitude>
+</Location>
+<PostalCode type="string">32920</PostalCode>
+<StateProvince type="string">FL</StateProvince>
+</root>
+<root>
+<ETag type="string"/>
+<Id type="string">401804650113</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/people/401804650113</Href>
+<Rel type="string">self</Rel>
+</Links>
+</Links>
+<Address type="string">215 CIRCLE DR APT 15</Address>
+<AddressParsed>
+<Name type="string">Circle</Name>
+<Number type="string">215</Number>
+<Suffix type="string">Dr</Suffix>
+<UnitNumber type="string">15</UnitNumber>
+<UnitType type="string">APT</UnitType>
+</AddressParsed>
+<City type="string">CAPE CANAVERAL</City>
+<FirstName type="string">Boguslawa</FirstName>
+<LastName type="string">Kochan</LastName>
+<Location>
+<Latitude type="float">28.394794</Latitude>
+<Longitude type="float">-80.601970</Longitude>
+</Location>
+<PostalCode type="string">32920</PostalCode>
+<StateProvince type="string">FL</StateProvince>
+</root>
+</root>

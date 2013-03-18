@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<counts type="string">4</counts>
+</root>
+<root>
+<id type="string">001774412</id>
+<LevenshteinScore type="string">1.0</LevenshteinScore>
+<location_id type="string">200283363412</location_id>
+<individul_id type="string">000545294675</individul_id>
+<firstname type="string">LESLIE</firstname>
+<middle_name type="string">D</middle_name>
+<lastname type="string">KING</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string">3348321844</phone>
+<address type="string">1123 STOKES RD</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">36110</zipcode>
+</root>
+<root>
+<id type="string">001774413</id>
+<LevenshteinScore type="string">1.0</LevenshteinScore>
+<location_id type="string">200283363412</location_id>
+<individul_id type="string">102525390837</individul_id>
+<firstname type="string">OTIS</firstname>
+<middle_name type="string"/>
+<lastname type="string">KING</lastname>
+<lastname_suffix type="string">JR</lastname_suffix>
+<email type="string">null</email>
+<phone type="string">3348321844</phone>
+<address type="string">1123 STOKES RD</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">36110</zipcode>
+</root>
+<root>
+<id type="string">001774414</id>
+<LevenshteinScore type="string">1.0</LevenshteinScore>
+<location_id type="string">200283363412</location_id>
+<individul_id type="string">102646592947</individul_id>
+<firstname type="string">KENNETH</firstname>
+<middle_name type="string"/>
+<lastname type="string">KING</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string">3348321844</phone>
+<address type="string">1123 STOKES RD</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">36110</zipcode>
+</root>
+<root>
+<id type="string">001774415</id>
+<LevenshteinScore type="string">1.0</LevenshteinScore>
+<location_id type="string">200283363412</location_id>
+<individul_id type="string">502525390839</individul_id>
+<firstname type="string">HAROLD</firstname>
+<middle_name type="string"/>
+<lastname type="string">KING</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string">3348321844</phone>
+<address type="string">1123 STOKES RD</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">36110</zipcode>
+</root>
+</root>

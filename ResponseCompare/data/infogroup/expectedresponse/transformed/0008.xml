@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<ETag type="string"/>
+<Id type="string">102545910267</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/people/102545910267</Href>
+<Rel type="string">self</Rel>
+</Links>
+</Links>
+<Address type="string">966 ANDERSON AVE APT 3R</Address>
+<AddressParsed>
+<Name type="string">Anderson</Name>
+<Number type="string">966</Number>
+<Suffix type="string">Ave</Suffix>
+<UnitNumber type="string">3R</UnitNumber>
+<UnitType type="string">APT</UnitType>
+</AddressParsed>
+<City type="string">BRONX</City>
+<FirstName type="string">Ruben</FirstName>
+<LastName type="string">Ortiz</LastName>
+<Location>
+<Latitude type="float">40.831470</Latitude>
+<Longitude type="float">-73.927383</Longitude>
+</Location>
+<PostalCode type="string">10452</PostalCode>
+<StateProvince type="string">NY</StateProvince>
+</root>
+</root>

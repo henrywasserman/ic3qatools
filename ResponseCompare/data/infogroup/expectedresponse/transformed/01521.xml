@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<counts type="string">1</counts>
+</root>
+<root>
+<id type="string">000991181</id>
+<LevenshteinScore type="string">1.0</LevenshteinScore>
+<location_id type="string">000458452109</location_id>
+<individul_id type="string">400880038651</individul_id>
+<firstname type="string">WALLACE</firstname>
+<middle_name type="string">C</middle_name>
+<lastname type="string">BARCLAY</lastname>
+<lastname_suffix type="string">SR</lastname_suffix>
+<email type="string">null</email>
+<phone type="string">2562689891</phone>
+<address type="string">PO BOX 214</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">35014</zipcode>
+</root>
+</root>

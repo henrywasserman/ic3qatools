@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?><root>
+<MatchCount type="int">3</MatchCount>
+<Matches>
+<Common type="array"/>
+<Companies type="array">
+<Companies>
+<ETag type="string"/>
+<Id type="string">403163180</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/companies/403163180</Href>
+<Rel type="string">self</Rel>
+</Links>
+<Links>
+<Href type="string">/v1/companies/006131684</Href>
+<Rel type="string">parent</Rel>
+</Links>
+</Links>
+<Address type="string">101 E Chicago Ave</Address>
+<AddressParsed>
+<Name type="string">Chicago</Name>
+<Number type="string">101</Number>
+<PreDirectional type="string">E</PreDirectional>
+<Suffix type="string">Ave</Suffix>
+</AddressParsed>
+<City type="string">Chicago</City>
+<CompanyName type="string">Nordstrom</CompanyName>
+<Location>
+<Latitude type="float">41.896202</Latitude>
+<Longitude type="float">-87.624948</Longitude>
+</Location>
+<Phone type="string">3122543660</Phone>
+<PostalCode type="string">60611</PostalCode>
+<RuleName type="string">Company-CompanyName</RuleName>
+<Score type="int">80</Score>
+<StateProvince type="string">IL</StateProvince>
+<County type="string">Cook</County>
+<Franchise type="string">Nordstrom</Franchise>
+<LocationEmployeesSizeActual type="int">313</LocationEmployeesSizeActual>
+<LocationEmployeesSizeRange type="string">250-499</LocationEmployeesSizeRange>
+<LocationSalesVolumeActual type="int">70915000</LocationSalesVolumeActual>
+<LocationSalesVolumeRange type="string">$50-100 Million</LocationSalesVolumeRange>
+<NaicsList type="array">
+<NaicsList>
+<Code type="string">45211101</Code>
+<Description type="string">Department Stores (Except Discount Dept Stores)</Description>
+</NaicsList>
+</NaicsList>
+<PrimaryNaics type="string">45211101</PrimaryNaics>
+<PrimarySic type="string">531102</PrimarySic>
+<ZipPlus4 type="string">60611-2010</ZipPlus4>
+</Companies>
+<Companies>
+<ETag type="string"/>
+<Id type="string">694792987</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/companies/694792987</Href>
+<Rel type="string">self</Rel>
+</Links>
+<Links>
+<Href type="string">/v1/companies/422133825</Href>
+<Rel type="string">parent</Rel>
+</Links>
+</Links>
+<Address type="string">55 E Grand Ave</Address>
+<AddressParsed>
+<Name type="string">Grand</Name>
+<Number type="string">55</Number>
+<PreDirectional type="string">E</PreDirectional>
+<Suffix type="string">Ave</Suffix>
+</AddressParsed>
+<City type="string">Chicago</City>
+<CompanyName type="string">Marbles The Brain Store</CompanyName>
+<EmailVendor>
+<Email type="string">MARBLESTHEBRAINSTORE@GMAIL.COM</Email>
+<VendorId type="string">36</VendorId>
+</EmailVendor>
+<FirstName type="string">Lindsay</FirstName>
+<LastName type="string">Gaskins</LastName>
+<Location>
+<Latitude type="float">41.891672</Latitude>
+<Longitude type="float">-87.625816</Longitude>
+</Location>
+<Phone type="string">3124947769</Phone>
+<PostalCode type="string">60611</PostalCode>
+<RuleName type="string">Company-AddressCompanyName</RuleName>
+<Score type="int">79</Score>
+<StateProvince type="string">IL</StateProvince>
+<Contacts type="array">
+<Contacts>
+<FirstName type="string">Lindsay</FirstName>
+<Gender type="string">Female</Gender>
+<LastName type="string">Gaskins</LastName>
+<Title type="string">Site Manager</Title>
+</Contacts>
+</Contacts>
+<County type="string">Cook</County>
+<Gender type="string">Female</Gender>
+<LocationEmployeesSizeActual type="int">6</LocationEmployeesSizeActual>
+<LocationEmployeesSizeRange type="string">5-9</LocationEmployeesSizeRange>
+<LocationSalesVolumeActual type="int">830000</LocationSalesVolumeActual>
+<LocationSalesVolumeRange type="string">$500,000-1 Million</LocationSalesVolumeRange>
+<NaicsList type="array">
+<NaicsList>
+<Code type="string">45112020</Code>
+<Description type="string">Hobby, Toy &amp; Game Stores</Description>
+</NaicsList>
+<NaicsList>
+<Code type="string">45112035</Code>
+<Description type="string">Hobby, Toy &amp; Game Stores</Description>
+</NaicsList>
+</NaicsList>
+<PrimaryNaics type="string">45112035</PrimaryNaics>
+<PrimarySic type="string">594517</PrimarySic>
+<Title type="string">Site Manager</Title>
+<ZipPlus4 type="string">60611-5610</ZipPlus4>
+</Companies>
+<Companies>
+<ETag type="string"/>
+<Id type="string">592928600</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/companies/592928600</Href>
+<Rel type="string">self</Rel>
+</Links>
+<Links>
+<Href type="string">/v1/companies/106624901</Href>
+<Rel type="string">parent</Rel>
+</Links>
+</Links>
+<Address type="string">55 E Grand Ave # E</Address>
+<AddressParsed>
+<Name type="string">Grand</Name>
+<Number type="string">55</Number>
+<PreDirectional type="string">E</PreDirectional>
+<Suffix type="string">Ave</Suffix>
+<UnitNumber type="string">E</UnitNumber>
+</AddressParsed>
+<City type="string">Chicago</City>
+<CompanyName type="string">Bose Store</CompanyName>
+<EmailVendor>
+<Email type="string">LINDSAY_TURNER@BOSE.COM</Email>
+<VendorId type="string">36</VendorId>
+</EmailVendor>
+<FirstName type="string">Lindsay</FirstName>
+<LastName type="string">Turner</LastName>
+<Location>
+<Latitude type="float">41.891672</Latitude>
+<Longitude type="float">-87.625816</Longitude>
+</Location>
+<Phone type="string">3125950152</Phone>
+<PostalCode type="string">60611</PostalCode>
+<RuleName type="string">Company-AddressCompanyName</RuleName>
+<Score type="int">78</Score>
+<StateProvince type="string">IL</StateProvince>
+<Contacts type="array">
+<Contacts>
+<FirstName type="string">Lindsay</FirstName>
+<Gender type="string">Female</Gender>
+<LastName type="string">Turner</LastName>
+<Title type="string">Site Manager</Title>
+</Contacts>
+</Contacts>
+<County type="string">Cook</County>
+<Gender type="string">Female</Gender>
+<LocationEmployeesSizeActual type="int">5</LocationEmployeesSizeActual>
+<LocationEmployeesSizeRange type="string">5-9</LocationEmployeesSizeRange>
+<LocationSalesVolumeActual type="int">1086000</LocationSalesVolumeActual>
+<LocationSalesVolumeRange type="string">$1-2.5 Million</LocationSalesVolumeRange>
+<NaicsList type="array">
+<NaicsList>
+<Code type="string">44314221</Code>
+<Description type="string">Electronic Stores</Description>
+</NaicsList>
+</NaicsList>
+<PrimaryNaics type="string">44314221</PrimaryNaics>
+<PrimarySic type="string">573105</PrimarySic>
+<Title type="string">Site Manager</Title>
+<TollFree type="string">8009992673</TollFree>
+<ZipPlus4 type="string">60611-5837</ZipPlus4>
+</Companies>
+</Companies>
+<People type="array"/>
+</Matches>
+<ScoreSummary type="array">
+<ScoreSummary>
+<Href type="string">/v1/companies/403163180</Href>
+<ResourceType type="string">Company</ResourceType>
+<RuleName type="string">Company-CompanyName</RuleName>
+<Score type="int">80</Score>
+</ScoreSummary>
+<ScoreSummary>
+<Href type="string">/v1/companies/694792987</Href>
+<ResourceType type="string">Company</ResourceType>
+<RuleName type="string">Company-AddressCompanyName</RuleName>
+<Score type="int">79</Score>
+</ScoreSummary>
+<ScoreSummary>
+<Href type="string">/v1/companies/592928600</Href>
+<ResourceType type="string">Company</ResourceType>
+<RuleName type="string">Company-AddressCompanyName</RuleName>
+<Score type="int">78</Score>
+</ScoreSummary>
+</ScoreSummary>
+</root>

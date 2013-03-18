@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<ETag type="string"/>
+<Id type="string">301549869681</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/people/301549869681</Href>
+<Rel type="string">self</Rel>
+</Links>
+</Links>
+<Address type="string">PO BOX 345</Address>
+<AddressParsed>
+<Name type="string">Po Box 345</Name>
+</AddressParsed>
+<City type="string">HOXIE</City>
+<FirstName type="string">Donald</FirstName>
+<LastName type="string">Russell</LastName>
+<Location>
+<Latitude type="float">36.041801</Latitude>
+<Longitude type="float">-90.982425</Longitude>
+</Location>
+<PostalCode type="string">72433</PostalCode>
+<StateProvince type="string">AR</StateProvince>
+</root>
+</root>

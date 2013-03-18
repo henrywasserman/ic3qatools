@@ -1,0 +1,13 @@
+xmldata=
+<enduseractions>
+	<affiliatenametag>Verification</affiliatenametag>
+	<deviceserialnum>fyqueyyvaixa</deviceserialnum>
+	<action>
+    		<sid>${storefrontid}</sid>
+    		<cid>${campaignid}</cid>
+    		<tim>${currenttime}</tim>
+		<lon>-106497358</lon>
+		<lat>31730856</lat>
+		<typ>LANDINGPAGE</typ>
+	</action>
+</enduseractions>

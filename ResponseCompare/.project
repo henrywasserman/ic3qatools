@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>ResponseCompare</name>
+	<comment></comment>
+	<projects>
+		<project>IngestionBatch</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>conf</name>
+			<type>2</type>
+			<location>C:/navteq/ingestion-engine/trunk/ingestion-batch/conf</location>
+		</link>
+		<link>
+			<name>resources</name>
+			<type>2</type>
+			<location>C:/navteq/ingestion-engine/trunk/ingestion-batch/resources</location>
+		</link>
+	</linkedResources>
+</projectDescription>

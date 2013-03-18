@@ -1,0 +1,112 @@
+#Count Diagnostic Tests
+TESTCASE 0203, Validate_Diagnostics_For_PostalCode_Search
+  POST ${peopleuri-port}/${peopleuri-end-point}/count?diag=true
+  SET_HEADER Accept: application/json
+  BODY {"PostalCode":["90210","68046"]} 
+  VALIDATE_HEADER X-Transaction-ID
+  VALIDATE_HEADER X-Log-Request-Resource-Count
+  VALIDATE_HEADER X-Log-Response-Resource-Count
+  VALIDATE_HEADER X-Log-Resource-Type
+  VALIDATE_HEADER X-Log-Service-Execution-Time
+
+#Count Input Tests
+TESTCASE 0204, Validate_Mulitiple_ChildAgeBirthMonthGender_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>6</Age><BirthMonth>January</BirthMonth></AgeBirthMonth><AgeBirthMonth><Age>6</Age></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0205, 
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"PostalCode":["12345-123"]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0206, 
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><PostalCode><string>1234</string></PostalCode></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0207, 
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"Email":"abc123xyz","PostalCode":["68046"],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0208, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>101</Limit><Offset>0</Offset></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0209, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"Limit":-1,"Offset":0}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0210, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Offset>-1</Offset></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0211, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"Limit":5001,"Offset":0,"ResourceType":"Core"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0212, Validate_Actual_Income_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ActualIncome><string>500000</string></ActualIncome><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0213, Validate_Actual_Income_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"ActualIncome":["500001"],"PostalCode":["68046"]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0214, Validate_Actual_Income_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ActualIncome><string>10000</string></ActualIncome></PersonSearch>
+
+TESTCASE 0215, Validate_Actual_Income_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"ActualIncome":["9999"]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0216, Validate_BadRequest_For_ResourceType_NotEqual_To_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>abc123xyz</Email><PostalCode><string>68046</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400 
+  SKIP_COMPARE
+
+TESTCASE 0217, Validate_PostalCode 
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><PostalCode><string>12345-123</string></PostalCode></PersonSearch>
+  STATUS 400 
+  SKIP_COMPARE
+
+TESTCASE 0218, Validate_PostalCode
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY  {"PostalCode":["1234"]} 
+  STATUS 400 
+  SKIP_COMPARE

@@ -1,0 +1,398 @@
+#DIAGNOSTICS TESTS
+TESTCASE 00023, Validate_Diagnostics_For_PostalCode_Search()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"PostalCode":["90210","68046"]}
+
+# Hold off on this test because it is expecting a 400
+#INPUT TESTS
+#TESTCASE 00024, Post/Get Result Validate Status Code Methods
+#  POST ${companiesuri-port}/${companiesuri-end-point}/count
+#  SET_HEADER Content-Type: application/xml 
+#  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CompanyName>Infogroup</CompanyName><PostalCode><string>68046</string></PostalCode><ResourceType>enhanced</ResourceType></CompanySearch>
+
+TESTCASE 00024, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"County":"perry","StateProvince":"NE"}
+
+TESTCASE 00025, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><MailScore><string>Accurate</string></MailScore><PostalCode><string>68046</string></PostalCode></CompanySearch>
+
+TESTCASE 00026, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"MailScore":["Likely"],"PostalCode":["68046"]}
+
+TESTCASE 00027, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><MailScore><string>Questionable</string></MailScore><PostalCode><string>68046</string></PostalCode></CompanySearch>
+
+TESTCASE 00028, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"MailScore":["Unlikely"],"PostalCode":["68046"]}
+
+TESTCASE 00029, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><MailScore><string>Undeliverable</string></MailScore><PostalCode><string>68046</string></PostalCode></CompanySearch>
+
+TESTCASE 00030, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><PostalCode><string>90210</string></PostalCode></CompanySearch>
+
+TESTCASE 00031, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"PostalCode":["90210","68046"]}
+
+TESTCASE 00032, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"PostalCode":["11111-1111"]}
+
+TESTCASE 00033, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Sic><string>39</string></Sic></CompanySearch>
+
+TESTCASE 00034, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Sic":["39-50"]}
+
+TESTCASE 00035, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Sic><string>3990,274516</string></Sic></CompanySearch>
+
+TESTCASE 00036, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Sic":["3990","274516","10-20"]}
+
+TESTCASE 00037, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Sic><string>3990</string><string>274516</string><string>10-20</string><string>58</string></Sic></CompanySearch>
+
+TESTCASE 00038, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CompanyName":"McDonalds","CountiesByState":[{"County":"Douglas","State":"NE"}]}
+
+TESTCASE 00039, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CompanyName>McDonalds</CompanyName><CountiesByState><CountyState><County>Douglas</County><State>NE</State></CountyState><CountyState><County>Lancaster</County><State>NE</State></CountyState><CountyState><County>Sarpy</County><State>NE</State></CountyState><CountyState><County>Saunders</County><State>NE</State></CountyState></CountiesByState></CompanySearch>
+
+TESTCASE 00040, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"Douglas","State":"NE"},{"County":"Lancaster","State":"NE"},{"County":"Sarpy","State":"NE"},{"County":"Saunders","State":"NE"}]}
+
+TESTCASE 00041, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CitiesByStateProvince><CityStateProvince><City>Toronto</City><StateProvince>ON</StateProvince></CityStateProvince></CitiesByStateProvince><CompanyName>McDonalds</CompanyName></CompanySearch>
+
+TESTCASE 00042, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CitiesByStateProvince":[{"City":"Omaha","StateProvince":"NE"}],"CompanyName":"McDonalds"}
+
+TESTCASE 00043, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CitiesByStateProvince><CityStateProvince><City>Omaha</City><StateProvince>NE</StateProvince></CityStateProvince><CityStateProvince><City>Chicago</City><StateProvince>IL</StateProvince></CityStateProvince></CitiesByStateProvince><CompanyName>McDonalds</CompanyName></CompanySearch>
+
+TESTCASE 00044, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CitiesByStateProvince":[{"City":"Omaha","StateProvince":"NE"},{"City":"Chicago","StateProvince":"IL"}]}
+
+TESTCASE 00045, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><TickerSymbol>MSFT</TickerSymbol></CompanySearch>
+
+TESTCASE 00046, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"AddressParsed":{"PreDirectional":""},"CompanyName":"Infogroup"}
+
+TESTCASE 00047, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Mclennan</County><State>TX</State></CountyState></CountiesByState><Sic><string>581208</string></Sic></CompanySearch>
+
+TESTCASE 00048, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"Mclennan","State":"TX"}],"Sic":["581208"]}
+
+TESTCASE 00049, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>McLENNAN</County><State>TX</State></CountyState></CountiesByState><Sic><string>581208</string></Sic></CompanySearch>
+
+TESTCASE 00050, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"Mc lennan","State":"TX"}],"Sic":["581208"]}
+
+TESTCASE 00051, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>mc LeNnAn</County><State>TX</State></CountyState></CountiesByState><Sic><string>581208</string></Sic></CompanySearch>
+
+TESTCASE 00052, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"Mc lenn an","State":"TX"}],"Sic":["581208"]}
+
+TESTCASE 00053, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Mclennan</County><State>TX</State></CountyState><CountyState><County>Bell</County><State>TX</State></CountyState></CountiesByState><Sic><string>581208</string></Sic></CompanySearch>
+
+TESTCASE 00054, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"Mclennan","State":"TX"},{"County":"Bell","State":"TX"}],"Sic":["581208"]}
+
+TESTCASE 00055, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>McLENNAN</County><State>TX</State></CountyState><CountyState><County>Bell</County><State>TX</State></CountyState></CountiesByState><Sic><string>581208</string></Sic></CompanySearch>
+
+TESTCASE 00056, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"Mc lennan","State":"TX"},{"County":"Bell","State":"TX"}],"Sic":["581208"]}
+
+TESTCASE 00057, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>mc LeNnAn</County><State>TX</State></CountyState><CountyState><County>Bell</County><State>TX</State></CountyState></CountiesByState><Sic><string>581208</string></Sic></CompanySearch>
+
+TESTCASE 00058, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"Mc lenn an","State":"TX"},{"County":"Bell","State":"TX"}],"Sic":["581208"]}
+
+TESTCASE 00059, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CorporateSalesVolumeRange><string>1-500000</string><string>500000-1000000</string><string>1000000-2500000</string><string>2500000-5000000</string><string>5000000-10000000</string><string>10000000-20000000</string><string>20000000-50000000</string><string>50000000-100000000</string><string>100000000-500000000</string><string>500000000-1000000000</string><string>1000000000</string></CorporateSalesVolumeRange><CountiesByState><CountyState><County>Mclennan</County><State>TX</State></CountyState><CountyState><County>Bell</County><State>TX</State></CountyState></CountiesByState><LocationEmployeesSizeRange><string>1-4</string><string>5-9</string><string>10-19</string><string>20-49</string><string>50-99</string><string>100-249</string><string>250-499</string><string>500-999</string><string>1000-4999</string><string>5000-9999</string><string>10000</string></LocationEmployeesSizeRange><LocationSalesVolumeRange><string>1-500000</string><string>500000-1000000</string><string>1000000-2500000</string><string>2500000-5000000</string><string>5000000-10000000</string><string>10000000-20000000</string><string>20000000-50000000</string><string>50000000-100000000</string><string>100000000-500000000</string><string>500000000-1000000000</string><string>1000000000</string></LocationSalesVolumeRange><Sic><string>581208</string></Sic></CompanySearch>
+
+TESTCASE 00060, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CorporateSalesVolumeRange":["1-500000","500000-1000000","1000000-2500000","2500000-5000000","5000000-10000000","10000000-20000000","20000000-50000000","50000000-100000000","100000000-500000000","500000000-1000000000","1000000000"],"CountiesByState":[{"County":"Mclennan","State":"TX"},{"County":"Bell","State":"TX"}],"LocationEmployeesSizeRange":["1-4","5-9","10-19","20-49","50-99","100-249","250-499","500-999","1000-4999","5000-9999","10000"],"LocationSalesVolumeRange":["1-500000","500000-1000000","1000000-2500000","2500000-5000000","5000000-10000000","10000000-20000000","20000000-50000000","50000000-100000000","100000000-500000000","500000000-1000000000","1000000000"],"Sic":["581208"]}
+
+TESTCASE 00061, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CorporateSalesVolumeRange><string>1-500000</string><string>500000-1000000</string><string>1000000-2500000</string><string>2500000-5000000</string><string>5000000-10000000</string><string>10000000-20000000</string><string>20000000-50000000</string><string>50000000-100000000</string><string>100000000-500000000</string><string>500000000-1000000000</string><string>1000000000</string></CorporateSalesVolumeRange><CountiesByState><CountyState><County>McLENNAN</County><State>TX</State></CountyState><CountyState><County>Bell</County><State>TX</State></CountyState></CountiesByState><LocationEmployeesSizeRange><string>1-4</string><string>5-9</string><string>10-19</string><string>20-49</string><string>50-99</string><string>100-249</string><string>250-499</string><string>500-999</string><string>1000-4999</string><string>5000-9999</string><string>10000</string></LocationEmployeesSizeRange><LocationSalesVolumeRange><string>1-500000</string><string>500000-1000000</string><string>1000000-2500000</string><string>2500000-5000000</string><string>5000000-10000000</string><string>10000000-20000000</string><string>20000000-50000000</string><string>50000000-100000000</string><string>100000000-500000000</string><string>500000000-1000000000</string><string>1000000000</string></LocationSalesVolumeRange><Sic><string>581208</string></Sic></CompanySearch>
+
+TESTCASE 00062, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CorporateSalesVolumeRange":["1-500000","500000-1000000","1000000-2500000","2500000-5000000","5000000-10000000","10000000-20000000","20000000-50000000","50000000-100000000","100000000-500000000","500000000-1000000000","1000000000"],"CountiesByState":[{"County":"Mc lennan","State":"TX"},{"County":"Bell","State":"TX"}],"LocationEmployeesSizeRange":["1-4","5-9","10-19","20-49","50-99","100-249","250-499","500-999","1000-4999","5000-9999","10000"],"LocationSalesVolumeRange":["1-500000","500000-1000000","1000000-2500000","2500000-5000000","5000000-10000000","10000000-20000000","20000000-50000000","50000000-100000000","100000000-500000000","500000000-1000000000","1000000000"],"Sic":["581208"]}
+
+TESTCASE 00063, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CorporateSalesVolumeRange><string>1-500000</string><string>500000-1000000</string><string>1000000-2500000</string><string>2500000-5000000</string><string>5000000-10000000</string><string>10000000-20000000</string><string>20000000-50000000</string><string>50000000-100000000</string><string>100000000-500000000</string><string>500000000-1000000000</string><string>1000000000</string></CorporateSalesVolumeRange><CountiesByState><CountyState><County>mc LeNnAn</County><State>TX</State></CountyState><CountyState><County>Bell</County><State>TX</State></CountyState></CountiesByState><LocationEmployeesSizeRange><string>1-4</string><string>5-9</string><string>10-19</string><string>20-49</string><string>50-99</string><string>100-249</string><string>250-499</string><string>500-999</string><string>1000-4999</string><string>5000-9999</string><string>10000</string></LocationEmployeesSizeRange><LocationSalesVolumeRange><string>1-500000</string><string>500000-1000000</string><string>1000000-2500000</string><string>2500000-5000000</string><string>5000000-10000000</string><string>10000000-20000000</string><string>20000000-50000000</string><string>50000000-100000000</string><string>100000000-500000000</string><string>500000000-1000000000</string><string>1000000000</string></LocationSalesVolumeRange><Sic><string>581208</string></Sic></CompanySearch>
+
+TESTCASE 00064, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CorporateSalesVolumeRange":["1-500000","500000-1000000","1000000-2500000","2500000-5000000","5000000-10000000","10000000-20000000","20000000-50000000","50000000-100000000","100000000-500000000","500000000-1000000000","1000000000"],"CountiesByState":[{"County":"Mc lenn an","State":"TX"},{"County":"Bell","State":"TX"}],"LocationEmployeesSizeRange":["1-4","5-9","10-19","20-49","50-99","100-249","250-499","500-999","1000-4999","5000-9999","10000"],"LocationSalesVolumeRange":["1-500000","500000-1000000","1000000-2500000","2500000-5000000","5000000-10000000","10000000-20000000","20000000-50000000","50000000-100000000","100000000-500000000","500000000-1000000000","1000000000"],"Sic":["581208"]}
+
+TESTCASE 00065, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>CATHRINE.CRAWFORD@WALGREENS.COM</Email></CompanySearch>
+
+TESTCASE 00066, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Email":"CATHOLICPC@CSOBR.ORG"}
+
+TESTCASE 00067, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>CATHLEENS@PRESBYTERIANCOMMUNITYCARE.COM</Email></CompanySearch>
+
+TESTCASE 00068, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Email":"CITYALEK@GMAIL.COM"}
+
+TESTCASE 00069, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Email":"Not.A.Real@Person.com"}
+
+TESTCASE 00070, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CompanyName>abc</CompanyName><IncludeNonVerified>true</IncludeNonVerified><PostalCode><string>68046</string><string>68137</string></PostalCode></CompanySearch>
+
+TESTCASE 00071, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CompanyName":"abc","PostalCode":["68046","68137"]}
+
+TESTCASE 00072, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count?diag=true
+  SET_HEADER Accept: application/json
+  BODY {"PostalCode":["90210","68046"]}
+
+TESTCASE 00073, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count?apikey=${apikey}
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CompanyName>Infogroup</CompanyName><PostalCode><string>68046</string></PostalCode></CompanySearch>
+
+TESTCASE 00074, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CompanyName":"Infogroup","PostalCode":["68046"]}
+
+TESTCASE 00075, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CompanyName>ABC</CompanyName><County>douglas</County><StateProvince>NE</StateProvince></CompanySearch>
+
+TESTCASE 00076, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CompanyName":"Infogroup","PostalCode":["68046"]}
+
+TESTCASE 00077, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CompanyName>Infogroup</CompanyName><PostalCode><string>68046</string></PostalCode></CompanySearch>
+
+TESTCASE 00078, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CompanyName":"McDonalds","StatesProvinces":["NE"]}
+
+TESTCASE 00079, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CompanyName>McDonalds</CompanyName><StatesProvinces><string>NE</string><string>IA</string><string>NY</string></StatesProvinces></CompanySearch>
+
+TESTCASE 00080, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"StatesProvinces":["NE","IA","NY"]}
+
+TESTCASE 00081, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><IsFranchise>true</IsFranchise><StateProvince>NE</StateProvince></CompanySearch>
+
+TESTCASE 00082, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","IsFranchise":false,"StateProvince":"NE"}
+
+TESTCASE 00083, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><StateProvince>NE</StateProvince></CompanySearch>
+
+TESTCASE 00084, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"County":"douglas","StateProvince":"NE"}
+
+TESTCASE 00085, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Gender>Male</Gender></CompanySearch>
+
+TESTCASE 00086, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Gender":"Female"}
+
+TESTCASE 00087, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Gender>Unknown</Gender></CompanySearch>
+
+TESTCASE 00088, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CompanyName":"ABC","County":"perry","StateProvince":"NE"}
+
+TESTCASE 00089, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Papillion</City><CompanyName>Infogroup</CompanyName></CompanySearch>
+
+TESTCASE 00090, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"City":"Seattle","CompanyName":"Microsoft"}
+
+TESTCASE 00091, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CompanyName>Microsoft</CompanyName></CompanySearch>
+
+TESTCASE 00092, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CompanyName":"Apple","StateProvince":"CA"}
+
+TESTCASE 00093, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Naics><string>33991006</string></Naics></CompanySearch>
+
+TESTCASE 00094, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Naics":["42394012-54143006"]}
+
+TESTCASE 00095, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Naics><string>33991006</string><string>42394012</string></Naics></CompanySearch>
+
+TESTCASE 00096, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Naics":["33991006","42394012","54143006-81149023"]}
+
+TESTCASE 00097, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <CompanySearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Naics><string>33991006</string><string>42394012</string><string>54143006-81149023</string><string>11111001</string></Naics></CompanySearch>
+
+TESTCASE 00098, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CompanyName":"Infogroup","PolygonList":[{"Points":[{"Latitude":"41.169609","Longitude":"-96.067886"},{"Latitude":"41.1678","Longitude":"-96.000938"},{"Latitude":"41.127987","Longitude":"-95.982742"},{"Latitude":"41.129668","Longitude":"-95.039734"},{"Latitude":"41.137813","Longitude":"-96.073895"}]}]}
+
+TESTCASE 00099, Validate_Email_Search_Counts()
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CompanyName":"apple","RadiusPostalCodeList":[{"PostalCode":"T2H0W5","RadiusMiles":".5"}]}
+
+TESTCASE 00100, Validate_Email_Search_Counts() 
+  POST ${companiesuri-port}/${companiesuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CompanyName":"apple","Limit":100,"RadiusPostalCodeList":[{"PostalCode":"T2H0W5","RadiusMiles":"3"}]}
+

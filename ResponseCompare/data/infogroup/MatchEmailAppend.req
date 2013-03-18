@@ -1,0 +1,60 @@
+TESTCASE 00011, test 
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"Name":"Donald Russell","PostalCode":"72433","RequestType":"Any","StateProvince":"AR","StreetAddress":"Po Box 345"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00012, Email Append Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"City":"Chicago","CompanyName":"Nordstrom","Country":"USA","Fields":["Email","Address","AddressParsed","City","CompanyName","FirstName","Id","LastName","Links","Location","Phone","PostalCode","RuleName","Score","StateProvince","BusinessType","Contacts","CorporateEmployeeSizeActual","CorporateEmployeeSizeRange","CorporateSalesVolumeActual","CorporateSalesVolumeRange","County","CredtiRatingScore","EIN1","EIN2","EIN3","Fax","Franchise","Gender","LocationEmployeesSizeActual","LocationEmployeesSizeRange","LocationSalesVolumeActual","LocationSalesVolumeRange","NaicsList","PrimaryNaics","PrimarySic","TickerSymbol","Title","TollFree","UrlList","ZipPlus4","MatchScore"],"Name":"Nordstrom","PostalCode":"60611","RequestType":"Company","StateProvince":"IL","StreetAddress":"55 East Grand Avenue"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00013, test 
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"Name":"Mary Szepski","PostalCode":"46226","RequestType":"Person","StateProvince":"IN","StreetAddress":"3662 Chateau Ln"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 0014, test 
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"Name":"Felix Colon","PostalCode":"33029","RequestType":"Person","StateProvince":"FL","StreetAddress":"17992 SW 33rd St"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00015, test 
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"Name":"Joseph Philyaw","PostalCode":"32507","RequestType":"Person","StateProvince":"FL","StreetAddress":"1302 Gulf Beach Hwy"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00016, test
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"Name":"Mary Miskimen","PostalCode":"55412","RequestType":"Person","StateProvince":"MN","StreetAddress":"4600 Humboldt Ave N"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00017, test
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"Name":"Anna Kochan","PostalCode":"32920","RequestType":"Person","StateProvince":"FL","StreetAddress":"215 Circle Dr APT 15"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00018, test
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"Name":"Molly Smith","PostalCode":"68164","RequestType":"Person","StateProvince":"NE","StreetAddress":"3516 N 112th Plz APT 7"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00019, test
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"City":"Cape Canaveral","Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"Name":"ELISE BASKETT","PostalCode":"32920","RequestType":"Person","StateProvince":"FL","StreetAddress":"806 MYSTIC DR","Confidence":"90"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00020, test
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"City":"Cape Canaveral","Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"Name":"B BARKER","PostalCode":"32920","RequestType":"Person","StateProvince":"FL","StreetAddress":"220 COLUMBIA DR"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00021, Validate IPST_Validity_Score
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"Name":"ERIC ADDISON","PostalCode":"68046","RequestType":"Person","StateProvince":"NE","StreetAddress":"1103 CARY ST"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00022, Validate EmailConsumerOnly Suppression
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"PostalCode":"99554","RequestType":"Person","StateProvince":"AK","StreetAddress":"31      ANDERSON ST","Confidence":"70"} 
+  SET_HEADER Accept: application/json
+

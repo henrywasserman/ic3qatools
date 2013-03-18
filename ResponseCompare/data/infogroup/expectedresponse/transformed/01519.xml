@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<counts type="string">3</counts>
+</root>
+<root>
+<id type="string">001689276</id>
+<LevenshteinScore type="string">1.0</LevenshteinScore>
+<location_id type="string">200279357800</location_id>
+<individul_id type="string">600537425822</individul_id>
+<firstname type="string">WILLIAM</firstname>
+<middle_name type="string">D</middle_name>
+<lastname type="string">JONES</lastname>
+<lastname_suffix type="string">II</lastname_suffix>
+<email type="string">null</email>
+<phone type="string">2059781562</phone>
+<address type="string">2065 LAKEWOOD DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">35216</zipcode>
+</root>
+<root>
+<id type="string">001689277</id>
+<LevenshteinScore type="string">1.0</LevenshteinScore>
+<location_id type="string">200279357800</location_id>
+<individul_id type="string">400537425821</individul_id>
+<firstname type="string">TERRI</firstname>
+<middle_name type="string">M</middle_name>
+<lastname type="string">JONES</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string">2059781562</phone>
+<address type="string">2065 LAKEWOOD DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">35216</zipcode>
+</root>
+<root>
+<id type="string">001689278</id>
+<LevenshteinScore type="string">1.0</LevenshteinScore>
+<location_id type="string">200279357800</location_id>
+<individul_id type="string">200537425820</individul_id>
+<firstname type="string">WILLIAM</firstname>
+<middle_name type="string">D</middle_name>
+<lastname type="string">JONES</lastname>
+<lastname_suffix type="string">3D</lastname_suffix>
+<email type="string">null</email>
+<phone type="string">2059781562</phone>
+<address type="string">2065 LAKEWOOD DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">35216</zipcode>
+</root>
+</root>

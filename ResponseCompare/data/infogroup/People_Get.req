@@ -1,0 +1,472 @@
+#DiagnosticTests
+TESTCASE 00615, Validate_Diagnostics_For_US_Consumer
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=enhanced&diag=true
+  SET_HEADER Accept: application/xml
+
+#InputTests
+TESTCASE 00616, Validate_GET_Limit_Offset_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=abc&limit=xyz
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00617, Validate_GET_Limit_Offset_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=0&limit=2147483647
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00618, Validate_GET_Limit_Offset_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=2147483647&limit=2147483647
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00619, Validate_GET_Limit_Offset_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=-2147483648&limit=0
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00620, Validate_GET_Limit_Offset_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=0&limit=-2147483648
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00621, Validate_GET_Limit_Offset_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=-2147483648&limit=-2147483648
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00622, Validate_GET_Limit_Offset_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=0&limit=0
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00623, Validate_GET_Limit_Offset_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=1&limit=0
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00624, Validate_GET_Limit_Offset_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=2147483647&limit=0
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00625, ExecuteGetValidateStatusCode
+  GET ${peopleuri-port}/${peopleuri-end-point}?email=abcedfghij
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00626, Validate_Phone
+  GET ${peopleuri-port}/${peopleuri-end-point}?phone
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00627, Validate_Phone
+  GET ${peopleuri-port}/${peopleuri-end-point}?phone=
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00628, Validate_Phone
+  GET ${peopleuri-port}/${peopleuri-end-point}?phone=40296035001232323
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00629, Validate_Phone
+  GET ${peopleuri-port}/${peopleuri-end-point}?phone=abcedfghij
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00630, Validate_ResourceType
+  GET ${peopleuri-port}/${peopleuri-end-point}?resourcetype=basic
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00631, Validate_ResourceType
+  GET ${peopleuri-port}/${peopleuri-end-point}?resourcetype=enhanced
+  SET_HEADER Accept: application/json
+
+TESTCASE 00632, Validate_ResourceType
+  GET ${peopleuri-port}/${peopleuri-end-point}?resourcetype=abc123xyz
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00633, Validate_ResourceType
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=custom
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00634, Validate_ResourceType
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=basic&resourcetype=full
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00635, Validate_ResourceType
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=basic&resourcetype=enhanced&resourcetype=full
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00636, Validate_ResourceType
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=basic
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00637, Validate_ResourceType
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=counts
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00638, Validate_EmailSha1
+  GET ${peopleuri-port}/${peopleuri-end-point}?emailsha1upper=f5b6344b7ff2c37aa762ca7eced257658b21f9b6
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00639, Validate_EmailSha1
+  GET ${peopleuri-port}/${peopleuri-end-point}?resourcetype=enhanced&emailsha1upper=f5b6344b7ff2c37aa762ca7eced257658b21f9b6
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00640, Validate_EmailSha1
+  GET ${peopleuri-port}/${peopleuri-end-point}?resourcetype=basic&includehistoricalemail=true&emailsha1upper=283b509ba7cab1d4528807e565b82ff84305d8fd
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00641, Validate_EmailSha1
+  GET ${peopleuri-port}/${peopleuri-end-point}?emailsha1upper=283b509ba7cab1d4528807e565b82ff84305d8fda9
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00642, Validate_EmailSha1
+  GET ${peopleuri-port}/${peopleuri-end-point}?emailsha1upper=KTRINKA_10@HOTMAIL.COM
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00643, Validate_EmailSha1
+  GET ${peopleuri-port}/${peopleuri-end-point}?firstname=satish&includehistoricalemail=anything
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00644, Validate_EmailSha1
+  GET ${peopleuri-port}/${peopleuri-end-point}?resourcetype=enhanced&firstname=satish&includehistoricalemail=true
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00645, Validate_EmailSha1
+  GET ${peopleuri-port}/${peopleuri-end-point}?includehistoricalemail=true
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00646, Validate_ResourceType_Basic
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=basic
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00647, Validate_ResourceType_Basic
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=counts
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00648, Validate_ResourceType_Enhanced
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=enhanced
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00649, Validate_ResourceType_Core
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=core
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00650, Validate_GET_Empty_County_Without_StateProvince_Returns_BadRequest
+  GET ${peopleuri-port}/${peopleuri-end-point}?county=
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00651, Validate_GET_County_With_Numbers_And_StateProvince_Returns_BadRequest
+  GET ${peopleuri-port}/${peopleuri-end-point}?county=123&stateprovince=ne
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00652, Validate_GET_County_With_Letters_And_StateProvince_Returns_OK
+  GET ${peopleuri-port}/${peopleuri-end-point}?county=ABC&stateprovince=ne
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00653, Validate_GET_County_With_NumbersLetters_And_StateProvince_Returns_BadRequest
+  GET ${peopleuri-port}/${peopleuri-end-point}?county=123ABC&stateprovince=ne
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00654, Validate_GET_Empty_County_And_StateProvince_Returns_BadRequest
+  GET ${peopleuri-port}/${peopleuri-end-point}?county=&stateprovince=ne
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00655, Validate_GET_Empty_County_And_Empty_StateProvince_Returns_BadRequest
+  GET ${peopleuri-port}/${peopleuri-end-point}?county=&stateprovince=ne
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00656, Validate_GET_County_And_Empty_StateProvince_Returns_BadRequest
+  GET ${peopleuri-port}/${peopleuri-end-point}?county=douglas&stateprovince=
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00657, Validate_GET_County_Over_50_Characters_With_StateProvince_Returns_BadRequest
+  GET ${peopleuri-port}/${peopleuri-end-point}?county=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&stateprovince=ne
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00658, Validate_Id_With_POST_Search
+  GET ${peopleuri-port}/${peopleuri-end-point}/search
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00659, Validate_Id_With_POST_Search
+  GET ${peopleuri-port}/${peopleuri-end-point}/search?lastname=Jones&firstname=John
+  SET_HEADER Accept: application/json
+
+#ResourceDataTests
+TESTCASE 00660, Validate_MaxLimit
+  GET ${peopleuri-port}/${peopleuri-end-point}?limit=100
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00661, Validate_Default_Parameters
+  GET ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00662, Validate_Id_For_US_Consumer
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00663, Validate_Id_For_US_New_Movers
+  GET ${peopleuri-port}/${peopleuri-end-point}/702524581441
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00664, Validate_Header_Content_Type
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00665, Validate_Person_For_EmailSha1Upper_Exists_In_Email_Database_Not_In_Consumer_Database
+  GET ${peopleuri-port}/${peopleuri-end-point}?emailsha1upper=2cae829bb09f8bd9d1efea1dd6da61e1b2ea9c5f
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00666, Validate_Email_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?email=abkochan%40aol.com
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00667, Validate_ApiKey
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=enhanced&apikey=a6118a8811b2dddeefe37135b9f486a6
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00668, Validate_ApiKey
+  GET ${peopleuri-port}/${peopleuri-end-point}?LastName=James&apikey=a6118a8811b2dddeefe37135b9f486a6
+  SET_HEADER Accept: application/json
+
+TESTCASE 00669, Validate_LastName_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?lastname=james
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00670, Validate_LastName_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?lastname=michael
+  SET_HEADER Accept: application/json
+
+TESTCASE 00671, Validate_City_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?city=papillion
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00672, Validate_StateProvince_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?stateprovince=ca
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00673, Validate_PostalCode_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?postalcode=90210
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00674, Validate_PostalCode_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?postalcode=90210%2c68046&limit=100
+  SET_HEADER Accept: application/json
+
+TESTCASE 00675, Validate_US_Consumer_Person_Data
+  GET ${peopleuri-port}/${peopleuri-end-point}/700001189669
+  SET_HEADER Accept: application/json
+
+TESTCASE 00676, Validate_US_Consumer_Person_Data
+  GET ${peopleuri-port}/${peopleuri-end-point}/700001189669/?resourcetype=enhanced
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00677, Validate_US_NewMovers_Person_Data
+  GET ${peopleuri-port}/${peopleuri-end-point}/702524581441
+  SET_HEADER Accept: application/json
+
+TESTCASE 00678, Validate_US_NewMovers_Person_Data
+  GET ${peopleuri-port}/${peopleuri-end-point}/702524581441/?resourcetype=enhanced
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00679, Get_People_List_Validate_Default_Limit_Returned
+  GET ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00680, Get_People_List_Validate_Default_Limit_Returned
+  GET ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00681, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=1
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00682, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?limit=1
+  SET_HEADER Accept: application/json
+
+TESTCASE 00683, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=0&limit=1
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00684, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=1&limit=1
+  SET_HEADER Accept: application/json
+
+TESTCASE 00685, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=0&limit=20
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00686, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=10&limit=10
+  SET_HEADER Accept: application/json
+
+TESTCASE 00687, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=abc&limit=xyz
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00688, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=0&limit=2147483647
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00689, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=2147483647&limit=2147483647
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00690, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=-2147483648&limit=0
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00691, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=0&limit=-2147483648
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00692, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=-2147483648&limit=-2147483648
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00693, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=0&limit=0
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00694, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=1&limit=0
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00695, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=2147483647&limit=0
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00696, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=0&limit=99
+  SET_HEADER Accept: application/json
+
+TESTCASE 00697, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=0&limit=100
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00698, Validate_Offset_And_Limit_Combinations
+  GET ${peopleuri-port}/${peopleuri-end-point}?offset=0&limit=101
+  SET_HEADER Accept: application/json
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00699, Get_People_List_Validate_Phone_Basic_ResourceType
+  GET ${peopleuri-port}/${peopleuri-end-point}/?phone=4029603500&resourcetype=basic
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00700, Get_People_List_Validate_Phone_Enhanced_ResourceType
+  GET ${peopleuri-port}/${peopleuri-end-point}/?phone=4029603500&resourcetype=enhanced
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00701, Get_People_List_Validate_Email
+  GET ${peopleuri-port}/${peopleuri-end-point}/?email=babrunzo@yahoo.com
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00702, Get_People_List_Validate_Email_Basic_ResourceType
+  GET ${peopleuri-port}/${peopleuri-end-point}/?resourcetype=basic&email=babrunzo@yahoo.com
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00703, Get_People_List_Validate_Email_Enhanced_ResourceType
+  GET ${peopleuri-port}/${peopleuri-end-point}/?resourcetype=enhanced&email=babrunzo@yahoo.com
+  SET_HEADER Accept: application/xml
+
+#ResourceTypeTests
+TESTCASE 00704, Validate_ResourceType_Basic_With_Result_Data
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=basic
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00705, Validate_ResourceType_Enhanced_With_Result_Data
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=basic
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00706, Validate_ResourceType_Core_With_Result_Data
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?resourcetype=basic
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00707, Validate_ResourceType_Basic_With_Result_Data_Case_Insensitivity_Test
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?RESOURCETYPE=BASIC
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00708, Validate_ResourceType_Enhanced_With_Result_Data_Case_Insensitivity_Test
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?RESOURCETYPE=ENHANCED
+  SET_HEADER Accept: application/xml
+
+TESTCASE 00709, Validate_ResourceType_Core_With_Result_Data_Case_Insensitivity_Test
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?RESOURCETYPE=CORE
+  SET_HEADER Accept: application/xml
+

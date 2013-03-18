@@ -1,0 +1,5 @@
+TESTCASE 0101, Sample SoapTest
+  POST_XML ${iusamatch-port}
+
+TESTCASE 0102, Validate IPST_Validity_Score
+  POST_XML ${iusamatch-port}

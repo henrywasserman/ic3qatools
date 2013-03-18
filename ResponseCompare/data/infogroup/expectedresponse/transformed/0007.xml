@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<ETag type="string"/>
+<Address type="string">2515 LAMAR ST</Address>
+<AddressParsed>
+<Name type="string">Lamar</Name>
+<Number type="string">2515</Number>
+<Suffix type="string">St</Suffix>
+</AddressParsed>
+<City type="string">BOSSIER CITY</City>
+<FirstName type="string">Benito</FirstName>
+<LastName type="string">Vazquez</LastName>
+<Location>
+<Latitude type="float">32.504332</Latitude>
+<Longitude type="float">-93.697844</Longitude>
+</Location>
+<PostalCode type="string">71112</PostalCode>
+<StateProvince type="string">LA</StateProvince>
+</root>
+</root>

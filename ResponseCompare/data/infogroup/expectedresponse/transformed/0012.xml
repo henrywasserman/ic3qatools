@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><root>
+<MatchCount type="int">5</MatchCount>
+<Matches>
+<Common type="array"/>
+<Companies type="array"/>
+<People type="array">
+<People>
+<ETag type="string"/>
+<EmailVendor>
+<Email type="string">MARYSZEP10@GMAIL.COM</Email>
+<VendorId type="string">17</VendorId>
+</EmailVendor>
+<FirstName type="string">Mary</FirstName>
+<LastName type="string">Szepski</LastName>
+<Location>
+<Latitude type="float">39.824034</Latitude>
+<Longitude type="float">-86.017754</Longitude>
+</Location>
+<PostalCode type="string">46226</PostalCode>
+<RuleName type="string">PeopleEmail-LastNameFirstNameAddress</RuleName>
+<Score type="int">100</Score>
+</People>
+<People>
+<ETag type="string"/>
+<EmailVendor>
+<Email type="string">RLASH32@YAHOO.COM</Email>
+<VendorId type="string">25</VendorId>
+</EmailVendor>
+<FirstName type="string">Rojeanna</FirstName>
+<LastName type="string">Lash</LastName>
+<Location>
+<Latitude type="float">39.824034</Latitude>
+<Longitude type="float">-86.017754</Longitude>
+</Location>
+<PostalCode type="string">46226</PostalCode>
+<RuleName type="string">PeopleEmail-Address</RuleName>
+<Score type="int">80</Score>
+</People>
+<People>
+<ETag type="string"/>
+<EmailVendor>
+<Email type="string">SMOKEYCHEEZE@GMAIL.COM</Email>
+<VendorId type="string">34</VendorId>
+</EmailVendor>
+<FirstName type="string">Kameron</FirstName>
+<LastName type="string">Blankman</LastName>
+<Location>
+<Latitude type="float">39.823121</Latitude>
+<Longitude type="float">-86.017180</Longitude>
+</Location>
+<PostalCode type="string">46226</PostalCode>
+<RuleName type="string">PeopleEmail-Address</RuleName>
+<Score type="int">74</Score>
+</People>
+<People>
+<ETag type="string"/>
+<EmailVendor>
+<Email type="string">DAYCANDIANCE@GMAIL.COM</Email>
+<VendorId type="string">08</VendorId>
+</EmailVendor>
+<FirstName type="string">Candiance</FirstName>
+<LastName type="string">Day</LastName>
+<Location>
+<Latitude type="float">39.822986</Latitude>
+<Longitude type="float">-86.017739</Longitude>
+</Location>
+<PostalCode type="string">46226</PostalCode>
+<RuleName type="string">PeopleEmail-Address</RuleName>
+<Score type="int">74</Score>
+</People>
+<People>
+<ETag type="string"/>
+<EmailVendor>
+<Email type="string">ZFIN105743@AOL.COM</Email>
+<VendorId type="string">44</VendorId>
+</EmailVendor>
+<FirstName type="string">Zachary</FirstName>
+<LastName type="string">Fincher</LastName>
+<Location>
+<Latitude type="float">39.823121</Latitude>
+<Longitude type="float">-86.017180</Longitude>
+</Location>
+<PostalCode type="string">46226</PostalCode>
+<RuleName type="string">PeopleEmail-Address</RuleName>
+<Score type="int">74</Score>
+</People>
+</People>
+</Matches>
+<ScoreSummary type="array">
+<ScoreSummary>
+<ResourceType type="string">Person</ResourceType>
+<RuleName type="string">PeopleEmail-LastNameFirstNameAddress</RuleName>
+<Score type="int">100</Score>
+</ScoreSummary>
+<ScoreSummary>
+<ResourceType type="string">Person</ResourceType>
+<RuleName type="string">PeopleEmail-Address</RuleName>
+<Score type="int">80</Score>
+</ScoreSummary>
+<ScoreSummary>
+<ResourceType type="string">Person</ResourceType>
+<RuleName type="string">PeopleEmail-Address</RuleName>
+<Score type="int">74</Score>
+</ScoreSummary>
+<ScoreSummary>
+<ResourceType type="string">Person</ResourceType>
+<RuleName type="string">PeopleEmail-Address</RuleName>
+<Score type="int">74</Score>
+</ScoreSummary>
+<ScoreSummary>
+<ResourceType type="string">Person</ResourceType>
+<RuleName type="string">PeopleEmail-Address</RuleName>
+<Score type="int">74</Score>
+</ScoreSummary>
+</ScoreSummary>
+</root>

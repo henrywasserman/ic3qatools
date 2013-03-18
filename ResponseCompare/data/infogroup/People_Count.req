@@ -1,0 +1,2083 @@
+#DiagnosticeTests
+TESTCASE 0203, Validate_Diagnostics_For_PostalCode_Search
+  POST ${peopleuri-port}/${peopleuri-end-point}/count?diag=true
+  SET_HEADER Accept: application/json
+  BODY {"PostalCode":["90210","68046"]}
+
+#InputTests
+TESTCASE 0204, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>101</Limit><Offset>0</Offset></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0205, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"Limit":-1,"Offset":0}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0206, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Offset>-1</Offset></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0207, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"Limit":5001,"Offset":0,"ResourceType":"Core"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0208, Validate_BadRequest_For_ResourceType_NotEqual_To_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>abc123xyz</Email><PostalCode><string>68046</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0209, Validate_PostalCode
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><PostalCode><string>12345-123</string></PostalCode></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0210, Validate_PostalCode
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"PostalCode":["1234"]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0211, Validate_Actual_Income_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ActualIncome><string>500000</string></ActualIncome><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0212, Validate_Actual_Income_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"ActualIncome":["500001"],"PostalCode":["68046"]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0213, Validate_Actual_Income_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ActualIncome><string>10000</string></ActualIncome></PersonSearch>
+
+TESTCASE 0214, Validate_Actual_Income_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"ActualIncome":["9999"]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 0215, Validate_Mulitiple_ChildAgeBirthMonthGender_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>6</Age><BirthMonth>January</BirthMonth></AgeBirthMonth><AgeBirthMonth><Age>6</Age></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+#ResourceDataTests
+TESTCASE 0216, Validate_Email_Search_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>ABKOCHAN@AOL.COM</Email></PersonSearch>
+
+TESTCASE 0217, Validate_Email_Search_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Email":"FMC96582@AOL.COM"}
+
+TESTCASE 0218, Validate_Email_Search_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Email":"Not.A.Real@Person.com"}
+
+TESTCASE 0219, Validate_Counts_For_EmailSha1Upper_Exists_In_Email_Database_Not_In_Consumer_Database
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><EmailSha1Upper>2cae829bb09f8bd9d1efea1dd6da61e1b2ea9c5f</EmailSha1Upper></PersonSearch>
+
+TESTCASE 0220, Validate_ApiKey
+  POST ${peopleuri-port}/${peopleuri-end-point}/count?apikey=a6118a8811b2dddeefe37135b9f486a6
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Papillion</City><Gender>Male</Gender><StateProvince>NE</StateProvince></PersonSearch>
+
+TESTCASE 0221, Validate_ApiKey
+  POST ${peopleuri-port}/${peopleuri-end-point}/counts?apikey=a6118a8811b2dddeefe37135b9f486a6
+  SET_HEADER Accept: application/json
+  BODY {"City":"Papillion","Gender":"Male","StateProvince":"NE"}
+
+TESTCASE 0222, Validate_PostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><PostalCode><string>90210</string></PostalCode></PersonSearch>
+
+TESTCASE 0223, Validate_PostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"PostalCode":["90210, 68046"]}
+
+TESTCASE 0224, Validate_PostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><PostalCode><string>90210-1234</string></PostalCode></PersonSearch>
+
+TESTCASE 0225, Validate_PostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"PostalCode":["11111-1111"]}
+
+TESTCASE 0226, Validate_Gender_Search_Criteria_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Gender>Male</Gender></PersonSearch>
+
+TESTCASE 0227, Validate_Gender_Search_Criteria_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Gender":"Female"}
+
+TESTCASE 0228, Validate_Gender_Search_Criteria_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Gender>Unknown</Gender></PersonSearch>
+
+TESTCASE 0229, Validate_FirstName_Search_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Papillion</City><FirstName>James</FirstName></PersonSearch>
+
+TESTCASE 0230, Validate_FirstName_Search_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"City":"Papillion","FirstName":"Michael"}
+
+TESTCASE 0231, Validate_LastName_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><LastName>James</LastName><Limit>100</Limit><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0232, Validate_LastName_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"LastName":"Smith","Limit":100,"PostalCode":["68154"]}
+
+TESTCASE 0233, Validate_RadiusPostalCode_Search_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>scott</FirstName><Limit>50</Limit><RadiusPostalCodeList><RadiusPostalCode><PostalCode>68046</PostalCode><RadiusMiles>.9</RadiusMiles></RadiusPostalCode></RadiusPostalCodeList></PersonSearch>
+
+TESTCASE 0234, Validate_RadiusPostalCode_Search_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"scott","Limit":50,"RadiusPostalCodeList":[{"PostalCode":"68046","RadiusMiles":"0.2"}]}
+
+TESTCASE 0235, Validate_Polygon_Search_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>collin</FirstName><Limit>50</Limit><PolygonList><Polygon><Points><Point><Latitude>41.169609</Latitude><Longitude>-96.067886</Longitude></Point><Point><Latitude>41.1678</Latitude><Longitude>-96.000938</Longitude></Point><Point><Latitude>41.127987</Latitude><Longitude>-95.982742</Longitude></Point><Point><Latitude>41.129668</Latitude><Longitude>-95.039734</Longitude></Point><Point><Latitude>41.137813</Latitude><Longitude>-96.073895</Longitude></Point></Points></Polygon></PolygonList></PersonSearch>
+
+TESTCASE 0236, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TravelUnitedStates>0</TravelUnitedStates></Lifestyle><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 0237, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TravelUnitedStates>9</TravelUnitedStates></Lifestyle><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 0238, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"WildBirds":"0"},"StateProvince":"NY"}
+
+TESTCASE 0239, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"WildBirds":"9"},"StateProvince":"NY"}
+
+TESTCASE 0240, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"WildlifeAndEnvironmentDonor":"0"},"StateProvince":"NY"}
+
+TESTCASE 0241, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"WildlifeAndEnvironmentDonor":"9"},"StateProvince":"NY"}
+
+TESTCASE 0242, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"AmericanHistory":"0"},"StateProvince":"NY"}
+
+TESTCASE 0243, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"AmericanHistory":"9"},"StateProvince":"NY"}
+
+TESTCASE 0244, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelAccessories":"0"},"StateProvince":"NY"}
+
+TESTCASE 0245, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelAccessories":"9"},"StateProvince":"NY"}
+
+TESTCASE 0246, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelChildren":"6"},"StateProvince":"NY"}
+
+TESTCASE 0247, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelChildren":"9"},"StateProvince":"NY"}
+
+TESTCASE 0248, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelGeneral":"4"},"StateProvince":"NY"}
+
+TESTCASE 0249, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelGeneral":"8"},"StateProvince":"NY"}
+
+TESTCASE 0250, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelMens":"4"},"StateProvince":"NY"}
+
+TESTCASE 0251, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelMens":"8"},"StateProvince":"NY"}
+
+TESTCASE 0252, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelStylishMens":"4"},"StateProvince":"NY"}
+
+TESTCASE 0253, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelStylishMens":"8"},"StateProvince":"NY"}
+
+TESTCASE 0254, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelStylishWomens":"4"},"StateProvince":"NY"}
+
+TESTCASE 0255, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelStylishWomens":"8"},"StateProvince":"NY"}
+
+TESTCASE 0256, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelWomens":"4"},"StateProvince":"NY"}
+
+TESTCASE 0257, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelWomens":"8"},"StateProvince":"NY"}
+
+TESTCASE 0258, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BargainSeeker":"4"},"StateProvince":"NY"}
+
+TESTCASE 0259, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BargainSeeker":"8"},"StateProvince":"NY"}
+
+TESTCASE 0260, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BeautyCosmetics":"4"},"StateProvince":"NY"}
+
+TESTCASE 0261, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BeautyCosmetics":"8"},"StateProvince":"NY"}
+
+TESTCASE 0262, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BibleDevotional":"4"},"StateProvince":"NY"}
+
+TESTCASE 0263, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BibleDevotional":"8"},"StateProvince":"NY"}
+
+TESTCASE 0264, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BookBuyers":"4"},"StateProvince":"NY"}
+
+TESTCASE 0265, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BookBuyers":"8"},"StateProvince":"NY"}
+
+TESTCASE 0266, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BooksAndMagazines":"4"},"StateProvince":"NY"}
+
+TESTCASE 0267, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BooksAndMagazines":"9"},"StateProvince":"NY"}
+
+TESTCASE 0268, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BooksFiction":"4"},"StateProvince":"NY"}
+
+TESTCASE 0269, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BooksFiction":"8"},"StateProvince":"NY"}
+
+TESTCASE 0270, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BusinessItems":"4"},"StateProvince":"NY"}
+
+TESTCASE 0271, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BusinessItems":"8"},"StateProvince":"NY"}
+
+TESTCASE 0272, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CatalogShopper":"4"},"StateProvince":"NY"}
+
+TESTCASE 0273, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CatalogShopper":"8"},"StateProvince":"NY"}
+
+TESTCASE 0274, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CharitableDonor":"4"},"StateProvince":"NY"}
+
+TESTCASE 0275, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CharitableDonor":"8"},"StateProvince":"NY"}
+
+TESTCASE 0276, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ChildAndFamilyProducts":"4"},"StateProvince":"NY"}
+
+TESTCASE 0277, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ChildAndFamilyProducts":"8"},"StateProvince":"NY"}
+
+TESTCASE 0278, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Collectibles":"2"},"StateProvince":"NY"}
+
+TESTCASE 0279, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Collectibles":"9"},"StateProvince":"NY"}
+
+TESTCASE 0280, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CollegeProducts":"4"},"StateProvince":"NY"}
+
+TESTCASE 0281, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CollegeProducts":"8"},"StateProvince":"NY"}
+
+TESTCASE 0282, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ComicBookReaders":"4"},"StateProvince":"NY"}
+
+TESTCASE 0283, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ComicBookReaders":"8"},"StateProvince":"NY"}
+
+TESTCASE 0284, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CookingGeneral":"4"},"StateProvince":"NY"}
+
+TESTCASE 0285, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CookingGeneral":"8"},"StateProvince":"NY"}
+
+TESTCASE 0286, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CookingGourmetFoodAndWine":"4"},"StateProvince":"NY"}
+
+TESTCASE 0287, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CookingGourmetFoodAndWine":"8"},"StateProvince":"NY"}
+
+TESTCASE 0288, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsCrochet":"2"},"StateProvince":"NY"}
+
+TESTCASE 0289, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsCrochet":"9"},"StateProvince":"NY"}
+
+TESTCASE 0290, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsGeneral":"4"},"StateProvince":"NY"}
+
+TESTCASE 0291, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsGeneral":"8"},"StateProvince":"NY"}
+
+TESTCASE 0292, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsNeedlepoint":"4"},"StateProvince":"NY"}
+
+TESTCASE 0293, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsNeedlepoint":"8"},"StateProvince":"NY"}
+
+TESTCASE 0294, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsQuilting":"0"},"StateProvince":"NY"}
+
+TESTCASE 0295, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsQuilting":"9"},"StateProvince":"NY"}
+
+TESTCASE 0296, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsSewing":"0"},"StateProvince":"NY"}
+
+TESTCASE 0297, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsSewing":"9"},"StateProvince":"NY"}
+
+TESTCASE 0298, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CreditCardUser":"4"},"StateProvince":"NY"}
+
+TESTCASE 0299, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CreditCardUser":"8"},"StateProvince":"NY"}
+
+TESTCASE 0300, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CulturalArts":"4"},"StateProvince":"NY"}
+
+TESTCASE 0301, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CulturalArts":"8"},"StateProvince":"NY"}
+
+TESTCASE 0302, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CurrentEvents":"4"},"StateProvince":"NY"}
+
+TESTCASE 0303, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CurrentEvents":"8"},"StateProvince":"NY"}
+
+TESTCASE 0304, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"DoItYourself":"4"},"StateProvince":"NY"}
+
+TESTCASE 0305, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"DoItYourself":"8"},"StateProvince":"NY"}
+
+TESTCASE 0306, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Games":"0"},"StateProvince":"NY"}
+
+TESTCASE 0307, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Games":"9"},"StateProvince":"NY"}
+
+TESTCASE 0308, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"GiftGiver":"4"},"StateProvince":"NY"}
+
+TESTCASE 0309, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"GiftGiver":"8"},"StateProvince":"NY"}
+
+TESTCASE 0310, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthDietAndWeightLoss":"4"},"StateProvince":"NY"}
+
+TESTCASE 0311, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthDietAndWeightLoss":"8"},"StateProvince":"NY"}
+
+TESTCASE 0312, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthFitness":"4"},"StateProvince":"NY"}
+
+TESTCASE 0313, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthFitness":"8"},"StateProvince":"NY"}
+
+TESTCASE 0314, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthGeneralAndExercise":"4"},"StateProvince":"NY"}
+
+TESTCASE 0315, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthGeneralAndExercise":"8"},"StateProvince":"NY"}
+
+TESTCASE 0316, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"History":"4"},"StateProvince":"NY"}
+
+TESTCASE 0317, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"History":"8"},"StateProvince":"NY"}
+
+TESTCASE 0318, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HomeDecoratingAndFurnishing":"4"},"StateProvince":"NY"}
+
+TESTCASE 0319, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HomeDecoratingAndFurnishing":"8"},"StateProvince":"NY"}
+
+TESTCASE 0320, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HomeOfficeProducts":"1"},"StateProvince":"NY"}
+
+TESTCASE 0321, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HomeOfficeProducts":"9"},"StateProvince":"NY"}
+
+TESTCASE 0322, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Inspirational":"1"},"StateProvince":"NY"}
+
+TESTCASE 0323, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Inspirational":"9"},"StateProvince":"NY"}
+
+TESTCASE 0324, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"InternetBuyer":"4"},"StateProvince":"NY"}
+
+TESTCASE 0325, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"InternetBuyer":"8"},"StateProvince":"NY"}
+
+TESTCASE 0326, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"InvestmentsAndFinance":"4"},"StateProvince":"NY"}
+
+TESTCASE 0327, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"InvestmentsAndFinance":"8"},"StateProvince":"NY"}
+
+TESTCASE 0328, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MagazineSubscribers":"4"},"StateProvince":"NY"}
+
+TESTCASE 0329, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MagazineSubscribers":"8"},"StateProvince":"NY"}
+
+TESTCASE 0330, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MoneymakingOpportunities":"4"},"StateProvince":"NY"}
+
+TESTCASE 0331, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MoneymakingOpportunities":"8"},"StateProvince":"NY"}
+
+TESTCASE 0332, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MotorVehicleAutomotiveEnthusiast":"4"},"StateProvince":"NY"}
+
+TESTCASE 0333, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MotorVehicleAutomotiveEnthusiast":"8"},"StateProvince":"NY"}
+
+TESTCASE 0334, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MotorVehicleMotorcycleEnthusiast":"4"},"StateProvince":"NY"}
+
+TESTCASE 0335, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MotorVehicleMotorcycleEnthusiast":"8"},"StateProvince":"NY"}
+
+TESTCASE 0336, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsBoatingAndSailing":"0"},"StateProvince":"NY"}
+
+TESTCASE 0337, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsBoatingAndSailing":"9"},"StateProvince":"NY"}
+
+TESTCASE 0338, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsCampingAndHiking":"0"},"StateProvince":"NY"}
+
+TESTCASE 0339, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsCampingAndHiking":"9"},"StateProvince":"NY"}
+
+TESTCASE 0340, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsFishing":"0"},"StateProvince":"NY"}
+
+TESTCASE 0341, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsFishing":"9"},"StateProvince":"NY"}
+
+TESTCASE 0342, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsGardening":"0"},"StateProvince":"NY"}
+
+TESTCASE 0343, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsGardening":"9"},"StateProvince":"NY"}
+
+TESTCASE 0344, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsHunting":"0"},"StateProvince":"NY"}
+
+TESTCASE 0345, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsHunting":"9"},"StateProvince":"NY"}
+
+TESTCASE 0346, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsSports":"0"},"StateProvince":"NY"}
+
+TESTCASE 0347, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsSports":"9"},"StateProvince":"NY"}
+
+TESTCASE 0348, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PersonalizedProductsMonograms":"0"},"StateProvince":"NY"}
+
+TESTCASE 0349, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PersonalizedProductsMonograms":"9"},"StateProvince":"NY"}
+
+TESTCASE 0350, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsCats":"0"},"StateProvince":"NY"}
+
+TESTCASE 0351, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsCats":"9"},"StateProvince":"NY"}
+
+TESTCASE 0352, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsDogs":"0"},"StateProvince":"NY"}
+
+TESTCASE 0353, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsDogs":"9"},"StateProvince":"NY"}
+
+TESTCASE 0354, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsGeneral":"0"},"StateProvince":"NY"}
+
+TESTCASE 0355, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsGeneral":"9"},"StateProvince":"NY"}
+
+TESTCASE 0356, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsHorses":"0"},"StateProvince":"NY"}
+
+TESTCASE 0357, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsHorses":"9"},"StateProvince":"NY"}
+
+TESTCASE 0358, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PhotographyEnthusiast":"0"},"StateProvince":"NY"}
+
+TESTCASE 0359, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PhotographyEnthusiast":"9"},"StateProvince":"NY"}
+
+TESTCASE 0360, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PoliticallyConservative":"0"},"StateProvince":"NY"}
+
+TESTCASE 0361, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PoliticallyConservative":"9"},"StateProvince":"NY"}
+
+TESTCASE 0362, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PoliticallyLiberal":"0"},"StateProvince":"NY"}
+
+TESTCASE 0363, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PoliticallyLiberal":"9"},"StateProvince":"NY"}
+
+TESTCASE 0364, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"RuralFarmProducts":"0"},"StateProvince":"NY"}
+
+TESTCASE 0365, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"RuralFarmProducts":"9"},"StateProvince":"NY"}
+
+TESTCASE 0366, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Science":"0"},"StateProvince":"NY"}
+
+TESTCASE 0367, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Science":"9"},"StateProvince":"NY"}
+
+TESTCASE 0368, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SeniorProducts":"0"},"StateProvince":"NY"}
+
+TESTCASE 0369, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SeniorProducts":"9"},"StateProvince":"NY"}
+
+TESTCASE 0370, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsGeneral":"0"},"StateProvince":"NY"}
+
+TESTCASE 0371, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsGeneral":"9"},"StateProvince":"NY"}
+
+TESTCASE 0372, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsGolf":"0"},"StateProvince":"NY"}
+
+TESTCASE 0373, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsGolf":"9"},"StateProvince":"NY"}
+
+TESTCASE 0374, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsSkiing":"0"},"StateProvince":"NY"}
+
+TESTCASE 0375, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsSkiing":"9"},"StateProvince":"NY"}
+
+TESTCASE 0376, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsSoccer":"0"},"StateProvince":"NY"}
+
+TESTCASE 0377, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsSoccer":"9"},"StateProvince":"NY"}
+
+TESTCASE 0378, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Stationary":"0"},"StateProvince":"NY"}
+
+TESTCASE 0379, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Stationary":"9"},"StateProvince":"NY"}
+
+TESTCASE 0380, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Sweepstakes":"0"},"StateProvince":"NY"}
+
+TESTCASE 0381, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Sweepstakes":"9"},"StateProvince":"NY"}
+
+TESTCASE 0382, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyAudioAndMusic":"0"},"StateProvince":"NY"}
+
+TESTCASE 0383, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyAudioAndMusic":"9"},"StateProvince":"NY"}
+
+TESTCASE 0384, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyComputers":"0"},"StateProvince":"NY"}
+
+TESTCASE 0385, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyComputers":"9"},"StateProvince":"NY"}
+
+TESTCASE 0386, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyElectronics":"0"},"StateProvince":"NY"}
+
+TESTCASE 0387, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyElectronics":"9"},"StateProvince":"NY"}
+
+TESTCASE 0388, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyInternetUser":"0"},"StateProvince":"NY"}
+
+TESTCASE 0389, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyInternetUser":"9"},"StateProvince":"NY"}
+
+TESTCASE 0390, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyTVMoviesVideo":"0"},"StateProvince":"NY"}
+
+TESTCASE 0391, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyTVMoviesVideo":"9"},"StateProvince":"NY"}
+
+TESTCASE 0392, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelAviation":"0"},"StateProvince":"NY"}
+
+TESTCASE 0393, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelAviation":"9"},"StateProvince":"NY"}
+
+TESTCASE 0394, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelGeneral":"0"},"StateProvince":"NY"}
+
+TESTCASE 0395, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelGeneral":"9"},"StateProvince":"NY"}
+
+TESTCASE 0396, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelOceanBeaches":"0"},"StateProvince":"NY"}
+
+TESTCASE 0397, Validate_Lifestyle_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelOceanBeaches":"9"},"StateProvince":"NY"}
+
+TESTCASE 0398, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TravelUnitedStates>0</TravelUnitedStates></Lifestyle><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 0399, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TravelUnitedStates>9</TravelUnitedStates></Lifestyle><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 0400, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"WildBirds":"0"},"StateProvince":"NY"}
+
+TESTCASE 0401, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"WildBirds":"9"},"StateProvince":"NY"}
+
+TESTCASE 0402, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"WildlifeAndEnvironmentDonor":"0"},"StateProvince":"NY"}
+
+TESTCASE 0403, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"WildlifeAndEnvironmentDonor":"9"},"StateProvince":"NY"}
+
+TESTCASE 0404, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"AmericanHistory":"0"},"StateProvince":"NY"}
+
+TESTCASE 0405, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"AmericanHistory":"9"},"StateProvince":"NY"}
+
+TESTCASE 0406, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelAccessories":"0"},"StateProvince":"NY"}
+
+TESTCASE 0407, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelAccessories":"9"},"StateProvince":"NY"}
+
+TESTCASE 0408, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelChildren":"6"},"StateProvince":"NY"}
+
+TESTCASE 0409, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelChildren":"9"},"StateProvince":"NY"}
+
+TESTCASE 0410, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelGeneral":"4"},"StateProvince":"NY"}
+
+TESTCASE 0411, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelGeneral":"8"},"StateProvince":"NY"}
+
+TESTCASE 0412, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelMens":"4"},"StateProvince":"NY"}
+
+TESTCASE 0413, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelMens":"8"},"StateProvince":"NY"}
+
+TESTCASE 0414, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelStylishMens":"4"},"StateProvince":"NY"}
+
+TESTCASE 0415, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelStylishMens":"8"},"StateProvince":"NY"}
+
+TESTCASE 0416, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelStylishWomens":"4"},"StateProvince":"NY"}
+
+TESTCASE 0417, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelStylishWomens":"8"},"StateProvince":"NY"}
+
+TESTCASE 0418, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelWomens":"4"},"StateProvince":"NY"}
+
+TESTCASE 0419, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelWomens":"8"},"StateProvince":"NY"}
+
+TESTCASE 0420, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BargainSeeker":"4"},"StateProvince":"NY"}
+
+TESTCASE 0421, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BargainSeeker":"8"},"StateProvince":"NY"}
+
+TESTCASE 0422, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BeautyCosmetics":"4"},"StateProvince":"NY"}
+
+TESTCASE 0423, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BeautyCosmetics":"8"},"StateProvince":"NY"}
+
+TESTCASE 0424, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BibleDevotional":"4"},"StateProvince":"NY"}
+
+TESTCASE 0425, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BibleDevotional":"8"},"StateProvince":"NY"}
+
+TESTCASE 0426, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BookBuyers":"4"},"StateProvince":"NY"}
+
+TESTCASE 0427, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BookBuyers":"8"},"StateProvince":"NY"}
+
+TESTCASE 0428, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BooksAndMagazines":"4"},"StateProvince":"NY"}
+
+TESTCASE 0429, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BooksAndMagazines":"9"},"StateProvince":"NY"}
+
+TESTCASE 0430, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BooksFiction":"4"},"StateProvince":"NY"}
+
+TESTCASE 0431, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BooksFiction":"8"},"StateProvince":"NY"}
+
+TESTCASE 0432, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BusinessItems":"4"},"StateProvince":"NY"}
+
+TESTCASE 0433, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BusinessItems":"8"},"StateProvince":"NY"}
+
+TESTCASE 0434, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CatalogShopper":"4"},"StateProvince":"NY"}
+
+TESTCASE 0435, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CatalogShopper":"8"},"StateProvince":"NY"}
+
+TESTCASE 0436, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CharitableDonor":"4"},"StateProvince":"NY"}
+
+TESTCASE 0437, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CharitableDonor":"8"},"StateProvince":"NY"}
+
+TESTCASE 0438, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ChildAndFamilyProducts":"4"},"StateProvince":"NY"}
+
+TESTCASE 0439, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ChildAndFamilyProducts":"8"},"StateProvince":"NY"}
+
+TESTCASE 0440, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Collectibles":"2"},"StateProvince":"NY"}
+
+TESTCASE 0441, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Collectibles":"9"},"StateProvince":"NY"}
+
+TESTCASE 0442, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CollegeProducts":"4"},"StateProvince":"NY"}
+
+TESTCASE 0443, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CollegeProducts":"8"},"StateProvince":"NY"}
+
+TESTCASE 0444, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ComicBookReaders":"4"},"StateProvince":"NY"}
+
+TESTCASE 0445, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ComicBookReaders":"8"},"StateProvince":"NY"}
+
+TESTCASE 0446, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CookingGeneral":"4"},"StateProvince":"NY"}
+
+TESTCASE 0447, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CookingGeneral":"8"},"StateProvince":"NY"}
+
+TESTCASE 0448, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CookingGourmetFoodAndWine":"4"},"StateProvince":"NY"}
+
+TESTCASE 0449, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CookingGourmetFoodAndWine":"8"},"StateProvince":"NY"}
+
+TESTCASE 0450, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsCrochet":"2"},"StateProvince":"NY"}
+
+TESTCASE 0451, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsCrochet":"9"},"StateProvince":"NY"}
+
+TESTCASE 0452, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsGeneral":"4"},"StateProvince":"NY"}
+
+TESTCASE 0453, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsGeneral":"8"},"StateProvince":"NY"}
+
+TESTCASE 0454, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsNeedlepoint":"4"},"StateProvince":"NY"}
+
+TESTCASE 0455, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsNeedlepoint":"8"},"StateProvince":"NY"}
+
+TESTCASE 0456, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsQuilting":"0"},"StateProvince":"NY"}
+
+TESTCASE 0457, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsQuilting":"9"},"StateProvince":"NY"}
+
+TESTCASE 0458, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsSewing":"0"},"StateProvince":"NY"}
+
+TESTCASE 0459, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsSewing":"9"},"StateProvince":"NY"}
+
+TESTCASE 0460, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CreditCardUser":"4"},"StateProvince":"NY"}
+
+TESTCASE 0461, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CreditCardUser":"8"},"StateProvince":"NY"}
+
+TESTCASE 0462, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CulturalArts":"4"},"StateProvince":"NY"}
+
+TESTCASE 0463, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CulturalArts":"8"},"StateProvince":"NY"}
+
+TESTCASE 0464, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CurrentEvents":"4"},"StateProvince":"NY"}
+
+TESTCASE 0465, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CurrentEvents":"8"},"StateProvince":"NY"}
+
+TESTCASE 0466, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"DoItYourself":"4"},"StateProvince":"NY"}
+
+TESTCASE 0467, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"DoItYourself":"8"},"StateProvince":"NY"}
+
+TESTCASE 0468, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Games":"0"},"StateProvince":"NY"}
+
+TESTCASE 0469, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Games":"9"},"StateProvince":"NY"}
+
+TESTCASE 0470, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"GiftGiver":"4"},"StateProvince":"NY"}
+
+TESTCASE 0471, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"GiftGiver":"8"},"StateProvince":"NY"}
+
+TESTCASE 0472, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthDietAndWeightLoss":"4"},"StateProvince":"NY"}
+
+TESTCASE 0473, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthDietAndWeightLoss":"8"},"StateProvince":"NY"}
+
+TESTCASE 0474, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthFitness":"4"},"StateProvince":"NY"}
+
+TESTCASE 0475, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthFitness":"8"},"StateProvince":"NY"}
+
+TESTCASE 0476, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthGeneralAndExercise":"4"},"StateProvince":"NY"}
+
+TESTCASE 0477, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthGeneralAndExercise":"8"},"StateProvince":"NY"}
+
+TESTCASE 0478, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"History":"4"},"StateProvince":"NY"}
+
+TESTCASE 0479, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"History":"8"},"StateProvince":"NY"}
+
+TESTCASE 0480, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HomeDecoratingAndFurnishing":"4"},"StateProvince":"NY"}
+
+TESTCASE 0481, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HomeDecoratingAndFurnishing":"8"},"StateProvince":"NY"}
+
+TESTCASE 0482, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HomeOfficeProducts":"1"},"StateProvince":"NY"}
+
+TESTCASE 0483, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HomeOfficeProducts":"9"},"StateProvince":"NY"}
+
+TESTCASE 0484, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Inspirational":"1"},"StateProvince":"NY"}
+
+TESTCASE 0485, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Inspirational":"9"},"StateProvince":"NY"}
+
+TESTCASE 0486, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"InternetBuyer":"4"},"StateProvince":"NY"}
+
+TESTCASE 0487, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"InternetBuyer":"8"},"StateProvince":"NY"}
+
+TESTCASE 0488, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"InvestmentsAndFinance":"4"},"StateProvince":"NY"}
+
+TESTCASE 0489, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"InvestmentsAndFinance":"8"},"StateProvince":"NY"}
+
+TESTCASE 0490, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MagazineSubscribers":"4"},"StateProvince":"NY"}
+
+TESTCASE 0491, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MagazineSubscribers":"8"},"StateProvince":"NY"}
+
+TESTCASE 0492, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MoneymakingOpportunities":"4"},"StateProvince":"NY"}
+
+TESTCASE 0493, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MoneymakingOpportunities":"8"},"StateProvince":"NY"}
+
+TESTCASE 0494, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MotorVehicleAutomotiveEnthusiast":"4"},"StateProvince":"NY"}
+
+TESTCASE 0495, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MotorVehicleAutomotiveEnthusiast":"8"},"StateProvince":"NY"}
+
+TESTCASE 0496, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MotorVehicleMotorcycleEnthusiast":"4"},"StateProvince":"NY"}
+
+TESTCASE 0497, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MotorVehicleMotorcycleEnthusiast":"8"},"StateProvince":"NY"}
+
+TESTCASE 0498, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsBoatingAndSailing":"0"},"StateProvince":"NY"}
+
+TESTCASE 0499, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsBoatingAndSailing":"9"},"StateProvince":"NY"}
+
+TESTCASE 0500, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsCampingAndHiking":"0"},"StateProvince":"NY"}
+
+TESTCASE 0501, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsCampingAndHiking":"9"},"StateProvince":"NY"}
+
+TESTCASE 0502, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsFishing":"0"},"StateProvince":"NY"}
+
+TESTCASE 0503, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsFishing":"9"},"StateProvince":"NY"}
+
+TESTCASE 0504, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsGardening":"0"},"StateProvince":"NY"}
+
+TESTCASE 0505, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsGardening":"9"},"StateProvince":"NY"}
+
+TESTCASE 0506, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsHunting":"0"},"StateProvince":"NY"}
+
+TESTCASE 0507, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsHunting":"9"},"StateProvince":"NY"}
+
+TESTCASE 0508, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsSports":"0"},"StateProvince":"NY"}
+
+TESTCASE 0509, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsSports":"9"},"StateProvince":"NY"}
+
+TESTCASE 0510, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PersonalizedProductsMonograms":"0"},"StateProvince":"NY"}
+
+TESTCASE 0511, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PersonalizedProductsMonograms":"9"},"StateProvince":"NY"}
+
+TESTCASE 0512, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsCats":"0"},"StateProvince":"NY"}
+
+TESTCASE 0513, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsCats":"9"},"StateProvince":"NY"}
+
+TESTCASE 0514, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsDogs":"0"},"StateProvince":"NY"}
+
+TESTCASE 0515, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsDogs":"9"},"StateProvince":"NY"}
+
+TESTCASE 0516, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsGeneral":"0"},"StateProvince":"NY"}
+
+TESTCASE 0517, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsGeneral":"9"},"StateProvince":"NY"}
+
+TESTCASE 0518, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsHorses":"0"},"StateProvince":"NY"}
+
+TESTCASE 0519, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsHorses":"9"},"StateProvince":"NY"}
+
+TESTCASE 0520, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PhotographyEnthusiast":"0"},"StateProvince":"NY"}
+
+TESTCASE 0521, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PhotographyEnthusiast":"9"},"StateProvince":"NY"}
+
+TESTCASE 0522, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PoliticallyConservative":"0"},"StateProvince":"NY"}
+
+TESTCASE 0523, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PoliticallyConservative":"9"},"StateProvince":"NY"}
+
+TESTCASE 0524, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PoliticallyLiberal":"0"},"StateProvince":"NY"}
+
+TESTCASE 0525, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PoliticallyLiberal":"9"},"StateProvince":"NY"}
+
+TESTCASE 0526, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"RuralFarmProducts":"0"},"StateProvince":"NY"}
+
+TESTCASE 0527, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"RuralFarmProducts":"9"},"StateProvince":"NY"}
+
+TESTCASE 0528, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Science":"0"},"StateProvince":"NY"}
+
+TESTCASE 0529, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Science":"9"},"StateProvince":"NY"}
+
+TESTCASE 0530, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SeniorProducts":"0"},"StateProvince":"NY"}
+
+TESTCASE 0531, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SeniorProducts":"9"},"StateProvince":"NY"}
+
+TESTCASE 0532, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsGeneral":"0"},"StateProvince":"NY"}
+
+TESTCASE 0533, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsGeneral":"9"},"StateProvince":"NY"}
+
+TESTCASE 0534, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsGolf":"0"},"StateProvince":"NY"}
+
+TESTCASE 0535, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsGolf":"9"},"StateProvince":"NY"}
+
+TESTCASE 0536, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsSkiing":"0"},"StateProvince":"NY"}
+
+TESTCASE 0537, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsSkiing":"9"},"StateProvince":"NY"}
+
+TESTCASE 0538, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsSoccer":"0"},"StateProvince":"NY"}
+
+TESTCASE 0539, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsSoccer":"9"},"StateProvince":"NY"}
+
+TESTCASE 0540, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Stationary":"0"},"StateProvince":"NY"}
+
+TESTCASE 0541, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Stationary":"9"},"StateProvince":"NY"}
+
+TESTCASE 0542, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Sweepstakes":"0"},"StateProvince":"NY"}
+
+TESTCASE 0543, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Sweepstakes":"9"},"StateProvince":"NY"}
+
+TESTCASE 0544, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyAudioAndMusic":"0"},"StateProvince":"NY"}
+
+TESTCASE 0545, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyAudioAndMusic":"9"},"StateProvince":"NY"}
+
+TESTCASE 0546, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyComputers":"0"},"StateProvince":"NY"}
+
+TESTCASE 0547, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyComputers":"9"},"StateProvince":"NY"}
+
+TESTCASE 0548, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyElectronics":"0"},"StateProvince":"NY"}
+
+TESTCASE 0549, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyElectronics":"9"},"StateProvince":"NY"}
+
+TESTCASE 0550, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyInternetUser":"0"},"StateProvince":"NY"}
+
+TESTCASE 0551, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyInternetUser":"9"},"StateProvince":"NY"}
+
+TESTCASE 0552, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyTVMoviesVideo":"0"},"StateProvince":"NY"}
+
+TESTCASE 0553, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyTVMoviesVideo":"9"},"StateProvince":"NY"}
+
+TESTCASE 0554, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelAviation":"0"},"StateProvince":"NY"}
+
+TESTCASE 0555, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelAviation":"9"},"StateProvince":"NY"}
+
+TESTCASE 0556, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelGeneral":"0"},"StateProvince":"NY"}
+
+TESTCASE 0557, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelGeneral":"9"},"StateProvince":"NY"}
+
+TESTCASE 0558, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelOceanBeaches":"0"},"StateProvince":"NY"}
+
+TESTCASE 0559, Validate_TargetReady_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelOceanBeaches":"9"},"StateProvince":"NY"}
+
+TESTCASE 0560, Validate_HousingType_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HousingType><string>Multi-Family Dwelling</string></HousingType><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0561, Validate_HousingType_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"HousingType":["Nursing Home"],"PostalCode":["68046"]}
+
+TESTCASE 0562, Validate_HousingType_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HousingType><string>Retirement Home</string></HousingType><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0563, Validate_HousingType_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"HousingType":["Single Family Dwelling"],"PostalCode":["68046"]}
+
+TESTCASE 0564, Validate_HousingType_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HousingType><string>Trailer Court</string></HousingType><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0565, Validate_HousingType_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"HousingType":["Unknown"],"PostalCode":["68046"]}
+
+TESTCASE 0566, Validate_MailScore_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><MailScore><string>Accurate</string></MailScore><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0567, Validate_MailScore_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"MailScore":["Likely"],"PostalCode":["68046"]}
+
+TESTCASE 0568, Validate_MailScore_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><MailScore><string>Questionable</string></MailScore><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0569, Validate_MailScore_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"MailScore":["Unlikely"],"PostalCode":["68046"]}
+
+TESTCASE 0570, Validate_MailScore_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><MailScore><string>Undeliverable</string></MailScore><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0571, Validate_Actual_Income_Criteria_Counts Test 2 single actual income values to verify that counts change. 
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ActualIncome><string>100000</string></ActualIncome><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0572, Validate_Actual_Income_Criteria_Counts Test 2 single actual income values to verify that counts change. 
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"ActualIncome":["200000"],"PostalCode":["68046"]}
+
+TESTCASE 0573, Validate_Actual_Income_Criteria_Counts Test multiple comma-delimited actual income values
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ActualIncome><string>100000,150000, 200000</string></ActualIncome><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0574, Validate_Actual_Income_Criteria_Counts Test a range of actual income values.
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"ActualIncome":["100000-200000"],"PostalCode":["68046"]}
+
+TESTCASE 0575, Validate_Actual_Income_Criteria_Counts Test multiple ranges of actual income values.
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ActualIncome><string>100000-200000, 50000- 90000</string></ActualIncome><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0576, Validate_Age_Criteria_Counts kkkkkkkkkkkk
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Age><string>20,21,22,23,24,25</string></Age></PersonSearch>
+
+TESTCASE 0577, Validate_Age_Criteria_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Age":["20-25"]}
+
+TESTCASE 0578, Validate_Age_Criteria_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Age><string>18,20-25,30,50-54</string></Age></PersonSearch>
+
+TESTCASE 0579, Validate_Age_Criteria_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"Age":["1-65"]}
+
+TESTCASE 0580, Validate_Age_Criteria_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Age><string>18,20,21,25-29,60-65</string></Age><PostalCode><string>68127</string></PostalCode></PersonSearch>
+
+TESTCASE 0581, Validate_CitiesByStateProvince_Criteria_Counts_Change
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CitiesByStateProvince><CityStateProvince><City>Omaha</City><StateProvince>NE</StateProvince></CityStateProvince></CitiesByStateProvince><LastName>Jones</LastName></PersonSearch>
+
+TESTCASE 0582, Validate_CitiesByStateProvince_Criteria_Counts_Change
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CitiesByStateProvince":[{"City":"Omaha","StateProvince":"NE"},{"City":"Chicago","StateProvince":"IL"}],"LastName":"Jones"}
+
+TESTCASE 0583, Validate_CitiesByStateProvince_Criteria_Counts_Change
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CitiesByStateProvince><CityStateProvince><City>Omaha</City><StateProvince>NE</StateProvince></CityStateProvince><CityStateProvince><City>Chicago</City><StateProvince>IL</StateProvince></CityStateProvince></CitiesByStateProvince></PersonSearch>
+
+TESTCASE 0584, Validate_CountiesByState_Criteria_Counts_Change
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Douglas</County><State>NE</State></CountyState></CountiesByState><LastName>Jones</LastName></PersonSearch>
+
+TESTCASE 0585, Validate_CountiesByState_Criteria_Counts_Change
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"Douglas","State":"NE"},{"County":"Lancaster","State":"NE"}],"LastName":"Jones"}
+
+TESTCASE 0586, Validate_CountiesByState_Criteria_Counts_Change
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Douglas</County><State>NE</State></CountyState><CountyState><County>Lancaster</County><State>NE</State></CountyState></CountiesByState></PersonSearch>
+
+TESTCASE 0587, Validate_Multiple_StatesProvinces_Criteria_Counts_Change
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><LastName>Jones</LastName><StatesProvinces><string>NE</string></StatesProvinces></PersonSearch>
+
+TESTCASE 0588, Validate_Multiple_StatesProvinces_Criteria_Counts_Change
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"LastName":"Jones","StatesProvinces":["NE","IA","NY"]}
+
+TESTCASE 0589, Validate_Multiple_StatesProvinces_Criteria_Counts_Change
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><StatesProvinces><string>NE</string><string>IA</string><string>NY</string></StatesProvinces></PersonSearch>
+
+TESTCASE 0590, Validate_POST_IncludeHistorical
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>John</FirstName><IncludeHistorical>true</IncludeHistorical><LastName>Smith</LastName><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 0591, Validate_POST_IncludeHistorical
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"John","LastName":"Smith","PostalCode":["68046"]}
+
+TESTCASE 0592, Validate_YearsInHome_And_YearsAtResidence_Are_Equal
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><YearsInHome>1</YearsInHome></PersonSearch>
+
+TESTCASE 0593, Validate_YearsInHome_And_YearsAtResidence_Are_Equal
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"YearsAtResidence":["1"]}
+
+TESTCASE 0594, Validate_YearsAtResidence_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><StateProvince>NE</StateProvince><YearsAtResidence><string>1</string><string>2</string><string>3</string><string>4</string><string>5</string></YearsAtResidence></PersonSearch>
+
+TESTCASE 0595, Validate_YearsAtResidence_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","StateProvince":"NE","YearsAtResidence":["1-5"]}
+
+TESTCASE 0596, YellowBook_Tests
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Mclennan</County><State>TX</State></CountyState></CountiesByState><FirstName>Scott</FirstName></PersonSearch>
+
+TESTCASE 0597, YellowBook_Tests
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Mclennan</County><State>TX</State></CountyState></CountiesByState><FirstName>Scott</FirstName></PersonSearch>
+
+TESTCASE 0598, YellowBook_Tests
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"McLENNAN","State":"TX"}],"FirstName":"Scott"}
+
+TESTCASE 0599, YellowBook_Tests
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Mc lennan</County><State>TX</State></CountyState></CountiesByState><FirstName>Scott</FirstName></PersonSearch>
+
+TESTCASE 0600, YellowBook_Tests
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"mc LeNnAn","State":"TX"}],"FirstName":"Scott"}
+
+TESTCASE 0601, YellowBook_Tests
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Mc lenn an</County><State>TX</State></CountyState></CountiesByState><FirstName>Scott</FirstName></PersonSearch>
+
+TESTCASE 0602, YellowBook_Tests
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"Mclennan","State":"TX"},{"County":"Bell","State":"TX"}],"FirstName":"Scott"}
+
+TESTCASE 0603, YellowBook_Tests
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Mclennan</County><State>TX</State></CountyState><CountyState><County>Bell</County><State>TX</State></CountyState></CountiesByState><FirstName>Scott</FirstName></PersonSearch>
+
+TESTCASE 0604, YellowBook_Tests
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"McLENNAN","State":"TX"},{"County":"Bell","State":"TX"}],"FirstName":"Scott"}
+
+TESTCASE 0605, YellowBook_Tests
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Mc lennan</County><State>TX</State></CountyState><CountyState><County>Bell</County><State>TX</State></CountyState></CountiesByState><FirstName>Scott</FirstName></PersonSearch>
+
+TESTCASE 0606, YellowBook_Tests
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"mc LeNnAn","State":"TX"},{"County":"Bell","State":"TX"}],"FirstName":"Scott"}
+
+TESTCASE 0607, YellowBook_Tests
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Mc lenn an</County><State>TX</State></CountyState><CountyState><County>Bell</County><State>TX</State></CountyState></CountiesByState><FirstName>Scott</FirstName></PersonSearch>
+
+TESTCASE 0608, Validate_ChildAge_Use_Cases Use Case 1: I'd like to know all the girls with birthdays in the month of March between the ages of 3-6.
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>3-6</Age><BirthMonth>March</BirthMonth></AgeBirthMonth></ChildAgeBirthMonth><Gender>Female</Gender></ChildAgeBirthMonthGender></PersonSearch>
+
+TESTCASE 0609, Validate_ChildAge_Use_Cases Use Case 2. I'd like to mail to all males between the ages of 14-17.
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"ChildAgeBirthMonthGender":{"ChildAgeBirthMonth":[{"Age":"14-17"}],"Gender":"Male"}}
+
+TESTCASE 0610, Validate_ChildAge_Use_Cases Use Case 3. I'd like to know all the kids turning 17 in the month of June.
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>17</Age><BirthMonth>June</BirthMonth></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender></PersonSearch>
+
+TESTCASE 0611, Validate_ChildAge_Use_Cases Use Case 4. I'd like to know all the kids that will be 18 by November.
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"ChildAgeBirthMonthGender":{"ChildAgeBirthMonth":[{"Age":"17","BirthMonth":"August-October"}]}}
+
+TESTCASE 0612, Validate_ChildAge_Use_Cases Use Case 5. I'd like to know all the kids of driving in June.
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>15</Age><BirthMonth>June</BirthMonth></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender></PersonSearch>
+
+TESTCASE 0613, and ages 9-11 January thru April.
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/json
+  BODY {"ChildAgeBirthMonthGender":{"ChildAgeBirthMonth":[{"Age":"2","BirthMonth":"September"},{"Age":"4","BirthMonth":"August"},{"Age":"9-11","BirthMonth":"January-April"}]}}
+
+TESTCASE 0614, and ages 9-11 January thru April?
+  POST ${peopleuri-port}/${peopleuri-end-point}/count
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>2</Age><BirthMonth>September</BirthMonth></AgeBirthMonth><AgeBirthMonth><Age>4</Age><BirthMonth>August</BirthMonth></AgeBirthMonth><AgeBirthMonth><Age>9-11</Age><BirthMonth>January-April</BirthMonth></AgeBirthMonth></ChildAgeBirthMonth><Gender>Male</Gender></ChildAgeBirthMonthGender></PersonSearch>
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<ETag type="string"/>
+<Id type="string">001620764704</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/people/001620764704</Href>
+<Rel type="string">self</Rel>
+</Links>
+</Links>
+<Address type="string">3639 W 55TH PL</Address>
+<AddressParsed>
+<Name type="string">55th</Name>
+<Number type="string">3639</Number>
+<PreDirectional type="string">W</PreDirectional>
+<Suffix type="string">Pl</Suffix>
+</AddressParsed>
+<City type="string">CHICAGO</City>
+<FirstName type="string">Elvira</FirstName>
+<LastName type="string">Herrera</LastName>
+<Location>
+<Latitude type="float">41.792081</Latitude>
+<Longitude type="float">-87.714901</Longitude>
+</Location>
+<PostalCode type="string">60629</PostalCode>
+<StateProvince type="string">IL</StateProvince>
+</root>
+<root>
+<ETag type="string"/>
+<Id type="string">500458058400</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/people/500458058400</Href>
+<Rel type="string">self</Rel>
+</Links>
+</Links>
+<Address type="string">6534 S ALBANY AVE</Address>
+<AddressParsed>
+<Name type="string">Albany</Name>
+<Number type="string">6534</Number>
+<PreDirectional type="string">S</PreDirectional>
+<Suffix type="string">Ave</Suffix>
+</AddressParsed>
+<City type="string">CHICAGO</City>
+<FirstName type="string">Esteban</FirstName>
+<LastName type="string">Herrera</LastName>
+<Location>
+<Latitude type="float">41.774143</Latitude>
+<Longitude type="float">-87.700810</Longitude>
+</Location>
+<PostalCode type="string">60629</PostalCode>
+<StateProvince type="string">IL</StateProvince>
+</root>
+</root>

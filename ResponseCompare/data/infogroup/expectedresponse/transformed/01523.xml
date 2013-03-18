@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<counts type="string">7</counts>
+</root>
+<root>
+<id type="string">004945131</id>
+<LevenshteinScore type="string">0.9299999999999998</LevenshteinScore>
+<location_id type="string">900286967345</location_id>
+<individul_id type="string">200552144153</individul_id>
+<firstname type="string">GEORGE</firstname>
+<middle_name type="string">C</middle_name>
+<lastname type="string">JOHNSON</lastname>
+<lastname_suffix type="string">JR</lastname_suffix>
+<email type="string">null</email>
+<phone type="string">3342973714</phone>
+<address type="string">5715 LEE ROAD 240</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">36870</zipcode>
+</root>
+<root>
+<id type="string">004945132</id>
+<LevenshteinScore type="string">0.9299999999999998</LevenshteinScore>
+<location_id type="string">900286967345</location_id>
+<individul_id type="string">401504280302</individul_id>
+<firstname type="string">SARAH</firstname>
+<middle_name type="string">M</middle_name>
+<lastname type="string">JOHNSON</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string">3342973714</phone>
+<address type="string">5715 LEE ROAD 240</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">36870</zipcode>
+</root>
+<root>
+<id type="string">004056881</id>
+<LevenshteinScore type="string">0.9075000000000001</LevenshteinScore>
+<location_id type="string">700286967344</location_id>
+<individul_id type="string">600552144150</individul_id>
+<firstname type="string">GEORGE</firstname>
+<middle_name type="string">C</middle_name>
+<lastname type="string">JOHNSON</lastname>
+<lastname_suffix type="string">JR</lastname_suffix>
+<email type="string">null</email>
+<phone type="string">3342974733</phone>
+<address type="string">5711 LEE ROAD 240</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">36870</zipcode>
+</root>
+<root>
+<id type="string">004056882</id>
+<LevenshteinScore type="string">0.9075000000000001</LevenshteinScore>
+<location_id type="string">700286967344</location_id>
+<individul_id type="string">000552144152</individul_id>
+<firstname type="string">SHARON</firstname>
+<middle_name type="string">C</middle_name>
+<lastname type="string">JOHNSON</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string">3342974733</phone>
+<address type="string">5711 LEE ROAD 240</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">36870</zipcode>
+</root>
+<root>
+<id type="string">004056883</id>
+<LevenshteinScore type="string">0.9075000000000001</LevenshteinScore>
+<location_id type="string">700286967344</location_id>
+<individul_id type="string">202646496985</individul_id>
+<firstname type="string">GEORGE</firstname>
+<middle_name type="string">C</middle_name>
+<lastname type="string">JOHNSON</lastname>
+<lastname_suffix type="string">3D</lastname_suffix>
+<email type="string">null</email>
+<phone type="string">3342974733</phone>
+<address type="string">5711 LEE ROAD 240</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">36870</zipcode>
+</root>
+<root>
+<id type="string">004056884</id>
+<LevenshteinScore type="string">0.9075000000000001</LevenshteinScore>
+<location_id type="string">700286967344</location_id>
+<individul_id type="string">201504280301</individul_id>
+<firstname type="string">AARON</firstname>
+<middle_name type="string">C</middle_name>
+<lastname type="string">JOHNSON</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string">3342974733</phone>
+<address type="string">5711 LEE ROAD 240</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">36870</zipcode>
+</root>
+<root>
+<id type="string">004056885</id>
+<LevenshteinScore type="string">0.9075000000000001</LevenshteinScore>
+<location_id type="string">700286967344</location_id>
+<individul_id type="string">801504280299</individul_id>
+<firstname type="string">MIRIAM</firstname>
+<middle_name type="string">J</middle_name>
+<lastname type="string">JOHNSON</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string">3342974733</phone>
+<address type="string">5711 LEE ROAD 240</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">36870</zipcode>
+</root>
+</root>

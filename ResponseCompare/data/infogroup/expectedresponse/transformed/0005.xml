@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<ETag type="string"/>
+<Id type="string">202618022067</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/people/202618022067</Href>
+<Rel type="string">self</Rel>
+</Links>
+</Links>
+<Address type="string">1302 Gulf Beach Hwy</Address>
+<AddressParsed>
+<Name type="string">Gulf Beach</Name>
+<Number type="string">1302</Number>
+<Suffix type="string">Hwy</Suffix>
+</AddressParsed>
+<FirstName type="string">Joseph</FirstName>
+<LastName type="string">Philyaw</LastName>
+<Location>
+<Latitude type="float">30.386736</Latitude>
+<Longitude type="float">-87.291956</Longitude>
+</Location>
+<PostalCode type="string">32507</PostalCode>
+<StateProvince type="string">FL</StateProvince>
+</root>
+</root>

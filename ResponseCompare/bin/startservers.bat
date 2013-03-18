@@ -1,0 +1,6 @@
+start "" "c:\Program Files (x86)\Common Files\microsoft shared\DevServer\10.0\WebDev.WebServer40.EXE" /port:1130 /path:"C:\dev\Development\Connect.Companies"
+start "" "c:\Program Files (x86)\Common Files\microsoft shared\DevServer\10.0\WebDev.WebServer40.EXE" /port:1131 /path:"C:\dev\Development\Connect.Match"
+start "" "c:\Program Files (x86)\Common Files\microsoft shared\DevServer\10.0\WebDev.WebServer40.EXE" /port:1132 /path:"C:\dev\Development\Connect.Schema"
+start "" "c:\Program Files (x86)\Common Files\microsoft shared\DevServer\10.0\WebDev.WebServer40.EXE" /port:1133 /path:"C:\dev\Development\Connect.People"
+start "" "c:\Program Files (x86)\Common Files\microsoft shared\DevServer\10.0\WebDev.WebServer40.EXE" /port:1134 /path:"C:\dev\Development\Connect.Demo"
+start "" "c:\Program Files (x86)\Common Files\microsoft shared\DevServer\10.0\WebDev.WebServer40.EXE" /port:1135 /path:"C:\dev\Development\Connect.SoapWrapper"

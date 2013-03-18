@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<ETag type="string"/>
+<Id type="string">402511710521</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/people/402511710521</Href>
+<Rel type="string">self</Rel>
+</Links>
+</Links>
+<Address type="string">4600 Humboldt Ave N</Address>
+<AddressParsed>
+<Name type="string">Humboldt</Name>
+<Number type="string">4600</Number>
+<PostDirectional type="string">N</PostDirectional>
+<Suffix type="string">Ave</Suffix>
+</AddressParsed>
+<FirstName type="string">Mary</FirstName>
+<LastName type="string">Miskimen</LastName>
+<Location>
+<Latitude type="float">45.039073</Latitude>
+<Longitude type="float">-93.298308</Longitude>
+</Location>
+<PostalCode type="string">55412</PostalCode>
+<StateProvince type="string">MN</StateProvince>
+</root>
+</root>

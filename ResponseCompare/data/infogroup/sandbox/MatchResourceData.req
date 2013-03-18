@@ -1,0 +1,9 @@
+TESTCASE 001, Validate Email Append Data
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"Name":"Donald Russell","PostalCode":"72433","RequestType":"Any","StateProvince":"AR","StreetAddress":"Po Box 345"}
+  SET_HEADER Accept: application/json
+
+TESTCASE 002, Validate Email Append Data
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Country>USA</Country><Fields><string>Email</string><string>City</string><string>FirstName</string><string>LastName</string><string>Address</string><string>PostalCode</string><string>Location</string></Fields><Name>Donald Russell</Name><PostalCode>72433</PostalCode><RequestType>Any</RequestType><StateProvince>AR</StateProvince><StreetAddress>Po Box 345</StreetAddress></MatchRequest> 
+  SET_HEADER Accept: application/xml

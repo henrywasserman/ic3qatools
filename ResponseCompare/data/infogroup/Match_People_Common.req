@@ -1,0 +1,1003 @@
+#DiagnosticeTests
+TESTCASE 01334, Validate_Diagnostics_For_AnyRequest
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>Alan Adams</Name><Phone>9075229313</Phone><PostalCode>99520</PostalCode><RequestType>Any</RequestType><ResourceType>enhanced</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 200535</StreetAddress></MatchRequest>
+
+#InputTests
+TESTCASE 01335, Validate_Invalid_ResourceType_Returns_Bad_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><ResourceType>garbage</ResourceType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01336, Validate_Invalid_ResourceType_Returns_Bad_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Anchorage","Country":"USA","Name":"1 50 Plus T Asian Market","PostalCode":"99508","RequestType":"Company","ResourceType":"targetready","StateProvince":"AK","StreetAddress":"4015 Mountain View Dr"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01337, Validate_Invalid_ResourceType_Returns_Bad_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><ResourceType>lifestyle</ResourceType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01338, Validate_Valid_ResourceType_Returns_OK_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><ResourceType>basic</ResourceType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01339, Validate_Valid_ResourceType_Returns_OK_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Anchorage","Country":"USA","Name":"1 50 Plus T Asian Market","PostalCode":"99508","RequestType":"Company","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":"4015 Mountain View Dr"}
+
+TESTCASE 01340, Validate_Valid_ResourceType_Returns_OK_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><ResourceType>basic</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01341, Validate_Valid_ResourceType_Returns_OK_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01342, Validate_Valid_ResourceType_Returns_OK_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><ResourceType>lifestyle</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01343, Validate_Valid_ResourceType_Returns_OK_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","ResourceType":"targetready","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01344, Validate_Valid_ResourceType_Returns_OK_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><ResourceType>basic</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01345, Validate_Valid_ResourceType_Returns_OK_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Name":"Susan Singleton","PostalCode":"99610","RequestType":"Any","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01346, Validate_Valid_ResourceType_Returns_OK_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><ResourceType>lifestyle</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01347, Validate_Valid_ResourceType_Returns_OK_Request
+  POST ${matchuri-port}/${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Name":"Susan Singleton","PostalCode":"99610","RequestType":"Any","ResourceType":"targetready","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01348, Validate_Any_ResourceType_With_Address2_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>PALM DESERT</City><Country>USA</Country><Name>PAUL STODDARD</Name><PostalCode>92260</PostalCode><RequestType>Any</RequestType><StateProvince>CA</StateProvince><StreetAddress>4-399 HIGHWAY 111</StreetAddress><StreetAddress2>SUITE M</StreetAddress2></MatchRequest>
+
+TESTCASE 01349, Validate_Matches_With_Address2_And_Without_Address
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>PALM DESERT</City><Country>USA</Country><Name>PAUL STODDARD</Name><PostalCode>92260</PostalCode><RequestType>Any</RequestType><StateProvince>CA</StateProvince><StreetAddress>4-399 HIGHWAY 111</StreetAddress><StreetAddress2>SUITE M</StreetAddress2></MatchRequest>
+
+TESTCASE 01350, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+
+TESTCASE 01351, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":70,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+
+TESTCASE 01352, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Confidence>80</Confidence><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+
+TESTCASE 01353, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":99,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+
+TESTCASE 01354, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Confidence>100</Confidence><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+
+TESTCASE 01355, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":-1,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01356, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Confidence>0</Confidence><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01357, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":10,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01358, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Confidence>69</Confidence><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01359, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":101,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01360, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Confidence>2147483647</Confidence><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01361, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":-2147483648,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01362, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+
+TESTCASE 01363, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":70,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+
+TESTCASE 01364, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Confidence>80</Confidence><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+
+TESTCASE 01365, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":99,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+
+TESTCASE 01366, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Confidence>100</Confidence><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+
+TESTCASE 01367, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":-1,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01368, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Confidence>0</Confidence><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01369, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":10,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01370, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Confidence>69</Confidence><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01371, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":101,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01372, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Confidence>2147483647</Confidence><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01373, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":-2147483648,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01374, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+
+TESTCASE 01375, Validate_EmptyRuleSource_EmptyClient_CorPorAnyRequestType
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01376, Validate_DynamicRuleSource_IgnoreClient_IgnoreRequestType
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><RuleSource>Dynamic</RuleSource><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01377, Validate_EmptyorNullRuleSource_AnyInvalidClient_CorPorAnyRequestType
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Client>InvalidClient</Client><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01378, Validate_DatabaseRuleSource_EmptyorNullClient_CorPorAnyRequestType
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><RuleSource>Database</RuleSource><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01379, Validate_DatabaseRuleSource_InvalidClient_CorPorAnyRequestType
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Client>InvalidClient</Client><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><RuleSource>Database</RuleSource><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01380, Validate_DatabaseRuleSource_HasRulesClient
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Client>IC3</Client><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><RuleSource>Database</RuleSource><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01381, Validate_USNewBusiness_Company_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Centreville</City><Country>USA</Country><Name>1 N Christ Inc</Name><PostalCode>35042</PostalCode><RequestType>Company</RequestType><StateProvince>AL</StateProvince><StreetAddress>372 Chesser Plantation Ln</StreetAddress></MatchRequest>
+
+TESTCASE 01382, Validate_USNewBusiness_Any_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Centreville</City><Country>USA</Country><Name>1 N Christ Inc</Name><PostalCode>35042</PostalCode><RequestType>Any</RequestType><StateProvince>AL</StateProvince><StreetAddress>372 Chesser Plantation Ln</StreetAddress></MatchRequest>
+
+TESTCASE 01383, Validate_CABusiness_Company_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Toronto</City><Country>CANADA</Country><Name>00 24h Up To Town Towing</Name><PostalCode>M5C2H4</PostalCode><RequestType>Company</RequestType><StateProvince>ON</StateProvince><StreetAddress>107 Jarvis St</StreetAddress></MatchRequest>
+
+TESTCASE 01384, Validate_CAConsumer_Person_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Toronto</City><Country>CANADA</Country><Name>J Bento</Name><PostalCode>M6H3V5</PostalCode><RequestType>Person</RequestType><StateProvince>ON</StateProvince><StreetAddress>16 Greenlaw Ave</StreetAddress></MatchRequest>
+
+TESTCASE 01385, Validate_CABusiness_Any_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Toronto</City><Country>CANADA</Country><Name>00 24h Up To Town Towing</Name><PostalCode>M5C2H4</PostalCode><RequestType>Any</RequestType><StateProvince>ON</StateProvince><StreetAddress>107 Jarvis St</StreetAddress></MatchRequest>
+
+TESTCASE 01386, Validate_Request_Phone
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><CompanyName /><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><Phone>7135171234</Phone><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress /><StreetAddress2 /></MatchRequest>
+
+TESTCASE 01387, Validate_Request_InvalidPhone
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><CompanyName /><Country>USA</Country><Name /><Phone>171234</Phone><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress /><StreetAddress2 /></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01388, Validate_Request_Address
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><CompanyName /><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01389, Validate_Request_InvalidAddress
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><CompanyName /><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode /><RequestType>Company</RequestType><StateProvince /><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01390, Validate_Request_Phone_Address
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><CompanyName /><Country>USA</Country><Name /><Phone>7135171234</Phone><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01391, Validate_Request_InvalidPhone_Address
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><CompanyName /><Country>USA</Country><Name /><Phone>171234</Phone><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01392, Validate_Request_Phone_InvalidAddress
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City /><CompanyName /><Country>USA</Country><Name /><Phone>7135171234</Phone><PostalCode /><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01393, Validate_Request_Name
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress /><StreetAddress2 /></MatchRequest>
+
+TESTCASE 01394, Validate_Request_InvalidName
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode /><RequestType>Company</RequestType><StateProvince /><StreetAddress /><StreetAddress2 /></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01395, Validate_Request_Phone_Name
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><Phone>7135171234</Phone><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress /><StreetAddress2 /></MatchRequest>
+
+TESTCASE 01396, Validate_Request_Phone_Name_Only
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City /><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><Phone>7135171234</Phone><PostalCode /><RequestType>Company</RequestType><StateProvince /><StreetAddress /><StreetAddress2 /></MatchRequest>
+
+TESTCASE 01397, Validate_Request_InvalidPhone_Name
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><Phone>171234</Phone><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress /><StreetAddress2 /></MatchRequest>
+
+TESTCASE 01398, Validate_Request_Phone_InvalidName
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City /><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><Phone>7135171234</Phone><PostalCode /><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress /><StreetAddress2 /></MatchRequest>
+
+TESTCASE 01399, Validate_Request_Address_Name
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01400, Validate_Request_InvalidAddress_InvalidName
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode /><RequestType>Company</RequestType><StateProvince /><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01401, Validate_Request_InvalidAddress_InvalidName
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode /><RequestType>Company</RequestType><StateProvince /><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01402, Validate_Request_Phone_Address_Name
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><Phone>7135171234</Phone><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01403, Validate_Request_InvalidPhone_Address_Name
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><Phone>171234</Phone><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01404, Validate_Request_Phone_InvalidName_InvalidAddress
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City /><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><Phone>7135171234</Phone><PostalCode /><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01405, Validate_Any_Request_With_Address2
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>PALM DESERT</City><Country>USA</Country><Name>PAUL STODDARD</Name><PostalCode>92260</PostalCode><RequestType>Any</RequestType><StateProvince>CA</StateProvince><StreetAddress>4-399 HIGHWAY 111</StreetAddress><StreetAddress2>SUITE M</StreetAddress2></MatchRequest>
+
+TESTCASE 01406, Validate_Person_Request_With_Address2
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>PALM DESERT</City><Country>USA</Country><Name>PAUL STODDARD</Name><PostalCode>92260</PostalCode><RequestType>Person</RequestType><StateProvince>CA</StateProvince><StreetAddress>4-399 HIGHWAY 111</StreetAddress><StreetAddress2>SUITE M</StreetAddress2></MatchRequest>
+
+TESTCASE 01407, Validate_IncludeHistorical_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><IncludeHistorical>true</IncludeHistorical><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01408, Validate_IncludeHistorical_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","IncludeHistorical":false,"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01409, Validate_IncludeHistorical_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><IncludeHistorical>true</IncludeHistorical><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01410, Validate_IncludeHistorical_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","IncludeHistorical":false,"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Any","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01411, Validate_IncludeNonVerified_Returns_Bad_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><IncludeNonVerified>true</IncludeNonVerified><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01412, Validate_IncludeNonVerified_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><IncludeNonVerified>true</IncludeNonVerified><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01413, Validate_IncludeNonVerified_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Anchorage","Country":"USA","IncludeNonVerified":false,"Name":"1 50 Plus T Asian Market","PostalCode":"99508","RequestType":"Company","StateProvince":"AK","StreetAddress":"4015 Mountain View Dr"}
+
+TESTCASE 01414, Validate_IncludeNonVerified_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><IncludeNonVerified>true</IncludeNonVerified><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01415, Validate_IncludeNonVerified_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","IncludeNonVerified":false,"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Any","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01416, Validate_EmailAppend_Returns_Bad_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Fields><string>Email</string><string>City</string><string>Name</string><string>Address</string><string>PostalCode</string><string>Location</string></Fields><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><ResourceType>enhanced</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01417, Validate_EmailAppend_Returns_Bad_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Fields":["Email","City","Name","Address","PostalCode","Location"],"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","ResourceType":"Basic","StateProvince":"AK","StreetAddress":"Po Box 722"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01418, Validate_EmailAppend_Returns_Bad_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Fields><string>Email</string><string>City</string><string>Name</string><string>Address</string><string>PostalCode</string><string>Location</string></Fields><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><ResourceType>Lifestyle</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01419, Validate_EmailAppend_Returns_Bad_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Fields":["Email","City","Name","Address","PostalCode","Location"],"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","ResourceType":"Targetready","StateProvince":"AK","StreetAddress":"Po Box 722"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01420, Validate_EmailAppendDataAnyWithResourceType_Bad_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Country>USA</Country><Fields><string>Email</string><string>City</string><string>FirstName</string><string>LastName</string><string>Address</string><string>PostalCode</string><string>Location</string></Fields><Name>Donald Russell</Name><PostalCode>72433</PostalCode><RequestType>Any</RequestType><ResourceType>enhanced</ResourceType><StateProvince>AR</StateProvince><StreetAddress>Po Box 345</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01421, Validate_EmailAppendDataCompanyWithResourceType_BadRequest
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Chicago</City><CompanyName>Nordstrom</CompanyName><Country>USA</Country><Fields><string>Email</string><string>Address</string><string>AddressParsed</string><string>City</string><string>CompanyName</string><string>FirstName</string><string>Id</string><string>LastName</string><string>Links</string><string>Location</string><string>Phone</string><string>PostalCode</string><string>RuleName</string><string>Score</string><string>StateProvince</string><string>BusinessType</string><string>Contacts</string><string>CorporateEmployeeSizeActual</string><string>CorporateEmployeeSizeRange</string><string>CorporateSalesVolumeActual</string><string>CorporateSalesVolumeRange</string><string>County</string><string>CredtiRatingScore</string><string>EIN1</string><string>EIN2</string><string>EIN3</string><string>Fax</string><string>Franchise</string><string>Gender</string><string>LocationEmployeesSizeActual</string><string>LocationEmployeesSizeRange</string><string>LocationSalesVolumeActual</string><string>LocationSalesVolumeRange</string><string>NaicsList</string><string>PrimaryNaics</string><string>PrimarySic</string><string>TickerSymbol</string><string>Title</string><string>TollFree</string><string>UrlList</string><string>ZipPlus4</string><string>MatchScore</string></Fields><Name>Nordstrom</Name><PostalCode>60611</PostalCode><RequestType>Company</RequestType><ResourceType>enhanced</ResourceType><StateProvince>IL</StateProvince><StreetAddress>55 East Grand Avenue</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01422, Validate_EmailAppendDataPeopleWithResourceType_BadRequest
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Fields><string>Email</string><string>City</string><string>Name</string><string>Address</string><string>PostalCode</string><string>Location</string></Fields><Name>Donald Russell</Name><PostalCode>72433</PostalCode><RequestType>Person</RequestType><ResourceType>enhanced</ResourceType><StateProvince>AR</StateProvince><StreetAddress>Po Box 345</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01423, Validate_EmailAppend_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Fields><string>Email</string><string>City</string><string>Name</string><string>Address</string><string>PostalCode</string><string>Location</string></Fields><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01424, Validate_EmailAppend_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Fields":["email"],"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01425, Validate_EmailAppend_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Fields><string>BuildDate</string><string>IndividualId</string></Fields><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01426, Validate_EmailAppend_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Fields":["email","builddate","individualid"],"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01427, Validate_EmailAppend_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><ResourceType>Basic</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01428, Validate_EmailAppend_Returns_OK_Request
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","ResourceType":"Enhanced","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01429, Database_Driven_Rules_Test_IC3
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Client>IC3</Client><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><RuleSource>database</RuleSource><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01430, Database_Driven_Rules_Test_IC3
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Anchorage","Client":"IC3","Country":"USA","Fields":["Email"],"Name":"1 50 Plus T Asian Market","PostalCode":"99508","RequestType":"Company","RuleSource":"database","StateProvince":"AK","StreetAddress":"4015 Mountain View Dr"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01431, Database_Driven_Rules_Test_IC3
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Client>IC3</Client><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><RuleSource>database</RuleSource><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01432, Database_Driven_Rules_Test_IC3
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Client":"IC3","Country":"USA","Fields":["Email"],"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","RuleSource":"database","StateProvince":"AK","StreetAddress":"Po Box 722"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01433, Database_Driven_Rules_Test_IC3
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Client>IC3</Client><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><RuleSource>database</RuleSource><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01434, Database_Driven_Rules_Test_IC3
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Client":"IC3","Country":"USA","Fields":["Email"],"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Any","RuleSource":"database","StateProvince":"AK","StreetAddress":"Po Box 722"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01435, Database_Driven_Rules_Test_Salesgenie
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Client>Salesgenie</Client><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><RuleSource>database</RuleSource><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01436, Database_Driven_Rules_Test_Salesgenie
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Anchorage","Client":"Salesgenie","Country":"USA","Fields":["Email"],"Name":"1 50 Plus T Asian Market","PostalCode":"99508","RequestType":"Company","RuleSource":"database","StateProvince":"AK","StreetAddress":"4015 Mountain View Dr"}
+
+TESTCASE 01437, Database_Driven_Rules_Test_Salesgenie
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Client>Salesgenie</Client><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><RuleSource>database</RuleSource><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01438, Database_Driven_Rules_Test_Salesgenie
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Client":"Salesgenie","Country":"USA","Fields":["Email"],"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","RuleSource":"database","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01439, Database_Driven_Rules_Test_Salesgenie
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Client>Salesgenie</Client><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><RuleSource>database</RuleSource><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01440, Database_Driven_Rules_Test_Salesgenie
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Client":"Salesgenie","Country":"USA","Fields":["Email"],"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Any","RuleSource":"database","StateProvince":"AK","StreetAddress":"Po Box 722"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01441, Validate_Tribune
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Client>Tribune</Client><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><RuleSource>Dynamic</RuleSource><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01442, Validate_Tribune
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Anchorage","Client":"Tribune","Country":"USA","Name":"1 50 Plus T Asian Market","PostalCode":"99508","RequestType":"Company","RuleSource":"Dynamic","StateProvince":"AK","StreetAddress":"4015 Mountain View Dr"}
+
+TESTCASE 01443, Validate_Tribune
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Client>Tribune</Client><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><RuleSource>Dynamic</RuleSource><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01444, Validate_Tribune
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Client":"Tribune","Country":"USA","Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","RuleSource":"Database","StateProvince":"AK","StreetAddress":"Po Box 722"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01445, Validate_Tribune
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Client>Tribune</Client><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><RuleSource>Database</RuleSource><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01446, Validate_Tribune
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Client":"Tribune","Country":"USA","Name":"Susan Singleton","PostalCode":"99610","RequestType":"Any","RuleSource":"Database","StateProvince":"AK","StreetAddress":"Po Box 722"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01447, Validate_Tribune
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>BOCA RATON</City><Client>Tribune</Client><Country>USA</Country><Name>MERCATOR ASSET MANAGEMENT CO</Name><Phone>5613611079</Phone><PostalCode>33486</PostalCode><RequestType>Company</RequestType><RuleSource>Database</RuleSource><StateProvince>FL</StateProvince><StreetAddress>5200 TOWN CENTER CIR</StreetAddress><StreetAddress2>550</StreetAddress2></MatchRequest>
+
+#PortalValidationTests
+TESTCASE 01448, Validate_Json_Match_Inputs
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Papillion</City><CompanyName /><Confidence>90</Confidence><Country>USA</Country><Limit>10</Limit><Name>John Doe</Name><Phone>5558675309</Phone><PostalCode>68046</PostalCode><RequestType>Person</RequestType><ResourceType>Basic</ResourceType><StateProvince>NE</StateProvince><StreetAddress>1234 E Main St S</StreetAddress><StreetAddress2>Apt 12</StreetAddress2></MatchRequest>
+
+TESTCASE 01449, Validate_XML_Match_Inputs
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Papillion</City><CompanyName /><Confidence>90</Confidence><Country>USA</Country><Limit>10</Limit><Name>John Doe</Name><Phone>5558675309</Phone><PostalCode>68046</PostalCode><RequestType>Person</RequestType><ResourceType>Basic</ResourceType><StateProvince>NE</StateProvince><StreetAddress>1234 E Main St S</StreetAddress><StreetAddress2>Apt 12</StreetAddress2></MatchRequest>
+
+#ResourceDataTests
+TESTCASE 01450, Validate_Limit_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Country>USA</Country><Limit>1</Limit><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+
+TESTCASE 01451, Validate_Limit_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Country":"USA","Limit":5,"Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+
+TESTCASE 01452, Validate_Limit_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Country>USA</Country><Limit>10</Limit><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+
+TESTCASE 01453, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+
+TESTCASE 01454, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha","Confidence":80,"Country":"USA","Name":"Mc Donalds","RequestType":"Company","StateProvince":"NE"}
+
+TESTCASE 01455, Validate_Confidence_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Confidence>90</Confidence><Country>USA</Country><Name>Mc Donalds</Name><RequestType>Company</RequestType><StateProvince>NE</StateProvince></MatchRequest>
+
+TESTCASE 01456, Validate_Data_Returned_With_Different_Phone_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>Alan Adams</Name><Phone>9075229313</Phone><PostalCode>99520</PostalCode><RequestType>Any</RequestType><ResourceType>enhanced</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 200535</StreetAddress></MatchRequest>
+
+TESTCASE 01457, Validate_Data_Returned_With_Different_Phone_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Anchorage","Country":"USA","Name":"Alan Adams","Phone":"","PostalCode":"99520","RequestType":"Any","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":"Po Box 200535"}
+
+TESTCASE 01458, Validate_Data_Returned_With_Different_Phone_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>Alan Adams</Name><Phone>9075229313</Phone><PostalCode /><RequestType>Any</RequestType><ResourceType>enhanced</ResourceType><StateProvince>AK</StateProvince><StreetAddress /></MatchRequest>
+
+TESTCASE 01459, Validate_Data_Returned_With_Different_Phone_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"","Country":"USA","Name":"Alan Adams","Phone":"9075229313","PostalCode":"","RequestType":"Any","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":""}
+
+TESTCASE 01460, Validate_Data_Returned_With_Different_Phone_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>Alan Adams</Name><Phone>9075229313</Phone><PostalCode /><RequestType>Any</RequestType><ResourceType>enhanced</ResourceType><StateProvince /><StreetAddress /></MatchRequest>
+
+TESTCASE 01461, Validate_Data_Returned_With_Different_Phone_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"","Country":"USA","Name":"Alan Adams","Phone":"9075229313","PostalCode":"","RequestType":"Any","ResourceType":"enhanced","StateProvince":"","StreetAddress":""}
+
+TESTCASE 01462, Validate_Data_Returned_With_Different_Phone_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City /><Country>USA</Country><Name /><Phone>9075229313</Phone><PostalCode /><RequestType>Any</RequestType><ResourceType>enhanced</ResourceType><StateProvince /><StreetAddress /></MatchRequest>
+
+TESTCASE 01463, Validate_Data_Returned_With_Different_Phone_Combinations
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"","Country":"USA","Name":"Alan Adams","Phone":"","PostalCode":"99520-0535","RequestType":"Any","ResourceType":"basic","StateProvince":"","StreetAddress":""}
+
+TESTCASE 01464, Validate_IncludeHistorical
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><IncludeHistorical>true</IncludeHistorical><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><ResourceType>basic</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01465, Validate_IncludeHistorical
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","IncludeHistorical":true,"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01466, Validate_IncludeHistorical
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><IncludeHistorical>false</IncludeHistorical><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><ResourceType>basic</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01467, Validate_IncludeHistorical
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","IncludeHistorical":false,"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Person","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01468, Validate_IncludeHistorical
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><IncludeHistorical>true</IncludeHistorical><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><ResourceType>basic</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01469, Validate_IncludeHistorical
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","IncludeHistorical":true,"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Any","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01470, Validate_IncludeHistorical
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><IncludeHistorical>false</IncludeHistorical><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><ResourceType>basic</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01471, Validate_IncludeHistorical
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","IncludeHistorical":false,"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Any","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01472, Validate_IncludeNonVerified
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><IncludeNonVerified>true</IncludeNonVerified><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><ResourceType>basic</ResourceType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01473, Validate_IncludeNonVerified
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Anchorage","Country":"USA","IncludeNonVerified":true,"Name":"1 50 Plus T Asian Market","PostalCode":"99508","RequestType":"Company","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":"4015 Mountain View Dr"}
+
+TESTCASE 01474, Validate_IncludeNonVerified
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><IncludeNonVerified>false</IncludeNonVerified><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><ResourceType>basic</ResourceType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01475, Validate_IncludeNonVerified
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Anchorage","Country":"USA","IncludeNonVerified":false,"Name":"1 50 Plus T Asian Market","PostalCode":"99508","RequestType":"Company","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":"4015 Mountain View Dr"}
+
+TESTCASE 01476, Validate_IncludeNonVerified
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><IncludeNonVerified>true</IncludeNonVerified><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><ResourceType>basic</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01477, Validate_IncludeNonVerified
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","IncludeNonVerified":true,"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Any","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01478, Validate_IncludeNonVerified
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><IncludeNonVerified>false</IncludeNonVerified><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><ResourceType>basic</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01479, Validate_IncludeNonVerified
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","IncludeNonVerified":false,"Name":"Susan Singleton","PostalCode":"99610","RequestType":"Any","ResourceType":"enhanced","StateProvince":"AK","StreetAddress":"Po Box 722"}
+
+TESTCASE 01480, Validate_Apikey
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>Alan Adams</Name><Phone>9075229313</Phone><PostalCode>99520</PostalCode><RequestType>Any</RequestType><ResourceType>enhanced</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 200535</StreetAddress></MatchRequest>
+
+TESTCASE 01481, Validate_All_Fields_Are_Returned
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Fields><string>Address</string><string>AddressParsed</string><string>AgeRange</string><string>AreChildrenPresent</string><string>City</string><string>County</string><string>FirstName</string><string>Gender</string><string>HeadOfHousehold</string><string>HomeValueRange</string><string>Id</string><string>IncomeRange</string><string>IsHomeowner</string><string>LastName</string><string>LastNameSuffix</string><string>Latitude</string><string>Longitude</string><string>MaritalStatus</string><string>MiddleInitial</string><string>PostalCode</string><string>StateProvince</string><string>WealthFinder</string><string>YearsInHome</string><string>ZipPlus4</string><string>Lifestyle</string><string>Targetready</string><string>ApparelStylishWomens</string></Fields><Name>Alan Adams</Name><Phone>9075229313</Phone><PostalCode>99520</PostalCode><RequestType>Any</RequestType><StateProvince>AK</StateProvince><StreetAddress>Po Box 200535</StreetAddress></MatchRequest>
+
+TESTCASE 01482, Validate_All_Fields_Are_Returned
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Anchorage","Country":"USA","Fields":["Address","AddressParsed","City","CompanyName","CorporateEmployeesSizeActual","CorporateEmployeesSizeRange","CorporateSalesVolumeActual","CorporateSalesVolumeRange","County","CreditRatingScore","EIN1","EIN2","EIN3","Fax","FirstName","Gender","Id","LastName","Latitude","Longitude","LocationEmployeesSizeActual","LocationEmployeesSizeRange","LocationSalesVolumeActual","LocationSalesVolumeRange","Phone","PrimaryNaics","PrimarySic","PostalCode","StateProvince","Title","TollFree","ZipPlus4"],"Limit":1,"Name":"1 50 Plus T Asian Market","PostalCode":"99508","RequestType":"Company","StateProvince":"AK","StreetAddress":"4015 Mountain View Dr"}
+
+TESTCASE 01483, Validate_EmailAppendData
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Country>USA</Country><Fields><string>Email</string><string>City</string><string>FirstName</string><string>LastName</string><string>Address</string><string>PostalCode</string><string>Location</string></Fields><Name>Donald Russell</Name><PostalCode>72433</PostalCode><RequestType>Any</RequestType><StateProvince>AR</StateProvince><StreetAddress>Po Box 345</StreetAddress></MatchRequest>
+
+TESTCASE 01484, Validate_EmailAppendData
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"Country":"USA","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"IncludeHistorical":true,"Name":"Donald Russell","PostalCode":"72433","RequestType":"Any","StateProvince":"AR","StreetAddress":"Po Box 345"}
+
+TESTCASE 01485, Validate_EmailAppendData
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Country>USA</Country><Fields><string>Email</string><string>City</string><string>FirstName</string><string>LastName</string><string>Address</string><string>PostalCode</string><string>Location</string></Fields><IncludeHistorical>true</IncludeHistorical><Name>Donald Russell</Name><PostalCode>72433</PostalCode><RequestType>Person</RequestType><StateProvince>AR</StateProvince><StreetAddress>Po Box 345</StreetAddress></MatchRequest>
+
+TESTCASE 01486, Validate_EmailAppendDataCompany
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Chicago","CompanyName":"Nordstrom","Country":"USA","Fields":["Email","Address","AddressParsed","City","CompanyName","FirstName","Id","LastName","Links","Location","Phone","PostalCode","RuleName","Score","StateProvince","BusinessType","Contacts","CorporateEmployeeSizeActual","CorporateEmployeeSizeRange","CorporateSalesVolumeActual","CorporateSalesVolumeRange","County","CredtiRatingScore","EIN1","EIN2","EIN3","Fax","Franchise","Gender","LocationEmployeesSizeActual","LocationEmployeesSizeRange","LocationSalesVolumeActual","LocationSalesVolumeRange","NaicsList","PrimaryNaics","PrimarySic","TickerSymbol","Title","TollFree","UrlList","ZipPlus4","MatchScore"],"Name":"Nordstrom","PostalCode":"60611","RequestType":"Company","StateProvince":"IL","StreetAddress":"55 East Grand Avenue"}
+
+TESTCASE 01487, Validate_EmailAppendDataCompany
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Chicago</City><CompanyName>Nordstrom</CompanyName><Country>USA</Country><Fields><string>Email</string><string>Address</string><string>AddressParsed</string><string>City</string><string>CompanyName</string><string>FirstName</string><string>Id</string><string>LastName</string><string>Links</string><string>Location</string><string>Phone</string><string>PostalCode</string><string>RuleName</string><string>Score</string><string>StateProvince</string><string>BusinessType</string><string>Contacts</string><string>CorporateEmployeeSizeActual</string><string>CorporateEmployeeSizeRange</string><string>CorporateSalesVolumeActual</string><string>CorporateSalesVolumeRange</string><string>County</string><string>CredtiRatingScore</string><string>EIN1</string><string>EIN2</string><string>EIN3</string><string>Fax</string><string>Franchise</string><string>Gender</string><string>LocationEmployeesSizeActual</string><string>LocationEmployeesSizeRange</string><string>LocationSalesVolumeActual</string><string>LocationSalesVolumeRange</string><string>NaicsList</string><string>PrimaryNaics</string><string>PrimarySic</string><string>TickerSymbol</string><string>Title</string><string>TollFree</string><string>UrlList</string><string>ZipPlus4</string><string>MatchScore</string></Fields><Name>Nordstrom</Name><PostalCode>60611</PostalCode><RequestType>Company</RequestType><StateProvince>IL</StateProvince><StreetAddress>55 East Grand Avenue</StreetAddress></MatchRequest>
+
+TESTCASE 01488, Validate_EmailAppendDataPerson
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Fields":["Email","City","Name","Address","PostalCode","Location"],"Name":"Donald Russell","PostalCode":"72433","RequestType":"Person","StateProvince":"AR","StreetAddress":"Po Box 345"}
+
+TESTCASE 01489, Validate_EmailAppendDataPerson
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Fields":["Email","City","Name","Address","PostalCode","Location"],"Name":"Donald Russell","PostalCode":"72433","RequestType":"Person","StateProvince":"AR","StreetAddress":"Po Box 345"}
+
+TESTCASE 01490, Validate_EmailAppendDataPerson
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Fields><string>Email</string><string>City</string><string>Name</string><string>Address</string><string>PostalCode</string><string>Location</string></Fields><Name>Donald Russell</Name><PostalCode>72433</PostalCode><RequestType>Person</RequestType><StateProvince>AR</StateProvince><StreetAddress>Po Box 345</StreetAddress></MatchRequest>
+
+TESTCASE 01491, Validate_EmailAppendDataPerson
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Fields><string>Email</string><string>City</string><string>Name</string><string>Address</string><string>PostalCode</string><string>Location</string></Fields><Name>Donald Russell</Name><PostalCode>72433</PostalCode><RequestType>Person</RequestType><StateProvince>AR</StateProvince><StreetAddress>Po Box 345</StreetAddress></MatchRequest>
+
+TESTCASE 01492, Validate_EmailAppendDataPerson
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Fields":["Email","AgeRange","AreChildrenPresent","BirthMonthYear","County","EstimatedHomeIncomeRange","HeadOfHousehold","HomeValueRange","IncomeRange","IsHomeowner","LastNameSuffix","MaritalStatus","WealthFinder","YearsInHome","Gender","ZipPlus4"],"Name":"Donald Russell","PostalCode":"72433","RequestType":"Person","StateProvince":"AR","StreetAddress":"Po Box 345"}
+
+TESTCASE 01493, Validate_EmailAppendDataPerson
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Fields><string>Email</string><string>AgeRange</string><string>AreChildrenPresent</string><string>BirthMonthYear</string><string>County</string><string>EstimatedHomeIncomeRange</string><string>HeadOfHousehold</string><string>HomeValueRange</string><string>IncomeRange</string><string>IsHomeowner</string><string>LastNameSuffix</string><string>MaritalStatus</string><string>WealthFinder</string><string>YearsInHome</string><string>Gender</string><string>ZipPlus4</string></Fields><Name>Donald Russell</Name><PostalCode>72433</PostalCode><RequestType>Person</RequestType><StateProvince>AR</StateProvince><StreetAddress>Po Box 345</StreetAddress></MatchRequest>
+
+TESTCASE 01494, Validate_EmailAppendDataPerson
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"City":"Kasilof","Country":"USA","Fields":["Email","AgeRange","AreChildrenPresent","BirthMonthYear","County","EstimatedHomeIncomeRange","HeadOfHousehold","HomeValueRange","IncomeRange","IsHomeowner","LastNameSuffix","MaritalStatus","WealthFinder","YearsInHome","Gender","ZipPlus4"],"IncludeHistorical":true,"Name":"Donald Russell","PostalCode":"72433","RequestType":"Person","StateProvince":"AR","StreetAddress":"Po Box 345"}
+
+TESTCASE 01495, Validate_EmailAppendDataPerson
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Fields><string>Email</string><string>AgeRange</string><string>AreChildrenPresent</string><string>BirthMonthYear</string><string>County</string><string>EstimatedHomeIncomeRange</string><string>HeadOfHousehold</string><string>HomeValueRange</string><string>IncomeRange</string><string>IsHomeowner</string><string>LastNameSuffix</string><string>MaritalStatus</string><string>WealthFinder</string><string>YearsInHome</string><string>Gender</string><string>ZipPlus4</string></Fields><IncludeHistorical>true</IncludeHistorical><Name>Donald Russell</Name><PostalCode>72433</PostalCode><RequestType>Person</RequestType><StateProvince>AR</StateProvince><StreetAddress>Po Box 345</StreetAddress></MatchRequest>
+
+TESTCASE 01496, Validate_EmailAppendData_NotExistInEmailDatabase_ExistInConsumerDatabase
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/json
+  BODY {"Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"],"Limit":100,"Name":"Mary Szepski","PostalCode":"46226","RequestType":"Person","StateProvince":"IN","StreetAddress":"3662 Chateau Ln"}
+
+TESTCASE 01497, Validate_EmailAppend_Matches_For_Company_Request_With_SuppressedOnly
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>PAPILLION</City><CompanyName>A &amp; A RECYCLING</CompanyName><Confidence>70</Confidence><Fields><string>Email</string></Fields><Limit>10</Limit><PostalCode>68046</PostalCode><RequestType>Company</RequestType><StateProvince>NE</StateProvince><StreetAddress>226 N ADAMS STREET</StreetAddress></MatchRequest>
+
+TESTCASE 01498, Validate_EmailAppend_Matches_For_Company_Request_With_NotSuppressedOnly
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>PAPILLION</City><CompanyName>ADORABLE AFFORDABLE DESIGNS</CompanyName><Confidence>70</Confidence><Fields><string>Email</string></Fields><Limit>10</Limit><PostalCode>68046</PostalCode><RequestType>Company</RequestType><StateProvince>NE</StateProvince><StreetAddress>8111 MOLOKAI DR</StreetAddress></MatchRequest>
+
+TESTCASE 01499, Validate_EmailAppend_Matches_For_Company_Request_With_SuppressedAndNonSuppressed
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>PAPILLION</City><CompanyName>ABC FIRE PROTECTION</CompanyName><Confidence>70</Confidence><Fields><string>CompanyName</string><string>Email</string></Fields><Limit>10</Limit><PostalCode>68046</PostalCode><RequestType>Company</RequestType><StateProvince>NE</StateProvince><StreetAddress>PO BOX 461031</StreetAddress></MatchRequest>
+
+TESTCASE 01500, Validate_EmailAppend_Matches_For_People_Request_With_SuppressedOnly
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>OMAHA</City><Confidence>70</Confidence><Fields><string>Email</string></Fields><Limit>10</Limit><Name>STEPHANIE ARENT</Name><PostalCode>68154</PostalCode><RequestType>Person</RequestType><StateProvince>NE</StateProvince><StreetAddress>236 N 117TH AVE</StreetAddress></MatchRequest>
+
+TESTCASE 01501, Validate_EmailAppend_Matches_For_People_Request_With_NotSuppressedOnly
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>OMAHA</City><Confidence>70</Confidence><Fields><string>Email</string></Fields><Limit>10</Limit><Name>MICHAEL ABBOTT</Name><PostalCode>68154</PostalCode><RequestType>Person</RequestType><StateProvince>NE</StateProvince><StreetAddress>15108 BEMIS ST</StreetAddress></MatchRequest>
+
+TESTCASE 01502, Validate_EmailAppend_Matches_For_People_Request_With_SuppressedAndNonSuppressed
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><Confidence>70</Confidence><Fields><string>FirstName</string><string>LastName</string><string>Email</string></Fields><Limit>10</Limit><Name>Matt Rinkenberger</Name><PostalCode>68137</PostalCode><RequestType>Person</RequestType><StateProvince>NE</StateProvince><StreetAddress>5621 S 135th Street</StreetAddress></MatchRequest>
+
+TESTCASE 01503, Validate_EmailAppend_Match_Filter_For_ConsumerOnly_Records
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Papillion</City><Confidence>100</Confidence><Country>USA</Country><Fields><string>Email</string></Fields><Limit>1</Limit><Name>Pinnacle Bank</Name><Phone>4023312300</Phone><PostalCode>68046</PostalCode><RequestType>Person</RequestType><StateProvince>NE</StateProvince><StreetAddress>102 E Cary St</StreetAddress></MatchRequest>
+
+TESTCASE 01504, Validate_EmailAppend_Matches_For_Case_Insensitive_Email_Field
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Confidence>70</Confidence><Country>USA</Country><Fields><string>email</string></Fields><Limit>10</Limit><Name>Donald Russell</Name><PostalCode>72433</PostalCode><RequestType>Any</RequestType><StateProvince>AR</StateProvince><StreetAddress>Po Box 345</StreetAddress></MatchRequest>
+
+TESTCASE 01505, Validate_EmailAppend_Matches_For_Internal_Fields
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Confidence>70</Confidence><Country>USA</Country><Fields><string>Email</string><string>BuildDate</string><string>individualid</string></Fields><Limit>10</Limit><Name>Donald Russell</Name><PostalCode>72433</PostalCode><RequestType>Any</RequestType><StateProvince>AR</StateProvince><StreetAddress>Po Box 345</StreetAddress></MatchRequest>
+
+TESTCASE 01506, Validate_Tribune
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Client>Tribune</Client><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><RuleSource>Dynamic</RuleSource><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01507, Validate_Tribune_RuleSource_Database
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Client>Tribune</Client><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><RuleSource>Database</RuleSource><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01508, Validate_Tribune_Any_Request_With_Company_In_Name_Field
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>BOCA RATON</City><Client>Tribune</Client><Country>USA</Country><Name>MERCATOR ASSET MANAGEMENT CO</Name><Phone>5613611079</Phone><PostalCode>33486</PostalCode><RequestType>Any</RequestType><RuleSource>Dynamic</RuleSource><StateProvince>FL</StateProvince><StreetAddress>5200 TOWN CENTER CIR</StreetAddress><StreetAddress2>550</StreetAddress2></MatchRequest>
+
+TESTCASE 01509, Validate_Tribune_Any_Request_With_Person_Name_In_Name_Field
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Client>Tribune</Client><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><RuleSource>Dynamic</RuleSource><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+#ResourceTypeTests
+TESTCASE 01510, Validate_Company_ResourceType_Basic
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01511, Validate_Company_ResourceType_Enhanced
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Anchorage</City><Country>USA</Country><Name>1 50 Plus T Asian Market</Name><PostalCode>99508</PostalCode><RequestType>Company</RequestType><ResourceType>enhanced</ResourceType><StateProvince>AK</StateProvince><StreetAddress>4015 Mountain View Dr</StreetAddress></MatchRequest>
+
+TESTCASE 01512, Validate_Person_ResourceType_Basic
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01513, Validate_Person_ResourceType_Enhanced
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><ResourceType>enhanced</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01514, Validate_Person_ResourceType_Lifestyle
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><ResourceType>lifestyle</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01515, Validate_Person_ResourceType_TargetReady
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Person</RequestType><ResourceType>targetready</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01516, Validate_Any_ResourceType_Basic
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+
+TESTCASE 01517, Validate_Any_ResourceType_Enhanced
+  POST ${matchuri-port}\${matchuri-end-point}
+  SET_HEADER Accept: application/xml
+  BODY <MatchRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Kasilof</City><Country>USA</Country><Name>Susan Singleton</Name><PostalCode>99610</PostalCode><RequestType>Any</RequestType><ResourceType>enhanced</ResourceType><StateProvince>AK</StateProvince><StreetAddress>Po Box 722</StreetAddress></MatchRequest>
+

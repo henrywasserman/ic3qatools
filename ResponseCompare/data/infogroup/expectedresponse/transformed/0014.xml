@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><root>
+<MatchCount type="int">2</MatchCount>
+<Matches>
+<Common type="array"/>
+<Companies type="array"/>
+<People type="array">
+<People>
+<ETag type="string"/>
+<EmailVendor>
+<Email type="string">PHILYAWANGIE@YMAIL.COM</Email>
+<VendorId type="string">11</VendorId>
+</EmailVendor>
+<FirstName type="string">Angela</FirstName>
+<LastName type="string">Philyaw</LastName>
+<Location>
+<Latitude type="float">30.386736</Latitude>
+<Longitude type="float">-87.291956</Longitude>
+</Location>
+<PostalCode type="string">32507</PostalCode>
+<RuleName type="string">PeopleEmail-LastNameAddress</RuleName>
+<Score type="int">100</Score>
+</People>
+<People>
+<ETag type="string"/>
+<Id type="string">000953578035</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/people/000953578035</Href>
+<Rel type="string">self</Rel>
+</Links>
+</Links>
+<EmailVendor>
+<Email type="string">BLUSHINGFLOWER@EMBARQMAIL.COM</Email>
+<VendorId type="string">35</VendorId>
+</EmailVendor>
+<FirstName type="string">Patricia</FirstName>
+<LastName type="string">Philyaw</LastName>
+<Location>
+<Latitude type="float">30.386736</Latitude>
+<Longitude type="float">-87.291956</Longitude>
+</Location>
+<PostalCode type="string">32507</PostalCode>
+<RuleName type="string">PeopleEmail-LastNameAddress</RuleName>
+<Score type="int">100</Score>
+</People>
+</People>
+</Matches>
+<ScoreSummary type="array">
+<ScoreSummary>
+<ResourceType type="string">Person</ResourceType>
+<RuleName type="string">PeopleEmail-LastNameAddress</RuleName>
+<Score type="int">100</Score>
+</ScoreSummary>
+<ScoreSummary>
+<Href type="string">/v1/people/000953578035</Href>
+<ResourceType type="string">Person</ResourceType>
+<RuleName type="string">PeopleEmail-LastNameAddress</RuleName>
+<Score type="int">100</Score>
+</ScoreSummary>
+</ScoreSummary>
+</root>

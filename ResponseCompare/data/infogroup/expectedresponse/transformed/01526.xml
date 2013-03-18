@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<counts type="string">10</counts>
+</root>
+<root>
+<id type="string">000317731</id>
+<LevenshteinScore type="string">0.8</LevenshteinScore>
+<location_id type="string">400001854134</location_id>
+<individul_id type="string">600003265274</individul_id>
+<firstname type="string">ROBERT</firstname>
+<middle_name type="string">G</middle_name>
+<lastname type="string">BUTLER</lastname>
+<lastname_suffix type="string">SR</lastname_suffix>
+<email type="string">null</email>
+<phone type="string">9074580718</phone>
+<address type="string">1624 WASHINGTON DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">99709</zipcode>
+</root>
+<root>
+<id type="string">000317732</id>
+<LevenshteinScore type="string">0.8</LevenshteinScore>
+<location_id type="string">400001854134</location_id>
+<individul_id type="string">500003253853</individul_id>
+<firstname type="string">FAYE</firstname>
+<middle_name type="string">A</middle_name>
+<lastname type="string">BUTLER</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string">9074580718</phone>
+<address type="string">1624 WASHINGTON DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">99709</zipcode>
+</root>
+<root>
+<id type="string">000317733</id>
+<LevenshteinScore type="string">0.8</LevenshteinScore>
+<location_id type="string">400001854134</location_id>
+<individul_id type="string">200003265277</individul_id>
+<firstname type="string">ANNIEFAYE</firstname>
+<middle_name type="string">D</middle_name>
+<lastname type="string">BUTLER</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string">9074580718</phone>
+<address type="string">1624 WASHINGTON DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">99709</zipcode>
+</root>
+<root>
+<id type="string">000317734</id>
+<LevenshteinScore type="string">0.8</LevenshteinScore>
+<location_id type="string">400001854134</location_id>
+<individul_id type="string">802174561867</individul_id>
+<firstname type="string">FATE</firstname>
+<middle_name type="string"/>
+<lastname type="string">BUTLER</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string">9074580718</phone>
+<address type="string">1624 WASHINGTON DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">99709</zipcode>
+</root>
+<root>
+<id type="string">000105188</id>
+<LevenshteinScore type="string">0.77</LevenshteinScore>
+<location_id type="string">100397847461</location_id>
+<individul_id type="string">600003405753</individul_id>
+<firstname type="string">JENNIFER</firstname>
+<middle_name type="string">L</middle_name>
+<lastname type="string">SIMMONS</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string"/>
+<address type="string">1623 WASHINGTON DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">99709</zipcode>
+</root>
+<root>
+<id type="string">000105186</id>
+<LevenshteinScore type="string">0.77</LevenshteinScore>
+<location_id type="string">100397847461</location_id>
+<individul_id type="string">900777432482</individul_id>
+<firstname type="string">VESTRE</firstname>
+<middle_name type="string"/>
+<lastname type="string">CAPSON</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string"/>
+<address type="string">1623 WASHINGTON DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">99709</zipcode>
+</root>
+<root>
+<id type="string">000105187</id>
+<LevenshteinScore type="string">0.77</LevenshteinScore>
+<location_id type="string">100397847461</location_id>
+<individul_id type="string">100777432483</individul_id>
+<firstname type="string">JENNIFER</firstname>
+<middle_name type="string">L</middle_name>
+<lastname type="string">CAPSON</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string"/>
+<address type="string">1623 WASHINGTON DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">99709</zipcode>
+</root>
+<root>
+<id type="string">000105189</id>
+<LevenshteinScore type="string">0.77</LevenshteinScore>
+<location_id type="string">100397847461</location_id>
+<individul_id type="string">000003405755</individul_id>
+<firstname type="string">SAVANNAH</firstname>
+<middle_name type="string">C</middle_name>
+<lastname type="string">SIMMONS</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string"/>
+<address type="string">1623 WASHINGTON DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">99709</zipcode>
+</root>
+<root>
+<id type="string">000105190</id>
+<LevenshteinScore type="string">0.77</LevenshteinScore>
+<location_id type="string">100397847461</location_id>
+<individul_id type="string">402364195601</individul_id>
+<firstname type="string">JOSHUA</firstname>
+<middle_name type="string">J</middle_name>
+<lastname type="string">MUSTOVICH</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string"/>
+<address type="string">1623 WASHINGTON DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">99709</zipcode>
+</root>
+<root>
+<id type="string">000073290</id>
+<LevenshteinScore type="string">0.77</LevenshteinScore>
+<location_id type="string">001447836857</location_id>
+<individul_id type="string">101671863171</individul_id>
+<firstname type="string">PETER</firstname>
+<middle_name type="string"/>
+<lastname type="string">BAKSISIII</lastname>
+<lastname_suffix type="string"/>
+<email type="string">null</email>
+<phone type="string"/>
+<address type="string">1622 WASHINGTON DR</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">99709</zipcode>
+</root>
+</root>

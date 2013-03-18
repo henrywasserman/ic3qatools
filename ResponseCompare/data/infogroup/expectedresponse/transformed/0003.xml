@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<ETag type="string"/>
+<Id type="string">202494795193</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/people/202494795193</Href>
+<Rel type="string">self</Rel>
+</Links>
+</Links>
+<Address type="string">3402 MELROSE AVE</Address>
+<AddressParsed>
+<Name type="string">Melrose</Name>
+<Number type="string">3402</Number>
+<Suffix type="string">Ave</Suffix>
+</AddressParsed>
+<City type="string">TRIANGLE</City>
+<FirstName type="string">Jennifer</FirstName>
+<LastName type="string">Steinert</LastName>
+<Location>
+<Latitude type="float">38.556870</Latitude>
+<Longitude type="float">-77.315856</Longitude>
+</Location>
+<PostalCode type="string">22172</PostalCode>
+<StateProvince type="string">VA</StateProvince>
+</root>
+<root>
+<ETag type="string"/>
+<Id type="string">502510712055</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/people/502510712055</Href>
+<Rel type="string">self</Rel>
+</Links>
+</Links>
+<Address type="string">14103 GRAYSON RD</Address>
+<AddressParsed>
+<Name type="string">Grayson</Name>
+<Number type="string">14103</Number>
+<Suffix type="string">Rd</Suffix>
+</AddressParsed>
+<City type="string">WOODBRIDGE</City>
+<FirstName type="string">Jennifer</FirstName>
+<LastName type="string">Steinert</LastName>
+<Location>
+<Latitude type="float">38.646945</Latitude>
+<Longitude type="float">-77.273453</Longitude>
+</Location>
+<PostalCode type="string">22191</PostalCode>
+<StateProvince type="string">VA</StateProvince>
+</root>
+</root>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><root>
+<MatchCount type="int">5</MatchCount>
+<Matches>
+<Common type="array"/>
+<Companies type="array"/>
+<People type="array">
+<People>
+<ETag type="string"/>
+<EmailVendor>
+<Email type="string">FMC96582@AOL.COM</Email>
+<VendorId type="string">17</VendorId>
+</EmailVendor>
+<FirstName type="string">Felix</FirstName>
+<LastName type="string">Colon</LastName>
+<Location>
+<Latitude type="float">25.977165</Latitude>
+<Longitude type="float">-80.385406</Longitude>
+</Location>
+<PostalCode type="string">33029</PostalCode>
+<RuleName type="string">PeopleEmail-LastNameFirstNameAddress</RuleName>
+<Score type="int">100</Score>
+</People>
+<People>
+<ETag type="string"/>
+<Id type="string">701997944459</Id>
+<Links type="array">
+<Links>
+<Href type="string">/v1/people/701997944459</Href>
+<Rel type="string">self</Rel>
+</Links>
+</Links>
+<EmailVendor>
+<Email type="string">MCOLONPEREZ@MSN.COM</Email>
+<VendorId type="string">35</VendorId>
+</EmailVendor>
+<FirstName type="string">Maria</FirstName>
+<LastName type="string">Colon Perez</LastName>
+<Location>
+<Latitude type="float">25.977165</Latitude>
+<Longitude type="float">-80.385406</Longitude>
+</Location>
+<PostalCode type="string">33029</PostalCode>
+<RuleName type="string">PeopleEmail-LastNameAddress</RuleName>
+<Score type="int">100</Score>
+</People>
+<People>
+<ETag type="string"/>
+<EmailVendor>
+<Email type="string">LIMARIE.ALICEA@YAHOO.COM</Email>
+<VendorId type="string">11</VendorId>
+</EmailVendor>
+<FirstName type="string">Diana</FirstName>
+<LastName type="string">Colon</LastName>
+<Location>
+<Latitude type="float">26.004190</Latitude>
+<Longitude type="float">-80.402313</Longitude>
+</Location>
+<PostalCode type="string">33029</PostalCode>
+<RuleName type="string">PeopleEmail-LastName</RuleName>
+<Score type="int">80</Score>
+</People>
+<People>
+<ETag type="string"/>
+<EmailVendor>
+<Email type="string">BEBI.1@HOTMAIL.COM</Email>
+<VendorId type="string">05</VendorId>
+</EmailVendor>
+<FirstName type="string">Yadira</FirstName>
+<LastName type="string">Colon</LastName>
+<Location>
+<Latitude type="float">26.004190</Latitude>
+<Longitude type="float">-80.402313</Longitude>
+</Location>
+<PostalCode type="string">33029</PostalCode>
+<RuleName type="string">PeopleEmail-LastName</RuleName>
+<Score type="int">80</Score>
+</People>
+<People>
+<ETag type="string"/>
+<EmailVendor>
+<Email type="string">JA-GLEZ@LIVE.COM</Email>
+<VendorId type="string">03</VendorId>
+</EmailVendor>
+<FirstName type="string">Yadira</FirstName>
+<LastName type="string">Colon</LastName>
+<Location>
+<Latitude type="float">26.004190</Latitude>
+<Longitude type="float">-80.402313</Longitude>
+</Location>
+<PostalCode type="string">33029</PostalCode>
+<RuleName type="string">PeopleEmail-LastName</RuleName>
+<Score type="int">80</Score>
+</People>
+</People>
+</Matches>
+<ScoreSummary type="array">
+<ScoreSummary>
+<ResourceType type="string">Person</ResourceType>
+<RuleName type="string">PeopleEmail-LastNameFirstNameAddress</RuleName>
+<Score type="int">100</Score>
+</ScoreSummary>
+<ScoreSummary>
+<Href type="string">/v1/people/701997944459</Href>
+<ResourceType type="string">Person</ResourceType>
+<RuleName type="string">PeopleEmail-LastNameAddress</RuleName>
+<Score type="int">100</Score>
+</ScoreSummary>
+<ScoreSummary>
+<ResourceType type="string">Person</ResourceType>
+<RuleName type="string">PeopleEmail-LastName</RuleName>
+<Score type="int">80</Score>
+</ScoreSummary>
+<ScoreSummary>
+<ResourceType type="string">Person</ResourceType>
+<RuleName type="string">PeopleEmail-LastName</RuleName>
+<Score type="int">80</Score>
+</ScoreSummary>
+<ScoreSummary>
+<ResourceType type="string">Person</ResourceType>
+<RuleName type="string">PeopleEmail-LastName</RuleName>
+<Score type="int">80</Score>
+</ScoreSummary>
+</ScoreSummary>
+</root>

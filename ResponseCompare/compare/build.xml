@@ -1,0 +1,201 @@
+<project name="compare" default="compare" basedir=".">
+  <!--<property name="infogroup.dir" value="../../../INFOGROUP"/>-->
+  <property name="lib.dir" value="../lib"/>
+  <tstamp>
+      <format locale="en,US" pattern="yyyyMMdd_HHmmss" property="TODAY"/>
+  </tstamp>
+
+  <target name="set-new-basedir" if="dir.test.report">
+    <property name="new.basedir" value="${dir.test.report}/../XStreamCompare/compare"/>
+    <property name="compare.dir" value="${dir.test.report}/xstream-compare"/>
+    <property name="test.report.dir" value = "${dir.test.report}/xstream-compare/${dir.datestamp}"/>
+  </target>
+
+  <target name="set-dir-test-report" unless="dir.test.report">
+	  <property name="test.report.dir" value="${basedir}/../test_output/xstream-compare/infogroup_TestResults_${TODAY}"/>
+	<property name="new.basedir" value="${basedir}" />
+	<property name="compare.dir" value="${basedir}/../" />
+	<echo message="new.basedir is now ${basedir}"/>
+  </target>
+
+  <target name="init" depends="set-new-basedir,set-dir-test-report">
+    <tstamp>
+      <format locale="en,US" pattern=" MMMM dd 'at' HH:mm:ss z yyyy" property="RunDate"/>
+    </tstamp>
+    <property name="version" value="0.9"/>
+    <property name="datestamp" value="${TODAY}"/>
+    <property name="TestRunDate" value="${RunDate}"/>
+    <property name="src.dir" value="src"/>
+    <property name="test.dir" value="${basedir}"/>
+    <!--
+    <property name="lib.dir" value="../lib"/>
+    -->
+    <property name="out.dir" value="classes"/>
+    <property name="data.dir" value="../data"/>
+    <property name="docs.dir" value="doc"/>
+    <property environment="env"/>
+    <property name="test.report.dir.data" value="${test.report.dir}/data"/>
+    <property name="test.report.dir.response" value="${test.report.dir}/data/response"/>
+    <property name="test.report.dir.expectedresponse" value="${test.report.dir}/data/expectedresponse"/>
+    <property name="test.report.dir.request" value="${test.report.dir}/data/request"/>
+    <property name="test.report.dir.compare" value="${test.report.dir}/compare/html/"/>
+    <property file="../request/properties/request.properties"/>
+
+    <condition property="file" value="${file}" else="none">
+        <isset property="file"/>
+    </condition>
+
+    <condition property="files" value="${files}" else="none">
+        <isset property="files"/>
+    </condition>
+
+  </target>
+    
+  <target name="create-dirs">
+    <mkdir dir="${lib.dir}"/>
+    <mkdir dir="${out.dir}"/>
+    <mkdir dir="${test.report.dir}"/>
+    <mkdir dir="${test.report.dir.data}"/>
+    <mkdir dir="${test.report.dir.request}"/>
+    <mkdir dir="${test.report.dir.response}"/>
+    <mkdir dir="${test.report.dir.expectedresponse}"/>  
+  </target>
+
+<!--  ===================================================================  -->
+<!--  Checks for xslt libraries                                            -->
+<!--  ===================================================================  -->
+  <target name="check-for-xslt" unless="xslt-exists">
+		  <available property="xslt.exists" file="${env.ANT_HOME}/lib/xercesImpl.jar"/>
+  </target>
+
+<!--  ===================================================================  -->
+<!--  Cleans up generated stuff                                            -->
+<!--  ===================================================================  -->
+  <target name="clean" depends="init">
+    <delete includeEmptyDirs="true" failonerror="false">
+      <fileset dir="${out.dir}" includes="**/*.class"/>
+      <fileset dir="${test.report.dir}" includes="**/TEST*.txt"/>
+	  <!--<fileset dir="${new.basedir}/../infogroup_TestResults_${datestamp}" />-->
+    </delete> 
+  </target>
+
+<!--  ===================================================================  -->
+<!--  Compile                                                              -->
+<!--  ===================================================================  -->
+  <target name="compile" depends="init">
+
+    
+    <mkdir dir="${out.dir}"/>
+    <javac srcdir="${test.dir}/src" destdir="${out.dir}"
+    		debug="true" deprecation="off" optimize="off">
+    	<classpath>
+        	<fileset dir="${lib.dir}">
+            	<include name="*.jar"/>
+        	</fileset>
+		<fileset dir="${lib.dir}">
+	    	<include name="*.jar"/>
+		</fileset>
+        	<pathelement path="${java.class.path}"/>
+		</classpath>
+    </javac>
+  </target>
+
+<!--  ===================================================================  -->
+<!--  Test the Response XMLs                                               -->
+<!--  ===================================================================  -->
+  <target name="compare" depends="clean,create-dirs,compile">
+
+    <mkdir dir="${test.report.dir}"/>
+	<mkdir dir="${test.report.dir.data}"/>
+	<mkdir dir="${test.report.dir.request}"/>
+	<mkdir dir="${test.report.dir.response}"/>
+    <mkdir dir="${test.report.dir.expectedresponse}"/>  
+
+    <junit printsummary="yes" haltonfailure="no" fork="yes" maxmemory="1024m">
+      <sysproperty key="nlg.product" value="INFOGROUP"/>
+	  <sysproperty key="server" value="${tomcat.host}"/>
+	  <sysproperty key="port" value="${tomcat.port}"/>
+	  <sysproperty key="user.dir" value="${basedir}" />
+	  <sysproperty key="data.dir" value="${dir.xstream.data}"/>
+	  <sysproperty key="dir.test.integration" value="${dir.test.integration}"/>
+	  <sysproperty key="new.basedir" value = "${new.basedir}"/>
+	  <sysproperty key="compare.dir" value = "${compare.dir}" />
+	  <sysproperty key="file" value = "${file}"/>
+	  <sysproperty key="files" value = "${files}"/>
+
+      <classpath>
+        <pathelement location="${out.dir}"/>
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${java.class.path}"/>
+      </classpath>
+      <formatter type="xml"/>
+      <batchtest fork="yes" todir="${test.report.dir}">
+        <fileset dir="${test.dir}/src">
+          <include name="**/MakeRequestTest.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+	<junitreport todir="${test.report.dir}">
+	  <fileset dir="${test.report.dir}">
+	    <include name="TEST-*.xml"/>
+	  </fileset>
+
+	  <report format="frames" 
+            todir="${test.report.dir}/html"
+			styledir="junit"/>
+    </junitreport>
+
+      <!-- copy the files to request directory -->
+        <copy todir="${test.report.dir.request}">
+				<fileset dir="${new.basedir}/../data/request"/>
+        </copy>
+
+        <copy todir="${test.report.dir.response}" >
+		<fileset dir="${new.basedir}/../data/response"/>
+        </copy>
+        <copy todir="${test.report.dir.expectedresponse}">
+		<fileset dir="${new.basedir}/../data/expectedresponse"/>
+        </copy>
+
+      <antcall target="copy_report"></antcall>
+  </target>
+
+  <target name="setDistVersion" depends="init">
+    <replace dir="${src.dir}" token="@@version@@" value="${version}"
+       includes="**/*.java"/>
+  </target>
+
+<!--  ===================================================================  -->
+<!--  Convert the results to Docs                                          -->
+<!--  ===================================================================  -->
+  <target name="docs" depends="init">
+    <mkdir dir="${docs.dir}"/>
+    <delete includeEmptyDirs="true" dir="${docs.dir}/org"/>
+    <javadoc sourcepath="${src.dir}/java" destdir="${docs.dir}"
+      packagenames="org.custommonkey.xmlunit.*"
+      overview="${src.dir}/java/overview.html"
+      windowtitle="XMLUnit Documentation"
+      footer="&lt;p&gt;&lt;a href=&quot;http://xmlunit.sourceforge.net/&quot;&gt;XMLUnit&lt;/a&gt; is hosted by sourceforge.net&lt;/p&gt;">
+      <group title="XMLUnit v${version}"
+        packages="org.custommonkey.xmlunit.*"/>
+      <classpath>
+        <fileset dir="${lib.dir}">
+          <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${java.class.path}"/>
+      </classpath>
+    </javadoc>
+  </target>
+
+  <target name="copy_report">
+    <mkdir dir="${test.report.dir.request}"/>
+    <mkdir dir="${test.report.dir.compare}"/>
+    <copy todir="${test.report.dir.compare}">
+        <fileset dir="${test.report.dir}/html/"/>
+     </copy>
+  </target>
+    
+</project>
+

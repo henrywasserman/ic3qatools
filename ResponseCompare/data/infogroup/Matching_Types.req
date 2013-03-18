@@ -1,0 +1,35 @@
+TESTCASE 01518, Validate Performance Type Request 0
+  GET_MINI ${miniuri-port}/${miniuri-end-point}?lastname=hawkins&firstname=joey&phone=2052015165&matching_type=0
+  SET_HEADER Accept: application/json
+
+TESTCASE 01519, Validate Performance Type Request 1
+  GET_MINI ${miniuri-port}/${miniuri-end-point}?phone=2059781562&matching_type=1
+  SET_HEADER Accept: application/json
+
+TESTCASE 01520, Validate Performance Type Request 2
+  GET_MINI ${miniuri-port}/${miniuri-end-point}?lastname=JOHNSON&firstname=JOSEPH&street_name=DOVE%20HOLLOW&house_number=247&zipcode=35759&matching_type=2
+  SET_HEADER Accept: application/json
+
+TESTCASE 01521, Validate Performance Type Request 3
+  GET_MINI ${miniuri-port}/${miniuri-end-point}?lastname=BARCLAY&firstname=WALLACE&street_name=PO%20BOX&house_number=214&zipcode=35014&matching_type=3
+  SET_HEADER Accept: application/json
+
+TESTCASE 01522, Validate Performance Type Request 4
+  GET_MINI ${miniuri-port}/${miniuri-end-point}?lastname=KING&street_name=STOKES&house_number=1123&zipcode=36110&matching_type=4
+  SET_HEADER Accept: application/json
+
+TESTCASE 01523, Validate Performance Type Request 5
+  GET_MINI ${miniuri-port}/${miniuri-end-point}?lastname=JOHNSON&street_name=LEE%20ROAD&house_number=5715&zipcode=36870&matching_type=5
+  SET_HEADER Accept: application/json
+
+TESTCASE 01524, Validate Performance Type Request 6
+  GET_MINI ${miniuri-port}/${miniuri-end-point}?lastname=RAMSEY&firstname=LUKE&zipcode=72015&matching_type=6
+  SET_HEADER Accept: application/json
+
+TESTCASE 01525, Validate Performance Type Request 7
+  GET_MINI ${miniuri-port}/${miniuri-end-point}?lastname=MURPHY=&name_suffix=SR&zipcode=72581&matching_type=7
+  SET_HEADER Accept: application/json
+
+TESTCASE 01526, Validate Performance Type Request 8
+  GET_MINI ${miniuri-port}/${miniuri-end-point}?street_name=WASHINGTON&house_number=1624&zipcode=99709&matching_type=8
+  SET_HEADER Accept: application/json

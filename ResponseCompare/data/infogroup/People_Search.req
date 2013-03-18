@@ -1,0 +1,3254 @@
+#DiagnosticTests
+TESTCASE 00710, Validate_Diagnostics_POST_County_And_State
+  POST ${peopleuri-port}/${peopleuri-end-point}?diag=true
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><County>Sarpy</County><StateProvince>NE</StateProvince></PersonSearch>
+
+#InputTests
+TESTCASE 00711, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Offset>0</Offset></PersonSearch>
+
+TESTCASE 00712, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":1,"Offset":0}
+
+TESTCASE 00713, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>1</Limit><Offset>1</Offset></PersonSearch>
+
+TESTCASE 00714, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":20,"Offset":0}
+
+TESTCASE 00715, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>20</Limit><Offset>10</Offset></PersonSearch>
+
+TESTCASE 00716, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":2147483647,"Offset":0}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00717, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>2147483647</Limit><Offset>2147483647</Offset></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00718, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":0,"Offset":-2147483648}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00719, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>-2147483648</Limit><Offset>0</Offset></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00720, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":-2147483648,"Offset":-2147483648}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00721, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>0</Limit><Offset>0</Offset></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00722, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":0,"Offset":1}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00723, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>0</Limit><Offset>2147483647</Offset></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00724, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":0}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00725, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>99</Limit><Offset>0</Offset></PersonSearch>
+
+TESTCASE 00726, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":100,"Offset":0}
+
+TESTCASE 00727, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>101</Limit><Offset>0</Offset></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00728, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":-1,"Offset":0}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00729, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Offset>-1</Offset></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00730, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":1,"Offset":0,"ResourceType":"Core"}
+
+TESTCASE 00731, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>2000</Limit><Offset>0</Offset><ResourceType>Core</ResourceType></PersonSearch>
+
+TESTCASE 00732, Validate_Offset_And_Limit_Combinations
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":2001,"Offset":0,"ResourceType":"Core"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00733, Validate_PostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><PostalCode><string>D5C2H4</string></PostalCode></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00734, Validate_PostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"PostalCode":["90210,D5C2H4,68046"]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00735, Validate_Email_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>abc123xyz</Email></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00736, Validate_RadiusPostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>Scott</FirstName><RadiusPostalCodeList><RadiusPostalCode><PostalCode>68046-1234</PostalCode><RadiusMiles>.1</RadiusMiles></RadiusPostalCode></RadiusPostalCodeList><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00737, Validate_RadiusPostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"Scott","RadiusPostalCodeList":[{"PostalCode":"680461234","RadiusMiles":".1"}],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00738, Validate_RadiusPostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>Scott</FirstName><RadiusPostalCodeList><RadiusPostalCode><PostalCode>3</PostalCode><RadiusMiles>.1</RadiusMiles></RadiusPostalCode></RadiusPostalCodeList><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00739, Validate_RadiusPostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"Scott","RadiusPostalCodeList":[{"PostalCode":"aaaaaaaaaaa","RadiusMiles":".1"}],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00740, Validate_RadiusPostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>Scott</FirstName><RadiusPostalCodeList><RadiusPostalCode><PostalCode>99999</PostalCode><RadiusMiles>.1</RadiusMiles></RadiusPostalCode></RadiusPostalCodeList><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 500
+  SKIP_COMPARE
+
+TESTCASE 00741, Validate_Polygon_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><LastName>Scott</LastName><PolygonList><Polygon><Points><Point><Latitude>941.169609</Latitude><Longitude>-96.067886</Longitude></Point><Point><Latitude>41.1678</Latitude><Longitude>-96.000938</Longitude></Point><Point><Latitude>41.137813</Latitude><Longitude>-96.073895</Longitude></Point></Points></Polygon></PolygonList><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00742, Validate_Polygon_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"LastName":"Scott","PolygonList":[{"Points":[{"Latitude":"41.169609","Longitude":"WRONG"},{"Latitude":"41.1678","Longitude":"-96.000938"},{"Latitude":"41.137813","Longitude":"-96.073895"}]}],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00743, Validate_Polygon_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><LastName>Scott</LastName><PolygonList><Polygon><Points><Point><Latitude>41.169609</Latitude><Longitude>WRONG</Longitude></Point><Point><Latitude>41.1678</Latitude><Longitude>-96.000938</Longitude></Point><Point><Latitude>41.137813</Latitude><Longitude>-96.073895</Longitude></Point></Points></Polygon><Polygon><Points><Point><Latitude>41.169609</Latitude><Longitude>WRONG</Longitude></Point><Point><Latitude>41.1678</Latitude><Longitude>-96.000938</Longitude></Point><Point><Latitude>41.137813</Latitude><Longitude>-96.073895</Longitude></Point></Points></Polygon><Polygon><Points><Point><Latitude>41.169609</Latitude><Longitude>WRONG</Longitude></Point><Point><Latitude>41.1678</Latitude><Longitude>-96.000938</Longitude></Point><Point><Latitude>41.137813</Latitude><Longitude>-96.073895</Longitude></Point></Points></Polygon><Polygon><Points><Point><Latitude>41.169609</Latitude><Longitude>WRONG</Longitude></Point><Point><Latitude>41.1678</Latitude><Longitude>-96.000938</Longitude></Point><Point><Latitude>41.137813</Latitude><Longitude>-96.073895</Longitude></Point></Points></Polygon><Polygon><Points><Point><Latitude>41.169609</Latitude><Longitude>WRONG</Longitude></Point><Point><Latitude>41.1678</Latitude><Longitude>-96.000938</Longitude></Point><Point><Latitude>41.137813</Latitude><Longitude>-96.073895</Longitude></Point></Points></Polygon><Polygon><Points><Point><Latitude>41.169609</Latitude><Longitude>WRONG</Longitude></Point><Point><Latitude>41.1678</Latitude><Longitude>-96.000938</Longitude></Point><Point><Latitude>41.137813</Latitude><Longitude>-96.073895</Longitude></Point></Points></Polygon></PolygonList><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00744, Validate_BirthMonth_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><BirthMonth>15</BirthMonth><PostalCode><string>68154</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00745, Validate_BirthMonth_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"BirthMonth":"00","PostalCode":["68154"],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00746, Validate_BirthMonth_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><BirthMonth>AB</BirthMonth><PostalCode><string>68154</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00747, Validate_BirthMonth_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"BirthMonth":"@$","PostalCode":["68154"],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00748, Validate_AgeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><BirthMonth>15</BirthMonth><PostalCode><string>68154</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00749, Validate_AgeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"BirthMonth":"00","PostalCode":["68154"],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00750, Validate_AgeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><BirthMonth>AB</BirthMonth><PostalCode><string>68154</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00751, Validate_AgeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"BirthMonth":"@$","PostalCode":["68154"],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00752, Validate_IncomeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><IncomeRange><string>$70000 - $80000</string></IncomeRange><Limit>100</Limit><PostalCode><string>68116</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00753, Validate_IncomeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"IncomeRange":["$70,000 - $79,999"],"Limit":100,"PostalCode":["68116"],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00754, Validate_IncomeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><IncomeRange><string>ABCD</string></IncomeRange><Limit>100</Limit><PostalCode><string>68116</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00755, Validate_IncomeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"IncomeRange":["35"],"Limit":100,"PostalCode":["68116"],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00756, Validate_HomeValueRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HomeValueRange><string>$70000 - $80000</string></HomeValueRange><Limit>100</Limit><PostalCode><string>68116</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00757, Validate_HomeValueRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HomeValueRange":["$70000 - $80000"],"IncomeRange":["$75,000 - $99,999"],"Limit":100,"PostalCode":["68116"],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00758, Validate_HomeValueRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HomeValueRange><string>ABCD</string></HomeValueRange><IncomeRange><string>$75,000 - $99,999</string></IncomeRange><Limit>100</Limit><PostalCode><string>68116</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00759, Validate_HomeValueRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HomeValueRange":["35"],"IncomeRange":["$75,000 - $99,999"],"Limit":100,"PostalCode":["68116"],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00760, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Ethnicity><string>Armanian</string></Ethnicity><Limit>100</Limit><PostalCode><string>35816</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00761, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Ethnicity":["AshantiAsante"],"Limit":100,"PostalCode":["35816"],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00762, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Ethnicity><string>ABCD</string></Ethnicity><Limit>100</Limit><PostalCode><string>35816</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00763, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Ethnicity":["35"],"Limit":100,"PostalCode":["35816"],"ResourceType":"enhanced"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00764, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Ethnicity><string>BG</string></Ethnicity><Limit>100</Limit><PostalCode><string>35816</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00765, Validate_HousingType_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HousingType><string> </string></HousingType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00766, Validate_HousingType_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HousingType":[" , , "]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00767, Validate_HousingType_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HousingType><string>Multi-FamilyDwelling</string></HousingType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00768, Validate_HousingType_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HousingType":["Trailer Cart"]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00769, Validate_MailScore_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><MailScore><string> </string></MailScore></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00770, Validate_MailScore_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"MailScore":[" "," "," "]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00771, Validate_MailScore_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><MailScore><string>Accurately</string></MailScore></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00772, Validate_MailScore_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"MailScore":["Unbelievable"]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00773, Validate_IncludeHistorical_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>john</FirstName><IncludeHistorical>true</IncludeHistorical><LastName>smith</LastName><PostalCode><string>68046</string></PostalCode><ResourceType>Core</ResourceType></PersonSearch>
+
+TESTCASE 00774, Validate_IncludeHistorical_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"john","IncludeHistorical":true,"LastName":"smith","PostalCode":["68046"],"ResourceType":"Basic"}
+
+TESTCASE 00775, Validate_IncludeHistorical_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>john</FirstName><IncludeHistorical>true</IncludeHistorical><LastName>smith</LastName><PostalCode><string>68046</string></PostalCode><ResourceType>Enhanced</ResourceType></PersonSearch>
+
+TESTCASE 00776, Validate_IncludeHistorical_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"john","IncludeHistorical":true,"LastName":"smith","PostalCode":["68046"],"ResourceType":"Lifestyle"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00777, Validate_IncludeHistorical_Returns_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>john</FirstName><IncludeHistorical>true</IncludeHistorical><LastName>smith</LastName><PostalCode><string>68046</string></PostalCode><ResourceType>Targetready</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00778, Validate_BadRequest_For_ResourceType_Equal_To_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><LastName>Scott</LastName><PostalCode><string>68046</string></PostalCode><ResourceType>counts</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00779, Validate_YearsInHome_And_YearsAtResidence_Cause_BadRequest
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><LastName>Scott</LastName><PostalCode><string>68046</string></PostalCode><ResourceType>counts</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00780, Validate_YearsAtResidence
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><YearsAtResidence><string>1</string><string>4-5</string><string>12-20</string></YearsAtResidence></PersonSearch>
+
+TESTCASE 00781, Validate_YearsAtResidence
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"YearsAtResidence":["100","4-5","12-20"]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00782, Validate_YearsAtResidence
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><YearsAtResidence><string>1</string><string>4-500</string><string>12-20</string></YearsAtResidence></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00783, Validate_YearsAtResidence
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"YearsAtResidence":["100"]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00784, Validate_YearsAtResidence
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><YearsAtResidence><string>1</string><string>4-7</string><string>12-200</string></YearsAtResidence></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00785, Validate_YearsAtResidence
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"YearsAtResidence":[""]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00786, Validate_YearsAtResidence
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><YearsAtResidence><string>1</string><string /><string>12-14</string></YearsAtResidence></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00787, Validate_YearsAtResidence
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"YearsAtResidence":[" "]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00788, Validate_YearsAtResidence
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><YearsAtResidence><string>4-</string></YearsAtResidence></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00789, Validate_YearsAtResidence
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"YearsAtResidence":["-4"]}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00790, Validate_YearsAtResidence
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><YearsAtResidence><string i:nil="true" /></YearsAtResidence></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00791, Validate_SortCenter
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>john</FirstName><LastName>smith</LastName><ResourceType>Basic</ResourceType><SortCenter><Latitude>41.15768</Latitude><Longitude>-96.029861</Longitude></SortCenter></PersonSearch>
+
+TESTCASE 00792, Validate_SortCenter
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"john","LastName":"smith","ResourceType":"Enhanced","SortCenter":{"Latitude":"41.15768","Longitude":"-96.029861"}}
+
+TESTCASE 00793, Validate_SortCenter
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>john</FirstName><LastName>smith</LastName><ResourceType>Basic</ResourceType><SortCenter><Latitude>-96.029861</Latitude><Longitude>41.15768</Longitude></SortCenter></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00794, Validate_SortCenter
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"john","LastName":"smith","ResourceType":"Enhanced","SortCenter":{"Latitude":"-96.029861","Longitude":"41.15768"}}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00795, Validate_Fields_And_ResourceType_Error
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Fields><string>LastName</string><string>FirstName</string></Fields><FirstName>Scott</FirstName><ResourceType>basic</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00796, Validate_Email_Field
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Fields><string>LastName</string><string>Email</string><string>FirstName</string></Fields><FirstName>Scott</FirstName></PersonSearch>
+
+TESTCASE 00797, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>5</Age></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender></PersonSearch>
+
+TESTCASE 00798, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ChildAgeBirthMonthGender":{"ChildAgeBirthMonth":[{"Age":"5"}]},"Gender":"Male"}
+
+TESTCASE 00799, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>5</Age></AgeBirthMonth><AgeBirthMonth><Age>10</Age></AgeBirthMonth><AgeBirthMonth><Age>15</Age></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender></PersonSearch>
+
+TESTCASE 00800, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ChildAgeBirthMonthGender":{"ChildAgeBirthMonth":[{"Age":"5","BirthMonth":"March"},{"Age":"10","BirthMonth":"April"},{"Age":"15","BirthMonth":"July"}]}}
+
+TESTCASE 00801, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>0-5</Age><BirthMonth>March</BirthMonth></AgeBirthMonth><AgeBirthMonth><Age>5-10</Age><BirthMonth>April</BirthMonth></AgeBirthMonth><AgeBirthMonth><Age>10-17</Age><BirthMonth>July</BirthMonth></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender></PersonSearch>
+
+TESTCASE 00802, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ChildAgeBirthMonthGender":{"ChildAgeBirthMonth":[{"Age":"0-5","BirthMonth":"March"},{"Age":"5-10","BirthMonth":"April"},{"Age":"10-17","BirthMonth":"July"}]},"Gender":"Male"}
+
+TESTCASE 00803, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>10</Age><BirthMonth>March</BirthMonth></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender><Gender>male</Gender></PersonSearch>
+
+TESTCASE 00804, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ChildAgeBirthMonthGender":{"ChildAgeBirthMonth":[{"Age":"","BirthMonth":""}]}}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00805, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><BirthMonth>March</BirthMonth></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00806, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ChildAgeBirthMonthGender":{"ChildAgeBirthMonth":[{}]},"Gender":"Female"}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00807, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><BirthMonth>March</BirthMonth></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender><Gender>Female</Gender></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00808, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ChildAgeBirthMonthGender":{"ChildAgeBirthMonth":[{"Age":" 10 ","BirthMonth":"August"},{"Age":"2, 10 - 15 ","BirthMonth":"January"}]}}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00809, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>-5</Age><BirthMonth>Aug</BirthMonth></AgeBirthMonth><AgeBirthMonth><Age>6</Age><BirthMonth>Mar</BirthMonth></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00810, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ChildAgeBirthMonthGender":{"ChildAgeBirthMonth":[{"Age":"1,2,3,4,18","BirthMonth":"May"}]}}
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 00811, Validate_ChildAgeGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>1 0</Age></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
+#PortalValidation
+TESTCASE 00812, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ActualIncome><string>10000</string><string>30000</string></ActualIncome></PersonSearch>
+
+TESTCASE 00813, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ActualIncome":["10000-90000","100000-500000"]}
+
+TESTCASE 00814, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AddressParsed><Name>Main</Name></AddressParsed></PersonSearch>
+
+TESTCASE 00815, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"AddressParsed":{"Number":"1234"}}
+
+TESTCASE 00816, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AddressParsed><PreDirectional>E</PreDirectional></AddressParsed></PersonSearch>
+
+TESTCASE 00817, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"AddressParsed":{"PostDirectional":"S"}}
+
+TESTCASE 00818, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AddressParsed><Suffix>St</Suffix></AddressParsed></PersonSearch>
+
+TESTCASE 00819, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Age":["18","30","65"]}
+
+TESTCASE 00820, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Age><string>18-30</string><string>40-45</string><string>50</string><string>65</string></Age></PersonSearch>
+
+TESTCASE 00821, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"AgeRange":["18-24"]}
+
+TESTCASE 00822, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AgeRange><string>18-24</string><string>25-29</string></AgeRange></PersonSearch>
+
+TESTCASE 00823, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"AreChildrenPresent":true}
+
+TESTCASE 00824, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><BirthMonth>05</BirthMonth></PersonSearch>
+
+TESTCASE 00825, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha"}
+
+TESTCASE 00826, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CitiesByStateProvince><CityStateProvince><City>Omaha</City><StateProvince>NE</StateProvince></CityStateProvince><CityStateProvince><City>Chicago</City><StateProvince>IL</StateProvince></CityStateProvince></CitiesByStateProvince></PersonSearch>
+
+TESTCASE 00827, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"County":"Douglas","StateProvince":"NE"}
+
+TESTCASE 00828, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Douglas</County><State>NE</State></CountyState><CountyState><County>Harrison</County><State>IA</State></CountyState></CountiesByState></PersonSearch>
+
+TESTCASE 00829, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Email":"johndoe@domain.com"}
+
+TESTCASE 00830, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><EmailSha1Upper>9d2972490f8c6a9a3a8e052d6050f9d3fde2e54d</EmailSha1Upper></PersonSearch>
+
+TESTCASE 00831, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Ethnicity":["Irish"]}
+
+TESTCASE 00832, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Ethnicity><string>Armenian</string><string>Irish</string></Ethnicity></PersonSearch>
+
+TESTCASE 00833, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"John"}
+
+TESTCASE 00834, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Gender>Male</Gender></PersonSearch>
+
+TESTCASE 00835, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HomeValueRange":["150000-174999"]}
+
+TESTCASE 00836, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HomeValueRange><string>150000-174999</string><string>500000-599999</string></HomeValueRange></PersonSearch>
+
+TESTCASE 00837, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HousingType":["Single Family Dwelling"]}
+
+TESTCASE 00838, Validate_Json_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HousingType><string>Single Family Dwelling</string><string>Multi-Family Dwelling</string></HousingType></PersonSearch>
+  STATUS 500
+  SKIP_COMPARE
+
+TESTCASE 00839, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ActualIncome><string>10000</string><string>30000</string></ActualIncome></PersonSearch>
+
+TESTCASE 00840, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ActualIncome":["10000-90000","100000-500000"]}
+
+TESTCASE 00841, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AddressParsed><Name>Main</Name></AddressParsed></PersonSearch>
+
+TESTCASE 00842, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"AddressParsed":{"Number":"1234"}}
+
+TESTCASE 00843, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AddressParsed><PreDirectional>E</PreDirectional></AddressParsed></PersonSearch>
+
+TESTCASE 00844, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"AddressParsed":{"PostDirectional":"S"}}
+
+TESTCASE 00845, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AddressParsed><Suffix>St</Suffix></AddressParsed></PersonSearch>
+
+TESTCASE 00846, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Age":["18","30","65"]}
+
+TESTCASE 00847, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Age><string>18-30</string><string>40-45</string><string>50</string><string>65</string></Age></PersonSearch>
+
+TESTCASE 00848, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"AgeRange":["18-24"]}
+
+TESTCASE 00849, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AgeRange><string>18-24</string><string>25-29</string></AgeRange></PersonSearch>
+
+TESTCASE 00850, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"AreChildrenPresent":true}
+
+TESTCASE 00851, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><BirthMonth>05</BirthMonth></PersonSearch>
+
+TESTCASE 00852, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"City":"Omaha"}
+
+TESTCASE 00853, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CitiesByStateProvince><CityStateProvince><City>Omaha</City><StateProvince>NE</StateProvince></CityStateProvince><CityStateProvince><City>Chicago</City><StateProvince>IL</StateProvince></CityStateProvince></CitiesByStateProvince><LastName>Jones</LastName></PersonSearch>
+
+TESTCASE 00854, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"County":"Douglas","StateProvince":"NE"}
+
+TESTCASE 00855, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Omaha</County><State>NE</State></CountyState><CountyState><County>Chicago</County><State>IL</State></CountyState></CountiesByState><LastName>Jones</LastName><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 00856, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Email":"johndoe@domain.com"}
+
+TESTCASE 00857, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><EmailSha1Upper>9d2972490f8c6a9a3a8e052d6050f9d3fde2e54d</EmailSha1Upper></PersonSearch>
+
+TESTCASE 00858, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Ethnicity":["Irish"]}
+
+TESTCASE 00859, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Ethnicity><string>Armenian</string><string>Irish</string></Ethnicity></PersonSearch>
+
+TESTCASE 00860, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"John"}
+
+TESTCASE 00861, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Gender>Male</Gender></PersonSearch>
+
+TESTCASE 00862, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HomeValueRange":["150000-174999"]}
+
+TESTCASE 00863, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HomeValueRange><string>150000-174999</string><string>500000-599999</string></HomeValueRange></PersonSearch>
+
+TESTCASE 00864, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HousingType":["Single Family Dwelling"]}
+
+TESTCASE 00865, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HousingType><string>Single Family Dwelling</string><string>Multi-Family Dwelling</string></HousingType></PersonSearch>
+
+TESTCASE 00866, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"IncludeAllResidents":true}
+
+TESTCASE 00867, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><IncomeRange><string>80000-89999</string></IncomeRange></PersonSearch>
+
+TESTCASE 00868, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"IncomeRange":["80000-89999","90000-99999"]}
+
+TESTCASE 00869, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><IsHomeowner>true</IsHomeowner></PersonSearch>
+
+TESTCASE 00870, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"LastName":"Doe"}
+
+TESTCASE 00871, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><AmericanHistory>5</AmericanHistory></Lifestyle></PersonSearch>
+
+TESTCASE 00872, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelAccessories":"5"}}
+
+TESTCASE 00873, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><ApparelChildren>5</ApparelChildren></Lifestyle></PersonSearch>
+
+TESTCASE 00874, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelGeneral":"5"}}
+
+TESTCASE 00875, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><ApparelMens>5</ApparelMens></Lifestyle></PersonSearch>
+
+TESTCASE 00876, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelStylishMens":"5"}}
+
+TESTCASE 00877, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><ApparelStylishWomens>5</ApparelStylishWomens></Lifestyle></PersonSearch>
+
+TESTCASE 00878, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelWomens":"5"}}
+
+TESTCASE 00879, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><BargainSeeker>5</BargainSeeker></Lifestyle></PersonSearch>
+
+TESTCASE 00880, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BeautyCosmetics":"5"}}
+
+TESTCASE 00881, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><BibleDevotional>5</BibleDevotional></Lifestyle></PersonSearch>
+
+TESTCASE 00882, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BookBuyers":"5"}}
+
+TESTCASE 00883, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><BooksAndMagazines>5</BooksAndMagazines></Lifestyle></PersonSearch>
+
+TESTCASE 00884, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BooksFiction":"5"}}
+
+TESTCASE 00885, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><BooksNonfiction>5</BooksNonfiction></Lifestyle></PersonSearch>
+
+TESTCASE 00886, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BooksScienceFiction":"5"}}
+
+TESTCASE 00887, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><BusinessItems>5</BusinessItems></Lifestyle></PersonSearch>
+
+TESTCASE 00888, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CatalogShopper":"5"}}
+
+TESTCASE 00889, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CharitableDonor>5</CharitableDonor></Lifestyle></PersonSearch>
+
+TESTCASE 00890, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ChildAndFamilyProducts":"5"}}
+
+TESTCASE 00891, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><Collectibles>5</Collectibles></Lifestyle></PersonSearch>
+
+TESTCASE 00892, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CollegeProducts":"5"}}
+
+TESTCASE 00893, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><ComicBookReaders>5</ComicBookReaders></Lifestyle></PersonSearch>
+
+TESTCASE 00894, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CookingGeneral":"5"}}
+
+TESTCASE 00895, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CookingGourmetFoodAndWine>5</CookingGourmetFoodAndWine></Lifestyle></PersonSearch>
+
+TESTCASE 00896, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsCrochet":"5"}}
+
+TESTCASE 00897, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CraftsGeneral>5</CraftsGeneral></Lifestyle></PersonSearch>
+
+TESTCASE 00898, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsHobbiesScrapbooksAndModels":"5"}}
+
+TESTCASE 00899, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CraftsKnitting>5</CraftsKnitting></Lifestyle></PersonSearch>
+
+TESTCASE 00900, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsNeedlepoint":"5"}}
+
+TESTCASE 00901, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CraftsQuilting>5</CraftsQuilting></Lifestyle></PersonSearch>
+
+TESTCASE 00902, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsSewing":"5"}}
+
+TESTCASE 00903, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CreditCardUser>5</CreditCardUser></Lifestyle></PersonSearch>
+
+TESTCASE 00904, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CulturalArts":"5"}}
+
+TESTCASE 00905, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CurrentEvents>5</CurrentEvents></Lifestyle></PersonSearch>
+
+TESTCASE 00906, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"DoItYourself":"5"}}
+
+TESTCASE 00907, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><Gambling>5</Gambling></Lifestyle></PersonSearch>
+
+TESTCASE 00908, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Games":"5"}}
+
+TESTCASE 00909, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><GiftGiver>5</GiftGiver></Lifestyle></PersonSearch>
+
+TESTCASE 00910, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthDietAndWeightLoss":"5"}}
+
+TESTCASE 00911, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><HealthFitness>5</HealthFitness></Lifestyle></PersonSearch>
+
+TESTCASE 00912, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthGeneralAndExercise":"5"}}
+
+TESTCASE 00913, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><History>5</History></Lifestyle></PersonSearch>
+
+TESTCASE 00914, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HomeDecoratingAndFurnishing":"5"}}
+
+TESTCASE 00915, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><HomeOfficeProducts>5</HomeOfficeProducts></Lifestyle></PersonSearch>
+
+TESTCASE 00916, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Inspirational":"5"}}
+
+TESTCASE 00917, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><InternetBuyer>5</InternetBuyer></Lifestyle></PersonSearch>
+
+TESTCASE 00918, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"InvestmentsAndFinance":"5"}}
+
+TESTCASE 00919, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><MagazineSubscribers>5</MagazineSubscribers></Lifestyle></PersonSearch>
+
+TESTCASE 00920, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MoneymakingOpportunities":"5"}}
+
+TESTCASE 00921, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><MotorVehicleAutomotiveEnthusiast>5</MotorVehicleAutomotiveEnthusiast></Lifestyle></PersonSearch>
+
+TESTCASE 00922, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MotorVehicleAutoRacingEnthusiast":"5"}}
+
+TESTCASE 00923, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><MotorVehicleMotorcycleEnthusiast>5</MotorVehicleMotorcycleEnthusiast></Lifestyle></PersonSearch>
+
+TESTCASE 00924, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MotorVehicleTruckEnthusiast":"5"}}
+
+TESTCASE 00925, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><OutdoorsBoatingAndSailing>5</OutdoorsBoatingAndSailing></Lifestyle></PersonSearch>
+
+TESTCASE 00926, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsCampingAndHiking":"5"}}
+
+TESTCASE 00927, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><OutdoorsFishing>5</OutdoorsFishing></Lifestyle></PersonSearch>
+
+TESTCASE 00928, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsGardening":"5"}}
+
+TESTCASE 00929, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><OutdoorsHunting>5</OutdoorsHunting></Lifestyle></PersonSearch>
+
+TESTCASE 00930, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsSports":"5"}}
+
+TESTCASE 00931, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><PersonalizedProductsMonograms>5</PersonalizedProductsMonograms></Lifestyle></PersonSearch>
+
+TESTCASE 00932, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsCats":"5"}}
+
+TESTCASE 00933, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><PetsDogs>5</PetsDogs></Lifestyle></PersonSearch>
+
+TESTCASE 00934, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsGeneral":"5"}}
+
+TESTCASE 00935, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><PetsHorses>5</PetsHorses></Lifestyle></PersonSearch>
+
+TESTCASE 00936, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PhotographyEnthusiast":"5"}}
+
+TESTCASE 00937, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><PoliticallyConservative>5</PoliticallyConservative></Lifestyle></PersonSearch>
+
+TESTCASE 00938, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PoliticallyLiberal":"5"}}
+
+TESTCASE 00939, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><RuralFarmProducts>5</RuralFarmProducts></Lifestyle></PersonSearch>
+
+TESTCASE 00940, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Science":"5"}}
+
+TESTCASE 00941, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><SeniorProducts>5</SeniorProducts></Lifestyle></PersonSearch>
+
+TESTCASE 00942, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsBaseball":"5"}}
+
+TESTCASE 00943, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><SportsBasketball>5</SportsBasketball></Lifestyle></PersonSearch>
+
+TESTCASE 00944, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsFootball":"5"}}
+
+TESTCASE 00945, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><SportsGeneral>5</SportsGeneral></Lifestyle></PersonSearch>
+
+TESTCASE 00946, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsGolf":"5"}}
+
+TESTCASE 00947, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><SportsHockey>5</SportsHockey></Lifestyle></PersonSearch>
+
+TESTCASE 00948, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsSkiing":"5"}}
+
+TESTCASE 00949, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><SportsSoccer>5</SportsSoccer></Lifestyle></PersonSearch>
+
+TESTCASE 00950, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsTennis":"5"}}
+
+TESTCASE 00951, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><Stationary>5</Stationary></Lifestyle></PersonSearch>
+
+TESTCASE 00952, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Sweepstakes":"5"}}
+
+TESTCASE 00953, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TechnologyAudioAndMusic>5</TechnologyAudioAndMusic></Lifestyle></PersonSearch>
+
+TESTCASE 00954, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyComputers":"5"}}
+
+TESTCASE 00955, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TechnologyElectronics>5</TechnologyElectronics></Lifestyle></PersonSearch>
+
+TESTCASE 00956, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyHighTechEnthusiast":"5"}}
+
+TESTCASE 00957, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TechnologyInternetAccess>5</TechnologyInternetAccess></Lifestyle></PersonSearch>
+
+TESTCASE 00958, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyInternetUser":"5"}}
+
+TESTCASE 00959, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TechnologyTVMoviesVideo>5</TechnologyTVMoviesVideo></Lifestyle></PersonSearch>
+
+TESTCASE 00960, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TobaccoUser":"5"}}
+
+TESTCASE 00961, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TravelAviation>5</TravelAviation></Lifestyle></PersonSearch>
+
+TESTCASE 00962, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelCruises":"5"}}
+
+TESTCASE 00963, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TravelGeneral>5</TravelGeneral></Lifestyle></PersonSearch>
+
+TESTCASE 00964, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelOceanBeaches":"5"}}
+
+TESTCASE 00965, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TravelRecreationalVehicle>5</TravelRecreationalVehicle></Lifestyle></PersonSearch>
+
+TESTCASE 00966, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelUnitedStates":"5"}}
+
+TESTCASE 00967, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><WildBirds>5</WildBirds></Lifestyle></PersonSearch>
+
+TESTCASE 00968, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"WildlifeAndEnvironmentDonor":"5"}}
+
+TESTCASE 00969, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>10</Limit></PersonSearch>
+
+TESTCASE 00970, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"MailScore":["Likely"]}
+
+TESTCASE 00971, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><MailScore><string>Accurate</string><string>Likely</string></MailScore></PersonSearch>
+
+TESTCASE 00972, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"MaritalStatus":"Married"}
+
+TESTCASE 00973, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><MiddleInitial>D</MiddleInitial></PersonSearch>
+
+TESTCASE 00974, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"NotId":["500002689723"]}
+
+TESTCASE 00975, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><NotId><string>500002689723</string><string>060302569</string></NotId></PersonSearch>
+
+TESTCASE 00976, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Offset":2}
+
+TESTCASE 00977, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Phone>5558675309</Phone></PersonSearch>
+
+TESTCASE 00978, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"PolygonList":[{"Points":[{"Latitude":"41.169609","Longitude":"-96.067886"},{"Latitude":"41.1678","Longitude":"-96.000938"},{"Latitude":"41.127987","Longitude":"-95.982742"},{"Latitude":"41.129668","Longitude":"-95.039734"},{"Latitude":"41.137813","Longitude":"-96.073895"}]}]}
+
+TESTCASE 00979, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 00980, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"PostalCode":["68046","68154"]}
+
+TESTCASE 00981, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><RadiusCenterPointList><RadiusCenterPoint><Latitude>41.15768</Latitude><Longitude>-96.029861</Longitude><RadiusMiles>1</RadiusMiles></RadiusCenterPoint><RadiusCenterPoint><Latitude>41.126</Latitude><Longitude>-96.006</Longitude><RadiusMiles>.1</RadiusMiles></RadiusCenterPoint></RadiusCenterPointList></PersonSearch>
+
+TESTCASE 00982, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"RadiusPostalCodeList":[{"PostalCode":"68046","RadiusMiles":"2"},{"PostalCode":"68133","RadiusMiles":"1"}]}
+
+TESTCASE 00983, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>Basic</ResourceType></PersonSearch>
+
+TESTCASE 00984, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"StateProvince":"NE"}
+
+TESTCASE 00985, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><LastName>Jones</LastName><StatesProvinces><string>NE</string><string>NY</string></StatesProvinces></PersonSearch>
+
+TESTCASE 00986, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"TargetReady":{"AdventureSeekers":"5"}}
+
+TESTCASE 00987, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><TargetReady><AllTerrainVehicle>5</AllTerrainVehicle></TargetReady></PersonSearch>
+
+TESTCASE 00988, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"TargetReady":{"Annuities":"5"}}
+
+TESTCASE 00989, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><TargetReady><AvidCellPhoneUser>5</AvidCellPhoneUser></TargetReady></PersonSearch>
+
+TESTCASE 00990, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"TargetReady":{"AvidGamer":"5"}}
+
+TESTCASE 00991, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><TargetReady><AvidThemeParkVisitor>5</AvidThemeParkVisitor></TargetReady></PersonSearch>
+
+TESTCASE 00992, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"TargetReady":{"BabyProducts":"5"}}
+
+TESTCASE 00993, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><TargetReady><CatProducts>5</CatProducts></TargetReady></PersonSearch>
+
+TESTCASE 00994, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"TargetReady":{"ClassicalMusicConcerts":"5"}}
+
+TESTCASE 00995, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><TargetReady><CollegeBasketballSportsFan>5</CollegeBasketballSportsFan></TargetReady></PersonSearch>
+
+TESTCASE 00996, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"TargetReady":{"CollegeFootballSportsFan":"5"}}
+
+TESTCASE 00997, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><TargetReady><Conservative>5</Conservative></TargetReady></PersonSearch>
+
+TESTCASE 00998, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"TargetReady":{"CookForFun":"5"}}
+
+TESTCASE 00999, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><TargetReady><CookFromScratch>5</CookFromScratch></TargetReady></PersonSearch>
+
+TESTCASE 01000, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"TargetReady":{"CountryClubMember":"5"}}
+
+TESTCASE 01001, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><TargetReady><CountryMusicConcerts>5</CountryMusicConcerts></TargetReady></PersonSearch>
+
+TESTCASE 01002, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"TargetReady":{"CreditCardRewards":"5"}}
+
+TESTCASE 01003, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><TargetReady><Cruise>5</Cruise></TargetReady></PersonSearch>
+
+TESTCASE 01004, Validate_Xml_People_Inputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"TargetReady":{"DietProducts":"5"}}
+
+#ResourceDataTests
+TESTCASE 01005, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>20</Limit><Offset>0</Offset><PostalCode><string>68154</string></PostalCode></PersonSearch>
+
+TESTCASE 01006, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":10,"Offset":0,"PostalCode":["68154"]}
+
+TESTCASE 01007, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>10</Limit><Offset>10</Offset><PostalCode><string>68154</string></PostalCode></PersonSearch>
+
+TESTCASE 01008, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":1,"ResourceType":"core","StatesProvinces":["NY"]}
+
+TESTCASE 01009, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>500</Limit><ResourceType>core</ResourceType><StatesProvinces><string>NY</string></StatesProvinces></PersonSearch>
+
+TESTCASE 01010, Validate_Email_Search_Criteria_Returns_Address_And_City
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>ABKOCHAN@AOL.COM</Email><Fields><string>address</string><string>city</string><string>firstname</string><string>lastname</string></Fields></PersonSearch>
+
+TESTCASE 01011, Validate_Email_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>ABKOCHAN@AOL.COM</Email></PersonSearch>
+
+TESTCASE 01012, Validate_Email_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?email=abkochan%40aol.com
+  SET_HEADER Accept: application/json
+
+TESTCASE 01013, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>DUCKEYDUCKDUCKEY@YAHOO.COM</Email></PersonSearch>
+
+TESTCASE 01014, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  GET ${peopleuri-port}/${peopleuri-end-point}?EMAIL=DUCKEYDUCKDUCKEY%40YAHOO.COM
+  SET_HEADER Accept: application/json
+
+TESTCASE 01015, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>ME_LOVE_DRAGONS@YAHOO.COM</Email></PersonSearch>
+
+TESTCASE 01016, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  GET ${peopleuri-port}/${peopleuri-end-point}?email=me_love_dragons%40yahoo.com
+  SET_HEADER Accept: application/json
+
+TESTCASE 01017, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>FMC96582@AOL.COM</Email></PersonSearch>
+
+TESTCASE 01018, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  GET ${peopleuri-port}/${peopleuri-end-point}?EMAIL=FMC96582%40AOL.COM
+  SET_HEADER Accept: application/json
+
+TESTCASE 01019, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>JALGIERE18@YAHOO.COM</Email></PersonSearch>
+
+TESTCASE 01020, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  GET ${peopleuri-port}/${peopleuri-end-point}?email=jalgiere18%40yahoo.com
+  SET_HEADER Accept: application/json
+
+TESTCASE 01021, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>ESTEBANHERRERA1990@YAHOO.COM</Email></PersonSearch>
+
+TESTCASE 01022, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  GET ${peopleuri-port}/${peopleuri-end-point}?EMAIL=ESTEBANHERRERA1990%40YAHOO.COM
+  SET_HEADER Accept: application/json
+
+TESTCASE 01023, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>MARYSZEP10@GMAIL.COM</Email></PersonSearch>
+
+TESTCASE 01024, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  GET ${peopleuri-port}/${peopleuri-end-point}?email=maryszep10%40gmail.com
+  SET_HEADER Accept: application/json
+
+TESTCASE 01025, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>JOSEPH_BRIAN@ATT.NET</Email></PersonSearch>
+
+TESTCASE 01026, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  GET ${peopleuri-port}/${peopleuri-end-point}?EMAIL=JOSEPH_BRIAN%40ATT.NET
+  SET_HEADER Accept: application/json
+
+TESTCASE 01027, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>SUPER_COMPUTER_DIZZI@HOTMAIL.COM</Email></PersonSearch>
+
+TESTCASE 01028, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  GET ${peopleuri-port}/${peopleuri-end-point}?email=super_computer_dizzi%40hotmail.com
+  SET_HEADER Accept: application/json
+
+TESTCASE 01029, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>DARIO.1428@HOTMAIL.COM</Email></PersonSearch>
+
+TESTCASE 01030, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  GET ${peopleuri-port}/${peopleuri-end-point}?EMAIL=DARIO.1428%40HOTMAIL.COM
+  SET_HEADER Accept: application/json
+
+TESTCASE 01031, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>GUADALUPE8000@AIM.COM</Email></PersonSearch>
+
+TESTCASE 01032, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  GET ${peopleuri-port}/${peopleuri-end-point}?email=guadalupe8000%40aim.com
+  SET_HEADER Accept: application/json
+
+TESTCASE 01033, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>JIMMIECARROL123@HOTMAIL.COM</Email></PersonSearch>
+
+TESTCASE 01034, Validate_Email_Search_Criteria_For_DataLogix_Emails_Without_IndividualId
+  GET ${peopleuri-port}/${peopleuri-end-point}?EMAIL=JIMMIECARROL123%40HOTMAIL.COM
+  SET_HEADER Accept: application/json
+
+TESTCASE 01035, Validate_Duplicate_Individual_ids_returns_one_or_more_records_with_the_best_ipst_validity_score_and_ipst_refresh_date
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>GMSITH31@STUDENT.MERCER.EDU</Email></PersonSearch>
+
+TESTCASE 01036, Validate_Duplicate_Individual_and_blank_id_returns_one_or_more_records_with_the_best_ipst_validity_score_and_ipst_refresh_date_minus_blank_ids
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>GMSITH31@STUDENT.MERCER.EDU</Email></PersonSearch>
+
+TESTCASE 01037, Validate_Duplicate_Individual_ids_and_a_blank_id_returns_one_or_more_records_with_the_best_ipst_validity_score_and_ipst_refresh_date_minus_blank_id
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>qavvaq_pasitnak@yahoo.com</Email></PersonSearch>
+
+TESTCASE 01038, An_individual_id_and_duplicate_blank_ids_returns_one_or_more_records_minus_blank_ids
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>GMSITH31@STUDENT.MERCER.EDU</Email></PersonSearch>
+
+TESTCASE 01039, Validate_Email_with_Hyphen
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Email>madamian@unicom-alaska.com</Email></PersonSearch>
+
+TESTCASE 01040, Validate_Email_IsEmailSuppressed
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Fields><string>Email</string></Fields><PostalCode><string>68137</string></PostalCode></PersonSearch>
+
+TESTCASE 01041, Validate_Email_Vendor_Returned_Appropriately
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Fields":["Id","Email","FirstName","LastName"],"Id":["901626285256","700777232816","701549757214","802523496767","701807256562","502117186152","000000000000","801183747691","101003678756","001183747692","501235917853","702593035859","701003678563","501003678779","500848170662","700848170663","901003678852","302510005749","200002496831","901003678954","301003678794","501506438368","301643700116","901807233841","301549718846","701003678584","800002496839","902523391837","400002496840","000002496843","701003678822","301235917860","101003678905","101003678934"],"Limit":34}
+
+TESTCASE 01042, Validate_Email_Vendor_Returned_Appropriately
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Fields":["Email"],"Id":["501235917853","700777232816","302510005749","901003678852","901626285256","301549718846","702593035859","200002496831","800002496839","101003678756","701003678822","101003678934","301643700116","701003678563","700848170663","701549757214","501506438368","901003678954","801183747691","502117186152","902523391837","501003678779","101003678905","000002496843","301235917860"],"Limit":25}
+
+TESTCASE 01043, Validate_ApiKey
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search?apikey=a6118a8811b2dddeefe37135b9f486a6
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>James</FirstName></PersonSearch>
+
+TESTCASE 01044, Validate_ResourceType_Core_With_Result_Data_Case_Insensitivity_Test
+  GET ${peopleuri-port}/${peopleuri-end-point}/500002689723?RESOURCETYPE=CORE
+  SET_HEADER Accept: application/xml
+
+TESTCASE 01045, Validate_POST_ResourceType_Core_Limit_to_5
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>5</Limit><ResourceType>Core</ResourceType><StateProvince>NE</StateProvince></PersonSearch>
+
+TESTCASE 01046, Validate_POST_ResourceType_Core_With_Result_Data_Case_Insensitivity_Test
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>Core</ResourceType><StateProvince>NE</StateProvince></PersonSearch>
+
+TESTCASE 01047, Validate_FirstName_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>James</FirstName></PersonSearch>
+
+TESTCASE 01048, Validate_FirstName_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"Michael"}
+
+TESTCASE 01049, Validate_FirstName_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?firstname=james
+  SET_HEADER Accept: application/xml
+
+TESTCASE 01050, Validate_FirstName_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?FIRSTNAME=JAMES
+  SET_HEADER Accept: application/json
+
+TESTCASE 01051, Validate_LastName_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><LastName>James</LastName></PersonSearch>
+
+TESTCASE 01052, Validate_LastName_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"LastName":"Michael"}
+
+TESTCASE 01053, Validate_LastName_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?lastname=james
+  SET_HEADER Accept: application/xml
+
+TESTCASE 01054, Validate_LastName_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?LASTNAME=JAMES
+  SET_HEADER Accept: application/json
+
+TESTCASE 01055, Validate_AddressParsed_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AddressParsed><Name>Main</Name><Suffix>St</Suffix></AddressParsed></PersonSearch>
+
+TESTCASE 01056, Validate_City_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AddressParsed><Name>Main</Name><Suffix>St</Suffix></AddressParsed></PersonSearch>
+
+TESTCASE 01057, Validate_StateProvince_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><StateProvince>CA</StateProvince></PersonSearch>
+
+TESTCASE 01058, Validate_StateProvince_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?stateprovince=ca
+  SET_HEADER Accept: application/json
+
+TESTCASE 01059, Validate_StateProvince_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?STATEPROVINCE=CA
+  SET_HEADER Accept: application/xml
+
+TESTCASE 01060, Validate_PostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><PostalCode><string>90210</string></PostalCode></PersonSearch>
+
+TESTCASE 01061, Validate_PostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":100,"PostalCode":["90210,68046"]}
+
+TESTCASE 01062, Validate_PostalCode_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?postalcode=90210&limit=100
+  SET_HEADER Accept: application/xml
+
+TESTCASE 01063, Validate_PostalCode_Search_Criteria
+  GET ${peopleuri-port}/${peopleuri-end-point}?POSTALCODE=90210&LIMIT=100
+  SET_HEADER Accept: application/json
+
+TESTCASE 01064, Validate_Phone_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Phone>4029919373</Phone></PersonSearch>
+
+TESTCASE 01065, Validate_AreChildrenPresent_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Phone>4029919373</Phone></PersonSearch>
+
+TESTCASE 01066, Validate_IsHomeowner_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><IsHomeowner>true</IsHomeowner><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01067, Validate_IsHomeowner_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"IsHomeowner":false,"ResourceType":"enhanced"}
+
+TESTCASE 01068, Validate_YearsInHome_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>enhanced</ResourceType><YearsInHome>7</YearsInHome></PersonSearch>
+
+TESTCASE 01069, Validate_YearsInHome_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"enhanced","YearsInHome":3}
+
+TESTCASE 01070, Validate_MaritalStatus_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><MaritalStatus>Married</MaritalStatus><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01071, Validate_MaritalStatus_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"MaritalStatus":"Single","ResourceType":"enhanced"}
+
+TESTCASE 01072, Validate_MiddleInitial_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><MiddleInitial>P</MiddleInitial><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01073, Validate_MiddleInitial_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"MiddleInitial":"J","ResourceType":"enhanced"}
+
+TESTCASE 01074, Validate_Gender_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Gender>Male</Gender><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01075, Validate_Gender_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Gender":"Female","ResourceType":"enhanced"}
+
+TESTCASE 01076, Validate_Gender_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Gender>Unknown</Gender><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01077, Validate_Fields_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Fields><string>Address</string><string>AddressParsed</string><string>AgeRange</string><string>AreChildrenPresent</string><string>City</string><string>County</string><string>FirstName</string><string>Gender</string><string>HeadOfHousehold</string><string>HomeValueRange</string><string>Id</string><string>IncomeRange</string><string>IsHomeowner</string><string>LastName</string><string>LastNameSuffix</string><string>Latitude</string><string>Longitude</string><string>MaritalStatus</string><string>MiddleInitial</string><string>PostalCode</string><string>StateProvince</string><string>WealthFinder</string><string>YearsInHome</string><string>ZipPlus4</string><string>Lifestyle</string><string>Targetready</string><string>ApparelStylishWomens</string><string>HousingType</string></Fields><Id><string>700001189669</string></Id></PersonSearch>
+
+TESTCASE 01078, Validate_Fields_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Fields":["BirthMonthYear","Phone"],"Id":["500002689723"]}
+
+TESTCASE 01079, Validate_Fields_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Fields><string>Links</string></Fields><Id><string>501935811755</string></Id></PersonSearch>
+
+TESTCASE 01080, Validate_Fields_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"AddressParsed":{"PreDirectional":"E"},"Fields":["AddressParsed"]}
+
+TESTCASE 01081, Validate_Fields_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AddressParsed><PostDirectional>E</PostDirectional></AddressParsed><Fields><string>AddressParsed</string></Fields></PersonSearch>
+
+TESTCASE 01082, Validate_Fields_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Fields":["IncomeRange"],"Id":["702524581441"]}
+
+TESTCASE 01083, Validate_Lifestyle_Search_ResourceType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Papillion</City><Lifestyle><MagazineSubscribers>3</MagazineSubscribers></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NE</StateProvince></PersonSearch>
+
+TESTCASE 01084, Validate_Lifestyle_Search_ResourceType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"City":"Papillion","Lifestyle":{"HomeDecoratingAndFurnishing":"7"},"ResourceType":"lifestyle","StateProvince":"NE"}
+
+TESTCASE 01085, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TravelUnitedStates>8</TravelUnitedStates></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01086, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"WildBirds":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01087, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><WildlifeAndEnvironmentDonor>8</WildlifeAndEnvironmentDonor></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01088, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"AmericanHistory":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01089, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><ApparelAccessories>8</ApparelAccessories></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01090, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelChildren":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01091, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><ApparelGeneral>8</ApparelGeneral></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01092, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelMens":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01093, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><ApparelStylishMens>8</ApparelStylishMens></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01094, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ApparelStylishWomens":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01095, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><ApparelWomens>8</ApparelWomens></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01096, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BargainSeeker":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01097, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><BeautyCosmetics>8</BeautyCosmetics></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01098, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BibleDevotional":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01099, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><BookBuyers>8</BookBuyers></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01100, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BooksAndMagazines":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01101, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><BooksFiction>8</BooksFiction></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01102, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BusinessItems":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01103, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CatalogShopper>8</CatalogShopper></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01104, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CharitableDonor":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01105, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><ChildAndFamilyProducts>8</ChildAndFamilyProducts></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01106, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Collectibles":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01107, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CollegeProducts>8</CollegeProducts></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01108, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"ComicBookReaders":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01109, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CookingGeneral>8</CookingGeneral></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01110, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CookingGourmetFoodAndWine":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01111, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CraftsCrochet>8</CraftsCrochet></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01112, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsGeneral":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01113, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CraftsNeedlepoint>8</CraftsNeedlepoint></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01114, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsQuilting":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01115, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CraftsSewing>8</CraftsSewing></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01116, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CreditCardUser":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01117, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CulturalArts>8</CulturalArts></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01118, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CurrentEvents":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01119, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><DoItYourself>8</DoItYourself></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01120, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Games":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01121, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><GiftGiver>8</GiftGiver></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01122, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthDietAndWeightLoss":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01123, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><HealthFitness>8</HealthFitness></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01124, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HealthGeneralAndExercise":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01125, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><History>8</History></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01126, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"HomeDecoratingAndFurnishing":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01127, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><HomeOfficeProducts>8</HomeOfficeProducts></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01128, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Inspirational":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01129, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><InternetBuyer>8</InternetBuyer></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01130, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"InvestmentsAndFinance":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01131, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><MagazineSubscribers>8</MagazineSubscribers></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01132, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MoneymakingOpportunities":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01133, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><MotorVehicleAutomotiveEnthusiast>8</MotorVehicleAutomotiveEnthusiast></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01134, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MotorVehicleMotorcycleEnthusiast":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01135, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><OutdoorsBoatingAndSailing>8</OutdoorsBoatingAndSailing></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01136, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsCampingAndHiking":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01137, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><OutdoorsFishing>8</OutdoorsFishing></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01138, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsGardening":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01139, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><OutdoorsHunting>8</OutdoorsHunting></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01140, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"OutdoorsSports":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01141, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><PersonalizedProductsMonograms>8</PersonalizedProductsMonograms></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01142, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsCats":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01143, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><PetsDogs>8</PetsDogs></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01144, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PetsGeneral":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01145, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><PhotographyEnthusiast>8</PhotographyEnthusiast></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01146, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"PoliticallyConservative":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01147, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><PoliticallyLiberal>8</PoliticallyLiberal></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01148, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"RuralFarmProducts":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01149, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><Science>8</Science></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01150, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SeniorProducts":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01151, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><SportsGeneral>8</SportsGeneral></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01152, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsGolf":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01153, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><SportsSkiing>8</SportsSkiing></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01154, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsSoccer":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01155, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><Stationary>8</Stationary></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01156, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"Sweepstakes":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01157, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TechnologyAudioAndMusic>8</TechnologyAudioAndMusic></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01158, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyComputers":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01159, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TechnologyElectronics>8</TechnologyElectronics></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01160, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyInternetUser":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01161, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TechnologyTVMoviesVideo>8</TechnologyTVMoviesVideo></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01162, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelAviation":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01163, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TravelGeneral>8</TravelGeneral></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01164, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelOceanBeaches":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01165, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><BooksNonfiction>8</BooksNonfiction></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01166, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"BooksScienceFiction":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01167, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><CraftsHobbiesScrapbooksAndModels>8</CraftsHobbiesScrapbooksAndModels></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01168, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"CraftsKnitting":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01169, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><MotorVehicleAutoRacingEnthusiast>8</MotorVehicleAutoRacingEnthusiast></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01170, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"MotorVehicleTruckEnthusiast":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01171, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><SportsBaseball>8</SportsBaseball></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01172, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsBasketball":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01173, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><SportsFootball>8</SportsFootball></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01174, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"SportsHockey":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01175, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><SportsTennis>8</SportsTennis></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01176, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TechnologyHighTechEnthusiast":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01177, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TechnologyInternetAccess>8</TechnologyInternetAccess></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01178, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TobaccoUser":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01179, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><TravelCruises>8</TravelCruises></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01180, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Lifestyle":{"TravelRecreationalVehicle":"8"},"ResourceType":"lifestyle","StateProvince":"NY"}
+
+TESTCASE 01181, Validate_Lifestyle_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Lifestyle><Gambling>8</Gambling></Lifestyle><ResourceType>lifestyle</ResourceType><StateProvince>NY</StateProvince></PersonSearch>
+
+TESTCASE 01182, Validate_TargetReady_Search_ResourceType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Papillion</City><ResourceType>targetready</ResourceType><StateProvince>NE</StateProvince><TargetReady><AvidGamer>3</AvidGamer></TargetReady></PersonSearch>
+
+TESTCASE 01183, Validate_TargetReady_Search_ResourceType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"City":"Papillion","ResourceType":"targetready","StateProvince":"NE","TargetReady":{"HomeImprovement":"5"}}
+
+TESTCASE 01184, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><GreenModel>8</GreenModel></TargetReady></PersonSearch>
+
+TESTCASE 01185, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"HighValueSecurityInvestor":"8"}}
+
+TESTCASE 01186, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><HigherEducation>8</HigherEducation></TargetReady></PersonSearch>
+
+TESTCASE 01187, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"HighValueStockInvestor":"8"}}
+
+TESTCASE 01188, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><HeavyInvestmentTraders>8</HeavyInvestmentTraders></TargetReady></PersonSearch>
+
+TESTCASE 01189, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"PhysicalFitnessClubs":"8"}}
+
+TESTCASE 01190, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><HighRiskInvestor>8</HighRiskInvestor></TargetReady></PersonSearch>
+
+TESTCASE 01191, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"FrequentBusinessTraveler":"8"}}
+
+TESTCASE 01192, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><LowRiskInvestor>8</LowRiskInvestor></TargetReady></PersonSearch>
+
+TESTCASE 01193, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"FrequentFlyer":"8"}}
+
+TESTCASE 01194, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><Annuities>8</Annuities></TargetReady></PersonSearch>
+
+TESTCASE 01195, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"LifeInsurance":"8"}}
+
+TESTCASE 01196, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><LuxuryCarBuyer>8</LuxuryCarBuyer></TargetReady></PersonSearch>
+
+TESTCASE 01197, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"Cruise":"8"}}
+
+TESTCASE 01198, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><TimeshareOwner>8</TimeshareOwner></TargetReady></PersonSearch>
+
+TESTCASE 01199, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"ImpulseBuyer":"8"}}
+
+TESTCASE 01200, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><LuxuryHotel>8</LuxuryHotel></TargetReady></PersonSearch>
+
+TESTCASE 01201, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"PbsDonor":"8"}}
+
+TESTCASE 01202, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><SafetySecurityConscious>8</SafetySecurityConscious></TargetReady></PersonSearch>
+
+TESTCASE 01203, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"Shopaholics":"8"}}
+
+TESTCASE 01204, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><ForeignTravelForVacation>8</ForeignTravelForVacation></TargetReady></PersonSearch>
+
+TESTCASE 01205, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"Conservative":"8"}}
+
+TESTCASE 01206, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><LeaningConservative>8</LeaningConservative></TargetReady></PersonSearch>
+
+TESTCASE 01207, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"LeaningLiberal":"8"}}
+
+TESTCASE 01208, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><ReligiousDonor>8</ReligiousDonor></TargetReady></PersonSearch>
+
+TESTCASE 01209, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"GardenMaintenance":"8"}}
+
+TESTCASE 01210, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><HeavyFamilyRestaurantVisitor>8</HeavyFamilyRestaurantVisitor></TargetReady></PersonSearch>
+
+TESTCASE 01211, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"HeavyPayPerViewSports":"8"}}
+
+TESTCASE 01212, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><Nascar>8</Nascar></TargetReady></PersonSearch>
+
+TESTCASE 01213, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"Liberal":"8"}}
+
+TESTCASE 01214, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><DogProducts>8</DogProducts></TargetReady></PersonSearch>
+
+TESTCASE 01215, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"HeavyPayPerViewMovies":"8"}}
+
+TESTCASE 01216, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><DietProducts>8</DietProducts></TargetReady></PersonSearch>
+
+TESTCASE 01217, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"OrganicFoods":"8"}}
+
+TESTCASE 01218, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><HeavyVitaminAndDietarySupplement>8</HeavyVitaminAndDietarySupplement></TargetReady></PersonSearch>
+
+TESTCASE 01219, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"BabyProducts":"8"}}
+
+TESTCASE 01220, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><HeavyCouponUser>8</HeavyCouponUser></TargetReady></PersonSearch>
+
+TESTCASE 01221, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"OpinionLeaders":"8"}}
+
+TESTCASE 01222, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><CatProducts>8</CatProducts></TargetReady></PersonSearch>
+
+TESTCASE 01223, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"CreditCardRewards":"8"}}
+
+TESTCASE 01224, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><HighEndSportingEquipment>8</HighEndSportingEquipment></TargetReady></PersonSearch>
+
+TESTCASE 01225, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"HomeImprovement":"8"}}
+
+TESTCASE 01226, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><HighEndElectronicsBuyers>8</HighEndElectronicsBuyers></TargetReady></PersonSearch>
+
+TESTCASE 01227, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"AvidGamer":"8"}}
+
+TESTCASE 01228, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><RentalCar>8</RentalCar></TargetReady></PersonSearch>
+
+TESTCASE 01229, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"AvidCellPhoneUser":"8"}}
+
+TESTCASE 01230, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><ProfessionalTaxPreparation>8</ProfessionalTaxPreparation></TargetReady></PersonSearch>
+
+TESTCASE 01231, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"OnsiteTaxPreparation":"8"}}
+
+TESTCASE 01232, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><ClassicalMusicConcerts>8</ClassicalMusicConcerts></TargetReady></PersonSearch>
+
+TESTCASE 01233, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"RockMusicConcerts":"8"}}
+
+TESTCASE 01234, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><CountryMusicConcerts>8</CountryMusicConcerts></TargetReady></PersonSearch>
+
+TESTCASE 01235, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"LiveTheater":"8"}}
+
+TESTCASE 01236, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><HeavyBookBuyer>8</HeavyBookBuyer></TargetReady></PersonSearch>
+
+TESTCASE 01237, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"FreshwaterFishing":"8"}}
+
+TESTCASE 01238, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><SaltwaterFishing>8</SaltwaterFishing></TargetReady></PersonSearch>
+
+TESTCASE 01239, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"Hunting":"8"}}
+
+TESTCASE 01240, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><AllTerrainVehicle>8</AllTerrainVehicle></TargetReady></PersonSearch>
+
+TESTCASE 01241, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"PowerBoating":"8"}}
+
+TESTCASE 01242, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><OutdoorActivities>8</OutdoorActivities></TargetReady></PersonSearch>
+
+TESTCASE 01243, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"AdventureSeekers":"8"}}
+
+TESTCASE 01244, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><LowEndSportingEquipment>8</LowEndSportingEquipment></TargetReady></PersonSearch>
+
+TESTCASE 01245, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"ProfessionalBaseballSportsFan":"8"}}
+
+TESTCASE 01246, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><ProfessionalFootballSportsFan>8</ProfessionalFootballSportsFan></TargetReady></PersonSearch>
+
+TESTCASE 01247, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"ProfessionalBasketballSportsFan":"8"}}
+
+TESTCASE 01248, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><ProfessionalBasketballSportsFan>8</ProfessionalBasketballSportsFan></TargetReady></PersonSearch>
+
+TESTCASE 01249, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"SoccerSportsFan":"8"}}
+
+TESTCASE 01250, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><CollegeBasketballSportsFan>8</CollegeBasketballSportsFan></TargetReady></PersonSearch>
+
+TESTCASE 01251, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"CollegeFootballSportsFan":"8"}}
+
+TESTCASE 01252, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><GolfSportsFan>8</GolfSportsFan></TargetReady></PersonSearch>
+
+TESTCASE 01253, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"TennisSportsFan":"8"}}
+
+TESTCASE 01254, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><ProfessionalWrestlingSportsFan>8</ProfessionalWrestlingSportsFan></TargetReady></PersonSearch>
+
+TESTCASE 01255, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"InternationalLongDistance":"8"}}
+
+TESTCASE 01256, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><HeavyFrozenDinner>8</HeavyFrozenDinner></TargetReady></PersonSearch>
+
+TESTCASE 01257, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ResourceType":"TargetReady","StateProvince":"NY","TargetReady":{"CookFromScratch":"8"}}
+
+TESTCASE 01258, Validate_TargetReady_Outputs
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>TargetReady</ResourceType><StateProvince>NY</StateProvince><TargetReady><CookForFun>8</CookForFun></TargetReady></PersonSearch>
+
+TESTCASE 01259, Validate_RadiusPostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>Scott</FirstName><RadiusPostalCodeList><RadiusPostalCode><PostalCode>68046</PostalCode><RadiusMiles>.1</RadiusMiles></RadiusPostalCode></RadiusPostalCodeList><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01260, Validate_RadiusPostalCode_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"Scott","RadiusPostalCodeList":[{"PostalCode":"68046","RadiusMiles":".1"},{"PostalCode":"68133","RadiusMiles":"1"}],"ResourceType":"enhanced"}
+
+TESTCASE 01261, Validate_RadiusCenterPoint_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>Scott</FirstName><RadiusCenterPointList><RadiusCenterPoint><Latitude>41.15768</Latitude><Longitude>-96.029861</Longitude><RadiusMiles>.5</RadiusMiles></RadiusCenterPoint></RadiusCenterPointList><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01262, Validate_RadiusCenterPoint_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"Scott","RadiusCenterPointList":[{"Latitude":"41.15768","Longitude":"-96.029861","RadiusMiles":".5"},{"Latitude":"41.126","Longitude":"-96.006","RadiusMiles":"1"}],"ResourceType":"enhanced"}
+
+TESTCASE 01263, Validate_RadiusCenterPoint_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>Scott</FirstName><RadiusCenterPointList><RadiusCenterPoint><Latitude>46.831118</Latitude><Longitude>-100.905347</Longitude><RadiusMiles>10</RadiusMiles></RadiusCenterPoint></RadiusCenterPointList><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01264, Validate_RadiusCenterPoint_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"FirstName":"asewrewrewr","RadiusCenterPointList":[{"Latitude":"41.15768","Longitude":"-96.029861","RadiusMiles":".5"}],"ResourceType":"enhanced"}
+
+TESTCASE 01265, Validate_Polygon_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>Scott</FirstName><PolygonList><Polygon><Points><Point><Latitude>41.169609</Latitude><Longitude>-96.067886</Longitude></Point><Point><Latitude>41.1678</Latitude><Longitude>-96.000938</Longitude></Point><Point><Latitude>41.127987</Latitude><Longitude>-95.982742</Longitude></Point><Point><Latitude>41.129668</Latitude><Longitude>-95.039734</Longitude></Point><Point><Latitude>41.137813</Latitude><Longitude>-96.073895</Longitude></Point></Points></Polygon></PolygonList><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01266, Validate_Polygon_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"LastName":"Not a Name","PolygonList":[{"Points":[{"Latitude":"41.334029","Longitude":"-96.238861"},{"Latitude":"41.341247","Longitude":"-96.076813"},{"Latitude":"41.214821","Longitude":"-96.212769"}]}],"ResourceType":"enhanced"}
+
+TESTCASE 01267, Validate_BirthMonth_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><BirthMonth>05</BirthMonth><PostalCode><string>68154</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01268, Validate_AgeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AgeRange><string>18-24</string></AgeRange><FirstName>Thomas</FirstName><Limit>100</Limit><PostalCode><string>68114</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01269, Validate_AgeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"AgeRange":["75"],"FirstName":"Thomas","Limit":100,"PostalCode":["68046"],"ResourceType":"enhanced"}
+
+TESTCASE 01270, Validate_AgeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AgeRange><string>18-24,30-34</string></AgeRange><FirstName>Thomas</FirstName><Limit>100</Limit><PostalCode><string>68114</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01271, Validate_IncomeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><IncomeRange><string>$400000 - $499999</string></IncomeRange><Limit>100</Limit><PostalCode><string>68116</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01272, Validate_IncomeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"IncomeRange":["$1000 - $20000"],"Limit":100,"PostalCode":["69301"],"ResourceType":"enhanced"}
+
+TESTCASE 01273, Validate_IncomeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><IncomeRange><string>500000</string></IncomeRange><Limit>100</Limit><PostalCode><string>68116</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01274, Validate_IncomeRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"IncomeRange":["$400000 - $499999,$300000 - $399999"],"Limit":100,"PostalCode":["68116"],"ResourceType":"enhanced"}
+
+TESTCASE 01275, Validate_HomeValueRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HomeValueRange><string>$400000 - $449999</string></HomeValueRange><PostalCode><string>68116</string></PostalCode></PersonSearch>
+
+TESTCASE 01276, Validate_HomeValueRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HomeValueRange":["$1 - $24999"],"PostalCode":["68116"]}
+
+TESTCASE 01277, Validate_HomeValueRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HomeValueRange><string>$1000000</string></HomeValueRange><StateProvince>NE</StateProvince></PersonSearch>
+
+TESTCASE 01278, Validate_HomeValueRange_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HomeValueRange":["$175000 - $199999,$200000 - $249999"],"StateProvince":"NE"}
+
+TESTCASE 01279, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Ethnicity><string>Ashanti</string></Ethnicity><Limit>100</Limit><PostalCode><string>35816</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01280, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Ethnicity":["Asante"],"Limit":100,"PostalCode":["35816"],"ResourceType":"enhanced"}
+
+TESTCASE 01281, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Ethnicity><string>Ashanti (Asante)</string></Ethnicity><Limit>100</Limit><PostalCode><string>35816</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01282, Validate_Ethnicity_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"AgeRange":["18-24"],"Ethnicity":["Armenian, Bosnian"],"Limit":100,"MiddleInitial":"I","ResourceType":"enhanced","StateProvince":"NY"}
+
+TESTCASE 01283, Validate_Age_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Age><string>18,21,22</string></Age><FirstName>Thomas</FirstName><Limit>100</Limit><PostalCode><string>68114,68127</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01284, Validate_Age_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Age":["18,21,22,32,65"],"FirstName":"Thomas","Limit":100,"PostalCode":["68114,68127"],"ResourceType":"enhanced"}
+
+TESTCASE 01285, Validate_Age_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Age><string>18,20,30-38,52-60,65</string></Age><FirstName>Thomas</FirstName><Limit>100</Limit><PostalCode><string>68114,68127</string></PostalCode><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01286, Validate_Age_Search_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Age":["10"],"FirstName":"Thomas","Limit":100,"PostalCode":["68114,68127"],"ResourceType":"enhanced"}
+
+TESTCASE 01287, Validate_ParsedAddress_Sets_StreetSearchType_And_Returns_People_In_Crawford_Papillion_NE
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><AddressParsed><Name>Crawford</Name><Suffix>St</Suffix></AddressParsed><City>Papillion</City><StateProvince>NE</StateProvince></PersonSearch>
+
+TESTCASE 01288, Validate_County_Without_StateProvince_Returns_BadRequest
+  GET ${peopleuri-port}/${peopleuri-end-point}?county=douglas
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01289, Validate_County_With_StateProvince_Returns_OK
+  GET ${peopleuri-port}/${peopleuri-end-point}?county=douglas&stateprovince=ne
+  SET_HEADER Accept: application/xml
+  STATUS 400
+  SKIP_COMPARE
+
+TESTCASE 01290, Validate_POST_County_Returns_Zero_Counts
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><County>perry</County><StateProvince>NE</StateProvince></PersonSearch>
+
+TESTCASE 01291, Validate_POST_County_And_State
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><County>Sarpy</County><StateProvince>NE</StateProvince></PersonSearch>
+
+TESTCASE 01292, Validate_POST_Upper_County_And_State
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><County>SARPY</County><StateProvince>NE</StateProvince></PersonSearch>
+
+TESTCASE 01293, Validate_POST_EmailSha1Upper_Parameter
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><EmailSha1Upper>283b509ba7cab1d4528807e565b82ff84305d8fd</EmailSha1Upper></PersonSearch>
+
+TESTCASE 01294, Validate_POST_EmailSha1Upper_And_IncludeHistoricalEmail_As_True_Parameter
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><EmailSha1Upper>283b509ba7cab1d4528807e565b82ff84305d8fd</EmailSha1Upper><IncludeHistoricalEmail>true</IncludeHistoricalEmail></PersonSearch>
+
+TESTCASE 01295, Validate_POST_EmailSha1Upper_And_IncludeHistoricalEmail_As_False_Parameter
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><EmailSha1Upper>283b509ba7cab1d4528807e565b82ff84305d8fd</EmailSha1Upper><IncludeHistoricalEmail>false</IncludeHistoricalEmail></PersonSearch>
+
+TESTCASE 01296, Validate_Person_For_EmailSha1Upper_Exists_In_Email_Database_Not_In_Consumer_Database
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><EmailSha1Upper>2cae829bb09f8bd9d1efea1dd6da61e1b2ea9c5f</EmailSha1Upper></PersonSearch>
+
+TESTCASE 01297, Validate_HousingType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HousingType><string>Multi-Family Dwelling</string></HousingType><Limit>10</Limit><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 01298, Validate_HousingType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HousingType":["Nursing Home"],"Limit":10,"PostalCode":["68046"]}
+
+TESTCASE 01299, Validate_HousingType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HousingType><string>Retirement Home</string></HousingType><Limit>10</Limit><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 01300, Validate_HousingType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HousingType":["Single Family Dwelling"],"Limit":10,"PostalCode":["68046"]}
+
+TESTCASE 01301, Validate_HousingType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HousingType><string>Trailer Court</string></HousingType><Limit>10</Limit><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 01302, Validate_HousingType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"HousingType":["Unknown"],"Limit":10,"PostalCode":["68046"]}
+
+TESTCASE 01303, Validate_HousingType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><HousingType><string>Multi-Family Dwelling</string><string>Nursing Home</string><string>Retirement Home</string><string>Single Family Dwelling</string><string>Trailer Court</string><string>Unknown</string></HousingType><Limit>10</Limit><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 01304, Include_All_Residents_Get_Test
+  GET ${peopleuri-port}/${peopleuri-end-point}?Phone=4029919373
+  SET_HEADER Accept: application/xml
+
+TESTCASE 01305, Validate_MailScore
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>10</Limit><MailScore><string>Accurate</string></MailScore><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 01306, Validate_MailScore
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":10,"MailScore":["Likely"],"PostalCode":["68046"]}
+
+TESTCASE 01307, Validate_MailScore
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>10</Limit><MailScore><string>Questionable</string></MailScore><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 01308, Validate_MailScore
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":10,"MailScore":["Unlikely"],"PostalCode":["68046"]}
+
+TESTCASE 01309, Validate_MailScore
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>10</Limit><MailScore><string>Undeliverable</string></MailScore><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 01310, Validate_MailScore
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":10,"MailScore":["Accurate","Likely","Questionable","Unlikely","Undeliverable"],"PostalCode":["68046"]}
+
+TESTCASE 01311, Validate_Search_By_NotId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Limit>10</Limit><StateProvince>AK</StateProvince></PersonSearch>
+
+TESTCASE 01312, Validate_Search_By_NotId
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":10,"NotId":["700001189669","700001275054"],"StateProvince":"AK"}
+
+TESTCASE 01313, Validate_ActualIncome_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ActualIncome><string>100000</string></ActualIncome><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 01314, Validate_ActualIncome_Criteria
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"ActualIncome":["200000"],"PostalCode":["68046"]}
+
+TESTCASE 01315, Validate_CitiesByStateProvince_Returns_Valid_Records
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CitiesByStateProvince><CityStateProvince><City>Omaha</City><StateProvince>NE</StateProvince></CityStateProvince><CityStateProvince><City>Chicago</City><StateProvince>IL</StateProvince></CityStateProvince></CitiesByStateProvince></PersonSearch>
+
+TESTCASE 01316, Validate_CitiesByStateProvince_Returns_Valid_Records
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"CitiesByStateProvince":[{"City":"Omaha","StateProvince":"NE"},{"City":"Chicago","StateProvince":"IL"}],"LastName":"Jones"}
+
+TESTCASE 01317, Validate_CountiesByState_Returns_Valid_Records
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><CountiesByState><CountyState><County>Douglas</County><State>NE</State></CountyState><CountyState><County>Harrison</County><State>IA</State></CountyState></CountiesByState><ResourceType>enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01318, Validate_CountiesByState_Returns_Valid_Records
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"CountiesByState":[{"County":"Douglas","State":"NE"},{"County":"Harrison","State":"IA"}],"LastName":"Jones","ResourceType":"enhanced"}
+
+TESTCASE 01319, Validate_Multiple_StatesProvinces_Returns_Valid_Records
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><StatesProvinces><string>NE</string><string>IA</string><string>NY</string></StatesProvinces></PersonSearch>
+
+TESTCASE 01320, Validate_Multiple_StatesProvinces_Returns_Valid_Records
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"LastName":"Jones","StatesProvinces":["NE","IA","NY"]}
+
+TESTCASE 01321, Validate_POST_IncludeHistorical
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><IncludeHistorical>true</IncludeHistorical><Limit>50</Limit><PostalCode><string>68046</string></PostalCode></PersonSearch>
+
+TESTCASE 01322, Validate_POST_IncludeHistorical
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/json
+  BODY {"Limit":50,"PostalCode":["68046"]}
+
+TESTCASE 01323, Validate_POST_IncludeHistorical
+  GET ${peopleuri-port}/${peopleuri-end-point}/400285862143
+  SET_HEADER Accept: application/xml
+
+TESTCASE 01324, Validate_POST_IncludeHistorical
+  GET ${peopleuri-port}/${peopleuri-end-point}/800003229682
+  SET_HEADER Accept: application/json
+
+TESTCASE 01325, Validate_YearsAtResidence
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><PostalCode><string>68154</string></PostalCode><ResourceType>enhanced</ResourceType><YearsAtResidence><string>1</string><string>2-5</string><string>6-12</string></YearsAtResidence></PersonSearch>
+
+TESTCASE 01326, Validate_SortCenter
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><LastName>johnson</LastName><SortCenter><Latitude>41.15445</Latitude><Longitude>-96.04195</Longitude></SortCenter><StateProvince>CA</StateProvince></PersonSearch>
+
+TESTCASE 01327, Validate_AvidThemeParkVisitor_Is_Returned_In_Output
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><City>Omaha</City><ResourceType>TargetReady</ResourceType><StateProvince>NE</StateProvince><TargetReady><AvidThemeParkVisitor>5</AvidThemeParkVisitor></TargetReady></PersonSearch>
+
+TESTCASE 01328, Validate_ChildAge_And_ChildGender
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>5</Age></AgeBirthMonth></ChildAgeBirthMonth><Gender>Male</Gender></ChildAgeBirthMonthGender><ResourceType>Enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01329, Validate_ChildAge_With_Multiple_Ages
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>5</Age></AgeBirthMonth><AgeBirthMonth><Age>10</Age></AgeBirthMonth><AgeBirthMonth><Age>15</Age></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender><ResourceType>Enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01330, Validate_ChildAge_With_Multiple_Ages_And_BirthMonths
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>5</Age><BirthMonth>January</BirthMonth></AgeBirthMonth><AgeBirthMonth><Age>10</Age><BirthMonth>March</BirthMonth></AgeBirthMonth><AgeBirthMonth><Age>15</Age><BirthMonth>July</BirthMonth></AgeBirthMonth></ChildAgeBirthMonth></ChildAgeBirthMonthGender><ResourceType>Enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01331, Validate_ChildAge_With_ChildGender_And_Multiple_Ages_And_BirthMonths
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ChildAgeBirthMonthGender><ChildAgeBirthMonth><AgeBirthMonth><Age>5</Age><BirthMonth>January</BirthMonth></AgeBirthMonth><AgeBirthMonth><Age>10</Age><BirthMonth>March</BirthMonth></AgeBirthMonth><AgeBirthMonth><Age>15</Age><BirthMonth>July</BirthMonth></AgeBirthMonth></ChildAgeBirthMonth><Gender>Male</Gender></ChildAgeBirthMonthGender><ResourceType>Enhanced</ResourceType></PersonSearch>
+
+TESTCASE 01332, Validate_HousingType_Returns_HousingType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><Fields><string>HousingType</string></Fields><HousingType><string>Single Family Dwelling</string></HousingType><PostalCode><string>68137</string></PostalCode></PersonSearch>

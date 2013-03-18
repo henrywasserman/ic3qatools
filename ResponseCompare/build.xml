@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<!--  ======================================================================= -->
+<!--  response and compare build file                                         -->
+<!--  ======================================================================= -->
+
+<project name="XStreamCompare" default="run-tests" basedir=".">
+
+<!--  ===================================================================  -->
+<!--  makes requests, then compares xml                                    -->
+<!--  ===================================================================  -->
+	<property name="server_pointing" value="${server}"/>
+	<property file="request/request.properties"/>
+
+	<target name="run-tests" depends="request,compare" >
+	</target>
+
+<!--  ===================================================================  -->
+<!--  makes requests                                                       -->
+<!--  ===================================================================  -->
+
+	<target name="request">
+		<ant antfile = "build.xml"
+        	dir = "request"> 
+    	</ant>
+	</target>
+
+
+<!--  ===================================================================  -->
+<!--  compares responses                                                   -->
+<!--  ===================================================================  -->
+	<target name = "compare">
+			<ant antfile = "build.xml" dir="compare" />
+	</target>
+
+<!--  ===================================================================  -->
+<!--  Delete test_output directory                                         -->
+<!--  ===================================================================  -->
+	<target name="delete-test-output">
+		<delete dir="test_output"/>
+	</target>
+</project>

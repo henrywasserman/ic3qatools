@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<counts type="string">1</counts>
+</root>
+<root>
+<id type="string">005587340</id>
+<LevenshteinScore type="string">0.8</LevenshteinScore>
+<location_id type="string">100591245948</location_id>
+<individul_id type="string">201101989936</individul_id>
+<firstname type="string">LUKE</firstname>
+<middle_name type="string">I</middle_name>
+<lastname type="string">RAMSEY</lastname>
+<lastname_suffix type="string">JR</lastname_suffix>
+<email type="string">null</email>
+<phone type="string">5017224155</phone>
+<address type="string">4214 EDISON AVE</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">72015</zipcode>
+</root>
+</root>

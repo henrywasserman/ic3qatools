@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<counts type="string">2</counts>
+</root>
+<root>
+<id type="string">006301610</id>
+<LevenshteinScore type="string">0.8</LevenshteinScore>
+<location_id type="string">400002352519</location_id>
+<individul_id type="string">500004043516</individul_id>
+<firstname type="string">JOHN</firstname>
+<middle_name type="string">B</middle_name>
+<lastname type="string">MURPHY</lastname>
+<lastname_suffix type="string">SR</lastname_suffix>
+<email type="string">null</email>
+<phone type="string">5013626437</phone>
+<address type="string">49 LACKEYS WAY</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">72581</zipcode>
+</root>
+<root>
+<id type="string">007148867</id>
+<LevenshteinScore type="string">0.8</LevenshteinScore>
+<location_id type="string">700475852953</location_id>
+<individul_id type="string">101506657837</individul_id>
+<firstname type="string">JOHN</firstname>
+<middle_name type="string">B</middle_name>
+<lastname type="string">MURPHY</lastname>
+<lastname_suffix type="string">SR</lastname_suffix>
+<email type="string">null</email>
+<phone type="string"/>
+<address type="string">160 OLD SPRING RD</address>
+<city type="string">null</city>
+<state type="string">null</state>
+<zipcode type="string">72581</zipcode>
+</root>
+</root>

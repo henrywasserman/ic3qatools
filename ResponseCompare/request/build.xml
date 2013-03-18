@@ -1,0 +1,305 @@
+<?xml version="1.0" ?>
+<!--  ======================================================================= -->
+<!--  request build file                                                      -->
+<!--  ======================================================================= -->
+<project name="request" default="run-tests" basedir=".">
+
+  <tstamp>
+     <format locale="en,US" pattern="yyyyMMdd_HHmmss" property="TODAY"/>
+  </tstamp>
+ 
+  <property name="src.dir" value="src" />
+  <property name="src.compare" value="../compare/src"/>
+  <property name="lib.dir" value="../lib" />
+  <property name="classes.dir" value="classes" />
+  <property name ="compare.classes.dir" value="../compare/classes"/>
+  <property name="compare.classes" value="../compare/classes"/>
+  <property name="java.home" value="${env.JAVA_HOME}"/>
+  <property name="testrun" value="${testrun}"/>
+
+  <!--Allows us to use the same build.xml for branch or trunk-->
+  <!--Write out basedir-->
+  <echo file="path.txt" message="${basedir}"/>
+
+  <!--Bring back in the file and regex to grab the version string-->
+  <loadfile srcFile="path.txt" property="version">
+	<filterchain>
+		<replaceregex pattern=".*branches.([\w+|\.|\d+]+).*" replace="\1" />
+	</filterchain>
+  </loadfile>
+
+  <loadfile srcFile="path.txt" property="nmg-testing-tools.root">
+  	<filterchain>
+		  <replaceregex pattern="(.*)nmg-testing-tools.*" replace="\1" />
+  	</filterchain>
+  </loadfile>
+  
+  <condition property="responsecompareroot" value="${nmg-testing-tools.root}nmg-testing-tools/branches/${branch}/ResponseCompare"  
+	  else="${basedir}/..">
+	 <isset property="branch"/>
+  </condition> 
+
+  <condition property="source" value="branches/${branch}"
+	  else="trunk">
+	  <isset property="branch"/>
+  </condition>
+
+  <condition property="test.dir" value="${test.dir}"
+	  else="${basedir}">
+	  <isset property="test.dir"/>
+  </condition>
+
+  <!-- Find out wether we are in trunk or branch and create nmg strings accordingly-->
+  <condition property="responsecompare.dir" value="../../../../nmg-common/branches/${branch}" 
+    else="..">
+	  <isset property="branch"/>
+  </condition>
+
+  <!--
+  <condition property="nmg.war.dir" value="../../../../nmg-war/branches/${branch}" 
+    else="../../../../nmg-war/trunk">
+	  <isset property="branch"/>
+  </condition>
+  -->
+
+  <condition property="branch" value="${branch}" else="">
+        <isset property="branch"/>
+  </condition>
+
+  <property name="dir.test.report" value="${responsecompareroot}/test_output"/>
+  <property name="dir.xstream.data" value="${responsecompareroot}/data"/>
+  <property name="compare.dir" value="${responsecompareroot}"/>
+  <property name="request.dir" value="${responsecompareroot}/data/infogroup/request"/>
+  <property name="junit.report.dir" value="junit"/>
+  <property name="test.dir" value="${test.dir}"/>
+
+<fail message="One or more directories does not exist: responsecompare.dir: ${responsecompare.dir},  responsecompareroot: ${responsecompareroot}">
+	
+  <condition>
+     <or>
+       <not> <available file="${responsecompare.dir}" type="dir"/>  </not>
+       <not> <available file="${responsecompareroot}" type="dir"/></not>
+    </or>
+  </condition>
+  </fail>
+
+  <condition property="tc" value="${tc}" else="none">
+        <isset property="tc"/>
+  </condition>
+
+  <condition property="propfile" value="${propfile}" else="responsecompare">
+	    <isset property="propfile"/>
+  </condition>
+
+  <condition property="filelist" value="${filelist}" else="none">
+        <isset property="filelist"/>
+  </condition>
+ 
+  <condition property="excludefilelist" value="${excludefilelist}" else="none">
+        <isset property="excludefilelist"/>
+  </condition>
+
+  <condition property="testcases" value="${testcases}" else="none">
+        <isset property="testcases"/>
+  </condition>
+
+  <condition property="requestdir" value="${requestdir}" else="none">
+        <isset property="requestdir"/>
+  </condition>
+
+<!-- =================================================================== -->
+<!-- Defines the classpath used for compilation and running HTTPClient.  -->
+<!-- =================================================================== -->
+<path id="base.classpath">
+    <fileset dir="${lib.dir}">
+        <include name="*.jar"/>
+    </fileset>
+    <fileset dir="${java.home}/lib">
+	<include name="*.jar"/>
+    </fileset>
+    <pathelement location="${compare.classes}"/>
+    <pathelement location="${classes.dir}" />
+</path>
+
+<!--  ===================================================================  -->
+<!--  Compiles the source code                                             -->
+<!--  ===================================================================  -->
+<target name="compile">
+    <mkdir dir="${classes.dir}" />
+    <javac destdir="${classes.dir}" 
+	    debug="on" deprecation="off" optimize="off" includeantruntime="true"
+    >
+	<src path="${src.dir}"/>
+	<src path="${src.compare}"/>
+    	<classpath refid="base.classpath" />
+	<compilerarg value="-XDignore.symbol.file=true"/>
+    </javac>
+
+    <copy file="${responsecompareroot}/request/properties/log4j.properties" todir="${responsecompareroot}/request/classes"/>
+
+</target>
+
+<target name="run-tests" depends="clean,compile,set-junit-report-xsl">
+    <echo message="Here is test.dir: ${test.dir}"/>
+    <echo message="run-tests here is responsecompareroot: ${responsecompareroot}"/>
+    <delete failonerror="false">
+	    <fileset dir="${responsecompareroot}/data/response" includes="**/*.xml"/>
+	    <fileset dir="${responsecompareroot}/data/response" includes="**/*.hash"/>
+    </delete>
+
+    <delete failonerror="false">
+	<fileset dir="${dir.xstream.data}/response" includes="**/*.xml"/>
+	<fileset dir="${dir.xstream.data}/response" includes="**/*.hash"/>
+    </delete>
+
+    <delete dir="${dir.test.report}"/>
+
+    <mkdir dir="${dir.test.report}"/>
+
+
+    
+    <javac srcdir="${src.dir}" destdir="${classes.dir}"
+           debug="on" deprecation="off" optimize="off" includeantruntime="true">
+         <classpath refid="base.classpath" />
+    </javac>
+
+    <echo message="Here is tc: ${tc}"/>
+    <echo message="Here is filelist: ${filelist}"/>
+    <echo message="Here is excludefilelist: ${excludefilelist}"/>
+    <echo message="Here is propfile: ${propfile}"/>
+    <!--<echo message="Here is branch: ${branch}"/>-->
+    <echo message="Here is responsecompareroot: ${responsecompareroot}"/>
+    <echo message="Here is source: ${source}"/>
+    <echo message="Here is test.dir: ${test.dir}"/>
+ 
+
+    <junit printsummary="withOutAndErr" 
+	    maxmemory="1024m" haltonfailure="no" fork="yes" dir="${basedir}">
+
+        <classpath>
+            <path refid="base.classpath" />
+            <pathelement location="${classes.dir}" />
+            <pathelement location="${classpath}" />
+        </classpath>
+	<sysproperty key="tc" value="${tc}"/>
+	<sysproperty key="filelist" value="${filelist}"/>
+	<sysproperty key="excludefilelist" value="${excludefilelist}"/>
+	<sysproperty key="propfile" value="${propfile}"/>
+	<!--<sysproperty key="branch"  value="${branch}"/>-->
+	<sysproperty key="responsecompareroot"  value="${responsecompareroot}"/>
+	<sysproperty key="source" value="${source}"/>
+	<sysproperty key="test.dir" value="${test.dir}"/>
+	<sysproperty key="java.net.preferIPv4Stack" value="true"/>
+
+        <formatter usefile="true" type="xml"/>
+        <batchtest fork="yes" todir="${dir.test.report}">
+            <fileset dir="src/">
+                <include name="**/MakeRequestTest.java"/>
+            </fileset>
+        </batchtest>
+
+    </junit>
+
+    <junitreport todir="${dir.test.report}">
+	    <fileset dir="${dir.test.report}">
+    		<include name="TEST-*.xml"/>
+	</fileset>
+	<report styledir="./junit" format="noframes" todir="${dir.test.report}/html"/>
+    </junitreport>
+
+    <echo message="${responsecompareroot}/data/infogroup/images/test.jpg todir=${dir.test.report}/html"/>
+    <copy file="${responsecompareroot}/data/infogroup/images/test.jpg" todir="${dir.test.report}/html"/>
+</target>
+<!-- ==================================================================== -->
+<!--  Create a Report so the links will work with e-mail.                 -->
+<!-- ==================================================================== -->
+
+<target name="create-e-mail-report">
+	<mkdir dir="${dir.test.report}/email"/>
+	<junitreport todir="${dir.test.report}/email">
+     		<fileset dir="${dir.test.report}">
+    			<include name="TEST-*.xml"/>
+     		</fileset>
+     		<report styledir="./junit/email" format="noframes" todir="${dir.test.report}/email/html">
+			<param name="testrun" expression="${testrun}"/>
+		</report>
+	</junitreport>
+</target>
+
+
+<!--  ===================================================================  -->
+<!--  Cleans up generated stuff                                            -->
+<!--  ===================================================================  -->
+<target name="clean">
+    <delete dir="${classes.dir}" />
+    <delete dir="${compare.classes.dir}"/>
+    <delete dir="${dir.test.report}"/>
+    <delete dir="${request.dir}"/>
+</target>
+
+<target name="set-junit-report-xsl" if="hudson.set">
+	<copy overwrite="true" file="${junit.report.dir}/junit-noframes.hudson.xsl" 
+		tofile="${junit.report.dir}/junit-noframes.xsl"/>
+</target>
+
+<!--  ===================================================================  -->
+<!--  Creates Hashtable jar files                                          -->
+<!--  ===================================================================  -->
+<!--
+<target name="create-jars">
+	<mkdir dir="${nmg.dir}/target/test/com/navteq/nmg/hashtable"/>
+	<mkdir dir="${nmg.war.dir}/webapp/WEB-INF/classes/com/navteq/nmg/hashtable"/>
+	<mkdir dir="${nmg.war.dir}/webapp/WEB-INF/classes"/>
+
+	<jar destfile="${lib.dir}/nmg-units.jar" basedir="${nmg.dir}/target/test">
+	
+		<fileset dir="${nmg.dir}/target/test/com/navteq/nmg/hashtable"/>
+	</jar>
+	<jar destfile="${lib.dir}/nmg-hashtable.jar" basedir="${nmg.war.dir}/webapp/WEB-INF/classes">
+		<fileset dir="${nmg.war.dir}/webapp/WEB-INF/classes/com/navteq/nmg/hashtable"/>
+	</jar>
+</target>
+-->
+	
+<target name="HashToXML" depends="compile">
+	<!-- Example: -Dfile=c:\test\test.hash -Dtype=enduserid -->
+	<java classname="com.xstreamcompare.request.HashToXML">
+		<arg value="-t ${type}"/>
+		<arg value="-f ${file}"/>
+
+        	<classpath>
+            		<path refid="base.classpath" />
+		        <pathelement location="${classes.dir}" />
+	        </classpath>
+	</java>
+</target>
+
+<target name="ImageCompare" depends="compile">
+	<java classname="com.xstreamcompare.tools.ImagePreview">
+
+		<classpath>
+			<path refid="base.classpath"/>
+			<pathelement location="${classes.dir}"/>
+		</classpath>
+		<sysproperty key="requestdir" value="${requestdir}"/>
+	</java>
+</target>
+
+<target name="delete-test-output">
+	<delete dir="${test_output}"/>
+</target>
+
+<condition property="compiled"  value="true"  else="false">
+	<available file="${responsecompare.dir}/target/test" type="dir"/>
+</condition>	
+   <target name="compiletests" unless="${compiled}">
+	<ant antfile="${responsecompare.dir}/build.xml" target="compiletests" inheritall="false" />
+  </target>
+   
+<target name="fake">
+  <echo message="Here is version: ${version}"/>
+  <echo message="Here is branch: ${branch}"/>
+  <echo message="Here is responsecompare.dir: ${infogroup.dir}"/>
+
+</target>   
+</project>

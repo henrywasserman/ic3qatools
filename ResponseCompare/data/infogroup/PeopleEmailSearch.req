@@ -1,0 +1,52 @@
+#############################################################################
+# Validate Email Search Criteria For DataLogix Emails Without IndividualId  #
+#############################################################################
+
+TESTCASE 00001, Individual ID Duplicate Individual ID Duplicate Blank ID returns Individual ID's
+  GET ${peopleuri-port}/${peopleuri-end-point}/?email=abkochan%40aol.com
+  SET_HEADER Accept: application/json
+
+TESTCASE 00002, Individual ID Duplicate Blank ID returns Individual ID not Blank ID(s) 
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  BODY {"Email":"DUCKEYDUCKDUCKEY@YAHOO.COM"}
+  SET_HEADER Accept: application/json
+
+TESTCASE 00003, Duplicate Individual ID Duplicate Blank ID returns Individual ID not Blank ID(s)
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  BODY {"Email":"ME_LOVE_DRAGONS@YAHOO.COM"}
+  SET_HEADER Accept: application/json
+
+TESTCASE 00004, Blank ID returns ALL
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  BODY {"Email":"FMC96582@AOL.COM"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00005, Individual ID Returns ALL
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  BODY {"Email":"PHILYAW2420@GMAIL.COM"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00006, Individual ID Duplicate Individual ID Blank ID Returns Individual ID(s)
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  BODY {"Email":"ESTEBANHERRERA1990@YAHOO.COM"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00007, Duplicate Blank IDs return Best In Search
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  BODY {"Email":"JVIC3236@GMAIL.COM"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00008, Individual ID Blank ID returns Individual ID not Blank ID
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  BODY {"Email":"DARIO.1428@HOTMAIL.COM"}
+  SET_HEADER Accept: application/json
+
+TESTCASE 00009, Duplicate Individual ID Blank ID return Individual ID not blank ID(s)
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  BODY {"Email":"EMBLANC11@AOL.COM"} 
+  SET_HEADER Accept: application/json
+
+TESTCASE 00010, Duplicate Individual ID Blank ID return Individual ID not blank ID(s)
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  BODY {"Email":"ACE@6ONE7PRODUCTIONS.COM"} 
+  SET_HEADER Accept: application/json

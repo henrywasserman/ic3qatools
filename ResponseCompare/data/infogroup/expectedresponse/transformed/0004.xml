@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><root type="array">
+<root>
+<ETag type="string"/>
+<Address type="string">17992 SW 33RD ST</Address>
+<AddressParsed>
+<Name type="string">33rd</Name>
+<Number type="string">17992</Number>
+<PreDirectional type="string">SW</PreDirectional>
+<Suffix type="string">St</Suffix>
+</AddressParsed>
+<City type="string">MIRAMAR</City>
+<FirstName type="string">Felix</FirstName>
+<LastName type="string">Colon</LastName>
+<Location>
+<Latitude type="float">25.977165</Latitude>
+<Longitude type="float">-80.385406</Longitude>
+</Location>
+<PostalCode type="string">33029</PostalCode>
+<StateProvince type="string">FL</StateProvince>
+</root>
+</root>

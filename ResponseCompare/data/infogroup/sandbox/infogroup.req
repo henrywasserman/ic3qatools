@@ -1,0 +1,14 @@
+TESTCASE 001, Validate IndividualID Match with email append returns all
+  POST ${matchuri-port}/${matchuri-end-point}
+  BODY {"City":"Redmond","StateProvince":"WA","RequestType":"Person","Name":"John Smith","Fields":["Email","City","FirstName","LastName","Address","PostalCode","Location"]}
+  SET_HEADER Accept: application/json
+
+TESTCASE 002, Validate IndividualID Person Search with email append returns all 
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  BODY {"Fields":["Email","Address","AddressParsed","AgeRange","AreChildrenPresent","City","County","FirstName","Gender","HeadOfHousehold","HomeValueRange","Id","IncomeRange","IsHomeowner","LastName","LastNameSuffix","Latitude","Longitude","MaritalStatus","MiddleInitial","PostalCode","StateProvince","WealthFinder","YearsInHome","ZipPlus4","Lifestyle","Targetready","ApparelStylishWomens","LocationType"],"Id":["700001189669"]}
+  SET_HEADER Accept: application/json
+  
+TESTCASE 003, Validate a simple Request that returns json
+  POST ${peopleuri-port}/${peopleuri-end-point}
+  BODY {"City":"Kasilof","Country":"USA","Fields":["Email","City","Name","Address","PostalCode","Location"],"Name":"Donald Russell","PostalCode":"72433","RequestType":"Person","StateProvince":"AR","StreetAddress":"Po Box 345"]}
+  SET_HEADER Accept: application/json

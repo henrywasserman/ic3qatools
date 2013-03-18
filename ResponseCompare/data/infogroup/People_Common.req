@@ -1,0 +1,19 @@
+#InputTests
+TESTCASE 0200, Validate_Basic_ResourceType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>John</FirstName><LastName>Smith</LastName><ResourceType>basic</ResourceType><StateProvince>CA</StateProvince></PersonSearch>
+
+#ResourceTypeTests
+TESTCASE 0201, Validate_Enhanced_ResourceType
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><FirstName>John</FirstName><LastName>Smith</LastName><ResourceType>enhanced</ResourceType><StateProvince>CA</StateProvince></PersonSearch>
+
+TESTCASE 0202, Validate_Invalid_ResourceType_Returns_Bad_Request
+  POST ${peopleuri-port}/${peopleuri-end-point}/Search
+  SET_HEADER Accept: application/xml
+  BODY <PersonSearch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.infoconnect.com"><ResourceType>garbage</ResourceType></PersonSearch>
+  STATUS 400
+  SKIP_COMPARE
+
