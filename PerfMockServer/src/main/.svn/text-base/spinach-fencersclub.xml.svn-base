@@ -1,0 +1,73 @@
+<response>
+<resource>
+<merchant>
+<infousa_id></infousa_id>
+<name>San Francisco Fencers Club</name>
+<locations>
+<resource>
+<location>
+<city>San Francisco</city>
+<name>San Francisco Fencers Club</name>
+<zip>94121</zip>
+<country>United States</country>
+<state>CA</state>
+<phonenumber>(415) 668-3623</phonenumber>
+<address> 4000 Balboa St</address>
+<lat>37.77547</lat>
+<lng>-122.50267</lng>
+<unit></unit>
+</location>
+</resource>
+</locations>
+<images>
+<productimage></productimage>
+<logo></logo>
+</images>
+<id>8207</id>
+<market>San Francisco</market>
+</merchant>
+<category>
+<id>8</id>
+<name>health &amp; beauty</name>
+<slug>health-beauty</slug>
+</category>
+<enddate>2011-09-01 15:36:27</enddate>
+<description>The San Francisco Fencers' Club has created an acclaimed program that balances an inclusive environment with an emphasis on athletic achievement and measurable outcomes. This balance is made possible by an extremely high coach-to-student ratio. Coaches and staff are mentors and role models who are united in the care and development of our athletes. San Francisco Fencers’ Club is a purpose-renovated state-of-the-art fencing facility. It features a sprung wood fencing surface and modern Olympic style electronic scoring equipment. We offer a full service in-house armory for equipment sales and repair. Other amenities include equipment lockers for rent and a parents lounge area. The Olympic sport of fencing has a tradition of encouraging excellence, from fitness and self-confidence to competitive success and admission to the nation's top schools. The San Francisco Fencers' Club specializes in identifying and nurturing young talent in a fun and active atmosphere. Our international coaching staff develops programs for both recreational and competitive fencers. Classes are available for all experience levels, with beginning classes starting monthly. Children as young as five years are encouraged to attend!</description>
+<maximpressions>0</maximpressions>
+<startdate>2011-06-28 15:36:25</startdate>
+<title>$50 for $100 Fencing Class </title>
+<numleft>84</numleft>
+<rate>50</rate>
+<value>100</value>
+<state>activated</state>
+<cost>50</cost>
+<createddate>2011-06-28 15:37:01</createddate>
+<images>
+<productimage>
+<small>
+<url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/e8/12/e81267219b43cb8ae2fffa9382afa00a.jpg</url>
+<width>100</width>
+<height>120</height>
+</small>
+<large>
+<url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/77/d0/77d005bbf48ec3bb2026ac763ca02c0e.jpg</url>
+<width>180</width>
+<height>200</height>
+</large>
+<medium>
+<url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/97/2a/972a7733eaee8be1fbe54e79a2f49bc4.jpg</url>
+<width>120</width>
+<height>160</height>
+</medium>
+<thumbnail>
+<url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/3d/a7/3da7091002c006fe092972f879243ea6.jpg</url>
+<width>50</width>
+<height>60</height>
+</thumbnail>
+</productimage>
+</images>
+<dealtype>2</dealtype>
+<dip>https://www.mobilespinach.com/deals/4380/?source=2&amp;appid=39</dip>
+<id>4380</id>
+</resource>
+</response>

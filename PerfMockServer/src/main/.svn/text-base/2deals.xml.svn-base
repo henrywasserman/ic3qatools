@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<Deals xmlns="http://thedealmap.com/api" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <Message/>
+  <Results>
+    <Deal>
+      <Activity>0</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>12 Arrow Street, Suite 103</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID/>
+      <BusinessName>Harvard Square Acupuncture And Massage</BusinessName>
+      <Capability>208</Capability>
+      <Category/>
+      <City>Cambridge</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>DealPop</DealSource>
+      <DealType>16</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>39</DiscountedValue>
+      <EffectiveTime>2011-04-27T21:00:00</EffectiveTime>
+      <ExpirationTime>2011-05-04T20:59:00</ExpirationTime>
+      <FaceValue>80</FaceValue>
+      <ID>135-769CF9B90F5CCFD1DE43D0D3B0A10C58</ID>
+      <IconUrl/>
+      <ImageUrl>https://s3.amazonaws.com/dealpop-production/deals/353/images/original.jpg?1302890962</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3711328</Latitude>
+      <Longitude>-71.1148158</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=135-769CF9B90F5CCFD1DE43D0D3B0A10C58&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone/>
+      <Ratings>0</Ratings>
+      <ReviewCount>0</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$39 For A One Hour Massage</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=135-769CF9B90F5CCFD1DE43D0D3B0A10C58</TransactionUrl>
+      <YouSave>51 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>50232</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>79 Park Plaza</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/8E132D50FD9B95D4C52DF4DDA7710F62</BusinessID>
+      <BusinessName>Via Matta</BusinessName>
+      <Capability>80</Capability>
+      <Category>restaurants italian</Category>
+      <City>Boston</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>BuyWithMe</DealSource>
+      <DealType>16</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>25</DiscountedValue>
+      <EffectiveTime>2011-04-27T22:05:00</EffectiveTime>
+      <ExpirationTime>2011-05-04T20:59:00</ExpirationTime>
+      <FaceValue>50</FaceValue>
+      <ID>67-0BA6AE3980E1827D1E58F6A5B779B387</ID>
+      <IconUrl/>
+      <ImageUrl>http://www.buywithme.com/system/images/deals/6240/deal_Via_Matta_Discount_Coupon.jpg?1303909624</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3514746688306</Latitude>
+      <Longitude>-71.0694812424481</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=67-0BA6AE3980E1827D1E58F6A5B779B387&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6174220008</Phone>
+      <Ratings>4.10714009999356</Ratings>
+      <ReviewCount>43</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>Half Off Authentic Italian At A Back Bay Hotspot - $50 Worth Of Dinner In The Dining Room Or On The Patio (Mon-Thurs)</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=67-0BA6AE3980E1827D1E58F6A5B779B387</TransactionUrl>
+      <YouSave>50 %</YouSave>
+      <ZipCode/>
+    </Deal>
+  </Results>
+  <TotalResults>1481</TotalResults>
+</Deals>

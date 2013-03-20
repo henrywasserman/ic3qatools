@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+  <resource>
+    <merchant>
+      <infousa_id/>
+      <name>Aquitaine - Chestnut Hill</name>
+      <locations>
+        <resource>
+          <location>
+            <city>Chestnut Hill</city>
+            <name>Aquitaine - Chestnut Hill</name>
+            <zip>02467</zip>
+            <country>United States</country>
+            <state>MA</state>
+            <phonenumber>6674663</phonenumber>
+            <address>11 Boylston St</address>
+            <lat>42.322077</lat>
+            <lng>-71.169708</lng>
+            <unit/>
+          </location>
+        </resource>
+      </locations>
+      <images>
+        <productimage/>
+        <logo/>
+      </images>
+      <id>1717</id>
+      <market>Chestnut Hill</market>
+    </merchant>
+    <category>
+      <id>5</id>
+      <name>dining &amp; food</name>
+      <slug>dining-food</slug>
+    </category>
+    <enddate>2012-01-20 23:59:00</enddate>
+    <description>Bon Appetit! This quaint and welcoming bistro specializes in the rich culinary tradition of French cuisine. The indulgent aromas and abounding tastes characterized by French fare are showcased beautifully in the bunch, lunch and dinner menus offered here. Come experience the wonderful and fanciful flavors that make French food so renowned throughout the world. For online delivery orders only at Allmenus.com using the special code on your voucher</description>
+    <maximpressions>0</maximpressions>
+    <startdate>2011-03-13 21:36:08</startdate>
+    <title>$3 for $6 on any purchase</title>
+    <numleft>20</numleft>
+    <rate>3</rate>
+    <value>6</value>
+    <state>activated</state>
+    <cost>3</cost>
+    <createddate>2011-03-13 21:36:08</createddate>
+    <images>
+      <productimage>
+        <small>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/af/dc/afdc98f4f66d1e659b744f691fa85d7b.jpg</url>
+          <width>100</width>
+          <height>120</height>
+        </small>
+        <large>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/66/e0/66e080dd5567abb8e59b01c037d7b4df.jpg</url>
+          <width>180</width>
+          <height>200</height>
+        </large>
+        <medium>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/b5/7d/b57d881ad2d30a5ed7ec0a6094a966b4.jpg</url>
+          <width>120</width>
+          <height>160</height>
+        </medium>
+        <thumbnail>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/8f/c7/8fc7da4e94a409020378c5e4ef6adefe.jpg</url>
+          <width>50</width>
+          <height>60</height>
+        </thumbnail>
+      </productimage>
+    </images>
+    <dealtype>2</dealtype>
+    <dip>https://www.mobilespinach.com/deals/1976/?source=2&amp;appid=39</dip>
+    <id>1976</id>
+  </resource>
+  <resource>
+    <merchant>
+      <infousa_id/>
+      <name>Legal Sea Foods</name>
+      <locations>
+        <resource>
+          <location>
+            <city>Chestnut Hill</city>
+            <name>Legal Sea Foods</name>
+            <zip>02467</zip>
+            <country>United States</country>
+            <state>MA</state>
+            <phonenumber>6172777300</phonenumber>
+            <address>43 Boylston St</address>
+            <lat>42.3225937</lat>
+            <lng>-71.1689935</lng>
+            <unit/>
+          </location>
+        </resource>
+      </locations>
+      <images>
+        <productimage/>
+        <logo/>
+      </images>
+      <id>1687</id>
+      <market>Chestnut Hill</market>
+    </merchant>
+    <category>
+      <id>5</id>
+      <name>dining &amp; food</name>
+      <slug>dining-food</slug>
+    </category>
+    <enddate>2012-01-20 23:59:00</enddate>
+    <description>Rule of Thumb about seafood: It must be fresh! This seafood delight packs in the goods right from the net of Poseidon as well as offering delicacies from the &#145;turf&#146; instead of the surf. Classic seafood dishes, pastas, a huge variety of appetizers and a friendly staff make this eatery an incredible dining experience. For online delivery orders only at Allmenus.com using the special code on your voucher</description>
+    <maximpressions>0</maximpressions>
+    <startdate>2011-03-13 21:33:38</startdate>
+    <title>$3 for $6 on any purchase</title>
+    <numleft>20</numleft>
+    <rate>3</rate>
+    <value>6</value>
+    <state>activated</state>
+    <cost>3</cost>
+    <createddate>2011-03-13 21:33:38</createddate>
+    <images>
+      <productimage>
+        <small>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/b2/92/b2924fba331a1437574896082b754903.jpg</url>
+          <width>100</width>
+          <height>120</height>
+        </small>
+        <large>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/77/14/7714736ea7d08bf70779cb5e09ebb20a.jpg</url>
+          <width>180</width>
+          <height>200</height>
+        </large>
+        <medium>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/df/41/df41b6e1edefa9631bddea652b1cc8d5.jpg</url>
+          <width>120</width>
+          <height>160</height>
+        </medium>
+        <thumbnail>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/5f/7b/5f7b9704f45d93f074c436aaa382c2b5.jpg</url>
+          <width>50</width>
+          <height>60</height>
+        </thumbnail>
+      </productimage>
+    </images>
+    <dealtype>2</dealtype>
+    <dip>https://www.mobilespinach.com/deals/1946/?source=2&amp;appid=39</dip>
+    <id>1946</id>
+  </resource>
+  </response>

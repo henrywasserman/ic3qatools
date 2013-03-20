@@ -1,0 +1,36 @@
+package com.navteq.nmg.hashtable.mapper.impl.nameformatter;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.mapper.IIndexName;
+import com.navteq.nmg.hashtable.mapper.IIndexNameFormatter;
+
+public class KeywordMatchChildIndexNameFormatterTest {
+
+	// image names are a combination of the parent + the child (save the actual embedded images)
+	// under the data element in which the data name is just image+ a counter e.g. image1
+	
+	private static final String KEYWORD = "keyword";
+	private static final String KEYWORD1 = "keywordmatch1keyword";
+	private static final String KEYWORD2 = "keywordmatch2keyword";
+
+	@Test
+	public void testFormatting() throws Exception{
+		
+		IIndexNameFormatter formatter = new KeywordMatchChildIndexNameFormatter();
+		
+		formatter.bumpCounter();
+		
+		IIndexName name = formatter.getFormattedIndexName(KEYWORD);
+		assertEquals(KEYWORD,name.getBaseName());
+		assertEquals(KEYWORD1,name.getIndexedName());
+
+		formatter.bumpCounter();
+		
+		name = formatter.getFormattedIndexName(KEYWORD);
+		assertEquals(KEYWORD,name.getBaseName());
+		assertEquals(KEYWORD2,name.getIndexedName());
+	}
+}

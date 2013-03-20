@@ -1,0 +1,28 @@
+package com.navteq.nmg.pani.image.cache;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+
+public class ImageCacheKeyTest {
+
+	
+	private static final String BANNER_CACHE_KEY = "b666_102";
+	private static final String COUPON_CACHE_KEY = "c666_301";
+	
+	
+	@Test
+	public void testLongConstructor() throws Exception{
+		ICacheKey cacheKey = new ImageCacheKey(new Long(666), ImageSizeTypes.MID_BANNER);
+		assertEquals(BANNER_CACHE_KEY,cacheKey.getKey());
+		
+	}
+	
+	@Test
+	public void testStringConstructor() throws Exception{
+		ICacheKey cacheKey = new ImageCacheKey("666", ImageSizeTypes.SMALL_COUPON_IMAGE);
+		assertEquals(COUPON_CACHE_KEY,cacheKey.getKey());
+	}
+}

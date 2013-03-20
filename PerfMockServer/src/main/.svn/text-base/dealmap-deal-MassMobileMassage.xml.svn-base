@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<Deals xmlns="http://thedealmap.com/api" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <Message/>
+  <Results>
+    <Deal>
+      <Activity>0</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode>AdditionalDiscountCouponCodeTest</AdditionalDiscountCouponCode>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>61 Exeter St</AddressLine>
+      <Affiliation>affiliation</Affiliation>
+      <BDescription>bdescription</BDescription>
+      <BusinessID>businessid</BusinessID>
+      <BusinessName>Mass Mobile Massage - Boston Metro</BusinessName>
+      <Capability>83</Capability>
+      <Category>Beauty &amp; Spas,Massage</Category>
+      <City>Boston</City>
+      <Currency>1</Currency>
+      <DealSource>Groupon</DealSource>
+      <DealType>24</DealType>
+      <DealUnit>1</DealUnit>
+      <Description>description</Description>
+      <DiscountedValue>55</DiscountedValue>
+      <EffectiveTime>2011-05-03T02:01:00</EffectiveTime>
+      <ExpirationTime>2011-05-05T20:59:00</ExpirationTime>
+      <FaceValue>140</FaceValue>
+      <ID>5-70E8E1DE20421B71E968000C76E9D52B</ID>
+      <IconUrl/>
+      <ImageUrl>http://www.groupon.com/images/site_images/0829/7892/Mass-Mobile-Massage.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords>keywords</Keywords>
+      <Latitude>42.3490948788822</Latitude>
+      <Longitude>-71.0792896617204</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=5-70E8E1DE20421B71E968000C76E9D52B&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>123-456-7890</Phone>
+      <Ratings>0</Ratings>
+      <ReviewCount>0</ReviewCount>
+      <SoldCount>358</SoldCount>
+      <State>MA</State>
+      <Tags>tags</Tags>
+      <Terms>terms</Terms>
+      <Title>12345678901234567892123456789312345678941234567895123456789612345678971234567898123456789912345678901234567891123456789212345678931234567894222222222222222222222222222</Title>
+      <TrackingUrl>trackingurl</TrackingUrl>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=5-70E8E1DE20421B71E968000C76E9D52B</TransactionUrl>
+      <YouSave>61 %</YouSave>
+      <ZipCode>02215</ZipCode>
+      <Addedby>addedby</Addedby>
+    </Deal>
+  </Results>
+  <TotalResults>1481</TotalResults>
+</Deals>

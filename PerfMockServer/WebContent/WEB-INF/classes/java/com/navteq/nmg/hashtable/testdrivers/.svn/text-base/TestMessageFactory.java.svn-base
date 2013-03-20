@@ -1,0 +1,5 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+public class TestMessageFactory {
+
+}

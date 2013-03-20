@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+  <resource>
+    <merchant>
+      <infousa_id/>
+      <name>29 Newbury Street</name>
+      <locations>
+        <resource>
+          <location>
+            <city>Boston</city>
+            <name>29 Newbury Street</name>
+            <zip>02116</zip>
+            <country>United States</country>
+            <state>MA</state>
+            <phonenumber>6175360290</phonenumber>
+            <address>29 Newbury St</address>
+            <lat>42.3522541</lat>
+            <lng>-71.0727129</lng>
+            <unit/>
+          </location>
+        </resource>
+      </locations>
+      <images>
+        <productimage/>
+        <logo/>
+      </images>
+      <id>572</id>
+      <market>Boston</market>
+    </merchant>
+    <category>
+      <id>5</id>
+      <slug>dining-food</slug>
+      <name>dining &amp; food</name>
+    </category>
+    <enddate>2012-01-20 23:59:00</enddate>
+    <description>&lt;p&gt;
+
+	Enjoy some fine American cuisine while getting your dose of culture.&lt;/p&gt;
+ &lt;p&gt;For online delivery orders only at Allmenus.com using the special code on your voucher&lt;/p&gt;</description>
+    <maximpressions>0</maximpressions>
+    <startdate>2011-01-31 06:00:00</startdate>
+    <title>$3 for $6 on any purchase</title>
+    <numleft>20</numleft>
+    <state>activated</state>
+    <value>6</value>
+    <rate>3</rate>
+    <cost>3</cost>
+    <createddate>2011-01-28 14:26:05</createddate>
+    <images>
+      <productimage>
+        <small>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/da/93/da93c3c8031d9a5b6d016d79cced327e.jpg</url>
+          <width>100</width>
+          <height>120</height>
+        </small>
+        <large>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/8e/23/8e2300313ab532d4d2d02dfe006b7db4.jpg</url>
+          <width>180</width>
+          <height>200</height>
+        </large>
+        <medium>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/ae/d8/aed82e0d1707c20ad1ac325b84019650.jpg</url>
+          <width>120</width>
+          <height>160</height>
+        </medium>
+        <thumbnail>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/23/da/23da6713ee0455892e7e687256247473.jpg</url>
+          <width>50</width>
+          <height>60</height>
+        </thumbnail>
+      </productimage>
+    </images>
+    <dealtype>2</dealtype>
+    <dip>https://www.mobilespinach.com/deals/818/?source=2&amp;appid=39</dip>
+    <id>818</id>
+  </resource>
+</response>

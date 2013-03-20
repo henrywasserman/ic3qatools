@@ -1,0 +1,55 @@
+package com.navteq.nmg.postalcode;
+
+import static org.junit.Assert.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Test;
+
+import com.navteq.nmg.pani.management.Constants;
+
+public class PostalCodeRequestProcessorTest {
+	@Test
+	public void testGetPostalcodeEntriesFromPayload() {
+		PostalCodeRequestProcessor requestProcessor = new PostalCodeRequestProcessor();
+		Map<String, Object> payload = new HashMap<String, Object> ();
+		String wapiRequestTypeStr = "";
+		Map<String, String> postalcode = new HashMap<String, String> ();
+		
+		// test checkin
+		payload.put(Constants.POSTAL_CODE, "10007");
+		postalcode = requestProcessor.getPostalcodeEntriesFromPayload(payload, wapiRequestTypeStr);
+		assertTrue(postalcode.get(Constants.POSTAL_CODE).equals("10007"));
+		
+		// test checkin with latitude and longitude
+		payload.put(Constants.QUERY_STRING_LATITUDE, "42366791");
+		payload.put(Constants.QUERY_STRING_LONGITUDE, "-71106018");
+		postalcode = requestProcessor.getPostalcodeEntriesFromPayload(payload, wapiRequestTypeStr);
+		assertTrue(postalcode.get(Constants.POSTAL_CODE) == null);
+		
+		// test getDirections
+		wapiRequestTypeStr = "getDirections";
+		postalcode = requestProcessor.getPostalcodeEntriesFromPayload(payload, wapiRequestTypeStr);
+		assertTrue(postalcode.get(Constants.POSTAL_CODE).equals("10007"));
+		
+		// test getDirections with lat and lon
+		wapiRequestTypeStr = "getDirections";
+		payload.put(Constants.QUERY_STRING_LAT_PREFIX, "42366791");
+		payload.put(Constants.QUERY_STRING_LON_PREFIX, "-71106018");
+		postalcode = requestProcessor.getPostalcodeEntriesFromPayload(payload, wapiRequestTypeStr);
+		assertTrue(postalcode.get(Constants.POSTAL_CODE) == null);
+		
+		// test reportAction
+		wapiRequestTypeStr = "reportAction";
+		postalcode = requestProcessor.getPostalcodeEntriesFromPayload(payload, wapiRequestTypeStr);
+		assertTrue(postalcode.get(Constants.POSTAL_CODE).equals("10007"));
+		
+		// test reportAction with lat1 and lon1
+		wapiRequestTypeStr = "reportAction";
+		payload.put(Constants.QUERY_STRING_LAT1, "42366791");
+		payload.put(Constants.QUERY_STRING_LON1, "-71106018");
+		postalcode = requestProcessor.getPostalcodeEntriesFromPayload(payload, wapiRequestTypeStr);
+		assertTrue(postalcode.get(Constants.POSTAL_CODE) == null);
+	}
+}

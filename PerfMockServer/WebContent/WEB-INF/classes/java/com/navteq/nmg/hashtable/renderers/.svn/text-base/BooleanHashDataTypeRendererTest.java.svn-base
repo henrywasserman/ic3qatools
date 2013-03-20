@@ -1,0 +1,65 @@
+package com.navteq.nmg.hashtable.renderers;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+import com.navteq.nmg.hashtable.renderers.BaseHashDataTypeRenderer;
+import com.navteq.nmg.hashtable.renderers.BooleanHashDataTypeRenderer;
+
+public class BooleanHashDataTypeRendererTest extends HashDataTypeTestHelper{
+
+	private static final String FIELD_NAME = "fieldName";
+	private static final boolean TRUE_DAT_YO = true;
+	private static final boolean FALSE_DAT_YO = false;
+	
+	@Test
+	public void verifyConstructor() throws Exception{
+		BooleanHashDataTypeRenderer bhdt = new BooleanHashDataTypeRenderer(FIELD_NAME, TRUE_DAT_YO);
+		assertConstructor(
+			FIELD_NAME, 
+			HashDataType.HASH_BOOLEAN, 
+			FIELD_NAME.length()
+			   +BooleanHashDataTypeRenderer.BOOLEAN_FIELD_SIZE
+			   +BooleanHashDataTypeRenderer.SIZEOF_DATATYPE_INDICATOR_SIZE
+			   +BooleanHashDataTypeRenderer.SIZEOF_HEADER_FIELDNAME_LENGTH_FIELD, 
+			bhdt);
+	}	
+	
+	@Test
+	public void verifyInjectStreamWithBooleanTrueData() throws Exception{
+		BooleanHashDataTypeRenderer bhdt = new BooleanHashDataTypeRenderer(FIELD_NAME, TRUE_DAT_YO);
+
+		// make sure we are rendering properly
+		byte[] encodedFieldName = FIELD_NAME.getBytes(ENCODING);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		bhdt.injectStream(baos);
+		byte[] result = baos.toByteArray();
+		
+		byte[] expectedValueContents = new byte[1];
+		expectedValueContents[0] = (byte)1;
+		assertRender(encodedFieldName,bhdt.getHashDataType(),null,expectedValueContents,result);		
+	}		
+	
+	@Test
+	public void verifyInjectStreamWithBooleanFalseData() throws Exception{
+		BooleanHashDataTypeRenderer bhdt = new BooleanHashDataTypeRenderer(FIELD_NAME, FALSE_DAT_YO);
+
+		// make sure we are rendering properly
+		byte[] encodedFieldName = FIELD_NAME.getBytes(ENCODING);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		bhdt.injectStream(baos);
+		byte[] result = baos.toByteArray();
+		
+		byte[] expectedValueContents = new byte[1];
+		expectedValueContents[0] = (byte)0;
+		assertRender(encodedFieldName,bhdt.getHashDataType(),null,expectedValueContents,result);		
+	}
+
+	@Override
+	BaseHashDataTypeRenderer getNewInstanceForBoundsChecking(String fieldName) throws Exception {
+		return new BooleanHashDataTypeRenderer(fieldName, TRUE_DAT_YO);
+	}		
+}

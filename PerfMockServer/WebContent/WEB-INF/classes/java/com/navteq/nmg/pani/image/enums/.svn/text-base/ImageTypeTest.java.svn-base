@@ -1,0 +1,31 @@
+package com.navteq.nmg.pani.image.enums;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class ImageTypeTest {
+
+	@Test
+	public void testGetCacheKey() throws Exception{
+		assertEquals("i",ImageType.ICON.getCacheKey());
+		assertEquals("b",ImageType.BANNER.getCacheKey());
+		assertEquals("p",ImageType.PROXIMITY_BANNER.getCacheKey());
+		assertEquals("m",ImageType.MAIN.getCacheKey());
+		assertEquals("c",ImageType.COUPON.getCacheKey());
+	}
+	
+	@Test
+	public void testValueOf() throws Exception{
+		assertEquals(ImageType.ICON, ImageType.valueOf("ICON"));
+		assertEquals(ImageType.BANNER, ImageType.valueOf("BANNER"));
+		assertEquals(ImageType.PROXIMITY_BANNER, ImageType.valueOf("PROXIMITY_BANNER"));
+		assertEquals(ImageType.MAIN, ImageType.valueOf("MAIN"));
+		assertEquals(ImageType.COUPON, ImageType.valueOf("COUPON"));
+		
+		
+		
+		
+		
+	}
+}

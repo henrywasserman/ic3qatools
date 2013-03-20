@@ -1,0 +1,63 @@
+package com.navteq.nmg.mule.transformer;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Test;
+
+
+import org.mule.util.IOUtils;
+
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.mule.tck.FunctionalTestCase;
+import org.mule.transport.NullPayload;
+import org.w3c.dom.Document;
+
+
+/**
+ *
+ * @author sreavely
+ */
+public class TestTransformDealMapToLpa extends FunctionalTestCase
+{
+    protected String getConfigResources()
+    {
+        return "mule-test-pani.xml";
+    }
+
+    public TestTransformDealMapToLpa() {
+    }
+
+    @Test
+    public void testTransformDealMapToLPA() throws Exception
+    {
+        MuleClient client = new MuleClient(muleContext);
+
+        String dealMapResponseFile = "test/dealmap/dealmap-deal-jack-oyster-albany-ny.xml";
+
+        InputStream xmlToBeTransformedIS = IOUtils.getResourceAsStream(dealMapResponseFile,TestTransformDealMapToLpa.class);
+        if (xmlToBeTransformedIS == null ) {
+            throw new IOException("InputStream null for:" + dealMapResponseFile);
+        }
+
+        String dealMapResponse = IOUtils.toString(xmlToBeTransformedIS);
+        Map<String,Object> propertiesMap = new HashMap<String,Object>();
+        int paniCampaignId = 657;
+        propertiesMap.put("campaignId",paniCampaignId);
+
+        MuleMessage result = client.send("vm://vm.dealMapToLPAFormat", dealMapResponse, propertiesMap);
+        System.out.println("Payload Type: " + result.getPayload().getClass());
+        Document lpaMessageDom = result.getPayload(Document.class);
+        assertNotNull(lpaMessageDom);
+        assertNotNull(result);
+        String response = result.getPayloadAsString();
+        System.out.println("TestCaseOutput:" + response);
+        assertNull(result.getExceptionPayload());
+        assertFalse(result.getPayload() instanceof NullPayload);
+
+    }
+
+}

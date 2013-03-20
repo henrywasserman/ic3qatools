@@ -1,0 +1,45 @@
+package com.navteq.nmg.mule.flow;
+
+
+import com.navteq.nmg.mule.transformer.ConvertQueryStringToMap;
+import java.util.Map;
+import java.util.HashMap;
+import org.junit.Test;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.mule.tck.FunctionalTestCase;
+import org.mule.transport.NullPayload;
+
+
+public class TestOutboundDealMapInterface extends FunctionalTestCase
+{
+    protected String getConfigResources()
+    {
+        //TODO You'll need to edit this file to make the test applicable to your module
+        return "mule-test-pani.xml";
+    }
+
+    @Test
+    public void testAdServerProxy() throws Exception
+    {
+        MuleClient client = new MuleClient(muleContext);
+
+        //String queryString="?a=endusercheckin&enduserid=3411551&longitude=-84241670&latitude=33841390&bannersizes=104&imagetype=URL&localepref=en-us&responsetype=xml&ver=2.1";
+        String queryString="?a=endusercheckin&enduserid=1&longitude=-73751521&latitude=42649182&localepref=en-us&responsetype=xml&ver=2.2";
+        //Map<String,Object> msgProps = new HashMap<String,Object>();
+        //msgProps.put(HttpConnector.HTTP_METHOD_PROPERTY, "GET");
+        //MuleMessage result = client.send("servlet:///adserver", queryString, msgProps);
+        
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.dealMapAdapter", paramMap, null);
+        assertNotNull(result);
+        String response = result.getPayloadAsString();
+        System.out.println("TestCaseOutput:" + response);
+        assertNull(result.getExceptionPayload());
+        assertFalse(result.getPayload() instanceof NullPayload);
+
+    }
+      
+}

@@ -1,0 +1,213 @@
+package com.navteq.nmg.hashtable.mapper.factory.impl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
+
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IMessageVersions.MessageVersionsType;
+import com.navteq.nmg.hashtable.mapper.IIndexName;
+import com.navteq.nmg.hashtable.mapper.IIndexNameFormatter;
+import com.navteq.nmg.hashtable.mapper.IXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.IXmlToHashMapper.XmlToHashMapperType;
+import com.navteq.nmg.hashtable.mapper.factory.IVersionedXmlToHashMapperRegistry;
+import com.navteq.nmg.hashtable.mapper.impl.BooleanXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.ByteArrayXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.CallToActionXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.CallsToActionXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.ErrorMessageXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.ILAPResponseXMLToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.ImageXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.IndexName;
+import com.navteq.nmg.hashtable.mapper.impl.IntegerXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.KeywordMatchXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.LongXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.MessageXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.NoOpXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.StorefrontXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.StringXmlToHashMapper;
+
+public abstract class XmlToHashMapperRegistryTestHelper {
+	
+	private static final class EchoFormatter implements IIndexNameFormatter{
+
+		public EchoFormatter(){
+			
+		}
+		
+		@Override
+		public IIndexName getFormattedIndexName(String childName) {
+			return new IndexName(childName,childName);
+		}
+
+		@Override
+		public void bumpCounter() {
+			// dummy
+		}
+	}
+
+//	private static final class MessageFieldFormatter implements IIndexNameFormatter{
+//		
+//		public MessageFieldFormatter(){	
+//		}
+//		
+//		@Override
+//		public IIndexName getFormattedIndexName(String childName) {
+//			return new IndexName("message","message1");
+//		}
+//
+//		@Override
+//		public void bumpCounter() {
+//
+//		}		
+//	}
+	
+	protected static final class VersionClass{
+		
+		private String xmlFieldName;
+		private Class<?> clazz;
+		private MessageVersionsType version; 
+		private XmlToHashMapperType mapperType;
+		private IXmlToHashMapper parent;
+		
+		public VersionClass(String xmlFieldName, Class<?> duClazz, XmlToHashMapperType mapperType, MessageVersionsType duVirgin, IXmlToHashMapper parent){
+			this.xmlFieldName = xmlFieldName;
+			this.clazz = duClazz;
+			this.mapperType = mapperType;
+			this.version = duVirgin;
+			this.parent = parent;
+		}
+		
+		public Class<?> getClazz(){
+			return clazz;
+		}
+		
+		public XmlToHashMapperType getMapperType(){
+			return mapperType;
+		}
+		
+		public MessageVersionsType getVersion(){
+			return version;
+		}		
+		
+		public String getXmlFieldName(){
+			return xmlFieldName;
+		}
+		
+		public IXmlToHashMapper getParent(){
+			return parent;
+		}
+	}
+	
+	protected XmlToHashMapperRegistryTestHelper(){
+	}
+		
+	protected abstract List<VersionClass> getVersionList();
+	protected abstract IVersionedXmlToHashMapperRegistry getRegistry(); 
+	
+
+	protected IXmlToHashMapper getMockedRootMapper(){
+		IXmlToHashMapper mocker = mock(IXmlToHashMapper.class);
+		when(mocker.getFieldName()).thenReturn(new IndexName("ilapresponse","ilapresponse"));
+		return mocker;
+	}
+	
+	protected IXmlToHashMapper getMockedMessageMapper(){
+		IXmlToHashMapper mocker = mock(IXmlToHashMapper.class);
+		when(mocker.getFieldName()).thenReturn(new IndexName("message","message"));
+		return mocker;
+	}
+	
+	protected IXmlToHashMapper getMockedStorefrontMapper(){
+		IXmlToHashMapper storefront = mock(IXmlToHashMapper.class);
+		when(storefront.getFieldName()).thenReturn(new IndexName("storefront","storefront"));
+		return storefront;
+	}
+	
+	protected IXmlToHashMapper getMockedCallsToActionMapper(){
+		IXmlToHashMapper callsToAction = mock(IXmlToHashMapper.class);
+		when(callsToAction.getFieldName()).thenReturn(new IndexName("callstoaction","callstoaction"));
+		return callsToAction;
+	}
+	
+	protected IXmlToHashMapper getMockedCallToActionMapper(){
+		IXmlToHashMapper callToAction = mock(IXmlToHashMapper.class);
+		when(callToAction.getFieldName()).thenReturn(new IndexName("calltoaction","calltoaction"));
+		return callToAction;
+	}
+	
+	protected IXmlToHashMapper getMockedImageMapper(){
+		IXmlToHashMapper image = mock(IXmlToHashMapper.class);
+		when(image.getFieldName()).thenReturn(new IndexName("image","image"));
+		return image;
+	}
+	
+	protected IXmlToHashMapper getMockedKeywordMapper(){
+		IXmlToHashMapper keywordMatch = mock(IXmlToHashMapper.class);
+		when(keywordMatch.getFieldName()).thenReturn(new IndexName("keywordmatch","keywordmatch"));
+		return keywordMatch;
+	}
+	
+	protected void loadCommonFields(List<VersionClass> versionList, MessageVersionsType versionType){
+		versionList.add(new VersionClass("ilapresponse", ILAPResponseXMLToHashMapper.class, XmlToHashMapperType.MAPPED_ILAP_RESPONSE,versionType,getMockedRootMapper()));
+		versionList.add(new VersionClass("message", MessageXmlToHashMapper.class, XmlToHashMapperType.MAPPED_MESSAGE,versionType,getMockedRootMapper()));
+		versionList.add(new VersionClass("creativeid", LongXmlToHashMapper.class, XmlToHashMapperType.MAPPED_LONG,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("advertisername", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("introtext", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("introaudio", ByteArrayXmlToHashMapper.class, XmlToHashMapperType.MAPPED_BYTEARRAY,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("introaudiotype", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("mainmessagetext", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("mainmessagephonetics", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("mainaudio", ByteArrayXmlToHashMapper.class, XmlToHashMapperType.MAPPED_BYTEARRAY,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("mainaudiotype", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("couponcode", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("callstoaction", CallsToActionXmlToHashMapper.class, XmlToHashMapperType.MAPPED_CALLS_TO_ACTION,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("calltoaction", CallToActionXmlToHashMapper.class, XmlToHashMapperType.MAPPED_CALL_TO_ACTION,versionType, getMockedCallsToActionMapper()));
+		versionList.add(new VersionClass("action", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedCallToActionMapper()));
+		versionList.add(new VersionClass("data", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedCallToActionMapper()));
+		versionList.add(new VersionClass("countrycode", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("language", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("nostorefront", BooleanXmlToHashMapper.class, XmlToHashMapperType.MAPPED_BOOLEAN,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("storefront", StorefrontXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STOREFRONT,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("storefrontid", LongXmlToHashMapper.class, XmlToHashMapperType.MAPPED_LONG,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("nametag", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("name", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("addr1", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("addr2", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("addrcity", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("addrstate", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("addrzip", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("phone", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("longitude", IntegerXmlToHashMapper.class, XmlToHashMapperType.MAPPED_INTEGER,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("latitude", IntegerXmlToHashMapper.class, XmlToHashMapperType.MAPPED_INTEGER,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("countrycode", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("url", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("placeid", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedStorefrontMapper()));
+		versionList.add(new VersionClass("expirydate", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("htmltemplateid", NoOpXmlToHashMapper.class, XmlToHashMapperType.MAPPED_NOOP,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("errmsg",  ErrorMessageXmlToHashMapper.class, XmlToHashMapperType.MAPPED_ERROR_MESSAGE,versionType,getMockedRootMapper()));		
+		versionList.add(new VersionClass("image", ImageXmlToHashMapper.class, XmlToHashMapperType.MAPPED_IMAGE,versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("url", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedImageMapper()));
+		versionList.add(new VersionClass("image.data", ByteArrayXmlToHashMapper.class, XmlToHashMapperType.MAPPED_BYTEARRAY,versionType,getMockedImageMapper()));
+		versionList.add(new VersionClass("type", IntegerXmlToHashMapper.class, XmlToHashMapperType.MAPPED_INTEGER, versionType, getMockedImageMapper()));
+		versionList.add(new VersionClass("keywordmatch", KeywordMatchXmlToHashMapper.class, XmlToHashMapperType.MAPPED_KEYWORD_MATCH, versionType,getMockedMessageMapper()));
+		versionList.add(new VersionClass("keyword", StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,versionType,getMockedKeywordMapper()));
+		versionList.add(new VersionClass("match", IntegerXmlToHashMapper.class, XmlToHashMapperType.MAPPED_INTEGER, versionType,getMockedKeywordMapper()));
+	}
+	
+	@Test
+	public void assertRegistrySpitsOutCorrectClasses() throws Exception{
+
+		IIndexNameFormatter formatter = new EchoFormatter();
+
+		for (VersionClass vcp : getVersionList()){
+			IXmlToHashMapper mapper = getRegistry().getMapper(vcp.getVersion(), vcp.getXmlFieldName(), vcp.getParent(), formatter);
+			assertTrue("Expected ["+vcp.getClazz()+"] for element ["+vcp.getXmlFieldName()+"], parent name ["+vcp.getParent().getFieldName().getBaseName()+"].  Got ["+mapper.getClass()+"] instead.", mapper.getClass().getName().equals(vcp.clazz.getName()));
+			assertEquals(vcp.getMapperType(),mapper.getMapperType());
+		}
+	}
+}

@@ -1,0 +1,224 @@
+package com.navteq.nmg.pani.image.urlformatter.impl;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import com.navteq.nmg.pani.image.category.IImageCategoryService.ImageCategory;
+import com.navteq.nmg.pani.image.enums.ImageMimeTypes;
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+import com.navteq.nmg.pani.image.urlformatter.IImageFileName;
+
+
+public class LocalImageFileNameTest {
+
+	private static final String PARTNER_NAME = "pahtnuh";
+	private static final String MAIN_NAME = "main";
+	private static final String EXTENSION = "jpeg";
+	
+	@Test
+	public void testPrimaryConstructor() throws Exception{
+		
+		
+		StringBuilder expectedValue = null;
+		IImageFileName fileName = null;
+		
+		
+		for (ImageCategory ic : ImageCategory.values()){
+			for (ImageSizeTypes size : ImageSizeTypes.values()){
+				for (ImageMimeTypes mime : ImageMimeTypes.values()){
+					expectedValue = new StringBuilder(64);
+					expectedValue.append(PARTNER_NAME);
+					expectedValue.append("-");
+					expectedValue.append(ic.getCategoryName());
+					expectedValue.append("-");
+					expectedValue.append(size.intValue());
+					expectedValue.append(".");
+					expectedValue.append(mime.getMimeTypeName());
+					
+					fileName = new LocalImageFileName(PARTNER_NAME,ic,size,mime);
+					assertEquals(expectedValue.toString(), fileName.getImageFileName());
+				}
+			}
+		}
+	}
+	
+	
+	@Test
+	public void testAlternateConstructor() throws Exception{
+		
+		StringBuilder expectedValue = null;
+		IImageFileName fileName = null;
+
+		for (ImageSizeTypes size : ImageSizeTypes.values()){
+			expectedValue = new StringBuilder(64);
+			expectedValue.append(PARTNER_NAME);
+			expectedValue.append("-");
+			expectedValue.append(MAIN_NAME);
+			expectedValue.append("-");
+			expectedValue.append(size.intValue());
+			expectedValue.append(".");
+			expectedValue.append(EXTENSION);
+			
+			fileName = new LocalImageFileName(PARTNER_NAME,MAIN_NAME,size,EXTENSION);
+			assertEquals(expectedValue.toString(), fileName.getImageFileName());
+		}
+
+	}
+
+	@Test
+	public void testEmptyOrNullPartnerNameThrowsException() throws Exception{
+		
+		try{
+			new LocalImageFileName(null, ImageCategory.ACTIVITIES, ImageSizeTypes.LARGE_COUPON_IMAGE, ImageMimeTypes.JPG);
+			fail("Constructor should have throw exception on null partner name");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [partnerName] cannot be empty or null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+		
+		try{
+			new LocalImageFileName("", ImageCategory.ACTIVITIES, ImageSizeTypes.LARGE_COUPON_IMAGE, ImageMimeTypes.JPG);
+			fail("Constructor should have throw exception on empty partner name");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [partnerName] cannot be empty or null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+		
+		// second constructor
+		
+		try{
+			new LocalImageFileName(null, MAIN_NAME, ImageSizeTypes.LARGE_COUPON_IMAGE, EXTENSION);			
+			fail("Constructor should have throw exception on null partner name");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [partnerName] cannot be empty or null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+		
+		try{
+			new LocalImageFileName("", MAIN_NAME, ImageSizeTypes.LARGE_COUPON_IMAGE, EXTENSION);			
+			fail("Constructor should have throw exception on empty partner name");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [partnerName] cannot be empty or null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+	}
+	
+	@Test
+	public void testEmptyOrNullMainNameThrowsException() throws Exception{
+		try{
+			new LocalImageFileName(PARTNER_NAME, null, ImageSizeTypes.LARGE_COUPON_IMAGE, EXTENSION);			
+			fail("Constructor should have throw exception on null main name");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [mainName] cannot be empty or null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+		
+		try{
+			new LocalImageFileName(PARTNER_NAME, "", ImageSizeTypes.LARGE_COUPON_IMAGE, EXTENSION);			
+			fail("Constructor should have throw exception on empty main name");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [mainName] cannot be empty or null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}		
+	}
+	
+	@Test
+	public void testEmptyOrNullExtensionThrowsException() throws Exception{
+		try{
+			new LocalImageFileName(PARTNER_NAME, MAIN_NAME, ImageSizeTypes.LARGE_COUPON_IMAGE, null);			
+			fail("Constructor should have throw exception on null extension");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [extension] cannot be empty or null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+		
+		try{
+			new LocalImageFileName(PARTNER_NAME, MAIN_NAME, ImageSizeTypes.LARGE_COUPON_IMAGE, "");			
+			fail("Constructor should have throw exception on empty extension");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [extension] cannot be empty or null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}			
+	}
+	
+	@Test
+	public void testNullImageSizeTypeThrowsException() throws Exception{
+		try{
+			new LocalImageFileName(PARTNER_NAME, ImageCategory.ACTIVITIES, null, ImageMimeTypes.JPG);
+			fail("Constructor should have throw exception on null image size type");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [imageSize] cannot be null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+		
+		// second constructor
+		
+		try{
+			new LocalImageFileName(PARTNER_NAME, MAIN_NAME, null, EXTENSION);			
+			fail("Constructor should have throw exception on null image size type");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [imageSize] cannot be null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+	}
+	
+	@Test
+	public void testNullImageMimeTypeThrowsException() throws Exception{
+		try{
+			new LocalImageFileName(PARTNER_NAME, ImageCategory.ACTIVITIES, ImageSizeTypes.LARGE_BANNER, null);
+			fail("Constructor should have throw exception on null image mime type");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [mimeType] cannot be null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+	}
+	
+	@Test
+	public void testNullImageCategoryThrowsException() throws Exception{
+		try{
+			new LocalImageFileName(PARTNER_NAME, null, ImageSizeTypes.LARGE_BANNER, ImageMimeTypes.JPG);
+			fail("Constructor should have throw exception on null image category");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [categoryName] cannot be null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+	}	
+	
+}

@@ -1,0 +1,62 @@
+package com.navteq.nmg.hashtable.mapper.impl;
+
+import static org.mockito.Mockito.mock;
+
+import java.net.URLEncoder;
+
+import org.apache.commons.io.EndianUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IXmlEntryParser;
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+import com.navteq.nmg.hashtable.IMessageVersions.MessageVersionsType;
+import com.navteq.nmg.hashtable.mapper.IIndexName;
+import com.navteq.nmg.hashtable.mapper.IXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.DoubleXmlToHashMapper;
+
+public class DoubleXmlToHashMapperTest extends XmlToHashMapperHelper{
+	
+	private static final IIndexName XML_LAT_FIELD = new IndexName("lat","lat");
+	private static final String XML_LAT_VALUE = "-71.123456";
+	
+	@Test
+	public void testConstructor() throws Exception{
+		assertConstructor(XML_LAT_FIELD, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class), false);
+	}
+
+	@Test
+	public void testMapFromXmlToHash() throws Exception{
+		String utfName = URLEncoder.encode(XML_LAT_FIELD.getIndexedName(), "UTF-8");
+		String utfValue = URLEncoder.encode(XML_LAT_VALUE, "UTF-8");
+		
+		int size = HEADER_LENGTH_FIELD_SIZE + utfName.length()+ DATATYPE_LENGTH_FIELD_SIZE + 4 + utfValue.length();
+		
+		assertMapFromXmlToHash(createMapperInstance(XML_LAT_FIELD, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class)),XML_LAT_VALUE,1,size);		
+	}
+
+	@Test
+	public void testStreamInjection() throws Exception{
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		String utfName = URLEncoder.encode(XML_LAT_FIELD.getIndexedName(), "UTF-8");
+		String utfValue = URLEncoder.encode(XML_LAT_VALUE, "UTF-8");
+		
+		outputStream.write(new byte[]{(byte)utfName.length()});
+		outputStream.write(utfName.getBytes());
+		outputStream.write(HashDataType.HASH_DOUBLE.encode());
+		EndianUtils.writeSwappedInteger(outputStream, utfValue.length());
+		outputStream.write(utfValue.getBytes());
+		byte[] expectedBytes = outputStream.toByteArray();
+		assertStreamInjectedProperly(createMapperInstance(XML_LAT_FIELD, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class)),XML_LAT_VALUE, expectedBytes);
+	}
+		
+	@Override
+	protected IXmlEntryParser createParser() throws Exception {
+		return mock(IXmlEntryParser.class);
+	}
+
+	@Override
+	protected IXmlToHashMapper createMapperInstance(IIndexName xmlElementName,	MessageVersionsType mvt, IXmlToHashMapper parent) throws Exception {
+		return new DoubleXmlToHashMapper(xmlElementName, mvt, parent);
+	}	
+}

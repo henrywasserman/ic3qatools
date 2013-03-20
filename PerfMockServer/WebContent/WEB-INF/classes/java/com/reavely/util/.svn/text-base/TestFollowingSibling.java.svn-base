@@ -1,0 +1,44 @@
+package com.reavely.util;
+
+import javax.xml.xpath.*;
+import javax.xml.parsers.*;
+import java.io.IOException;
+import org.xml.sax.SAXException;
+import org.junit.Test;
+
+public class TestFollowingSibling {
+
+  @Test
+  public void testFollowingSibling()
+   throws ParserConfigurationException, SAXException, 
+          IOException, XPathExpressionException {
+/*
+    DocumentBuilderFactory domFactory = 
+    DocumentBuilderFactory.newInstance();
+    domFactory.setNamespaceAware(true); 
+    DocumentBuilder builder = domFactory.newDocumentBuilder();
+    Document doc = builder.parse("./resources/persons.xml");
+    XPath xpath = XPathFactory.newInstance().newXPath();
+    XPathExpression expr = null;
+    Object result = null;
+    NodeList nodes = null;
+//    expr = xpath.compile("//following-sibling::*");
+//       // Selecting all element's following-sibling name   
+//    result = expr.evaluate(doc, XPathConstants.NODESET);
+//    nodes = (NodeList) result;
+//    for (int i = 0; i < nodes.getLength(); i++) {
+//     System.out.println(nodes.item(i).getNodeName()); 
+//    }
+
+ */
+ //   expr = xpath.compile("//following-sibling::person/*/text()");
+       // Selecting all person element's following-sibling value    
+   /*
+    result = expr.evaluate(doc, XPathConstants.NODESET);
+    nodes = (NodeList) result;
+    for (int i = 0; i < nodes.getLength(); i++) {
+     System.out.print(nodes.item(i).getNodeValue()+",  "); 
+    }
+    */
+  }
+}

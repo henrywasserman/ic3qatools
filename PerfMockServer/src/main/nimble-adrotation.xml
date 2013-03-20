@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantDealsFeedData>
+  <errorMessage/>
+  <partnerMerchants>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>groupbuy.filesforfriends.com</whiteLabelHost>
+      <whiteLabelMerchantName>SamDemoCompanyName</whiteLabelMerchantName>
+      <whiteLableId>2</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>phillydealyo.philly.com</whiteLabelHost>
+      <whiteLabelMerchantName>Philly.com</whiteLabelMerchantName>
+      <whiteLableId>141</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers>
+        <offer>
+          <offerFinePrint><![CDATA[<ul>
+	<li>
+		Live Life Fitness &amp; Wellness is located at 66 Concord St., Unit F, Wilmington, MA 01887</li>
+	<li>
+		Please redeem by April 30, 2012</li>
+	<li>
+		Limit one (1) per customer; New customers only</li>
+	<li>
+		Cancellations and re-scheduling require 24-hour notice</li>
+	<li>
+		Voucher subject to forfeiture</li>
+	<li>
+		Voucher must be redeemed by same customer; Voucher cannot be shared</li>
+	<li>
+		Voucher valid for classes within 30 days of customer&#39;s first class</li>
+	<li>
+		Cannot be combiend with any other offer</li>
+	<li>
+		Patch Deals are subject to the terms <a href="http://deals.patch.com/GroupBuyTerms">found here</a></li>
+</ul>]]></offerFinePrint>
+          <offerDescription><![CDATA[A body that&rsquo;s in tune can help you live a long and healthy life, while a body that&rsquo;s out of tune can really annoy your friends at karaoke night. Achieve bodily harmony with this week&rsquo;s Patch Deal: <strong>for $30, you get one month of unlimited fitness classes at Live Life Fitness &amp; Wellness in Wilmington (a $75 value).</strong><br />
+<br />
+Live Life Fitness &amp; Wellness is a fitness studio that strives to create a judgement-free zone where people of all shapes, sizes and fitness levels are welcome to come have fun and get a great workout. The studio offers classes such as Fitness Yoga, Total Body, Pilates Pump, Absolutely Abs, Zumba, Cardio Boxing, Guided Meditation and Boot Camp, allowing you to tailor your fitness plan to your needs and likes. After a month of unlimited fitness classes, you may still sing off-key, but at least you&rsquo;ll look fantastic doing it. Check out the Fine Print to learn more about this deal.]]></offerDescription>
+          <redemptionInstructions><![CDATA[1. Print out and present voucher before class to redeem offer.<br />
+2. Be sure to arrive at least 15 minutes before class begins.<br />
+3. Have fun!]]></redemptionInstructions>
+          <availableQuantity>999</availableQuantity>
+          <buyersCount>0</buyersCount>
+          <categoryName>Wilmington, MA</categoryName>
+          <currentPrice>30.00</currentPrice>
+          <customCategoryId>US_MA_WILMINGTON</customCategoryId>
+          <hideBuyersCount>true</hideBuyersCount>
+          <hideDiscount>false</hideDiscount>
+          <hideOriginalPrice>false</hideOriginalPrice>
+          <imageUrl>http://product-images.imshopping.com/nimblebuy/30-75-live-fitness-wellness-651741-original.jpg</imageUrl>
+          <internalCategoryId>10711</internalCategoryId>
+          <isMainOfferInOfferCity>true</isMainOfferInOfferCity>
+          <maxAllowedPerUser>1</maxAllowedPerUser>
+          <offerCustomId>006c000000d0tyeiam</offerCustomId>
+          <offerEndDateTime>2012-01-22 23:59:00</offerEndDateTime>
+          <offerEndTimeinISO>2012-01-22T23:59:00-0500</offerEndTimeinISO>
+          <offerId>294381</offerId>
+          <offerLocations>
+            <offerLocation>
+              <offerLocationLatitude>42.5587389</offerLocationLatitude>
+              <offerLocationLongitude>-71.1358094</offerLocationLongitude>
+            </offerLocation>
+          </offerLocations>
+          <offerName>$30 for $75 Live Live Fitness &amp; Wellness</offerName>
+          <offerPageUrl>http://deals.patch.com/deal/wilmington-ma/30-75-live-fitness-wellness?utm_medium=affiliateAPI&amp;utm_source=Nokia&amp;chId=19560181&amp;aflId=1221</offerPageUrl>
+          <offerPricingType>No Minimum Buyers</offerPricingType>
+          <offerStartDateTime>2012-01-16 00:00:00</offerStartDateTime>
+          <offerStartTimeinISO>2012-01-16T00:00:00-0500</offerStartTimeinISO>
+          <offerStatus>live</offerStatus>
+          <offerTitle>$30 for 1 Month of Fitness Classes (A $75 Value)</offerTitle>
+          <offerTitlePrefix>Today's Deal:</offerTitlePrefix>
+          <offeredByMerchant>
+            <merchantAddress>66 Concord Street</merchantAddress>
+            <merchantAddressLine2>Unit F</merchantAddressLine2>
+            <merchantCity>Wilmington</merchantCity>
+            <merchantContactEmail>jenn@livelife-rightnow.com</merchantContactEmail>
+            <merchantDescription>Live Life Fitness &amp;amp; Wellness was established in 2010 by co-founders Jennifer McNally-Tortolano and Julann Briggs. The company is dedicated to empowering people of all ages to self-motivate and take charge of their lives, all while having fun in a positive, non-judgmental and inspiring atmosphere. The benefits that you will receive from Live Life Fitness &amp;amp; Wellness are both physical and mental. Not only will you increase your physical health and appearance, but you&amp;#39;ll also reduce stress, increase mental clarity and elevate self-esteem.&lt;a href="http://patch.com/L-sjSg"&gt;&lt;br /&gt;
+
+&lt;br /&gt;
+&lt;br /&gt;
+Learn more about Live Life Fitness &amp;amp; Wellness on Patch Places&lt;/a&gt;</merchantDescription>
+            <merchantName>Live LIfe Fitness &amp; Wellness</merchantName>
+            <merchantPhone>978-203-0145</merchantPhone>
+            <merchantState>MA</merchantState>
+            <merchantWebsite>http://www.livelife-rightnow.com/</merchantWebsite>
+            <merchantZip>01887</merchantZip>
+          </offeredByMerchant>
+          <origPrice>75.00</origPrice>
+          <partnerDistributionUrl>http://w.nmb.ly/7ciee</partnerDistributionUrl>
+          <percentageDiscount>60</percentageDiscount>
+          <redemptionExpirationDate>2012-04-30 20:59:59</redemptionExpirationDate>
+          <redemptionExpirationDateinISO>2012-04-30T20:59:59-0700</redemptionExpirationDateinISO>
+          <stdCityName>Wilmington</stdCityName>
+          <taxonomyFirstLevel>Health &amp; Fitness</taxonomyFirstLevel>
+          <taxonomySecondLevel>Gyms &amp; Fitness Centers</taxonomySecondLevel>
+          <thumbNailImageUrl>http://product-images.imshopping.com/nimblebuy/30-75-live-fitness-wellness-651741-small_lv.jpg</thumbNailImageUrl>
+        </offer>
+        <offer>
+          <offerFinePrint><![CDATA[<ul>
+	<li>
+		<span id="internal-source-marker_0.3272122986325102" style="font-size:13px;font-family:Arial;color:#000000;background-color:#ffffff;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">Michael&rsquo;s Limousine Company is located in</span><span style="font-size:13px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;"> Peabody, MA</span></li>
+	<li>
+		<span style="font-size:13px;font-family:Arial;color:#000000;background-color:#ffffff;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">Please redeem by June 1st, 2012</span></li>
+	<li>
+		<span style="font-size: 13px; font-family: Arial; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">Limit 1 voucher per customer</span></li>
+	<li>
+		<span style="font-size: 13px; font-family: Arial; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">Please call to schedule an appointment</span></li>
+	<li>
+		<span style="font-size:13px;font-family:Arial;color:#000000;background-color:#ffffff;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">Pick-up point must be within 30 miles of Logan Airport</span></li>
+	<li>
+		<span style="font-size:13px;font-family:Arial;color:#000000;background-color:#ffffff;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">Cannot be combined with any other offer</span></li>
+	<li>
+		<span style="font-size:13px;font-family:Arial;color:#000000;background-color:#ffffff;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">Patch Deals are subject to the terms</span><a href="http://deals.patch.com/GroupBuyTerms"><span style="font-size:13px;font-family:Arial;color:#000000;background-color:#ffffff;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;"> </span><span style="font-size:13px;font-family:Arial;color:#90b945;background-color:#ffffff;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">found here</span></a></li>
+</ul>]]></offerFinePrint>
+          <offerDescription><![CDATA[Air travel can be a stress-filled ordeal, between invasive security screenings, unexpected delays and evil gremlins that taunt you from the wing of the plane. Save yourself some pre-flight stress with this week&rsquo;s Patch Deal: <strong>for $60, you get a one-way ride to Logan Airport for up to three people from Michael&rsquo;s Limousine Company in Peabody (a $100 value).</strong><br />
+<br />
+Michael&rsquo;s Limousine Company offers transportation services throughout the Greater Boston and North Shore areas. This family owned and operated company specializes in airport transportation, parties, corporate transportation and special events, and its high level of customer service earns it consistent praise in magazines, websites and &ldquo;Best Of&rdquo; lists. With this deal you can save 40 percent on your next trip to Logan Airport, so that you won&rsquo;t feel so guilty for spending $12 on a bottle of water once you get to the terminal. Check out the Fine Print to learn more about this deal.<br />]]></offerDescription>
+          <redemptionInstructions><![CDATA[Expires 6/1/12. Voucher must be present at time of redemption. Limit 1 per person. Pick up point must be within 30 miles of the airport. Please call 978-532-8488 to schedule an appointment.<br />]]></redemptionInstructions>
+          <availableQuantity>10</availableQuantity>
+          <buyersCount>1</buyersCount>
+          <categoryName>Peabody, MA</categoryName>
+          <currentPrice>60.00</currentPrice>
+          <customCategoryId>US_MA_PEABODY</customCategoryId>
+          <hideBuyersCount>true</hideBuyersCount>
+          <hideDiscount>false</hideDiscount>
+          <hideOriginalPrice>false</hideOriginalPrice>
+          <imageUrl>http://product-images.imshopping.com/nimblebuy/60-1way-ride-logan-airport-100-michaels-limousine-company-669611-original.jpg</imageUrl>
+          <internalCategoryId>11291</internalCategoryId>
+          <isMainOfferInOfferCity>true</isMainOfferInOfferCity>
+          <maxAllowedPerUser>1</maxAllowedPerUser>
+          <offerCustomId>006c000000dom94iag</offerCustomId>
+          <offerEndDateTime>2012-01-22 23:59:00</offerEndDateTime>
+          <offerEndTimeinISO>2012-01-22T23:59:00-0500</offerEndTimeinISO>
+          <offerId>295021</offerId>
+          <offerLocations>
+            <offerLocation>
+              <offerLocationLatitude>42.5324</offerLocationLatitude>
+              <offerLocationLongitude>-70.9736</offerLocationLongitude>
+            </offerLocation>
+          </offerLocations>
+          <offerName>$60 for a 1-Way Ride to Logan Airport ($100 value) - Michael's Limousine Company</offerName>
+          <offerPageUrl>http://deals.patch.com/deal/peabody-ma/60-1way-ride-logan-airport-100-michaels-limousine-company?utm_medium=affiliateAPI&amp;utm_source=Nokia&amp;chId=19560521&amp;aflId=1221</offerPageUrl>
+          <offerPricingType>No Minimum Buyers</offerPricingType>
+          <offerStartDateTime>2012-01-16 00:00:00</offerStartDateTime>
+          <offerStartTimeinISO>2012-01-16T00:00:00-0500</offerStartTimeinISO>
+          <offerStatus>live</offerStatus>
+          <offerTitle>$60 for a 1-Way Ride to Logan Airport ($100 value)</offerTitle>
+          <offerTitlePrefix>Today's Deal:</offerTitlePrefix>
+          <offeredByMerchant>
+            <merchantAddress>161 Lynn St.</merchantAddress>
+            <merchantAddressLine2/>
+            <merchantCity>Peabody</merchantCity>
+            <merchantContactEmail>mike@michaelslimousine.com</merchantContactEmail>
+            <merchantDescription>Michael&amp;#39;s Limousine Company is a family owned and operated business with over 20 years of experience in the transportation business. Offering 24-hour limousine service, the company specializes in nights out, bachelor/bachelorette parties, weddings, corporate transportation and airport transportation to Logan and Manchester airports.&lt;a href="http://patch.com/L-h54y" id="internal-source-marker_0.3272122986325102"&gt;&lt;br /&gt;
+
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;span style="font-size:13px;font-family:Arial;color:#90b945;background-color:#ffffff;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:underline;vertical-align:baseline;"&gt;Learn more about Michael&amp;rsquo;s Limousine Company on Patch Places&lt;/span&gt;&lt;/a&gt;&lt;br /&gt;</merchantDescription>
+            <merchantName>Michael's Limousine Company</merchantName>
+            <merchantPhone>978-532-8488</merchantPhone>
+            <merchantState>MA</merchantState>
+            <merchantWebsite>http://www.michaelslimousine.com/</merchantWebsite>
+            <merchantZip>01960</merchantZip>
+          </offeredByMerchant>
+          <origPrice>100.00</origPrice>
+          <partnerDistributionUrl>http://w.nmb.ly/7cjo2</partnerDistributionUrl>
+          <percentageDiscount>40</percentageDiscount>
+          <redemptionExpirationDate>2012-06-01 20:59:59</redemptionExpirationDate>
+          <redemptionExpirationDateinISO>2012-06-01T20:59:59-0700</redemptionExpirationDateinISO>
+          <stdCityName>Peabody</stdCityName>
+          <taxonomyFirstLevel>Travel</taxonomyFirstLevel>
+          <taxonomySecondLevel>Taxis</taxonomySecondLevel>
+          <thumbNailImageUrl>http://product-images.imshopping.com/nimblebuy/60-1way-ride-logan-airport-100-michaels-limousine-company-669611-small_lv.jpg</thumbNailImageUrl>
+        </offer>
+        <offer>
+          <offerFinePrint><![CDATA[<div style="background-color: transparent; ">
+	<ul id="internal-source-marker_0.45519989379681647">
+		<li style="list-style-type: disc; font-size: 10pt; font-family: Arial; color: rgb(34, 34, 34); background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; ">
+			<span style="font-size: 10pt; font-family: Arial; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; ">NutFit</span><span style="font-size: 10pt; font-family: Arial; color: rgb(0, 0, 0); background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;"> is located at </span><span class="street-address">284 Amory St. </span><span class="locality">Jamaica Plain</span>, <span class="region">MA</span> <span class="postal-code">02130</span></li>
+		<li style="list-style-type: disc; font-size: 10pt; font-family: Arial; color: rgb(34, 34, 34); background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; ">
+			<span style="font-size: 10pt; font-family: Arial; color: rgb(0, 0, 0); background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; ">Please redeem by June 1, 2012</span></li>
+		<li style="list-style-type: disc; font-size: 10pt; font-family: Arial; background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; ">
+			<font color="#000000"><span style="white-space: pre-wrap;">Limit one (1) per customer</span></font></li>
+		<li style="list-style-type: disc; font-size: 10pt; font-family: Arial; background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; ">
+			Open to new, past and current clients</li>
+		<li style="list-style-type: disc; font-size: 10pt; font-family: Arial; color: rgb(34, 34, 34); background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; ">
+			<span style="font-size: 10pt; font-family: Arial; color: rgb(0, 0, 0); background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; ">Cannot be combined with any other offer</span></li>
+		<li style="list-style-type: disc; font-size: 10pt; font-family: Arial; color: rgb(34, 34, 34); background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; ">
+			<span style="font-size: 10pt; font-family: Arial; color: rgb(0, 0, 0); background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; ">Patch Deals are subject to the terms</span><a href="http://deals.patch.com/GroupBuyTerms"><span style="font-size: 10pt; font-family: Arial; color: rgb(0, 0, 0); background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; "> </span><span style="font-size: 10pt; font-family: Arial; color: rgb(144, 185, 69); background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; ">found here</span></a></li>
+	</ul>
+</div>]]></offerFinePrint>
+          <offerDescription><![CDATA[The only thing standing between you and the body of your dreams is a little bit of hard work. Well, that and the evil queen who gets insanely jealous whenever her magic mirror tells her someone has a hotter body than her. Become the fittest of them all with this week&rsquo;s Patch Deal: <strong>for $90, get three one-hour personal training sessions and a nutritional consultation at NuFit (a $200 value)</strong>.<br />
+ <br />
+NutFit&rsquo;s certified personal trainers take a holistic approach to wellness and will work with you to create a fitness routine designed to help you exceed your fitness goals, whether you want to shed a few pounds or build muscle. The trainers will also help you with nutritional counseling and meal planning. Check out the Fine Print to learn more about this deal.]]></offerDescription>
+          <redemptionInstructions><![CDATA[1. Please call Anel Bellevue at 617-901-4494 to schedule your first session.<br />
+2. Don&#39;t forget to mention Patch!<br />
+3. Your Patch Deal voucher number might come in handy.<br />
+4. Print out and present voucher at your first session to redeem offer.<br />
+5. Sweat it out!<br />]]></redemptionInstructions>
+          <availableQuantity>999</availableQuantity>
+          <buyersCount>0</buyersCount>
+          <categoryName>Jamaica Plain, MA</categoryName>
+          <currentPrice>90.00</currentPrice>
+          <customCategoryId>US_MA_JAMAICAPLAIN</customCategoryId>
+          <hideBuyersCount>true</hideBuyersCount>
+          <hideDiscount>false</hideDiscount>
+          <hideOriginalPrice>false</hideOriginalPrice>
+          <imageUrl>http://product-images.imshopping.com/nimblebuy/3-personal-training-sessions-90-200-654991-original.jpg</imageUrl>
+          <internalCategoryId>10631</internalCategoryId>
+          <isMainOfferInOfferCity>true</isMainOfferInOfferCity>
+          <maxAllowedPerUser>1</maxAllowedPerUser>
+          <offerCustomId>006c000000dpp6tias</offerCustomId>
+          <offerEndDateTime>2012-01-22 23:59:00</offerEndDateTime>
+          <offerEndTimeinISO>2012-01-22T23:59:00-0500</offerEndTimeinISO>
+          <offerId>295411</offerId>
+          <offerLocations>
+            <offerLocation>
+              <offerLocationLatitude>42.3147372</offerLocationLatitude>
+              <offerLocationLongitude>-71.1044388</offerLocationLongitude>
+            </offerLocation>
+          </offerLocations>
+          <offerName>$90 for $200 NutFit personal training</offerName>
+          <offerPageUrl>http://deals.patch.com/deal/jamaica-plain-ma/3-personal-training-sessions-90-200?utm_medium=affiliateAPI&amp;utm_source=Nokia&amp;chId=19560201&amp;aflId=1221</offerPageUrl>
+          <offerPricingType>No Minimum Buyers</offerPricingType>
+          <offerStartDateTime>2012-01-16 00:00:00</offerStartDateTime>
+          <offerStartTimeinISO>2012-01-16T00:00:00-0500</offerStartTimeinISO>
+          <offerStatus>live</offerStatus>
+          <offerTitle>$90 for 3 Personal Training &amp; Nutrition Sessions</offerTitle>
+          <offerTitlePrefix>Today's Deal:</offerTitlePrefix>
+          <offeredByMerchant>
+            <merchantAddress>P.O. Box 332</merchantAddress>
+            <merchantAddressLine2/>
+            <merchantCity>Roslindale</merchantCity>
+            <merchantContactEmail>abellevu@yahoo.com</merchantContactEmail>
+            <merchantDescription>NutFit provides a multi-faceted approach to health and fitness in order to educate its clients on how to develop, maintain and lead healthy lifestyles. NutFit offers one-on-one personal training, small-group training, yoga, nutrition and massage.&lt;br /&gt;</merchantDescription>
+            <merchantName>NutFit</merchantName>
+            <merchantPhone>617-320-4494</merchantPhone>
+            <merchantWebsite>http://www.nutfit.com</merchantWebsite>
+            <merchantZip>02131</merchantZip>
+          </offeredByMerchant>
+          <origPrice>200.00</origPrice>
+          <partnerDistributionUrl>http://w.nmb.ly/7ciep</partnerDistributionUrl>
+          <percentageDiscount>55</percentageDiscount>
+          <redemptionExpirationDate>2012-06-01 20:59:59</redemptionExpirationDate>
+          <redemptionExpirationDateinISO>2012-06-01T20:59:59-0700</redemptionExpirationDateinISO>
+          <stdCityName>Jamaica Plain</stdCityName>
+          <taxonomyFirstLevel>Health &amp; Fitness</taxonomyFirstLevel>
+          <taxonomySecondLevel>Personal Trainers</taxonomySecondLevel>
+          <thumbNailImageUrl>http://product-images.imshopping.com/nimblebuy/3-personal-training-sessions-90-200-654991-small_lv.jpg</thumbNailImageUrl>
+        </offer>
+      </offers>
+      <whiteLabelHost>www.phundeals.com</whiteLabelHost>
+      <whiteLabelMerchantName>PhunDeals</whiteLabelMerchantName>
+      <whiteLableId>572</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>deals.sfstation.com</whiteLabelHost>
+      <whiteLabelMerchantName>SF Station Deals</whiteLabelMerchantName>
+      <whiteLableId>652</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>www.dealin.gr</whiteLabelHost>
+      <whiteLabelMerchantName>DealiN</whiteLabelMerchantName>
+      <whiteLableId>662</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>en.restoboom.com</whiteLabelHost>
+      <whiteLabelMerchantName>RestoBoom</whiteLabelMerchantName>
+      <whiteLableId>712</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>fr.restoboom.com</whiteLabelHost>
+      <whiteLabelMerchantName>RestoBoom</whiteLabelMerchantName>
+      <whiteLableId>722</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>www.livecosmo.com</whiteLabelHost>
+      <whiteLabelMerchantName>Live Cosmo</whiteLabelMerchantName>
+      <whiteLableId>762</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>www.wimgodeals.com</whiteLabelHost>
+      <whiteLabelMerchantName>Wimgo Deals</whiteLabelMerchantName>
+      <whiteLableId>802</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>deal.timesleader.com</whiteLabelHost>
+      <whiteLabelMerchantName>Times Leader</whiteLabelMerchantName>
+      <whiteLableId>812</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>www.slcdailydeal.com</whiteLabelHost>
+      <whiteLabelMerchantName>slcdailydeal.com</whiteLabelMerchantName>
+      <whiteLableId>832</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>deals.deals4dreams.com</whiteLabelHost>
+      <whiteLabelMerchantName>Deals4Dreams</whiteLabelMerchantName>
+      <whiteLableId>861</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>us.got2coupon.com</whiteLabelHost>
+      <whiteLabelMerchantName>Got2Coupon</whiteLabelMerchantName>
+      <whiteLableId>921</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>deals.adpages.com</whiteLabelHost>
+      <whiteLabelMerchantName>AP Daily Deals</whiteLabelMerchantName>
+      <whiteLableId>1201</whiteLableId>
+    </partnerMerchant>
+  </partnerMerchants>
+  <responseCode>0</responseCode>
+</merchantDealsFeedData>

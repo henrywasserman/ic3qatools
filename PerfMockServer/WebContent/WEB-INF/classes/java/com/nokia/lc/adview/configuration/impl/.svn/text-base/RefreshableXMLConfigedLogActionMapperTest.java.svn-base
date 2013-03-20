@@ -1,0 +1,57 @@
+package com.nokia.lc.adview.configuration.impl;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+
+import org.junit.Test;
+
+import com.navteq.nmg.pani.cache.ICacheRefreshService;
+import com.nokia.lc.adview.configuration.LogActionMapping;
+
+public class RefreshableXMLConfigedLogActionMapperTest {
+	
+	
+	private static final String IMPRESSION = "IMPRESSION";
+    private static final String EXAMPLE = "example";
+
+
+    private static final String MARKERSHOWN = "markershown";
+    private static final String MARKERCLICK = "markerclick";
+    private static final String LISTSHOWN = "listshown";
+    private static final String LISTCLICK = "listclick";
+
+
+	@Test
+	public void testRefresh() throws Exception{
+		ICacheRefreshService refreshService = mock(ICacheRefreshService.class);
+		RefreshableXMLConfigedLogActionMapper mapper = new RefreshableXMLConfigedLogActionMapper("LogActionMappings", "logaction-mappings-test.xml", refreshService);
+		mapper.refresh();
+		
+		LogActionMapping lam = null;
+		
+		lam = mapper.getLogActionMapping(EXAMPLE);
+		assertNotNull(lam);
+		assertTrue(lam.canBeMapped());
+		assertEquals(IMPRESSION,lam.mappedAction());
+		
+		lam = mapper.getLogActionMapping(MARKERSHOWN);
+		assertNotNull(lam);
+		assertFalse(lam.canBeMapped());
+		assertNull(lam.mappedAction());
+		
+		lam = mapper.getLogActionMapping(MARKERCLICK);
+		assertNotNull(lam);
+		assertFalse(lam.canBeMapped());
+		assertNull(lam.mappedAction());
+		
+		lam = mapper.getLogActionMapping(LISTSHOWN);
+		assertNotNull(lam);
+		assertFalse(lam.canBeMapped());
+		assertNull(lam.mappedAction());
+		
+		lam = mapper.getLogActionMapping(LISTCLICK);
+		assertNotNull(lam);
+		assertFalse(lam.canBeMapped());
+		assertNull(lam.mappedAction());
+	}
+}

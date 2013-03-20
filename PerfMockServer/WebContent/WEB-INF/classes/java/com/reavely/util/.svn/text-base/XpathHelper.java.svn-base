@@ -1,0 +1,67 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.reavely.util;
+
+import java.io.IOException;
+import java.io.InputStream;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+/**
+ *
+ * @author sreavely
+ */
+public class XpathHelper {
+
+    public static Object executeXpathExpression(InputStream xmlToParse,
+            String xpathExpression,
+            String resultType) throws ParserConfigurationException, XPathExpressionException, SAXException, IOException {
+
+
+        DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+        domFactory.setNamespaceAware(true);
+        DocumentBuilder builder = domFactory.newDocumentBuilder();
+        Document doc = builder.parse(xmlToParse);
+
+        XPath xpath = XPathFactory.newInstance().newXPath();
+
+        XPathExpression expr = xpath.compile(xpathExpression);
+        // Selecting all person element's following-sibling value
+        Object returnObj = null;
+        if (resultType.toUpperCase().equals("NODESET")) {
+            Object result = expr.evaluate(doc, XPathConstants.NODESET);
+            NodeList nodes = (NodeList) result;
+            for (int i = 0; i < nodes.getLength(); i++) {
+                System.out.print(nodes.item(i).getNodeValue() + ",  ");
+            }
+            returnObj = nodes;
+        } else if (resultType.toUpperCase().equals("STRING")) {
+            Object result = expr.evaluate(doc, XPathConstants.STRING);
+            String resultStr = (String) result;
+            System.out.println("Result=" + resultStr);
+            returnObj = resultStr;
+        } else if (resultType.toUpperCase().equals("NUMBER")) {
+            Object result = expr.evaluate(doc, XPathConstants.NUMBER);
+            Number resultNum = (Number) result;
+            System.out.println("Result=" + resultNum);
+            returnObj = resultNum;
+        } else if (resultType.toUpperCase().equals("BOOLEAN")) {
+            Object result = expr.evaluate(doc, XPathConstants.BOOLEAN);
+            Boolean resultBool = (Boolean) result;
+            System.out.println("Result=" + resultBool);
+            returnObj = resultBool;
+        }
+        return returnObj;
+    }
+}

@@ -1,0 +1,48 @@
+package com.navteq.nmg.pani.image.category;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import java.util.List;
+
+import org.apache.log4j.Appender;
+import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggingEvent;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+
+
+public class ImageCategoryMappingTest {
+
+	@Test
+	public void testNoMappings() throws Exception{
+		
+	    Appender mockAppender;
+	    
+	    mockAppender = mock(AppenderSkeleton.class);
+	    
+		Logger logger = Logger.getLogger(ImageCategoryService.class);
+		
+		try{
+			logger.addAppender(mockAppender);
+			logger.setLevel(Level.ERROR);
+
+			new ImageCategoryMapping("buckfoo.txt");
+			
+			ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+			verify(mockAppender, times(1)).doAppend(loggingEventCaptor.capture());
+		
+			List<LoggingEvent> loggingEvents = loggingEventCaptor.getAllValues();		
+			
+			assertEquals("Failed to load or parse mapping file buckfoo.txt",loggingEvents.get(0).getRenderedMessage());
+			assertEquals(Level.ERROR,loggingEvents.get(0).getLevel());					
+		}
+		finally{
+			logger.removeAppender(mockAppender);
+		}
+	}
+}

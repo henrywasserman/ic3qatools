@@ -1,0 +1,845 @@
+package com.navteq.nmg.pani.image.enums;
+
+import static org.junit.Assert.*;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.log4j.Appender;
+import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggingEvent;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+
+import static org.mockito.Mockito.*;
+
+public class ImageSizeTypesTest {
+
+	private Appender mockAppender;
+	
+	@Before
+	public void setup() {
+		mockAppender = mock(AppenderSkeleton.class);
+		Logger logger = Logger.getLogger(ImageSizeTypes.class);
+		logger.addAppender(mockAppender);
+		logger.setLevel(Level.INFO);
+	}	
+	
+	@After
+	public void tearDown(){
+		Logger logger = Logger.getLogger(ImageSizeTypes.class);
+		logger.removeAppender(mockAppender);		
+	}
+	
+	// icons
+	
+	@Test
+	public void testSmallIntoIcon() throws Exception{
+		assertType(ImageSizeTypes.SMALL_INTRO_ICON,1,true,"Small Intro Icon",ImageType.ICON,16,16);
+	}
+	
+	@Test
+	public void testMidIntroIcon() throws Exception{
+		assertType(ImageSizeTypes.MID_INTRO_ICON,2,true,"Medium Intro Icon",ImageType.ICON,24,24);
+	}
+	
+	@Test
+	public void testLargeIntroIcon() throws Exception{
+		assertType(ImageSizeTypes.LARGE_INTRO_ICON,3,true,"Large Intro Icon",ImageType.ICON,32,32);
+	}
+	
+	@Test
+	public void testExtraLargeIntroIcon() throws Exception{
+		assertType(ImageSizeTypes.X_LARGE_INTRO_ICON,4,true,"X-Large Intro Icon",ImageType.ICON,64,64);		
+	}
+
+	// banners
+	
+	@Test
+	public void testSmallBanner() throws Exception{
+		assertType(ImageSizeTypes.SMALL_BANNER,101,true,"Small Banner",ImageType.BANNER,120,20);
+	}
+	
+	@Test
+	public void testMidBanner() throws Exception{
+		assertType(ImageSizeTypes.MID_BANNER,102,true,"Medium Banner",ImageType.BANNER,168,28);
+	}
+	
+	@Test
+	public void testLargeBanner() throws Exception{
+		assertType(ImageSizeTypes.LARGE_BANNER,103,true,"Large Banner",ImageType.BANNER,216,36);
+	}
+	
+	@Test
+	public void testExtraLargeBanner() throws Exception{
+		assertType(ImageSizeTypes.X_LARGE_BANNER,104,true,"X-Large Banner",ImageType.BANNER,300,50);		
+	}
+	
+	// hyper dynamic banners
+	
+	@Test
+	public void testSmallHyperBanner() throws Exception{
+		assertType(ImageSizeTypes.SMALL_HYPER_DYN_LOCAL_BANNER,111,false,"Small Hyper-Dynamic Local Banner",ImageType.PROXIMITY_BANNER,120,20);
+	}
+	
+	@Test
+	public void testMidHyperBanner() throws Exception{
+		assertType(ImageSizeTypes.MID_HYPER_DYN_LOCAL_BANNER,112,true,"Medium Hyper-Dynamic Local Banner",ImageType.PROXIMITY_BANNER,168,28);
+	}
+	
+	@Test
+	public void testLargeHyperBanner() throws Exception{
+		assertType(ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER,113,true,"Large Hyper-Dynamic Local Banner",ImageType.PROXIMITY_BANNER,216,36);
+	}
+	
+	@Test
+	public void testExtraLargeHyperBanner() throws Exception{
+		assertType(ImageSizeTypes.X_LARGE_HYPER_DYN_LOCAL_BANNER,114,true,"X-Large Hyper-Dynamic Local Banner",ImageType.PROXIMITY_BANNER,300,50);		
+	}
+	
+	@Test
+	public void testDoubleExtraLargeHyperBanner() throws Exception{
+		assertType(ImageSizeTypes.XX_LARGE_HYPER_DYN_LOCAL_BANNER,115,true,"XX-Large Hyper-Dynamic Local Banner",ImageType.PROXIMITY_BANNER,480,80);		
+	}
+	
+	@Test
+	public void testTripleExtraLargeHyperBanner() throws Exception{
+		assertType(ImageSizeTypes.XXX_LARGE_HYPER_DYN_LOCAL_BANNER,116,true,"XXX-Large Hyper-Dynamic Local Banner",ImageType.PROXIMITY_BANNER,728,90);		
+	}
+	
+	// main types
+	
+	@Test
+	public void testSmallMainImage() throws Exception{
+		assertType(ImageSizeTypes.SMALL_MAIN_IMAGE,201,true,"Small Main Image",ImageType.MAIN,120,120);
+	}
+	
+	@Test
+	public void testMidMainImage() throws Exception{
+		assertType(ImageSizeTypes.MID_MAIN_IMAGE,202,true,"Medium Main Image",ImageType.MAIN,168,168);
+	}
+	
+	@Test
+	public void testLargeMainImage() throws Exception{
+		assertType(ImageSizeTypes.LARGE_MAIN_IMAGE,203,true,"Large Main Image",ImageType.MAIN,216,216);
+	}
+	
+	@Test
+	public void testExtraLargeMainImage() throws Exception{
+		assertType(ImageSizeTypes.X_LARGE_MAIN_IMAGE,204,true,"X-Large Main Image",ImageType.MAIN,300,300);		
+	}	
+	
+	// main types
+	
+	@Test
+	public void testSmallCouponImage() throws Exception{
+		assertType(ImageSizeTypes.SMALL_COUPON_IMAGE,301,true,"Small Coupon Image",ImageType.COUPON,120,120);
+	}
+	
+	@Test
+	public void testMidCouponImage() throws Exception{
+		assertType(ImageSizeTypes.MID_COUPON_IMAGE,302,true,"Medium Coupon Image",ImageType.COUPON,168,168);
+	}
+	
+	@Test
+	public void testLargeCouponImage() throws Exception{
+		assertType(ImageSizeTypes.LARGE_COUPON_IMAGE,303,true,"Large Coupon Image",ImageType.COUPON,216,216);
+	}
+	
+	@Test
+	public void testExtraLargeCouponImage() throws Exception{
+		assertType(ImageSizeTypes.X_LARGE_COUPON_IMAGE,304,true,"X-Large Coupon Image",ImageType.COUPON,300,300);		
+	}		
+
+	@Test
+	public void testGetImageSizeTypeById() throws Exception{
+		assertEquals(ImageSizeTypes.SMALL_INTRO_ICON,ImageSizeTypes.getImageSizeTypeById(1));
+		assertEquals(ImageSizeTypes.MID_INTRO_ICON,ImageSizeTypes.getImageSizeTypeById(2));
+		assertEquals(ImageSizeTypes.LARGE_INTRO_ICON,ImageSizeTypes.getImageSizeTypeById(3));
+		assertEquals(ImageSizeTypes.X_LARGE_INTRO_ICON,ImageSizeTypes.getImageSizeTypeById(4));
+		assertEquals(ImageSizeTypes.SMALL_BANNER,ImageSizeTypes.getImageSizeTypeById(101));
+		assertEquals(ImageSizeTypes.MID_BANNER,ImageSizeTypes.getImageSizeTypeById(102));
+		assertEquals(ImageSizeTypes.LARGE_BANNER,ImageSizeTypes.getImageSizeTypeById(103));
+		assertEquals(ImageSizeTypes.X_LARGE_BANNER,ImageSizeTypes.getImageSizeTypeById(104));
+		assertEquals(ImageSizeTypes.SMALL_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.getImageSizeTypeById(111));
+		assertEquals(ImageSizeTypes.MID_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.getImageSizeTypeById(112));
+		assertEquals(ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.getImageSizeTypeById(113));
+		assertEquals(ImageSizeTypes.X_LARGE_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.getImageSizeTypeById(114));
+		assertEquals(ImageSizeTypes.XX_LARGE_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.getImageSizeTypeById(115));
+		assertEquals(ImageSizeTypes.XXX_LARGE_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.getImageSizeTypeById(116));
+		assertEquals(ImageSizeTypes.SMALL_MAIN_IMAGE,ImageSizeTypes.getImageSizeTypeById(201));
+		assertEquals(ImageSizeTypes.MID_MAIN_IMAGE,ImageSizeTypes.getImageSizeTypeById(202));
+		assertEquals(ImageSizeTypes.LARGE_MAIN_IMAGE,ImageSizeTypes.getImageSizeTypeById(203));
+		assertEquals(ImageSizeTypes.X_LARGE_MAIN_IMAGE,ImageSizeTypes.getImageSizeTypeById(204));
+		assertEquals(ImageSizeTypes.SMALL_COUPON_IMAGE,ImageSizeTypes.getImageSizeTypeById(301));
+		assertEquals(ImageSizeTypes.MID_COUPON_IMAGE,ImageSizeTypes.getImageSizeTypeById(302));
+		assertEquals(ImageSizeTypes.LARGE_COUPON_IMAGE,ImageSizeTypes.getImageSizeTypeById(303));
+		assertEquals(ImageSizeTypes.X_LARGE_COUPON_IMAGE,ImageSizeTypes.getImageSizeTypeById(304));
+	}
+	
+	@Test
+	public void testGetImageSizeTypeByIdThrowsExceptionOnInvalidValue() throws Exception{
+		
+		try{
+			ImageSizeTypes.getImageSizeTypeById(666);
+			fail("Expected exception for invalid value ["+Integer.toString(666)+"] but did not get one.");
+		}
+		catch(Exception ex){
+			assertEquals("Unable to convert numeric value ["+Integer.toString(666)+"] to an associated enumeration.",ex.getMessage());
+		}	
+	}
+	
+	@Test
+	public void testMapBannerToProximity() throws Exception{		
+
+		for (ImageSizeTypes size : ImageSizeTypes.values()){
+						
+			switch (size.imageType()){
+			case PROXIMITY_BANNER:
+				// should map to self
+				assertTrue(size.equals(ImageSizeTypes.mapBannerToProximity(size)));
+				break;
+			case BANNER:
+			{
+				switch(size){
+				case SMALL_BANNER:
+					
+					try{
+						ImageSizeTypes.mapBannerToProximity(ImageSizeTypes.SMALL_BANNER);
+						fail("Expected exception due to unsupported banner mapping for small proximity banner but did not receive it.");
+					}
+					catch(Exception ex){
+						assertEquals(ImageSizeTypes.SMALL_BANNER.toString() +" is not supported for mapping to proximity banner at this time.",ex.getMessage()); 
+					}
+					break;					
+					
+//					assertEquals(ImageSizeTypes.SMALL_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.mapBannerToProximity(size));
+//					break;
+				case MID_BANNER:
+					assertEquals(ImageSizeTypes.MID_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.mapBannerToProximity(size));
+					break;
+				case LARGE_BANNER:
+					assertEquals(ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.mapBannerToProximity(size));
+					break;
+				case X_LARGE_BANNER:
+					assertEquals(ImageSizeTypes.X_LARGE_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.mapBannerToProximity(size));
+					break;
+				}
+			}
+			    break;
+			default:
+				try{
+					ImageSizeTypes.mapBannerToProximity(size);
+					fail("Expected exception due to unmapped size type but did not receive it.");
+				}
+				catch(Exception ex){
+					assertEquals(size.toString() +" has no mapping to proximity banner at this time.",ex.getMessage()); 
+				}				
+				break;
+			}
+		}
+	}
+	
+	@Test
+	public void testGetIconSizeForProximityBanner() throws Exception{
+		assertEquals(ImageSizeTypes.SMALL_INTRO_ICON,ImageSizeTypes.getIconSizeForProximityBanner(ImageSizeTypes.SMALL_HYPER_DYN_LOCAL_BANNER));
+		assertEquals(ImageSizeTypes.MID_INTRO_ICON,ImageSizeTypes.getIconSizeForProximityBanner(ImageSizeTypes.MID_HYPER_DYN_LOCAL_BANNER));
+		assertEquals(ImageSizeTypes.LARGE_INTRO_ICON,ImageSizeTypes.getIconSizeForProximityBanner(ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER));
+		assertEquals(ImageSizeTypes.LARGE_INTRO_ICON,ImageSizeTypes.getIconSizeForProximityBanner(ImageSizeTypes.X_LARGE_HYPER_DYN_LOCAL_BANNER));
+		assertEquals(ImageSizeTypes.X_LARGE_INTRO_ICON,ImageSizeTypes.getIconSizeForProximityBanner(ImageSizeTypes.XX_LARGE_HYPER_DYN_LOCAL_BANNER));
+		assertEquals(ImageSizeTypes.X_LARGE_INTRO_ICON,ImageSizeTypes.getIconSizeForProximityBanner(ImageSizeTypes.XXX_LARGE_HYPER_DYN_LOCAL_BANNER));
+		
+		
+		try{
+			ImageSizeTypes.getIconSizeForProximityBanner(ImageSizeTypes.LARGE_MAIN_IMAGE);
+			fail("getIconSizeForProximityBanner Should have thrown an exception but did not.");
+		}
+		catch(Exception ex){
+			assertEquals("Only proximity banner sizes are supported for mapping to an icon size.",ex.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testGetAllImageSizeTypesByImageType() throws Exception{
+		
+		// sort and add to a lookup map that we will deplete and verify after we have cross checked
+		// expected with actual values
+		
+		Map<ImageType,Set<ImageSizeTypes>> lookupMap = new HashMap<ImageType,Set<ImageSizeTypes>>();
+		
+		for (ImageSizeTypes imageSizeType:ImageSizeTypes.values()){
+			Set<ImageSizeTypes> imageSet = lookupMap.get(imageSizeType.imageType());
+			
+			if (imageSet == null){
+				imageSet = new HashSet<ImageSizeTypes>();
+				lookupMap.put(imageSizeType.imageType(), imageSet);
+			}
+			
+			imageSet.add(imageSizeType);
+		}
+		
+		for (ImageType imageType : ImageType.values()){
+			ImageSizeTypes[] imageSizeTypes = ImageSizeTypes.getAllImageSizeTypesByImageType(imageType);
+			
+			// now lets verify we have those same values in our lookup map and that the full range of values are covered
+			Set<ImageSizeTypes> imageSet = lookupMap.get(imageType);
+			
+			assertEquals(imageSet.size(),imageSizeTypes.length);
+			
+			// now lets iterate the result set of the exposed method and verify those same contents are 
+			// matching our expected map
+			
+			for (ImageSizeTypes ist : imageSizeTypes){
+				assertTrue(imageSet.contains(ist));
+				imageSet.remove(ist);
+			}
+			
+			assertTrue(imageSet.isEmpty());
+			lookupMap.remove(imageType);
+		}
+		assertTrue("Not all values were matched for get images by image type.",lookupMap.isEmpty());		
+	}
+	
+	@Test
+	public void testParseImageSizeTypesWithStringALL() throws Exception{
+		
+		// sort and add to a lookup map that we will deplete and verify after we have cross checked
+		// expected with actual values
+		
+		Map<ImageType,Set<ImageSizeTypes>> lookupMap = new HashMap<ImageType,Set<ImageSizeTypes>>();
+		
+		for (ImageSizeTypes imageSizeType : ImageSizeTypes.values()){
+			
+			if (imageSizeType.isSupported()){
+				
+				Set<ImageSizeTypes> imageSet = lookupMap.get(imageSizeType.imageType());
+				
+				if (imageSet == null){
+					imageSet = new HashSet<ImageSizeTypes>();
+					lookupMap.put(imageSizeType.imageType(), imageSet);
+				}
+				
+				imageSet.add(imageSizeType);				
+			}
+		}		
+		
+		for (ImageType imageType : ImageType.values()){
+			Set<ImageSizeTypes> imageSizeTypes = ImageSizeTypes.parseImageSizeTypes("ALL",imageType);
+			
+			// now lets verify we have those same values in our lookup map and that the full range of values are covered
+			Set<ImageSizeTypes> imageSet = lookupMap.get(imageType);
+			
+			assertEquals(imageSet.size(),imageSizeTypes.size());
+			
+			// now lets iterate the result set of the exposed method and verify those same contents are 
+			// matching our expected map
+			
+			for (ImageSizeTypes ist : imageSizeTypes){
+				assertTrue(imageSet.contains(ist));
+				imageSet.remove(ist);
+			}
+			
+			assertTrue(imageSet.isEmpty());
+			lookupMap.remove(imageType);
+		}
+		assertTrue("Not all values were matched for parse image size types.",lookupMap.isEmpty());
+	}
+
+	@Test
+	public void testGetAspectRatio(){
+		
+		double ONE = 1;
+		double SIX = 6;
+		double EIGHT = 8.08;
+		
+		assertEquals(SIX,ImageSizeTypes.SMALL_BANNER.getAspectRatio(),0);
+		assertEquals(ONE,ImageSizeTypes.SMALL_COUPON_IMAGE.getAspectRatio(),0);
+		assertEquals(SIX,ImageSizeTypes.SMALL_HYPER_DYN_LOCAL_BANNER.getAspectRatio(),0);
+		assertEquals(ONE,ImageSizeTypes.SMALL_INTRO_ICON.getAspectRatio(),0);
+		assertEquals(ONE,ImageSizeTypes.SMALL_MAIN_IMAGE.getAspectRatio(),0);
+		
+		assertEquals(SIX,ImageSizeTypes.MID_BANNER.getAspectRatio(),0);
+		assertEquals(ONE,ImageSizeTypes.MID_COUPON_IMAGE.getAspectRatio(),0);
+		assertEquals(SIX,ImageSizeTypes.MID_HYPER_DYN_LOCAL_BANNER.getAspectRatio(),0);
+		assertEquals(ONE,ImageSizeTypes.MID_INTRO_ICON.getAspectRatio(),0);
+		assertEquals(ONE,ImageSizeTypes.MID_MAIN_IMAGE.getAspectRatio(),0);
+		
+		assertEquals(SIX,ImageSizeTypes.LARGE_BANNER.getAspectRatio(),0);
+		assertEquals(ONE,ImageSizeTypes.LARGE_COUPON_IMAGE.getAspectRatio(),0);
+		assertEquals(SIX,ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER.getAspectRatio(),0);
+		assertEquals(ONE,ImageSizeTypes.LARGE_INTRO_ICON.getAspectRatio(),0);
+		assertEquals(ONE,ImageSizeTypes.LARGE_MAIN_IMAGE.getAspectRatio(),0);
+		
+		assertEquals(SIX,ImageSizeTypes.X_LARGE_BANNER.getAspectRatio(),0);
+		assertEquals(ONE,ImageSizeTypes.X_LARGE_COUPON_IMAGE.getAspectRatio(),0);
+		assertEquals(SIX,ImageSizeTypes.X_LARGE_HYPER_DYN_LOCAL_BANNER.getAspectRatio(),0);
+		assertEquals(ONE,ImageSizeTypes.X_LARGE_INTRO_ICON.getAspectRatio(),0);
+		assertEquals(ONE,ImageSizeTypes.X_LARGE_MAIN_IMAGE.getAspectRatio(),0);
+		
+		assertEquals(SIX,ImageSizeTypes.XX_LARGE_HYPER_DYN_LOCAL_BANNER.getAspectRatio(),0);
+		assertEquals(EIGHT,ImageSizeTypes.XXX_LARGE_HYPER_DYN_LOCAL_BANNER.getAspectRatio(),2);
+
+	}
+	
+	@Test
+	public void testGetImageSizeTypeByStringThrowsException() throws Exception{
+		try{
+			ImageSizeTypes.getImageSizeTypeByString("666");
+			fail("Expected Exception but did not receive one using bad string.");
+		}
+		catch(Exception ex){
+			assertEquals("Unable to convert numeric value [666] to an associated enumeration.",ex.getMessage());
+		}
+		
+		try{
+			ImageSizeTypes.getImageSizeTypeByString("ABC");
+			fail("Expected Exception but did not receive one using bad string.");
+		}
+		catch(Exception ex){
+			assertEquals("Unable to convert value [ABC] to an associated enumeration.",ex.getMessage());
+		}
+	}
+	
+	@Test
+	public void testGetImageSizeTypeByString() throws Exception{
+		// icons
+		ImageSizeTypes imageSize = ImageSizeTypes.getImageSizeTypeByString("1");		
+		assertEquals(ImageSizeTypes.SMALL_INTRO_ICON,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("2");		
+		assertEquals(ImageSizeTypes.MID_INTRO_ICON,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("3");		
+		assertEquals(ImageSizeTypes.LARGE_INTRO_ICON,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("4");		
+		assertEquals(ImageSizeTypes.X_LARGE_INTRO_ICON,imageSize);
+		
+		// banners
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("101");		
+		assertEquals(ImageSizeTypes.SMALL_BANNER,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("102");		
+		assertEquals(ImageSizeTypes.MID_BANNER,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("103");		
+		assertEquals(ImageSizeTypes.LARGE_BANNER,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("104");		
+		assertEquals(ImageSizeTypes.X_LARGE_BANNER,imageSize);
+		
+		// main images
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("201");		
+		assertEquals(ImageSizeTypes.SMALL_MAIN_IMAGE,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("202");		
+		assertEquals(ImageSizeTypes.MID_MAIN_IMAGE,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("203");		
+		assertEquals(ImageSizeTypes.LARGE_MAIN_IMAGE,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("204");		
+		assertEquals(ImageSizeTypes.X_LARGE_MAIN_IMAGE,imageSize);
+		
+		// coupons
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("301");		
+		assertEquals(ImageSizeTypes.SMALL_COUPON_IMAGE,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("302");		
+		assertEquals(ImageSizeTypes.MID_COUPON_IMAGE,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("303");		
+		assertEquals(ImageSizeTypes.LARGE_COUPON_IMAGE,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("304");		
+		assertEquals(ImageSizeTypes.X_LARGE_COUPON_IMAGE,imageSize);
+		
+		// hyper dynamic (prox)
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("111");		
+		assertEquals(ImageSizeTypes.SMALL_HYPER_DYN_LOCAL_BANNER,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("112");		
+		assertEquals(ImageSizeTypes.MID_HYPER_DYN_LOCAL_BANNER,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("113");		
+		assertEquals(ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("114");		
+		assertEquals(ImageSizeTypes.X_LARGE_HYPER_DYN_LOCAL_BANNER,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("115");		
+		assertEquals(ImageSizeTypes.XX_LARGE_HYPER_DYN_LOCAL_BANNER,imageSize);
+		imageSize = ImageSizeTypes.getImageSizeTypeByString("116");		
+		assertEquals(ImageSizeTypes.XXX_LARGE_HYPER_DYN_LOCAL_BANNER,imageSize);
+	}
+	
+	@Test
+	public void testParseImageSizeTypesWithRandomSamplesIcon() throws Exception{
+		String allIcons = "1,2,3,4";
+		String randomIcons = "2,4,1";
+		String randomIconsWithSomeGarbage = "2,16,103,201,4,304,whacojacko";
+		
+		Set<ImageSizeTypes> imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(allIcons,ImageType.ICON);
+		assertNotNull(imageSizeTypes);
+		assertEquals(4,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.SMALL_INTRO_ICON));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.MID_INTRO_ICON));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.LARGE_INTRO_ICON));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_INTRO_ICON));
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(randomIcons,ImageType.ICON);
+		assertNotNull(imageSizeTypes);
+		assertEquals(3,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.SMALL_INTRO_ICON));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.MID_INTRO_ICON));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_INTRO_ICON));
+		
+		// now mix up the string with garbage.  we want to get back on the valid icons for the
+		// specified type.  we should be forgiving and still try and serve an add with at least the 
+		// match image sizes for the requested type
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(randomIconsWithSomeGarbage,ImageType.ICON);
+		assertNotNull(imageSizeTypes);
+		assertEquals(2,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.MID_INTRO_ICON));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_INTRO_ICON));
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(null,ImageType.ICON);
+		assertNotNull(imageSizeTypes);
+		assertEquals(0,imageSizeTypes.size());
+		
+		ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+		verify(mockAppender, times(5)).doAppend(loggingEventCaptor.capture());
+	
+		List<LoggingEvent> loggingEvents = loggingEventCaptor.getAllValues();
+
+		assertEquals("Unable to convert numeric value [16] to an associated enumeration.  Will continue parsing remaining values.",loggingEvents.get(0).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(0).getLevel());
+		assertEquals("Image size type Large Banner associated with numeric value [103] is not supported or invalid for image type ICON.  Will continue parsing remaining values.",loggingEvents.get(1).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(1).getLevel());		
+		assertEquals("Image size type Small Main Image associated with numeric value [201] is not supported or invalid for image type ICON.  Will continue parsing remaining values.",loggingEvents.get(2).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(2).getLevel());
+		assertEquals("Image size type X-Large Coupon Image associated with numeric value [304] is not supported or invalid for image type ICON.  Will continue parsing remaining values.",loggingEvents.get(3).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(3).getLevel());
+		assertEquals("Unable to parse the non numeric value [whacojacko] from the desired images string [2,16,103,201,4,304,whacojacko].  Will continue parsing remaining values.",loggingEvents.get(4).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(4).getLevel());
+		
+	}
+		
+	@Test
+	public void testParseImageSizeTypesWithRandomSamplesBanner() throws Exception{
+		String allIcons = "101,102,103,104";
+		String randomIcons = "102,104,101";
+		String randomIconsWithSomeGarbage = "112,2,16,103,201,4,304,whacojacko";
+		
+		Set<ImageSizeTypes> imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(allIcons,ImageType.BANNER);
+		assertNotNull(imageSizeTypes);
+		assertEquals(4,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.SMALL_BANNER));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.MID_BANNER));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.LARGE_BANNER));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_BANNER));
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(randomIcons,ImageType.BANNER);
+		assertNotNull(imageSizeTypes);
+		assertEquals(3,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.SMALL_BANNER));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.MID_BANNER));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_BANNER));
+		
+		// now mix up the string with garbage.  we want to get back on the valid banners for the
+		// specified type.  we should be forgiving and still try and serve an add with at least the 
+		// match image sizes for the requested type
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(randomIconsWithSomeGarbage,ImageType.BANNER);
+		assertNotNull(imageSizeTypes);
+		assertEquals(1,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.LARGE_BANNER));
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(null,ImageType.BANNER);
+		assertNotNull(imageSizeTypes);
+		assertEquals(0,imageSizeTypes.size());
+		
+		
+		ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+		verify(mockAppender, times(6)).doAppend(loggingEventCaptor.capture());
+	
+		List<LoggingEvent> loggingEvents = loggingEventCaptor.getAllValues();		
+		assertEquals("Image size type Medium Intro Icon associated with numeric value [2] is not supported or invalid for image type BANNER.  Will continue parsing remaining values.",loggingEvents.get(0).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(0).getLevel());
+		assertEquals("Unable to convert numeric value [16] to an associated enumeration.  Will continue parsing remaining values.",loggingEvents.get(1).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(1).getLevel());		
+		assertEquals("Image size type Small Main Image associated with numeric value [201] is not supported or invalid for image type BANNER.  Will continue parsing remaining values.",loggingEvents.get(2).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(2).getLevel());
+		assertEquals("Image size type X-Large Intro Icon associated with numeric value [4] is not supported or invalid for image type BANNER.  Will continue parsing remaining values.",loggingEvents.get(3).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(3).getLevel());
+		assertEquals("Image size type X-Large Coupon Image associated with numeric value [304] is not supported or invalid for image type BANNER.  Will continue parsing remaining values.",loggingEvents.get(4).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(4).getLevel());
+		assertEquals("Unable to parse the non numeric value [whacojacko] from the desired images string [112,2,16,103,201,4,304,whacojacko].  Will continue parsing remaining values.",loggingEvents.get(5).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(5).getLevel());		
+	}
+	
+	@Test
+	public void testParseImageSizeTypesWithRandomSamplesProximity() throws Exception{
+		String allIcons = "111,112,113,114,115,116";
+		String randomIcons = "112,114,113";
+		String randomIconsWithSomeGarbage = "116,16,103,201,4,304,114,whacojacko";
+		
+		Set<ImageSizeTypes> imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(allIcons,ImageType.PROXIMITY_BANNER);
+		assertNotNull(imageSizeTypes);
+		assertEquals(5,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.MID_HYPER_DYN_LOCAL_BANNER));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_HYPER_DYN_LOCAL_BANNER));
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(randomIcons,ImageType.PROXIMITY_BANNER);
+		assertNotNull(imageSizeTypes);
+		assertEquals(3,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.MID_HYPER_DYN_LOCAL_BANNER));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_HYPER_DYN_LOCAL_BANNER));
+		
+		// now mix up the string with garbage.  we want to get back on the valid banners for the
+		// specified type.  we should be forgiving and still try and serve an add with at least the 
+		// match image sizes for the requested type
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(randomIconsWithSomeGarbage,ImageType.PROXIMITY_BANNER);
+		assertNotNull(imageSizeTypes);
+		assertEquals(2,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_HYPER_DYN_LOCAL_BANNER));
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(null,ImageType.PROXIMITY_BANNER);
+		assertNotNull(imageSizeTypes);
+		assertEquals(0,imageSizeTypes.size());
+		
+		
+		ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+		verify(mockAppender, times(6)).doAppend(loggingEventCaptor.capture());
+	
+		List<LoggingEvent> loggingEvents = loggingEventCaptor.getAllValues();
+		assertEquals("Image size type Small Hyper-Dynamic Local Banner associated with numeric value [111] is not supported or invalid for image type PROXIMITY_BANNER.  Will continue parsing remaining values.",loggingEvents.get(0).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(0).getLevel());
+		assertEquals("Unable to convert numeric value [16] to an associated enumeration.  Will continue parsing remaining values.",loggingEvents.get(1).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(1).getLevel());		
+		assertEquals("Image size type Small Main Image associated with numeric value [201] is not supported or invalid for image type PROXIMITY_BANNER.  Will continue parsing remaining values.",loggingEvents.get(2).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(2).getLevel());
+		assertEquals("Image size type X-Large Intro Icon associated with numeric value [4] is not supported or invalid for image type PROXIMITY_BANNER.  Will continue parsing remaining values.",loggingEvents.get(3).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(3).getLevel());
+		assertEquals("Image size type X-Large Coupon Image associated with numeric value [304] is not supported or invalid for image type PROXIMITY_BANNER.  Will continue parsing remaining values.",loggingEvents.get(4).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(4).getLevel());
+		assertEquals("Unable to parse the non numeric value [whacojacko] from the desired images string [116,16,103,201,4,304,114,whacojacko].  Will continue parsing remaining values.",loggingEvents.get(5).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(5).getLevel());
+	}
+
+	@Test
+	public void testParseImageSizeTypesWithRandomSamplesMain() throws Exception{
+		String allIcons = "201,202,203,204";
+		String randomIcons = "202,204,201";
+		String randomIconsWithSomeGarbage = "2,16,103,201,4,304,whacojacko";
+		
+		Set<ImageSizeTypes> imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(allIcons,ImageType.MAIN);
+		assertNotNull(imageSizeTypes);
+		assertEquals(4,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.SMALL_MAIN_IMAGE));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.MID_MAIN_IMAGE));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.LARGE_MAIN_IMAGE));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_MAIN_IMAGE));
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(randomIcons,ImageType.MAIN);
+		assertNotNull(imageSizeTypes);
+		assertEquals(3,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.SMALL_MAIN_IMAGE));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.MID_MAIN_IMAGE));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_MAIN_IMAGE));
+		
+		// now mix up the string with garbage.  we want to get back on the valid icons for the
+		// specified type.  we should be forgiving and still try and serve an add with at least the 
+		// match image sizes for the requested type
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(randomIconsWithSomeGarbage,ImageType.MAIN);
+		assertNotNull(imageSizeTypes);
+		assertEquals(1,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.SMALL_MAIN_IMAGE));
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(null,ImageType.MAIN);
+		assertNotNull(imageSizeTypes);
+		assertEquals(0,imageSizeTypes.size());
+		
+		ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+		verify(mockAppender, times(6)).doAppend(loggingEventCaptor.capture());
+	
+		List<LoggingEvent> loggingEvents = loggingEventCaptor.getAllValues();
+
+		assertEquals("Image size type Medium Intro Icon associated with numeric value [2] is not supported or invalid for image type MAIN.  Will continue parsing remaining values.",loggingEvents.get(0).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(0).getLevel());
+		assertEquals("Unable to convert numeric value [16] to an associated enumeration.  Will continue parsing remaining values.",loggingEvents.get(1).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(1).getLevel());		
+		assertEquals("Image size type Large Banner associated with numeric value [103] is not supported or invalid for image type MAIN.  Will continue parsing remaining values.",loggingEvents.get(2).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(2).getLevel());	
+		assertEquals("Image size type X-Large Intro Icon associated with numeric value [4] is not supported or invalid for image type MAIN.  Will continue parsing remaining values.",loggingEvents.get(3).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(3).getLevel());		
+		assertEquals("Image size type X-Large Coupon Image associated with numeric value [304] is not supported or invalid for image type MAIN.  Will continue parsing remaining values.",loggingEvents.get(4).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(4).getLevel());
+		assertEquals("Unable to parse the non numeric value [whacojacko] from the desired images string [2,16,103,201,4,304,whacojacko].  Will continue parsing remaining values.",loggingEvents.get(5).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(5).getLevel());		
+	}
+	
+	@Test
+	public void testParseImageSizeTypesWithRandomSamplesCoupon() throws Exception{
+		String allIcons = "301,302,303,304";
+		String randomIcons = "302,304,301";
+		String randomIconsWithSomeGarbage = "2,16,103,201,4,304,whacojacko";
+		
+		Set<ImageSizeTypes> imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(allIcons,ImageType.COUPON);
+		assertNotNull(imageSizeTypes);
+		assertEquals(4,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.SMALL_COUPON_IMAGE));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.MID_COUPON_IMAGE));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.LARGE_COUPON_IMAGE));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_COUPON_IMAGE));
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(randomIcons,ImageType.COUPON);
+		assertNotNull(imageSizeTypes);
+		assertEquals(3,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.SMALL_COUPON_IMAGE));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.MID_COUPON_IMAGE));
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_COUPON_IMAGE));
+		
+		// now mix up the string with garbage.  we want to get back on the valid icons for the
+		// specified type.  we should be forgiving and still try and serve an add with at least the 
+		// match image sizes for the requested type
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(randomIconsWithSomeGarbage,ImageType.COUPON);
+		assertNotNull(imageSizeTypes);
+		assertEquals(1,imageSizeTypes.size());
+		
+		assertTrue(imageSizeTypes.contains(ImageSizeTypes.X_LARGE_COUPON_IMAGE));
+		
+		imageSizeTypes = ImageSizeTypes.parseImageSizeTypes(null,ImageType.COUPON);
+		assertNotNull(imageSizeTypes);
+		assertEquals(0,imageSizeTypes.size());
+		
+		ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+		verify(mockAppender, times(6)).doAppend(loggingEventCaptor.capture());
+	
+		List<LoggingEvent> loggingEvents = loggingEventCaptor.getAllValues();
+
+		assertEquals("Image size type Medium Intro Icon associated with numeric value [2] is not supported or invalid for image type COUPON.  Will continue parsing remaining values.",loggingEvents.get(0).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(0).getLevel());
+		assertEquals("Unable to convert numeric value [16] to an associated enumeration.  Will continue parsing remaining values.",loggingEvents.get(1).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(1).getLevel());		
+		assertEquals("Image size type Large Banner associated with numeric value [103] is not supported or invalid for image type COUPON.  Will continue parsing remaining values.",loggingEvents.get(2).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(2).getLevel());	
+		assertEquals("Image size type Small Main Image associated with numeric value [201] is not supported or invalid for image type COUPON.  Will continue parsing remaining values.",loggingEvents.get(3).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(3).getLevel());
+		assertEquals("Image size type X-Large Intro Icon associated with numeric value [4] is not supported or invalid for image type COUPON.  Will continue parsing remaining values.",loggingEvents.get(4).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(4).getLevel());		
+		assertEquals("Unable to parse the non numeric value [whacojacko] from the desired images string [2,16,103,201,4,304,whacojacko].  Will continue parsing remaining values.",loggingEvents.get(5).getRenderedMessage());
+		assertEquals(Level.WARN,loggingEvents.get(5).getLevel());		
+	}	
+	
+	private void assertType(ImageSizeTypes imageSizeType, int size, boolean supported, String happyName, ImageType imageType, int width, int height) throws AssertionError{
+		assertEquals(size,imageSizeType.intValue());
+		assertEquals(supported,imageSizeType.isSupported());
+		assertEquals(happyName,imageSizeType.toString());
+		assertEquals(imageType,imageSizeType.imageType());
+		assertEquals(width,imageSizeType.width());
+		assertEquals(height,imageSizeType.height());		
+	}
+	
+	@Test
+	public void testMapBannerToProximityBySet() throws Exception{
+	
+		Set<ImageSizeTypes> icons = new HashSet<ImageSizeTypes>();
+		Collections.addAll(icons, ImageSizeTypes.ICON_SIZES);
+		
+		Set<ImageSizeTypes> banner = new HashSet<ImageSizeTypes>();
+		Collections.addAll(banner, ImageSizeTypes.BANNER_SIZES);
+		
+		Set<ImageSizeTypes> proximity = new HashSet<ImageSizeTypes>();
+		Collections.addAll(proximity, ImageSizeTypes.PROXIMITY_BANNER_SIZES);
+		
+		Set<ImageSizeTypes> main = new HashSet<ImageSizeTypes>();
+		Collections.addAll(main, ImageSizeTypes.MAIN_SIZES);
+		
+		Set<ImageSizeTypes> coupon = new HashSet<ImageSizeTypes>();
+		Collections.addAll(coupon, ImageSizeTypes.COUPON_SIZES);
+	
+
+		Logger logger = Logger.getLogger(ImageSizeTypes.class);
+		logger.setLevel(Level.DEBUG);
+
+		ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+		
+		assertTrue(ImageSizeTypes.mapBannerToProximity(icons).isEmpty());
+		assertEquals(3,ImageSizeTypes.mapBannerToProximity(banner).size());
+		assertEquals(6,ImageSizeTypes.mapBannerToProximity(proximity).size());
+		assertTrue(ImageSizeTypes.mapBannerToProximity(main).isEmpty());
+		assertTrue(ImageSizeTypes.mapBannerToProximity(coupon).isEmpty());
+
+		// assert this stuff is going to debug with some form of logging
+		
+		verify(mockAppender, times(13)).doAppend(loggingEventCaptor.capture());
+		
+		logger.setLevel(Level.INFO);	
+	}
+	
+	// make sure we are NOT overriding the default impl for valueOf
+	
+	@Test
+	public void testValueOf() throws Exception{
+		assertEquals(ImageSizeTypes.SMALL_BANNER,ImageSizeTypes.valueOf("SMALL_BANNER"));
+		assertEquals(ImageSizeTypes.SMALL_COUPON_IMAGE,ImageSizeTypes.valueOf("SMALL_COUPON_IMAGE"));
+		assertEquals(ImageSizeTypes.SMALL_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.valueOf("SMALL_HYPER_DYN_LOCAL_BANNER"));
+		assertEquals(ImageSizeTypes.SMALL_INTRO_ICON,ImageSizeTypes.valueOf("SMALL_INTRO_ICON"));
+		assertEquals(ImageSizeTypes.SMALL_MAIN_IMAGE,ImageSizeTypes.valueOf("SMALL_MAIN_IMAGE"));
+		assertEquals(ImageSizeTypes.MID_BANNER,ImageSizeTypes.valueOf("MID_BANNER"));
+		assertEquals(ImageSizeTypes.MID_COUPON_IMAGE,ImageSizeTypes.valueOf("MID_COUPON_IMAGE"));
+		assertEquals(ImageSizeTypes.MID_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.valueOf("MID_HYPER_DYN_LOCAL_BANNER"));
+		assertEquals(ImageSizeTypes.MID_INTRO_ICON,ImageSizeTypes.valueOf("MID_INTRO_ICON"));
+		assertEquals(ImageSizeTypes.MID_MAIN_IMAGE,ImageSizeTypes.valueOf("MID_MAIN_IMAGE"));
+		assertEquals(ImageSizeTypes.LARGE_BANNER,ImageSizeTypes.valueOf("LARGE_BANNER"));
+		assertEquals(ImageSizeTypes.LARGE_COUPON_IMAGE,ImageSizeTypes.valueOf("LARGE_COUPON_IMAGE"));
+		assertEquals(ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.valueOf("LARGE_HYPER_DYN_LOCAL_BANNER"));
+		assertEquals(ImageSizeTypes.LARGE_INTRO_ICON,ImageSizeTypes.valueOf("LARGE_INTRO_ICON"));
+		assertEquals(ImageSizeTypes.LARGE_MAIN_IMAGE,ImageSizeTypes.valueOf("LARGE_MAIN_IMAGE"));
+		assertEquals(ImageSizeTypes.X_LARGE_BANNER,ImageSizeTypes.valueOf("X_LARGE_BANNER"));
+		assertEquals(ImageSizeTypes.X_LARGE_COUPON_IMAGE,ImageSizeTypes.valueOf("X_LARGE_COUPON_IMAGE"));
+		assertEquals(ImageSizeTypes.X_LARGE_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.valueOf("X_LARGE_HYPER_DYN_LOCAL_BANNER"));
+		assertEquals(ImageSizeTypes.X_LARGE_INTRO_ICON,ImageSizeTypes.valueOf("X_LARGE_INTRO_ICON"));
+		assertEquals(ImageSizeTypes.X_LARGE_MAIN_IMAGE,ImageSizeTypes.valueOf("X_LARGE_MAIN_IMAGE"));
+		assertEquals(ImageSizeTypes.XX_LARGE_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.valueOf("XX_LARGE_HYPER_DYN_LOCAL_BANNER"));
+		assertEquals(ImageSizeTypes.XXX_LARGE_HYPER_DYN_LOCAL_BANNER,ImageSizeTypes.valueOf("XXX_LARGE_HYPER_DYN_LOCAL_BANNER"));
+				
+		ImageSizeTypes.valueOf(ImageSizeTypes.class, "XX_LARGE_HYPER_DYN_LOCAL_BANNER");
+		
+	}
+	
+	// this test is a test to catch when we change an enumeration.  it is to remind you that you
+	// need to add specific tests for the new enumeration because existing tests may not consider the
+	// new values
+	@Test
+	public void testSpecificNumberOfEnumDefs() throws Exception{
+		assertEquals(22,ImageSizeTypes.values().length);
+		
+	}
+	
+	@Test
+	public void ensureStaticArraysReturnExpectedData() throws Exception{
+		assertEquals(4,ImageSizeTypes.BANNER_SIZES.length);
+		assertEquals(6,ImageSizeTypes.PROXIMITY_BANNER_SIZES.length);
+		assertEquals(6,ImageSizeTypes.HYPER_BANNER_SIZES.length);
+		assertEquals(4,ImageSizeTypes.ICON_SIZES.length);
+		assertEquals(4,ImageSizeTypes.COUPON_SIZES.length);
+		assertEquals(4,ImageSizeTypes.MAIN_SIZES.length);
+	}
+	
+	
+}

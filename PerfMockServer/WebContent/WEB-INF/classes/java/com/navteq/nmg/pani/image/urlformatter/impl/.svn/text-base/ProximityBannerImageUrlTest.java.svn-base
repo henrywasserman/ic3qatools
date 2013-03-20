@@ -1,0 +1,273 @@
+package com.navteq.nmg.pani.image.urlformatter.impl;
+
+import static org.junit.Assert.*;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.net.URL;
+
+import org.apache.log4j.Appender;
+import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+
+import com.navteq.nmg.pani.image.enums.ImageMimeTypes;
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+import com.navteq.nmg.pani.image.enums.ImageType;
+import com.navteq.nmg.pani.image.urlformatter.IDistance;
+import com.navteq.nmg.pani.image.urlformatter.IImageUrlFormatter;
+import com.navteq.nmg.pani.image.urlformatter.IDistance.UnitOfMeasurement;
+import com.navteq.nmg.pani.image.urlformatter.impl.ImageUrlBase;
+import com.navteq.nmg.pani.image.urlformatter.impl.ProximityBannerImageUrl;
+
+public class ProximityBannerImageUrlTest {
+
+	private static final String EXPECTED_URL_PHO_STOREFRONT_ATTR = "http://10.49.53.133/proximitybanner/image.aspx?advertisername=Pho+Pasteur&sourceattributionname=Ads+By+Navteq&closeststorefrontname=Pho+Pasteur+Boston&distancetext=3.6&distanceunittext=mi&arrivaltext=Yo+ho%2C+you+want+duh+pho%3F&graphicsformat=Png&suppressstorefronts=0&hascouponcode=0&elementcode=113&iconimageurl=%2Fnmg%2Fgwimg%2Fnmg-dining-2.png";
+	private static final String EXPECTED_URL_PHO_NO_STOREFRONT_NO_ATTR = "http://10.49.53.133/proximitybanner/image.aspx?advertisername=Pho+Pasteur&distancetext=3.6&distanceunittext=mi&arrivaltext=Yo+ho%2C+you+want+duh+pho%3F&graphicsformat=Png&suppressstorefronts=0&hascouponcode=0&elementcode=113&iconimageurl=%2Fnmg%2Fgwimg%2Fnmg-dining-2.png";
+	private static final String EXPECTED_URL_PHO_STOREFRONT_NO_ATTR = "http://10.49.53.133/proximitybanner/image.aspx?advertisername=Pho+Pasteur&closeststorefrontname=Pho+Pasteur+Boston&distancetext=3.6&distanceunittext=mi&arrivaltext=Yo+ho%2C+you+want+duh+pho%3F&graphicsformat=Png&suppressstorefronts=0&hascouponcode=0&elementcode=113&iconimageurl=%2Fnmg%2Fgwimg%2Fnmg-dining-2.png";
+	private static final String EXPECTED_URL_PHO_NO_STOREFRONT_ATTR = "http://10.49.53.133/proximitybanner/image.aspx?advertisername=Pho+Pasteur&sourceattributionname=Ads+By+Navteq&distancetext=3.6&distanceunittext=mi&arrivaltext=Yo+ho%2C+you+want+duh+pho%3F&graphicsformat=Png&suppressstorefronts=0&hascouponcode=0&elementcode=113&iconimageurl=%2Fnmg%2Fgwimg%2Fnmg-dining-2.png";
+
+	private static final String ADVERTISER = "Pho Pasteur";
+	private static final String CLOSEST_STOREFRONT_NAME = "Pho Pasteur Boston";
+	private static final String ARRIVAL_TEXT = "Yo ho, you want duh pho?";
+	
+	private static final String ATTRIBUTION_TEXT = "Ads By Navteq";
+	
+	private static final String EXPECTED_URL_PHO_IMAGE_SIZE_PRE = "http://10.49.53.133/proximitybanner/image.aspx?advertisername=Pho+Pasteur&distancetext=3.6&distanceunittext=mi&arrivaltext=Yo+ho%2C+you+want+duh+pho%3F&graphicsformat=Png&suppressstorefronts=0&hascouponcode=0&elementcode=";
+	private static final String EXPECTED_URL_PHO_IMAGE_SIZE_POST = "&iconimageurl=%2Fnmg%2Fgwimg%2Fnmg-dining-2.png";
+	
+	private static final String EXPECTED_URL_PHO_GRAPHICS_FORMAT_PRE = "http://10.49.53.133/proximitybanner/image.aspx?advertisername=Pho+Pasteur&distancetext=3.6&distanceunittext=mi&arrivaltext=Yo+ho%2C+you+want+duh+pho%3F&graphicsformat=";
+	private static final String EXPECTED_URL_PHO_GRAPHICS_FORMAT_POST = "&suppressstorefronts=0&hascouponcode=0&elementcode=113&iconimageurl=%2Fnmg%2Fgwimg%2Fnmg-dining-2.png";
+	
+	
+	private Appender mockAppender;
+	
+	@Before
+	public void setup() {
+		mockAppender = mock(AppenderSkeleton.class);
+		Logger logger = Logger.getLogger(ImageUrlBase.class);
+		logger.addAppender(mockAppender);
+		logger.setLevel(Level.INFO);
+	}	
+	
+	@After
+	public void tearDown(){
+		Logger logger = Logger.getLogger(ImageUrlBase.class);
+		logger.removeAppender(mockAppender);		
+	}	
+	
+	// test the flavors of the constructor
+	@Test
+	public void testUrlCreationFlavors() throws Exception{
+		URL iconUrl = new URL("http://10.49.48.195:9000/nmg/gwimg/nmg-dining-2.png");
+		
+		URL proximityServerUrl = new URL("http://10.49.53.133/proximitybanner/image.aspx");
+		
+		IDistance distance = mock(IDistance.class);
+		when(distance.getFormattedDistance()).thenReturn("3.6");
+		when(distance.getUnitOfMeasurement()).thenReturn(UnitOfMeasurement.MILES);
+		
+		IImageUrlFormatter iconUrlFormatter = mock(IImageUrlFormatter.class); 
+		when(iconUrlFormatter.getAsUrl()).thenReturn(iconUrl);
+		
+		IImageUrlFormatter proximityImageUrlFormatter = new ProximityBannerImageUrl(proximityServerUrl, ADVERTISER, distance, ARRIVAL_TEXT, ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER, iconUrlFormatter, ImageMimeTypes.PNG);
+		String actualUrl = proximityImageUrlFormatter.getAsString();
+		assertEquals(EXPECTED_URL_PHO_NO_STOREFRONT_NO_ATTR,actualUrl);
+		
+        proximityImageUrlFormatter = new ProximityBannerImageUrl(proximityServerUrl,ADVERTISER,CLOSEST_STOREFRONT_NAME,distance,ARRIVAL_TEXT,ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER, iconUrlFormatter,ImageMimeTypes.PNG);
+		actualUrl = proximityImageUrlFormatter.getAsString();		
+		assertEquals(EXPECTED_URL_PHO_STOREFRONT_NO_ATTR,actualUrl);
+		
+        proximityImageUrlFormatter = new ProximityBannerImageUrl(proximityServerUrl,ADVERTISER,CLOSEST_STOREFRONT_NAME,distance,ARRIVAL_TEXT,ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER, iconUrlFormatter,ImageMimeTypes.PNG, ATTRIBUTION_TEXT);
+		actualUrl = proximityImageUrlFormatter.getAsString();		
+		assertEquals(EXPECTED_URL_PHO_STOREFRONT_ATTR,actualUrl);
+		
+        proximityImageUrlFormatter = new ProximityBannerImageUrl(proximityServerUrl,ADVERTISER,distance,ARRIVAL_TEXT,ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER, iconUrlFormatter,ImageMimeTypes.PNG, ATTRIBUTION_TEXT);
+		actualUrl = proximityImageUrlFormatter.getAsString();		
+		assertEquals(EXPECTED_URL_PHO_NO_STOREFRONT_ATTR,actualUrl);
+
+	}
+	
+	@Test
+	public void testFlavorsOfProximitySizes() throws Exception{
+		
+		URL iconUrl = new URL("http://10.49.48.195:9000/nmg/gwimg/nmg-dining-2.png");
+		
+		URL proximityServerUrl = new URL("http://10.49.53.133/proximitybanner/image.aspx");
+		
+		IDistance distance = mock(IDistance.class);
+		when(distance.getFormattedDistance()).thenReturn("3.6");
+		when(distance.getUnitOfMeasurement()).thenReturn(UnitOfMeasurement.MILES);
+		
+		IImageUrlFormatter iconUrlFormatter = mock(IImageUrlFormatter.class); 
+		when(iconUrlFormatter.getAsUrl()).thenReturn(iconUrl);		
+		
+		StringBuilder sb = null;
+		IImageUrlFormatter proximityImageUrlFormatter = null;
+		
+		for (ImageSizeTypes size : ImageSizeTypes.PROXIMITY_BANNER_SIZES){
+		
+			proximityImageUrlFormatter = new ProximityBannerImageUrl(proximityServerUrl, ADVERTISER, distance, ARRIVAL_TEXT, size, iconUrlFormatter, ImageMimeTypes.PNG);
+
+			sb = new StringBuilder(256);
+			sb.append(EXPECTED_URL_PHO_IMAGE_SIZE_PRE);
+			sb.append(size.intValue());
+			sb.append(EXPECTED_URL_PHO_IMAGE_SIZE_POST);
+	
+			assertEquals(sb.toString(),proximityImageUrlFormatter.getAsString());
+		}
+	}
+	
+	@Test
+	public void testFlavorsOfGraphicFormats() throws Exception{
+		
+		URL iconUrl = new URL("http://10.49.48.195:9000/nmg/gwimg/nmg-dining-2.png");
+		
+		URL proximityServerUrl = new URL("http://10.49.53.133/proximitybanner/image.aspx");
+		
+		IDistance distance = mock(IDistance.class);
+		when(distance.getFormattedDistance()).thenReturn("3.6");
+		when(distance.getUnitOfMeasurement()).thenReturn(UnitOfMeasurement.MILES);
+		
+		IImageUrlFormatter iconUrlFormatter = mock(IImageUrlFormatter.class); 
+		when(iconUrlFormatter.getAsUrl()).thenReturn(iconUrl);		
+		
+		StringBuilder sb = null;
+		IImageUrlFormatter proximityImageUrlFormatter = null;
+		
+		for (ImageMimeTypes mimeType : ImageMimeTypes.values()){
+		
+			proximityImageUrlFormatter = new ProximityBannerImageUrl(proximityServerUrl, ADVERTISER, distance, ARRIVAL_TEXT, ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER, iconUrlFormatter, mimeType);
+
+			sb = new StringBuilder(256);
+			sb.append(EXPECTED_URL_PHO_GRAPHICS_FORMAT_PRE);
+			sb.append(mimeType.getUrlFieldFormat());
+			sb.append(EXPECTED_URL_PHO_GRAPHICS_FORMAT_POST);
+	
+			assertEquals(sb.toString(),proximityImageUrlFormatter.getAsString());
+		}
+	}
+	
+	@Test
+	public void testExceptionThrownOnNullUrl() throws Exception{
+		URL iconUrl = new URL("http://10.49.48.195:9000/nmg/gwimg/nmg-dining-2.png");
+		
+		IDistance distance = mock(IDistance.class);
+		when(distance.getFormattedDistance()).thenReturn("3.6");
+		when(distance.getUnitOfMeasurement()).thenReturn(UnitOfMeasurement.MILES);
+		
+		IImageUrlFormatter iconUrlFormatter = mock(IImageUrlFormatter.class); 
+		when(iconUrlFormatter.getAsUrl()).thenReturn(iconUrl);
+		
+		try{
+			new ProximityBannerImageUrl(null,ADVERTISER,CLOSEST_STOREFRONT_NAME,distance,ARRIVAL_TEXT,ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER, iconUrlFormatter,ImageMimeTypes.PNG);			
+			fail("Expected exception but did not receive one for a null context URL.");
+		}
+		catch(Exception ex){
+			assertEquals("Server Context URL is null.  This must be populated with a valid URL.",ex.getMessage());
+		}
+	}
+	
+	@Test
+	public void testExceptionThrownOnNullIconUrl() throws Exception{
+		URL iconUrl = new URL("http://10.49.48.195:9000/nmg/gwimg/nmg-dining-2.png");
+		
+		URL proximityServerUrl = new URL("http://10.49.53.133/proximitybanner/image.aspx");
+		
+		IDistance distance = mock(IDistance.class);
+		when(distance.getFormattedDistance()).thenReturn("3.6");
+		when(distance.getUnitOfMeasurement()).thenReturn(UnitOfMeasurement.MILES);
+		
+		IImageUrlFormatter iconUrlFormatter = mock(IImageUrlFormatter.class); 
+		when(iconUrlFormatter.getAsUrl()).thenReturn(iconUrl);
+		
+		try{
+			new ProximityBannerImageUrl(proximityServerUrl, ADVERTISER, CLOSEST_STOREFRONT_NAME, distance, ARRIVAL_TEXT, ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER, null, ImageMimeTypes.PNG);			
+			fail("Expected exception but did not receive one for a null context URL.");
+		}
+		catch(Exception ex){
+			assertEquals("An icon must be provided with the proximity banner.",ex.getMessage());
+		}
+	}	
+	
+	@Test
+	public void testOtherNonProximityImagesSizesOrNullThrowsException() throws Exception{
+		
+		URL iconUrl = new URL("http://10.49.48.195:9000/nmg/gwimg/nmg-dining-2.png");
+		
+		URL proximityServerUrl = new URL("http://10.49.53.133/proximitybanner/image.aspx");
+		
+		IDistance distance = mock(IDistance.class);
+		when(distance.getFormattedDistance()).thenReturn("3.6");
+		when(distance.getUnitOfMeasurement()).thenReturn(UnitOfMeasurement.MILES);
+		
+		IImageUrlFormatter iconUrlFormatter = mock(IImageUrlFormatter.class); 
+		when(iconUrlFormatter.getAsUrl()).thenReturn(iconUrl);		
+		
+		for (ImageSizeTypes size : ImageSizeTypes.values()){
+		
+			if (size.imageType().equals(ImageType.PROXIMITY_BANNER)) continue;
+					
+			try{
+				new ProximityBannerImageUrl(proximityServerUrl, ADVERTISER, distance, ARRIVAL_TEXT, size, iconUrlFormatter, ImageMimeTypes.PNG);
+				fail("Expected exception but did not receive one for invalid image size type.");				
+			}
+			catch(Exception ex){
+				assertEquals("Image size type is not populated or contains an invalid type ["+size.toString()+"].  Ensure that only proximity banner sizes are used.",ex.getMessage());
+			}
+		}
+		
+		try{
+			new ProximityBannerImageUrl(proximityServerUrl, ADVERTISER, distance, ARRIVAL_TEXT, null, iconUrlFormatter, ImageMimeTypes.PNG);
+			fail("Expected exception but did not receive one for null image size type.");				
+		}
+		catch(Exception ex){
+			assertEquals("Image size type is not populated or contains an invalid type [NULL].  Ensure that only proximity banner sizes are used.",ex.getMessage());
+		}		
+	}
+	
+	@Test
+	public void testExceptionThrownOnNullImageMimeType() throws Exception{
+		URL iconUrl = new URL("http://10.49.48.195:9000/nmg/gwimg/nmg-dining-2.png");
+		
+		URL proximityServerUrl = new URL("http://10.49.53.133/proximitybanner/image.aspx");
+		
+		IDistance distance = mock(IDistance.class);
+		when(distance.getFormattedDistance()).thenReturn("3.6");
+		when(distance.getUnitOfMeasurement()).thenReturn(UnitOfMeasurement.MILES);
+		
+		IImageUrlFormatter iconUrlFormatter = mock(IImageUrlFormatter.class); 
+		when(iconUrlFormatter.getAsUrl()).thenReturn(iconUrl);
+		
+		try{
+			new ProximityBannerImageUrl(proximityServerUrl,ADVERTISER,CLOSEST_STOREFRONT_NAME,distance,ARRIVAL_TEXT,ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER, iconUrlFormatter,null);			
+			fail("Expected exception but did not receive one for a null image mime type.");
+		}
+		catch(Exception ex){
+			assertEquals("Image mime type must be set for proximity banner so that banner can be rendered with correct mime type.",ex.getMessage());
+		}
+	}	
+	
+	@Test
+	public void testExceptionThrownOnNullDistance() throws Exception{
+		URL iconUrl = new URL("http://10.49.48.195:9000/nmg/gwimg/nmg-dining-2.png");
+		
+		URL proximityServerUrl = new URL("http://10.49.53.133/proximitybanner/image.aspx");
+		
+		IImageUrlFormatter iconUrlFormatter = mock(IImageUrlFormatter.class); 
+		when(iconUrlFormatter.getAsUrl()).thenReturn(iconUrl);
+		
+		try{
+			new ProximityBannerImageUrl(proximityServerUrl, ADVERTISER, CLOSEST_STOREFRONT_NAME, null, ARRIVAL_TEXT, ImageSizeTypes.LARGE_HYPER_DYN_LOCAL_BANNER, iconUrlFormatter, ImageMimeTypes.JPG);			
+			fail("Expected exception but did not receive one for a null image mime type.");
+		}
+		catch(Exception ex){
+			assertEquals("Distance is null.  Proximity banners use a distance calculation to provide proximity.  Please verify distance is created.",ex.getMessage());
+		}
+	}	
+}

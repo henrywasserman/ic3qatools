@@ -1,0 +1,29 @@
+package com.navteq.nmg.pani;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class PaniServiceTest {
+
+		@Test
+		public void testIsHeaderDataStartsWithPanName() {
+			String matchHeaderName = "The Dealmap";
+			String testPositive1 = "The Dealmap";
+			String testPositive2 = "ThE DeAlMaP";
+			String testPositive3 = "the dealmap";
+			String testPositive4 = "THE DEALMAP";
+
+			String testNegative1 = "TheDealmap";
+			String testNegative2 = " The Dealmap";
+			String testNegative3 = "Dealmap";
+			
+			assertTrue(PaniService.isHeaderDataStartsWithPanName(testPositive1, matchHeaderName));
+			assertTrue(PaniService.isHeaderDataStartsWithPanName(testPositive2, matchHeaderName));
+			assertTrue(PaniService.isHeaderDataStartsWithPanName(testPositive3, matchHeaderName));
+			assertTrue(PaniService.isHeaderDataStartsWithPanName(testPositive4, matchHeaderName));
+	
+			assertFalse(PaniService.isHeaderDataStartsWithPanName(testNegative1, matchHeaderName));
+			assertFalse(PaniService.isHeaderDataStartsWithPanName(testNegative2, matchHeaderName));
+			assertFalse(PaniService.isHeaderDataStartsWithPanName(testNegative3, matchHeaderName));
+		}
+}

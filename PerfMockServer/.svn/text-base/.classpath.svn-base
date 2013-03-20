@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="classes" path="main"/>
+	<classpathentry kind="var" path="JRE_LIB" rootpath="JRE_SRCROOT" sourcepath="JRE_SRC"/>
+	<classpathentry kind="con" path="C:/navteq/trunk/TestingTools/MockServer/WebContent/WEB-INF/classes"/>
+	<classpathentry kind="lib" path="C:/navteq/trunk/TestingTools/MockServer/lib/junit-4.8.2.jar"/>
+	<classpathentry kind="lib" path="C:/navteq/trunk/TestingTools/MockServer/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/navteq/trunk/TestingTools/MockServer/WebContent/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/navteq/trunk/TestingTools/MockServer/WebContent/WEB-INF/lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

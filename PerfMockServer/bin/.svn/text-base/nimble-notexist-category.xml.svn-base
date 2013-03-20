@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantDealsFeedData>
+  <errorMessage/>
+  <partnerMerchants>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>groupbuy.filesforfriends.com</whiteLabelHost>
+      <whiteLabelMerchantName>SamDemoCompanyName</whiteLabelMerchantName>
+      <whiteLableId>2</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>phillydealyo.philly.com</whiteLabelHost>
+      <whiteLabelMerchantName>Philly.com</whiteLabelMerchantName>
+      <whiteLableId>141</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers>
+        <offer>
+          <offerFinePrint><![CDATA[Expires 6 months from date of purchase. Limit 5 per customer. Ten additional vouchers may be purchased as gifts. Limit 1 voucher per customer per visit. Not to be combined with any other offer. Tax and gratuity not included. After expiration date, voucher returns to original purchase value of $40.<br />]]></offerFinePrint>
+          <offerDescription><![CDATA[Without tanning, the only way to improve a person&rsquo;s complexion would be a full body glitter application. Let your skin sparkle a better way with <span style="color: rgb(128, 0, 128);"><strong>$40 worth of level 1 tanning at Suncraze Tanning Salon for just $20.</strong></span><br />
+<br />
+<span style="color: rgb(128, 0, 128);"><strong>What, Where, Wow!</strong></span>
+<ul>
+	<li>
+		Quick, convenient, stand-up booths</li>
+	<li>
+		New bulbs and clean facilities</li>
+	<li>
+		Smart Tan Certified salon</li>
+</ul>]]></offerDescription>
+          <redemptionInstructions><![CDATA[1) Print out voucher.<br />
+2) Schedule appointment (if needed).<br />
+3) Present voucher at time of purchase.<br />]]></redemptionInstructions>
+          <availableQuantity>9000</availableQuantity>
+          <buyersCount>1</buyersCount>
+          <categoryName>Boston, MA</categoryName>
+          <currentPrice>20.00</currentPrice>
+          <customCategoryId>2087542874</customCategoryId>
+          <hideBuyersCount>true</hideBuyersCount>
+          <hideDiscount>false</hideDiscount>
+          <hideOriginalPrice>false</hideOriginalPrice>
+          <imageUrl>http://product-images.imshopping.com/nimblebuy/20-40-level-1-tanning-suncraze-588101-original.jpg</imageUrl>
+          <internalCategoryId>782</internalCategoryId>
+          <isMainOfferInOfferCity>false</isMainOfferInOfferCity>
+          <maxAllowedPerUser>5</maxAllowedPerUser>
+          <offerCustomId>A135G4 1-00566CGBM</offerCustomId>
+          <offerEndDateTime>2012-01-20 23:59:00</offerEndDateTime>
+          <offerEndTimeinISO>2012-01-20T23:59:00-0500</offerEndTimeinISO>
+          <offerId>256061</offerId>
+          <offerLocations>
+            <offerLocation>
+              <offerLocationLatitude>42.4182626</offerLocationLatitude>
+              <offerLocationLongitude>-71.0872722</offerLocationLongitude>
+            </offerLocation>
+          </offerLocations>
+          <offerName>$20 for $40 of level 1 tanning at Suncraze Tanning</offerName>
+          <offerPageUrl>http://www.weforia.com/deal/boston-ma/20-40-level-1-tanning-suncraze?utm_medium=affiliateAPI&amp;utm_source=Nokia&amp;chId=19560191&amp;aflId=1221</offerPageUrl>
+          <offerPricingType>No Minimum Buyers</offerPricingType>
+          <offerStartDateTime>2012-01-16 00:00:00</offerStartDateTime>
+          <offerStartTimeinISO>2012-01-16T00:00:00-0500</offerStartTimeinISO>
+          <offerStatus>live</offerStatus>
+          <offerTitle>$20 for $40 of level 1 tanning at Suncraze Tanning in Medford</offerTitle>
+          <offerTitlePrefix/>
+          <offeredByMerchant>
+            <merchantAddress>248 Central Ave</merchantAddress>
+            <merchantAddressLine2/>
+            <merchantCity>Medford</merchantCity>
+            <merchantContactEmail>suncrazetanning@yahoo.com</merchantContactEmail>
+            <merchantDescription>For over 25 years, Suncraze has been the cleanest, most comfortable place to tan in the Boston area. Recently Suncraze came under new ownership, and now features brand-new advanced tanning equipment and hot new bulbs to give both old and new customers a beautiful brown tan. Stop by for one of the best tans around!&lt;br /&gt;</merchantDescription>
+            <merchantName>Suncraze Tanning Salon</merchantName>
+            <merchantPhone>781-844-9236</merchantPhone>
+            <merchantState>Massachusetts</merchantState>
+            <merchantWebsite>http://suncrazetanning1.com</merchantWebsite>
+            <merchantZip>02155</merchantZip>
+          </offeredByMerchant>
+          <origPrice>40.00</origPrice>
+          <partnerDistributionUrl>http://w.nmb.ly/7ciei</partnerDistributionUrl>
+          <percentageDiscount>50</percentageDiscount>
+          <redemptionExpirationDate>2012-07-21 20:59:59</redemptionExpirationDate>
+          <redemptionExpirationDateinISO>2012-07-21T20:59:59-0700</redemptionExpirationDateinISO>
+          <stdCityName>Boston</stdCityName>
+          <taxonomyFirstLevel>does not exist</taxonomyFirstLevel>
+          <taxonomySecondLevel>Tanning Salon</taxonomySecondLevel>
+          <thumbNailImageUrl>http://product-images.imshopping.com/nimblebuy/20-40-level-1-tanning-suncraze-588101-small_lv.jpg</thumbNailImageUrl>
+        </offer>
+      </offers>
+      <whiteLabelHost>www.phundeals.com</whiteLabelHost>
+      <whiteLabelMerchantName>PhunDeals</whiteLabelMerchantName>
+      <whiteLableId>572</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>deals.sfstation.com</whiteLabelHost>
+      <whiteLabelMerchantName>SF Station Deals</whiteLabelMerchantName>
+      <whiteLableId>652</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>www.dealin.gr</whiteLabelHost>
+      <whiteLabelMerchantName>DealiN</whiteLabelMerchantName>
+      <whiteLableId>662</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>en.restoboom.com</whiteLabelHost>
+      <whiteLabelMerchantName>RestoBoom</whiteLabelMerchantName>
+      <whiteLableId>712</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>fr.restoboom.com</whiteLabelHost>
+      <whiteLabelMerchantName>RestoBoom</whiteLabelMerchantName>
+      <whiteLableId>722</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>www.livecosmo.com</whiteLabelHost>
+      <whiteLabelMerchantName>Live Cosmo</whiteLabelMerchantName>
+      <whiteLableId>762</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>www.wimgodeals.com</whiteLabelHost>
+      <whiteLabelMerchantName>Wimgo Deals</whiteLabelMerchantName>
+      <whiteLableId>802</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>deal.timesleader.com</whiteLabelHost>
+      <whiteLabelMerchantName>Times Leader</whiteLabelMerchantName>
+      <whiteLableId>812</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>www.slcdailydeal.com</whiteLabelHost>
+      <whiteLabelMerchantName>slcdailydeal.com</whiteLabelMerchantName>
+      <whiteLableId>832</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>deals.deals4dreams.com</whiteLabelHost>
+      <whiteLabelMerchantName>Deals4Dreams</whiteLabelMerchantName>
+      <whiteLableId>861</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>us.got2coupon.com</whiteLabelHost>
+      <whiteLabelMerchantName>Got2Coupon</whiteLabelMerchantName>
+      <whiteLableId>921</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>deals.adpages.com</whiteLabelHost>
+      <whiteLabelMerchantName>AP Daily Deals</whiteLabelMerchantName>
+      <whiteLableId>1201</whiteLableId>
+    </partnerMerchant>
+  </partnerMerchants>
+  <responseCode>0</responseCode>
+</merchantDealsFeedData>

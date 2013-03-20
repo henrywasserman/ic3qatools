@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+<resource>
+    <merchant>
+      <infousa_id>631728839</infousa_id>
+      <name>Papa Razzi</name>
+      <locations>
+        <resource>
+          <location>
+            <city>Chestnut Hill</city>
+            <name>Papa Razzi</name>
+            <zip>02467</zip>
+            <country>United States</country>
+            <state>MA</state>
+            <phonenumber>6175276600</phonenumber>
+            <address>199 Boylston St</address>
+            <lat>42.3203</lat>
+            <lng>-71.1762</lng>
+            <unit/>
+          </location>
+        </resource>
+      </locations>
+      <images>
+        <productimage/>
+        <logo/>
+      </images>
+      <id>1732</id>
+      <market>Chestnut Hill</market>
+    </merchant>
+    <category>
+      <id>5</id>
+      <name>dining &amp; food</name>
+      <slug>dining-food</slug>
+    </category>
+    <enddate>2012-01-20 23:59:00</enddate>
+    <description>The SceneAs part of the far-reaching Back Bay Restaurant Group, Papa Razzi mirrors sister establishments like Joe's American Bar &amp; Grill and Charley's by serving an accessible, family-friendly menu at affordable prices in a relaxed setting. Soothing color schemes and black-and-white photos of the famous and infamous (a nod to the restaurant's name) provide plenty of atmosphere, as do gregarious, attentive servers. When there's a wait, there's a well-stocked bar for passing the time.The FoodWhile perusing the menu of colorful salads, wood-fired thin-crust pizzas, and made-to-order pasta dishes, most diners absent-mindedly devour a basket of warm, freshly baked focaccia and breadsticks. Palatable insalata di campo, which combines mixed greens, dried cranberries, tomatoes and Gorgonzola in balsamic vinaigrette, makes a worthy starter. Among the signature pastas, the Porcini tortelloni, smothered in a savory wild mushroom and tomato sauce, is a sturdy crowd-pleaser. For dessert, creamy gelatos provide a cooling finish. For online delivery orders only at Allmenus.com using the special code on your voucher</description>
+    <maximpressions>0</maximpressions>
+    <startdate>2011-03-13 21:37:16</startdate>
+    <title>$3 for $6 on any purchase</title>
+    <numleft>80</numleft>
+    <rate>3</rate>
+    <value>6</value>
+    <state>activated</state>
+    <cost>3</cost>
+    <createddate>2011-03-13 21:37:16</createddate>
+    <images>
+      <productimage>
+        <small>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/14/01/14012cff05a56300fcf10a7ee4188831.jpg</url>
+          <width>100</width>
+          <height>120</height>
+        </small>
+        <large>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/a9/a1/a9a109321fde47136d1679aada2521ba.jpg</url>
+          <width>180</width>
+          <height>200</height>
+        </large>
+        <medium>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/39/6c/396cd23f852bf8198813512957647e94.jpg</url>
+          <width>120</width>
+          <height>160</height>
+        </medium>
+        <thumbnail>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/18/d3/18d36bea8b695a234298840bb832d151.jpg</url>
+          <width>50</width>
+          <height>60</height>
+        </thumbnail>
+      </productimage>
+    </images>
+    <dealtype>2</dealtype>
+    <dip>https://www.mobilespinach.com/deals/1991/?source=2&amp;appid=39</dip>
+    <id>1991</id>
+  </resource>
+</response>

@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ilapresponse>
+  <message>
+    <campaignid><![CDATA[2821860950016]]></campaignid>
+    <creativeid><![CDATA[657]]></creativeid>
+    <advertisername><![CDATA[SnowCone]]></advertisername>
+    <introtext><![CDATA[SnowCone Arrival Text]]></introtext>
+    <mainmessagetext><![CDATA[SnowCone Main Message]]></mainmessagetext>
+    <mainmessagephonetics><![CDATA[SnowCone Phonetics]]></mainmessagephonetics>
+    <couponcode><![CDATA[couponcode]]></couponcode>
+
+    <expirydate><![CDATA[2095.11.09.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+    <callstoaction>
+      <calltoaction>
+        <action><![CDATA[IMPRESSION]]></action>
+        <data><![CDATA[impression]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[STOREINFO]]></action>
+        <data><![CDATA[storeinfo]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[MAP]]></action>
+
+        <data><![CDATA[map]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ROUTE]]></action>
+        <data><![CDATA[route]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+
+        <action><![CDATA[ARRIVAL]]></action>
+        <data><![CDATA[arrival]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[COUPONCODE]]></action>
+        <data><![CDATA[]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+
+      <calltoaction>
+        <action><![CDATA[USERSAVE]]></action>
+        <data><![CDATA[usesave]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[PHONECALL]]></action>
+        <data><![CDATA[phonecall]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[landingpage]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[WAPURL]]></action>
+        <data><![CDATA[www.snowie.com]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[SMS]]></action>
+        <data><![CDATA[sms||]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[WEBURL]]></action>
+
+        <data><![CDATA[www.snowie.com]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[REDEEM]]></action>
+        <data><![CDATA[redeem]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+    </callstoaction>
+
+    <countrycode><![CDATA[]]></countrycode>
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[201702]]></storefrontid>
+      <nametag><![CDATA[16948251]]></nametag>
+      <name><![CDATA[BEST WESTERN-CENTER CITY HOTEL]]></name>
+      <addr1><![CDATA[501  N  22ND  ST]]></addr1>
+      <addr2><![CDATA[]]></addr2>
+
+      <addrcity><![CDATA[PHILADELPHIA]]></addrcity>
+      <addrstate><![CDATA[PA]]></addrstate>
+      <addrzip><![CDATA[19130]]></addrzip>
+      <phone><![CDATA[phonecall]]></phone>
+      <longitude><![CDATA[-75174630]]></longitude>
+      <latitude><![CDATA[39963200]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[840dr4e3-868ddd777ddd4d10a96e8a4df204ad45]]></placeid>
+
+      <distance><![CDATA[0.92]]></distance>
+    </storefront>
+    <storefront>
+      <storefrontid><![CDATA[199863]]></storefrontid>
+      <nametag><![CDATA[41761895]]></nametag>
+      <name><![CDATA[BEST WESTERN-INDEPENDENCE PARK HTL]]></name>
+      <addr1><![CDATA[235  CHESTNUT  ST]]></addr1>
+      <addr2><![CDATA[]]></addr2>
+      <addrcity><![CDATA[PHILADELPHIA]]></addrcity>
+
+      <addrstate><![CDATA[PA]]></addrstate>
+      <addrzip><![CDATA[19106]]></addrzip>
+      <phone><![CDATA[phonecall]]></phone>
+      <longitude><![CDATA[-75145370]]></longitude>
+      <latitude><![CDATA[39948540]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[840dr4e6-92ee0728b15c4d38b87fdca8d9e516d7]]></placeid>
+      <distance><![CDATA[1.00]]></distance>
+
+    </storefront>
+  </message>
+</ilapresponse>

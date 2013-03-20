@@ -1,0 +1,5 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+public interface IHashCompare {
+	public void assertMessageEqualsCompareMessage(byte[] actualMessage) throws AssertionError;
+}

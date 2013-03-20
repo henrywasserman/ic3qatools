@@ -1,0 +1,47 @@
+package com.navteq.nmg.mule.flow;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+
+import com.navteq.nmg.mule.transformer.ConvertQueryStringToMap;
+import java.util.Map;
+import java.util.HashMap;
+import org.junit.Test;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.mule.tck.FunctionalTestCase;
+import org.mule.transport.NullPayload;
+
+public class TestOutboundAdServerInterface extends FunctionalTestCase
+{
+    protected String getConfigResources()
+    {
+        //TODO You'll need to edit this file to make the test applicable to your module
+        return "mule-test-pani.xml";
+    }
+
+    @Test
+    public void testLpaAdapter() throws Exception
+    {
+        MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?a=endusercheckin&enduserid=3411551&longitude=-84241670&latitude=33841390&bannersizes=104&imagetype=URL&localepref=en-us&responsetype=xml&ver=2.1";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.lpaAdapter", paramMap, null);
+        assertNotNull(result);
+        String response = result.getPayloadAsString();
+        System.out.println("TestCaseOutput:" + response);
+        assertNull(result.getExceptionPayload());
+        assertFalse(result.getPayload() instanceof NullPayload);
+
+    }
+   
+
+    
+}

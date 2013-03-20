@@ -1,0 +1,126 @@
+package com.navteq.nmg.pani.transformer;
+
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.spi.LoggingEvent;
+import org.junit.Test;
+import org.mule.api.MuleMessage;
+
+import com.navteq.nmg.LogTest;
+import com.navteq.nmg.pani.cache.ICacheRegistry;
+import com.navteq.nmg.pani.cache.IMccMncLookupCache;
+import com.navteq.nmg.pani.cache.IMccMncLookupCache.IMccMnc;
+
+public class OperatorTargetingTransformerTest extends LogTest{
+	
+    private static final String US = "USA";
+	private static final String VERIZON = "Verizon";
+	
+	public OperatorTargetingTransformerTest(){
+		super(OperatorTargetingTransformer.class);
+		setLogLevel(Level.ERROR);
+	}
+	
+	@Test
+	public void testNegativeConditionsWithNoMappingAndNoMccMncOnParams() throws Exception{
+
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		
+		paramMap.put(OperatorTargetingTransformer.COUNTRY_CODE_PARAM,"USA");
+		paramMap.put(OperatorTargetingTransformer.OPERATOR_NAME_PARAM, "Junk");
+		
+		MuleMessage mm = mock(MuleMessage.class);
+		
+		OperatorTargetingTransformer ott = getNewInstance(mm,paramMap);
+		
+		Object transformedObject = ott.transformMessage(mm,"UTF-8");
+		
+		assertTrue(transformedObject instanceof Map<?,?>);
+		
+		Map<String,Object> finalMap = (Map<String,Object>)transformedObject;
+	
+		assertFalse(finalMap.containsKey(OperatorTargetingTransformer.SIM_MCC_PARAM));
+		assertFalse(finalMap.containsKey(OperatorTargetingTransformer.SIM_MNC_PARAM));
+		assertFalse(finalMap.containsKey(OperatorTargetingTransformer.COUNTRY_CODE_PARAM));
+		assertFalse(finalMap.containsKey(OperatorTargetingTransformer.OPERATOR_NAME_PARAM));
+		
+	}
+
+	private OperatorTargetingTransformer getNewInstance(MuleMessage mm, Map<String,Object> paramMap) throws Exception{
+		
+		ICacheRegistry registry = mock(ICacheRegistry.class);
+		IMccMncLookupCache lookupCache = mock(IMccMncLookupCache.class);
+		
+		IMccMnc mccMnc = mock(IMccMnc.class);
+		
+		when(mccMnc.getMCC()).thenReturn("311");
+		when(mccMnc.getMCC()).thenReturn("010");
+		
+		when(lookupCache.getMccMncByOperatorNameAnd3DigitCountryCode(VERIZON, US)).thenReturn(mccMnc);
+	
+		when(registry.getMccMncLookupCache()).thenReturn(lookupCache);
+	
+		when(mm.getPayload(Map.class)).thenReturn(paramMap);
+		
+		OperatorTargetingTransformer ott = new OperatorTargetingTransformer();
+		ott.setCache(lookupCache);		
+		
+		return ott;
+	}
+	
+
+	@Test
+	public void testTransformMessageDetectsCacheMissAndLogsToLog4jFramework() throws Exception{
+		super.setupBefore();
+		
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		
+		paramMap.put(OperatorTargetingTransformer.COUNTRY_CODE_PARAM,"USA");
+		paramMap.put(OperatorTargetingTransformer.OPERATOR_NAME_PARAM, "Junk");
+		
+		MuleMessage mm = mock(MuleMessage.class);
+		
+		OperatorTargetingTransformer ott = getNewInstance(mm,paramMap);
+		
+		Object transformedObject = ott.transformMessage(mm,"UTF-8");
+			
+		List<LoggingEvent> loggingEvents = gatherAndCheckLoggingEvents(1);
+		assertEquals("Cache miss.  Unable to map operator name [Junk] and country code [USA] to a valid MCC and MNC.", loggingEvents.get(0).getMessage());
+		assertEquals(Level.ERROR,loggingEvents.get(0).getLevel());
+	
+		super.tearDownAfter();		
+	}
+	
+	@Test
+	public void testTransformMessageCanDeriveSmccSmccFromOperatorAndCountry() throws Exception{
+		
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		
+		paramMap.put(OperatorTargetingTransformer.COUNTRY_CODE_PARAM,"USA");
+		paramMap.put(OperatorTargetingTransformer.OPERATOR_NAME_PARAM, "Verizon");
+		
+		MuleMessage mm = mock(MuleMessage.class);
+		
+		OperatorTargetingTransformer ott = getNewInstance(mm,paramMap);
+		
+		Object transformedObject = ott.transformMessage(mm,"UTF-8");
+		
+		assertTrue(transformedObject instanceof Map<?,?>);
+		
+		Map<String,Object> finalMap = (Map<String,Object>)transformedObject;
+		
+		assertTrue(finalMap.containsKey(OperatorTargetingTransformer.SIM_MCC_PARAM));
+		assertTrue(finalMap.containsKey(OperatorTargetingTransformer.SIM_MNC_PARAM));		
+		assertFalse(finalMap.containsKey(OperatorTargetingTransformer.COUNTRY_CODE_PARAM));
+		assertFalse(finalMap.containsKey(OperatorTargetingTransformer.OPERATOR_NAME_PARAM));
+	
+	}
+	
+}

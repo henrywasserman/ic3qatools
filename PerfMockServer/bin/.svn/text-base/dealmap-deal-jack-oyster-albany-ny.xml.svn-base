@@ -1,0 +1,49 @@
+<Deals xmlns="http://thedealmap.com/api" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <Message/>
+    <Results>
+        <Deal>
+            <Activity>88</Activity>
+            <AddedBy/>
+            <AdditionalDiscountCouponCode/>
+            <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+            <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+            <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+            <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+            <AddressLine>42 State St</AddressLine>
+            <Affiliation/>
+            <BDescription/>
+            <BusinessID>b/1/653B07ECD13E86642EBC304C6D1B6FCF</BusinessID>
+            <BusinessName>Jack's Oyster House</BusinessName>
+            <Capability>147</Capability>
+            <Category>gift certificates,restaurants,seafood,restaurants american</Category>
+            <City>Albany</City>
+            <Country/>
+            <Currency>1</Currency>
+            <DealSource>Restaurant</DealSource>
+            <DealType>1</DealType>
+            <DealUnit>1</DealUnit>
+            <Description/>
+            <DiscountedValue>5</DiscountedValue>
+            <EffectiveTime>2011-02-11T00:25:00</EffectiveTime>
+            <ExpirationTime>2011-02-12T00:25:00</ExpirationTime>
+            <FaceValue>10</FaceValue>
+            <ID>2-4B30ADCA8CD0B89BB3ADD0FE87FBFD26</ID>
+            <IconUrl/>
+            <ImageUrl>http://vrdcimage.restaurant.com/microsites/339351photo1.jpg</ImageUrl>
+            <Keywords/>
+            <Latitude>42.649182099849</Latitude>
+            <Longitude>-73.7515213619918</Longitude>
+            <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-4B30ADCA8CD0B89BB3ADD0FE87FBFD26&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+            <Phone>5184658854</Phone>
+            <State>NY</State>
+            <Tags/>
+            <Terms/>
+            <Title>$10 Gift Certificate, Your Price $5</Title>
+            <TrackingUrl/>
+            <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-4B30ADCA8CD0B89BB3ADD0FE87FBFD26</TransactionUrl>
+            <YouSave>50 %</YouSave>
+            <ZipCode/>
+        </Deal>
+    </Results>
+    <TotalResults>211</TotalResults>
+</Deals>

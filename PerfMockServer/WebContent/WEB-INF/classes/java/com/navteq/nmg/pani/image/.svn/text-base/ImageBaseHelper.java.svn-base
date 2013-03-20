@@ -1,0 +1,93 @@
+package com.navteq.nmg.pani.image;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+
+import org.apache.commons.codec.binary.Base64;
+import org.junit.Ignore;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+
+@Ignore("Have no clue why this is getting picked up by bamboo.  It is a base class.  Will annotate with ignore for now.")
+public abstract class ImageBaseHelper {
+	
+	private static final int BUFFER_SIZE = 4096;
+	protected static final String TAG_URL = "url";
+	protected static final String TAG_DATA = "data";
+	private static final String TAG_TYPE = "type";
+	private static final String TAG_IMAGE = "image";
+	
+	protected ImageBaseHelper(){}
+	
+	protected void assertValues(Element root, String tagName, String compareValue, ImageSizeTypes sizeType) {
+		assertTrue(root.hasChildNodes());
+		assertEquals(1,root.getChildNodes().getLength());
+		assertEquals(TAG_IMAGE,root.getChildNodes().item(0).getNodeName());
+		
+		assertNotNull(root.getElementsByTagName(tagName));
+		assertNotNull(root.getElementsByTagName(TAG_TYPE));
+		
+		NodeList nl = root.getElementsByTagName(tagName).item(0).getChildNodes();
+		
+		assertEquals(1, nl.getLength());
+		
+		Node cdataNode = nl.item(0); 
+		assertEquals(Node.CDATA_SECTION_NODE,cdataNode.getNodeType());
+		assertEquals(compareValue,cdataNode.getNodeValue());
+		
+		assertEquals(Node.CDATA_SECTION_NODE,nl.item(0).getNodeType());
+
+        nl = root.getElementsByTagName(TAG_TYPE).item(0).getChildNodes();
+		
+		assertEquals(1, nl.getLength());
+		
+		cdataNode = nl.item(0); 
+		assertEquals(Node.CDATA_SECTION_NODE,cdataNode.getNodeType());
+		assertEquals(Integer.toString(sizeType.intValue()),cdataNode.getNodeValue());
+	}	
+	
+	protected String getImageAsBase64String(String fileName) throws Exception{
+		
+		byte[] imageBytes = null;
+		
+		InputStream in = getClass().getResourceAsStream(fileName);
+
+		ByteArrayOutputStream bo = null;
+		
+		try {
+			
+			byte[] buf = new byte[BUFFER_SIZE]; 
+			
+			bo = new ByteArrayOutputStream(BUFFER_SIZE);
+			int c = 0;
+			
+			while ((c = in.read(buf, 0, BUFFER_SIZE)) > 0) 
+				bo.write(buf, 0, c);
+			
+			imageBytes = bo.toByteArray();
+			
+			return new String(Base64.encodeBase64(imageBytes), "UTF-8");
+
+		} finally {
+
+			if (bo != null) {
+				try {
+					bo.close();
+				} catch (Exception e) {}
+			}
+			
+			if (in != null) {
+				try {
+					in.close();
+				} catch (Exception e) {}
+			}
+		}
+	}
+}

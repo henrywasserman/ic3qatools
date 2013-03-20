@@ -1,0 +1,163 @@
+package com.navteq.nmg.pani.image.urlformatter.impl;
+
+import static org.junit.Assert.*;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
+
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+import com.navteq.nmg.pani.image.urlformatter.IUrlManager;
+import com.navteq.nmg.pani.management.Constants;
+
+
+public class UrlManagerTest {
+		
+	private static final String SERVER_CONTEXT = "http://10.5.78.62:8080";
+	private static final String PROXIMITY_BANNER_URL_INTERNAL = "http://ilap.dev.amer.navteqads.lcl/proximitybanner/image.aspx";
+	private static final String PROXIMITY_BANNER_URL_EXTERNAL = "http://66.23.123.5/proximitybanner/image.aspx";
+
+	@Test
+	public void testConstructor() throws Exception{
+		
+		URL serverContext = new URL(SERVER_CONTEXT);
+		URL proximityBannerInternal = new URL(PROXIMITY_BANNER_URL_INTERNAL);
+		URL proximityBannerExternal = new URL(PROXIMITY_BANNER_URL_EXTERNAL);
+		
+		// little voodoo to make sure the class loader call in the url manager can see and use our
+		// test file.  we basically are going to hook into the system class loader which our classes
+		// class loader has as a parent and we are going to add our test file into the class path
+		// (just for this test) so it can be recognized when the class we are testing instantiates
+		// and searches its class path.  since our file is in the same directory as our test class
+		// we will use our test classes class loader to get the URL which we will then use to add to 
+		// the parent class loader so that the UrlManager.class can see the test file when it calls
+		// its own class loader that will have a parent to the system class loader
+		
+		// simple huh?  the reason why this is done is because the UrlManager pulled code from what
+		// used to be the DefaultImageService.  The DefaultImageService hard coded the mule_pani.xml
+		// as a resource lookup to determine where in the tomcat deployments directory structure
+		// the file was located.  from there, the code assumes that if you drop back a few directories
+		// then we would be able to find the image dir once the war file expanded.  not sure I like this
+		// but I cut and pasted the init code so we could stay the same until i found a better way to do things
+		
+		// so this is why all the trickyness.  it also allows me to NOT have to deploy a server and run a tomcat
+		// to test this particular portion
+		
+		File tempFile = null;
+		
+		try {
+			
+			// get path where my test files will live
+			URL url = UrlManagerTest.class.getResource(".");
+			
+			tempFile = new File(url.getFile()+"mule-pani.xml");
+			if (!tempFile.exists()){
+				FileWriter fw = new FileWriter(tempFile);
+				fw.write("<test data=junk/>");
+				fw.close();
+			}
+		
+			ClassLoader sysLoader = UrlManager.class.getClassLoader().getParent();
+			
+			if (sysLoader instanceof URLClassLoader) {
+				sysLoader = (URLClassLoader) sysLoader;
+				Class<?> sysLoaderClass = URLClassLoader.class;
+	
+				// use reflection to invoke the private addURL method
+				Method method = sysLoaderClass.getDeclaredMethod("addURL", new Class[] { URL.class });
+				method.setAccessible(true);
+				method.invoke(sysLoader, new Object[] { url });
+			}
+			
+			URL urlCompare = UrlManager.class.getResource("mule-pani.xml");
+			
+			assertNotNull(urlCompare);
+			
+			
+            IUrlManager urlManager = new UrlManager(serverContext, proximityBannerInternal, proximityBannerExternal);
+            
+			File imgDirFile = new File(urlCompare.toURI());
+			
+			URL compareContextDirectoryUrl = new URL(urlCompare.toURI().toURL(), "../..");
+			URL compareImageDirectoryUrl = new URL(imgDirFile.toURI().toURL(), "../../" + Constants.DEFAULT_IMAGE_DIRECTORY);
+			
+			assertEquals(compareContextDirectoryUrl, urlManager.getContextDirectoryUrl());
+			assertEquals(compareImageDirectoryUrl, urlManager.getImageDirectoryUrl());
+			assertEquals(proximityBannerInternal, urlManager.getInternalProximityBannerUrl());
+			assertEquals(proximityBannerExternal,urlManager.getExternalProximityBannerUrl());
+			assertEquals(serverContext,urlManager.getServerContextUrl());			
+			
+		}
+		finally{
+			if (tempFile != null && tempFile.exists()){
+				tempFile.delete();
+			}
+		}
+	}
+	
+	@Test
+	@Ignore("Class path issue in which the class being tested is picking up other stuff through ant in bamboo.  Works in eclipse.")
+	public void testConstructorThrowsOnMissingResource() throws Exception{
+		
+		URL serverContext = new URL(SERVER_CONTEXT);
+		URL proximityBannerInternal = new URL(PROXIMITY_BANNER_URL_INTERNAL);
+		URL proximityBannerExternal = new URL(PROXIMITY_BANNER_URL_EXTERNAL);
+		
+		// little voodoo to make sure the class loader call in the url manager can see and use our
+		// test file.  we basically are going to hook into the system class loader which our classes
+		// class loader has as a parent and we are going to add our test file into the class path
+		// (just for this test) so it can be recognized when the class we are testing instantiates
+		// and searches its class path.  since our file is in the same directory as our test class
+		// we will use our test classes class loader to get the URL which we will then use to add to 
+		// the parent class loader so that the UrlManager.class can see the test file when it calls
+		// its own class loader that will have a parent to the system class loader
+		
+		// simple huh?  the reason why this is done is because the UrlManager pulled code from what
+		// used to be the DefaultImageService.  The DefaultImageService hard coded the mule_pani.xml
+		// as a resource lookup to determine where in the tomcat deployments directory structure
+		// the file was located.  from there, the code assumes that if you drop back a few directories
+		// then we would be able to find the image dir once the war file expanded.  not sure I like this
+		// but I cut and pasted the init code so we could stay the same until i found a better way to do things
+		
+		// so this is why all the trickyness.  it also allows me to NOT have to deploy a server and run a tomcat
+		// to test this particular portion
+		
+		File tempFile = null;
+			
+		// get path where my test files will live
+		URL url = UrlManagerTest.class.getResource(".");
+		
+		// make sure the desired resource is MJ'd.
+		
+		tempFile = new File(url.getFile()+"mule-pani.xml");
+		if (tempFile.exists()){
+			tempFile.delete();
+		}
+	
+		ClassLoader sysLoader = UrlManager.class.getClassLoader().getParent();
+		
+		if (sysLoader instanceof URLClassLoader) {
+			sysLoader = (URLClassLoader) sysLoader;
+			Class<?> sysLoaderClass = URLClassLoader.class;
+
+			// use reflection to invoke the private addURL method
+			Method method = sysLoaderClass.getDeclaredMethod("addURL", new Class[] { URL.class });
+			method.setAccessible(true);
+			method.invoke(sysLoader, new Object[] { url });
+		}
+		
+		try{
+            new UrlManager(serverContext, proximityBannerInternal, proximityBannerExternal);
+            fail("Constructor should have thrown exception but did not.");
+		}
+		catch(Exception ex){
+			assertEquals("Unable to determine directory structures for images.",ex.getMessage());
+		}
+
+	}
+}

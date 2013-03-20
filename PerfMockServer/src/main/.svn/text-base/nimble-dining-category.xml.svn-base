@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantDealsFeedData>
+  <errorMessage/>
+  <partnerMerchants>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>groupbuy.filesforfriends.com</whiteLabelHost>
+      <whiteLabelMerchantName>SamDemoCompanyName</whiteLabelMerchantName>
+      <whiteLableId>2</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>phillydealyo.philly.com</whiteLabelHost>
+      <whiteLabelMerchantName>Philly.com</whiteLabelMerchantName>
+      <whiteLableId>141</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers>
+        <offer>
+          <offerFinePrint><![CDATA[Limit 1 per party. Cannot be combined with any other offer. Expires 3 months from purchase date.]]></offerFinePrint>
+          <offerDescription><![CDATA[Pepperoni, marinara, mozzarella, veggies, anchovies, mushrooms, the works... There&#39;s no comfort food that quite tops the good old pizza pie. And when it comes to pizza, here&#39;s a deal you&#39;re sure to love. Get $5 for $10 worth any pizza offering at Amore Pizza, in Stoneham!Being a family run business, Amore has always put extra care into bringing the best ingredients to the table. Everything is prepared from scratch by the family, including the freshest dough in town - made daily, and the tomato sauce mixed from a secret family recipe. Taste a little bit of love in every bite you take at Amore Pizza.]]></offerDescription>
+          <redemptionInstructions><![CDATA[See Details]]></redemptionInstructions>
+          <availableQuantity>30</availableQuantity>
+          <buyersCount>0</buyersCount>
+          <categoryName>Cambridge</categoryName>
+          <currentPrice>5.00</currentPrice>
+          <customCategoryId>24</customCategoryId>
+          <hideBuyersCount>true</hideBuyersCount>
+          <hideDiscount>false</hideDiscount>
+          <hideOriginalPrice>false</hideOriginalPrice>
+          <imageUrl>http://product-images.imshopping.com/nimblebuy/5-10-worth-italian-fare-amore-pizza-5-686451-original.jpg</imageUrl>
+          <internalCategoryId>7912</internalCategoryId>
+          <isMainOfferInOfferCity>false</isMainOfferInOfferCity>
+          <maxAllowedPerUser>1</maxAllowedPerUser>
+          <offerCustomId/>
+          <offerEndDateTime>2012-01-21 00:55:00</offerEndDateTime>
+          <offerEndTimeinISO>2012-01-21T00:55:00-0500</offerEndTimeinISO>
+          <offerId>320261</offerId>
+          <offerLocations>
+            <offerLocation>
+              <offerLocationLatitude>42.473</offerLocationLatitude>
+              <offerLocationLongitude>-71.0982</offerLocationLongitude>
+            </offerLocation>
+          </offerLocations>
+          <offerName>$5 for $10 Worth of Italian Fare from at Amore Pizza</offerName>
+          <offerPageUrl>http://www.phundeals.com/deal/cambridge/5-10-worth-italian-fare-amore-pizza-5?utm_medium=affiliateAPI&amp;utm_source=Nokia&amp;chId=19563821&amp;aflId=1221</offerPageUrl>
+          <offerPricingType>No Minimum Buyers</offerPricingType>
+          <offerStartDateTime>2012-01-17 06:00:00</offerStartDateTime>
+          <offerStartTimeinISO>2012-01-17T06:00:00-0500</offerStartTimeinISO>
+          <offerStatus>live</offerStatus>
+          <offerTitle>$5 for $10 Worth of Italian Fare from Amore Pizza</offerTitle>
+          <offerTitlePrefix>Today's Deal:</offerTitlePrefix>
+          <offeredByMerchant>
+            <merchantAddress>414 Main St</merchantAddress>
+            <merchantCity>Stoneham</merchantCity>
+            <merchantContactEmail>sourcingsubmerchant+572+2+2001060700@nimblecommerce.com</merchantContactEmail>
+            <merchantDescription>Founded in 2009, Amore Pizza is quickly becoming a local favorite in the Stoneham community.  This bright and welcoming pizza shop features a number of pizza, pasta, calzone, sub and salad options with a Mediterranean flare!  Check out our online menu to view all our mouth watering options!</merchantDescription>
+            <merchantName>Amore Pizza</merchantName>
+            <merchantPhone/>
+            <merchantState>MA</merchantState>
+            <merchantWebsite>http://www.amorepizzaonline.com</merchantWebsite>
+            <merchantZip>02180</merchantZip>
+          </offeredByMerchant>
+          <origPrice>10.00</origPrice>
+          <partnerDistributionUrl>http://w.nmb.ly/7cn1g</partnerDistributionUrl>
+          <percentageDiscount>50</percentageDiscount>
+          <redemptionExpirationDate>non-expired</redemptionExpirationDate>
+          <redemptionExpirationDateinISO>non-expired</redemptionExpirationDateinISO>
+          <stdCityName>Cambridge</stdCityName>
+          <taxonomyFirstLevel>Food &amp; Drink</taxonomyFirstLevel>
+          <taxonomySecondLevel>Specialty Food</taxonomySecondLevel>
+          <thumbNailImageUrl>http://product-images.imshopping.com/nimblebuy/5-10-worth-italian-fare-amore-pizza-5-686451-small_lv.jpg</thumbNailImageUrl>
+        </offer>
+      </offers>
+      <whiteLabelHost>www.phundeals.com</whiteLabelHost>
+      <whiteLabelMerchantName>PhunDeals</whiteLabelMerchantName>
+      <whiteLableId>572</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>deals.sfstation.com</whiteLabelHost>
+      <whiteLabelMerchantName>SF Station Deals</whiteLabelMerchantName>
+      <whiteLableId>652</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>www.dealin.gr</whiteLabelHost>
+      <whiteLabelMerchantName>DealiN</whiteLabelMerchantName>
+      <whiteLableId>662</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>en.restoboom.com</whiteLabelHost>
+      <whiteLabelMerchantName>RestoBoom</whiteLabelMerchantName>
+      <whiteLableId>712</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>fr.restoboom.com</whiteLabelHost>
+      <whiteLabelMerchantName>RestoBoom</whiteLabelMerchantName>
+      <whiteLableId>722</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>www.livecosmo.com</whiteLabelHost>
+      <whiteLabelMerchantName>Live Cosmo</whiteLabelMerchantName>
+      <whiteLableId>762</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>www.wimgodeals.com</whiteLabelHost>
+      <whiteLabelMerchantName>Wimgo Deals</whiteLabelMerchantName>
+      <whiteLableId>802</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>deal.timesleader.com</whiteLabelHost>
+      <whiteLabelMerchantName>Times Leader</whiteLabelMerchantName>
+      <whiteLableId>812</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>www.slcdailydeal.com</whiteLabelHost>
+      <whiteLabelMerchantName>slcdailydeal.com</whiteLabelMerchantName>
+      <whiteLableId>832</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>deals.deals4dreams.com</whiteLabelHost>
+      <whiteLabelMerchantName>Deals4Dreams</whiteLabelMerchantName>
+      <whiteLableId>861</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>us.got2coupon.com</whiteLabelHost>
+      <whiteLabelMerchantName>Got2Coupon</whiteLabelMerchantName>
+      <whiteLableId>921</whiteLableId>
+    </partnerMerchant>
+    <partnerMerchant>
+      <offers/>
+      <whiteLabelHost>deals.adpages.com</whiteLabelHost>
+      <whiteLabelMerchantName>AP Daily Deals</whiteLabelMerchantName>
+      <whiteLableId>1201</whiteLableId>
+    </partnerMerchant>
+  </partnerMerchants>
+  <responseCode>0</responseCode>
+</merchantDealsFeedData>

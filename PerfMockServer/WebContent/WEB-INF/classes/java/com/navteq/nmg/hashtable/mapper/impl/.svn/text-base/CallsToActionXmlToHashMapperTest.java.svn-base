@@ -1,0 +1,133 @@
+package com.navteq.nmg.hashtable.mapper.impl;
+
+
+import static org.mockito.Mockito.*;
+
+import java.net.URLEncoder;
+
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IMessageVersions.MessageVersionsType;
+import com.navteq.nmg.hashtable.IXmlEntryParser;
+import com.navteq.nmg.hashtable.mapper.IIndexName;
+import com.navteq.nmg.hashtable.mapper.IIndexNameFormatter;
+import com.navteq.nmg.hashtable.mapper.IXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.nameformatter.CallToActionChildIndexNameFormatter;
+
+public class CallsToActionXmlToHashMapperTest extends XmlToHashMapperHelper{	
+	
+	private static final String CALLS_TO_ACTION = "callstoaction";
+	private static final String CALL_TO_ACTION = "calltoaction";
+	private static final String ACTION = "action";
+	private static final String ACTION_LANDINGPAGE = "LANDINGPAGE";
+	private static final String TRACKURL = "trackurl";
+	private static final String TRACKURL_VALUE = "http://www.dubdubdub.ya/trackdatyo?id=1234567890987655432211";
+
+	private static final String ACTION1 = "action1";
+	private static final String TRACKURL1 = "trackurl1";	
+	
+	private static final IIndexName callsToActionIndexName = new IndexName(CALLS_TO_ACTION,CALLS_TO_ACTION);
+	private static final IIndexName callToActionIndexName = new IndexName(CALL_TO_ACTION, CALL_TO_ACTION);
+
+	private static final class ParseFactory implements IXmlEntryParser{
+		
+		private IIndexNameFormatter nameFormatter = new CallToActionChildIndexNameFormatter();
+		
+		public ParseFactory(){
+			
+		}
+
+		@Override
+		public void parseEntry(IXmlToHashMapper parentMapper) throws Exception {
+			
+			if (callsToActionIndexName.getIndexedName().equals(parentMapper.getFieldName().getIndexedName())){
+				IXmlToHashMapper cta = new CallToActionXmlToHashMapper(callToActionIndexName, MessageVersionsType.VERSION_2_4,parentMapper);
+				cta.mapFromXmlToHash(this, null);
+			}
+			
+			if (callToActionIndexName.getIndexedName().equals(parentMapper.getFieldName().getIndexedName())){
+				nameFormatter.bumpCounter();
+				IIndexName actionName = nameFormatter.getFormattedIndexName(ACTION);
+				
+				IXmlToHashMapper action = new StringXmlToHashMapper(actionName, MessageVersionsType.VERSION_2_4,parentMapper);
+				action.mapFromXmlToHash(this, ACTION_LANDINGPAGE);
+				
+				IIndexName trackUrlName = nameFormatter.getFormattedIndexName(TRACKURL);
+				
+				IXmlToHashMapper trackUrl = new StringXmlToHashMapper(trackUrlName, MessageVersionsType.VERSION_2_4,parentMapper);
+				trackUrl.mapFromXmlToHash(this, TRACKURL_VALUE);
+			}
+		}
+	}	
+	
+	@Test
+	public void testConstructor() throws Exception{
+		assertConstructor(callsToActionIndexName, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class), true);
+	}
+	
+	@Test
+	public void testMapFromXmlToHashNoElementsOtherThanActionCount() throws Exception{
+		String utfName = URLEncoder.encode(callsToActionIndexName.getIndexedName(), "UTF-8");
+		
+		int size = 
+			HEADER_LENGTH_FIELD_SIZE +   // header for the callstoaction tag size 
+			utfName.length()+            // callstoaction name length
+			DATATYPE_LENGTH_FIELD_SIZE + // the byte indicating data type
+			INTEGER_SIZE+                // the byte size of the payload for hash table
+			COUNT_SIZE+                  // the number of elements in the payload
+			HEADER_LENGTH_FIELD_SIZE +   // the header for the action count that tells us the number of actions
+			CallsToActionXmlToHashMapper.ACTION_COUNT_FIELD.length()+ // the actual action count name length 
+			DATATYPE_LENGTH_FIELD_SIZE + // the data type of the count size
+			INTEGER_SIZE;                // the count
+		
+		assertMapFromXmlToHash(createMapperInstance(callsToActionIndexName, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class)),null,1,size);
+		
+		//IXmlToHashMapper parent = new TestParent();
+	}	
+	
+	
+	@Test
+	public void testMapFromXmlToHashOneCallToAction() throws Exception{
+		String utfName = URLEncoder.encode(callsToActionIndexName.getIndexedName(), "UTF-8");
+		
+		int size = 
+			HEADER_LENGTH_FIELD_SIZE +   // header for the callstoaction tag size 
+			utfName.length()+            // callstoaction name length
+			DATATYPE_LENGTH_FIELD_SIZE + // the byte indicating data type
+			INTEGER_SIZE+                // the byte size of the payload for hash table
+			COUNT_SIZE+                  // the number of elements in the payload
+			HEADER_LENGTH_FIELD_SIZE +   // the header for the action count that tells us the number of actions
+			CallsToActionXmlToHashMapper.ACTION_COUNT_FIELD.length()+ // the actual action count name length 
+			DATATYPE_LENGTH_FIELD_SIZE + // the data type of the count size
+			INTEGER_SIZE+                // the count
+			
+			HEADER_LENGTH_FIELD_SIZE +   // the header for the action that tells us the action
+			ACTION1.length()+            // the actual action name length 
+			DATATYPE_LENGTH_FIELD_SIZE + // the data type of the action
+			INTEGER_SIZE+                // the count field of the number of bytes in the action data field
+			ACTION_LANDINGPAGE.length()+ // the length of the data
+			
+			HEADER_LENGTH_FIELD_SIZE +   // the header for the action count that tells us the number of actions
+			TRACKURL1.length()+          // the actual trackurl name length 
+			DATATYPE_LENGTH_FIELD_SIZE + // the data type of the count size
+			INTEGER_SIZE+                // the count filed of the number of bytes in the track url data field
+			TRACKURL_VALUE.length();
+		
+		assertMapFromXmlToHash(new ParseFactory(), createMapperInstance(callsToActionIndexName, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class)),null,3,size);
+	}		
+
+	
+	@Test
+	public void testRendering() throws Exception{
+	}
+
+	@Override
+	protected IXmlEntryParser createParser() throws Exception {
+		return mock(IXmlEntryParser.class);
+	}
+
+	@Override
+	protected IXmlToHashMapper createMapperInstance(IIndexName xmlElementName,	MessageVersionsType mvt, IXmlToHashMapper parent) throws Exception {
+		return new CallsToActionXmlToHashMapper(xmlElementName, mvt, parent);
+	}
+}

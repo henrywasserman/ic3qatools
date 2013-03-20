@@ -1,0 +1,64 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
+
+public abstract class BaseTestMessage implements ITestMessage {
+
+	private static final String ENCODING = "UTF-8"; 
+	private InputStream inputStreamXml;
+	private byte[] compareArrayByte;
+	private String versionNumber;
+	private String testMessageId;
+	
+	protected BaseTestMessage(String testMessageId, String versionNumber) throws Exception{
+		this(testMessageId,versionNumber,(String)null,null);
+	}
+	
+	protected BaseTestMessage(String testMessageId, String versionNumber, byte[] compareHashMessage) throws Exception{
+		this(testMessageId, versionNumber,(String)null,compareHashMessage);
+	}
+	
+	protected BaseTestMessage(String testMessageId, String versionNumber, String inputXmlMessage, byte[] compareHashMessage) throws Exception{
+		this(testMessageId,versionNumber,inputXmlMessage == null ? null : new ByteArrayInputStream(inputXmlMessage.toString().getBytes(ENCODING)),compareHashMessage);
+	}
+
+	protected BaseTestMessage(String testMessageId, String versionNumber, InputStream inputStreamXml, byte[] compareArrayByte) throws Exception{
+		this.testMessageId = testMessageId;
+		this.inputStreamXml = inputStreamXml;
+		this.compareArrayByte = compareArrayByte;
+		this.versionNumber = versionNumber;
+
+	}
+	
+	// this is exposed because creating a large string on the constructor would get kinda ugly
+	protected void setXmlInputMessage(String inputMessage) throws Exception{
+		inputStreamXml = new ByteArrayInputStream(inputMessage.getBytes(ENCODING));
+	}
+	
+	// this is exposed because creating a large string on the constructor would get kinda ugly
+	protected void setByteArrayCompareMessage(byte[] compareMessage) throws Exception{
+		compareArrayByte = compareMessage;
+	}
+	
+	@Override
+	public String getTestMessageId(){
+		return testMessageId;
+	}
+	
+	@Override
+	public InputStream getXmlInputMessage() {
+		return inputStreamXml;
+	}
+
+	@Override
+	public byte[] getByteArrayCompareMessage() {
+		return compareArrayByte;
+	}
+	
+	@Override
+	public String getVersionNumber(){
+		return versionNumber;
+	}	
+}

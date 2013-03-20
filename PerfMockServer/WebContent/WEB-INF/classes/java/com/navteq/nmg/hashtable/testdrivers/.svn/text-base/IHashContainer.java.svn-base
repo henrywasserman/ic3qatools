@@ -1,0 +1,10 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+
+public interface IHashContainer{
+	public String getKey();
+	public HashDataType getHashdataType();
+	public String displayContents();
+	public void assertContentsAreTheSame(IHashContainer hashContainer) throws AssertionError;
+}

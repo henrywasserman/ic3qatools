@@ -1,0 +1,60 @@
+package com.navteq.nmg.hashtable.mapper.factory.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.BeforeClass;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.navteq.nmg.hashtable.IMessageVersions.MessageVersionsType;
+import com.navteq.nmg.hashtable.ioc.binders.ElementNameToMapperTypeModule;
+import com.navteq.nmg.hashtable.ioc.binders.HashTableXMLMapperEntry_v_2_4_Module;
+import com.navteq.nmg.hashtable.ioc.binders.MessageVersionsModule;
+import com.navteq.nmg.hashtable.mapper.IXmlToHashMapper.XmlToHashMapperType;
+import com.navteq.nmg.hashtable.mapper.factory.IVersionedXmlToHashMapperRegistry;
+
+import com.navteq.nmg.hashtable.mapper.impl.CampaignIdXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.DefaultUserActionXmlToHashMapper;
+
+import com.navteq.nmg.hashtable.mapper.impl.StringXmlToHashMapper;
+
+public class Version_2_4_XmlToHashMapperRegistryTest extends XmlToHashMapperRegistryTestHelper{
+
+	private static Injector injector;
+	
+	@BeforeClass
+	public static void setupOnce() throws Exception{
+		
+		List<Module> modules = new ArrayList<Module>();
+		
+		modules.add(new MessageVersionsModule());
+		modules.add(new ElementNameToMapperTypeModule());
+		modules.add(new HashTableXMLMapperEntry_v_2_4_Module());
+		injector = Guice.createInjector(modules);
+	}
+		
+	public Version_2_4_XmlToHashMapperRegistryTest() {
+	}
+
+	@Override
+	protected List<VersionClass> getVersionList() {
+		
+		List<VersionClass> versionList = new ArrayList<VersionClass>();
+		loadCommonFields(versionList, MessageVersionsType.VERSION_2_4);
+		versionList.add(new VersionClass("campaignid", CampaignIdXmlToHashMapper.class, XmlToHashMapperType.MAPPED_CAMPAIGN_ID,MessageVersionsType.VERSION_2_4,getMockedMessageMapper()));
+		versionList.add(new VersionClass("trackurl",  StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,MessageVersionsType.VERSION_2_4,getMockedImageMapper()));		
+		versionList.add(new VersionClass("DefaultUserAction",  DefaultUserActionXmlToHashMapper.class, XmlToHashMapperType.MAPPED_DEFAULT_ACTION,MessageVersionsType.VERSION_2_4,getMockedMessageMapper()));
+		versionList.add(new VersionClass("UserAction",  StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,MessageVersionsType.VERSION_2_4,getMockedMessageMapper()));
+		versionList.add(new VersionClass("distance",  StringXmlToHashMapper.class, XmlToHashMapperType.MAPPED_STRING,MessageVersionsType.VERSION_2_4,getMockedStorefrontMapper()));
+
+		return versionList;
+	}
+
+	@Override
+	protected IVersionedXmlToHashMapperRegistry getRegistry() {
+		return injector.getInstance(Version_2_4_XmlToHashMapperRegistry.class);
+	}
+}
+

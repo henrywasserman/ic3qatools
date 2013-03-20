@@ -1,0 +1,53 @@
+<Deals xmlns="http://thedealmap.com/api" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <Message/>
+  <Results>
+    <Deal>
+      <Activity>0</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>26 Brattle St</AddressLine>
+      <Affiliation>true value</Affiliation>
+      <BDescription/>
+      <BusinessID>b/1/457F7FD50111BFBF8E90822503FE9F0C</BusinessID>
+      <BusinessName>Dickson Brothers True Value</BusinessName>
+      <Capability>83</Capability>
+      <Category>home services,home,hardware retail</Category>
+      <City>Cambridge</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Groupon</DealSource>
+      <DealType>24</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>10</DiscountedValue>
+      <EffectiveTime>2011-05-02T02:01:00</EffectiveTime>
+      <ExpirationTime>2011-05-08T20:59:00</ExpirationTime>
+      <FaceValue>20</FaceValue>
+      <ID>5-A60403268E2141101075009536003A2541A4382B100328</ID>
+      <IconUrl/>
+      <ImageUrl>http://www.groupon.com/images/site_images/0655/6597/Dickson_Brothers_True_Value.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3738955054432</Latitude>
+      <Longitude>-71.1214383132756</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=5-A60403268E21413A2541A4382B100328&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6178766760</Phone>
+      <Ratings>4</Ratings>
+      <ReviewCount>2</ReviewCount>
+      <SoldCount>1</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$10 For $20 Worth Of Home-Improvement Supplies At Dickson Brothers True Value</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=5-A60403268E21413A2541A4382B100328</TransactionUrl>
+      <YouSave>50 %</YouSave>
+      <ZipCode/>
+    </Deal>
+  </Results>
+  <TotalResults>1481</TotalResults>
+</Deals>

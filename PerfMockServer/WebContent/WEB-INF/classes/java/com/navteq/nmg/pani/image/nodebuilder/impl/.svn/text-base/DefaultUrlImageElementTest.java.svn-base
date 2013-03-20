@@ -1,0 +1,60 @@
+package com.navteq.nmg.pani.image.nodebuilder.impl;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.net.URL;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.navteq.nmg.pani.image.ImageBaseHelper;
+import com.navteq.nmg.pani.image.category.IImageCategoryService.ImageCategory;
+import com.navteq.nmg.pani.image.enums.ImageMimeTypes;
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+import com.navteq.nmg.pani.image.nodebuilder.IImageNodeBuilder;
+import com.navteq.nmg.pani.image.urlformatter.IUrlManager;
+
+public class DefaultUrlImageElementTest extends ImageBaseHelper{
+
+	private static final String ORIG_URL = "http://10.5.78.62:8080/nmg/gwimg/nmg-activities-1.jpg";
+	private static final String ORIG_URL_STRIPPED = "10.5.78.62:8080/nmg/gwimg/nmg-activities-1.jpg";
+	private static final String SERVER_CONTEXT_URL = "http://10.5.78.62:8080/nmg";
+
+	
+	@Test
+	public void testDefaultUrlImageElementRendersProperlyHttpStripped() throws Exception{
+	
+		IUrlManager urlManager = mock(IUrlManager.class);
+		
+		when(urlManager.getServerContextUrl()).thenReturn(new URL(SERVER_CONTEXT_URL));
+		
+		IImageNodeBuilder nodeBuilder = new DefaultUrlImageElement(ImageSizeTypes.SMALL_INTRO_ICON, ImageCategory.ACTIVITIES, ImageMimeTypes.JPG, urlManager,true);
+		
+		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		Element root = doc.createElement("root");
+		nodeBuilder.build(doc, root);
+				
+		assertValues(root, TAG_URL, ORIG_URL_STRIPPED, ImageSizeTypes.SMALL_INTRO_ICON);
+	}
+	
+	@Test
+	public void testDefaultUrlImageElementRendersProperlyHttpNotStripped() throws Exception{
+	
+		IUrlManager urlManager = mock(IUrlManager.class);
+		
+		when(urlManager.getServerContextUrl()).thenReturn(new URL(SERVER_CONTEXT_URL));
+		
+		IImageNodeBuilder nodeBuilder = new DefaultUrlImageElement(ImageSizeTypes.SMALL_INTRO_ICON, ImageCategory.ACTIVITIES, ImageMimeTypes.JPG, urlManager,false);
+		
+		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		Element root = doc.createElement("root");
+		nodeBuilder.build(doc, root);
+				
+		assertValues(root, TAG_URL, ORIG_URL, ImageSizeTypes.SMALL_INTRO_ICON);
+	}
+	
+}

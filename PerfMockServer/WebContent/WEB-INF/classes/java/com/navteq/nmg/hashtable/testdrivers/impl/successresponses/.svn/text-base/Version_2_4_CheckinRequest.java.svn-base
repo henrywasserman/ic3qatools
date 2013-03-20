@@ -1,0 +1,172 @@
+package com.navteq.nmg.hashtable.testdrivers.impl.successresponses;
+
+import com.navteq.nmg.hashtable.impl.MessageVersions;
+import com.navteq.nmg.hashtable.testdrivers.HashMessageMapDrivenContentComparer;
+import com.navteq.nmg.hashtable.testdrivers.IHashCompare;
+import com.navteq.nmg.hashtable.testdrivers.StaticTestMessage;
+
+public class Version_2_4_CheckinRequest extends StaticTestMessage{
+
+	private IHashCompare hashComparer;
+	
+	private static StringBuilder checkinResponse;
+	private static final byte[] hashCheckinResponse = new byte[]{
+		(byte)'i', (byte)'L', (byte)'a', (byte)0, (byte)215, (byte)3, (byte)0, (byte)0, (byte)2, (byte)0, (byte)0, 
+		(byte)0, (byte)8, (byte)109, (byte)101, (byte)115, (byte)115, (byte)97, (byte)103, (byte)101, (byte)49, 
+		(byte)5, (byte)179, (byte)3, (byte)0, (byte)0, (byte)28, (byte)0, (byte)0, (byte)0, (byte)10, (byte)99, 
+		(byte)97, (byte)109, (byte)112, (byte)97, (byte)105, (byte)103, (byte)110, (byte)105, (byte)100, (byte)4, 
+		(byte)40, (byte)0, (byte)0, (byte)0, (byte)48, (byte)48, (byte)48, (byte)48, (byte)48, (byte)53, (byte)68, 
+		(byte)55, (byte)69, (byte)52, (byte)49, (byte)55, (byte)49, (byte)67, (byte)48, (byte)69, (byte)49, (byte)55, 
+		(byte)49, (byte)54, (byte)55, (byte)48, (byte)52, (byte)55, (byte)56, (byte)53, (byte)53, (byte)49, (byte)51, 
+		(byte)55, (byte)49, (byte)56, (byte)57, (byte)50, (byte)49, (byte)51, (byte)50, (byte)48, (byte)51, (byte)49, 
+		(byte)10, (byte)99, (byte)114, (byte)101, (byte)97, (byte)116, (byte)105, (byte)118, (byte)101, (byte)105, 
+		(byte)100, (byte)3, (byte)215, (byte)5, (byte)0, (byte)0, (byte)0, (byte)0, (byte)0, (byte)0, (byte)14, 
+		(byte)97, (byte)100, (byte)118, (byte)101, (byte)114, (byte)116, (byte)105, (byte)115, (byte)101, (byte)114,
+		(byte)110, (byte)97, (byte)109, (byte)101, (byte)4, (byte)15, (byte)0, (byte)0, (byte)0, (byte)79, (byte)80, 
+		(byte)82, (byte)95, (byte)48, (byte)55, (byte)48, (byte)53, (byte)49, (byte)49, (byte)95, (byte)49, (byte)49, 
+		(byte)52, (byte)52, (byte)9, (byte)105, (byte)110, (byte)116, (byte)114, (byte)111, (byte)116, (byte)101, 
+		(byte)120, (byte)116, (byte)4, (byte)15, (byte)0, (byte)0, (byte)0, (byte)79, (byte)80, (byte)82, (byte)95, 
+		(byte)48, (byte)55, (byte)48, (byte)53, (byte)49, (byte)49, (byte)95, (byte)49, (byte)49, (byte)52, (byte)52, 
+		(byte)15, (byte)109, (byte)97, (byte)105, (byte)110, (byte)109, (byte)101, (byte)115, (byte)115, (byte)97, 
+		(byte)103, (byte)101, (byte)116, (byte)101, (byte)120, (byte)116, (byte)4, (byte)15, (byte)0, (byte)0, (byte)0, 
+		(byte)79, (byte)80, (byte)82, (byte)95, (byte)48, (byte)55, (byte)48, (byte)53, (byte)49, (byte)49, (byte)95, 
+		(byte)49, (byte)49, (byte)52, (byte)52, (byte)20, (byte)109, (byte)97, (byte)105, (byte)110, (byte)109, 
+		(byte)101, (byte)115, (byte)115, (byte)97, (byte)103, (byte)101, (byte)112, (byte)104, (byte)111, (byte)110, 
+		(byte)101, (byte)116, (byte)105, (byte)99, (byte)115, (byte)4, (byte)15, (byte)0, (byte)0, (byte)0, (byte)79,
+		(byte)80, (byte)82, (byte)95, (byte)48, (byte)55, (byte)48, (byte)53, (byte)49, (byte)49, (byte)95, (byte)49,
+		(byte)49, (byte)52, (byte)52, (byte)10, (byte)99, (byte)111, (byte)117, (byte)112, (byte)111, (byte)110, 
+		(byte)99, (byte)111, (byte)100, (byte)101, (byte)4, (byte)15, (byte)0, (byte)0, (byte)0, (byte)79, (byte)80, 
+		(byte)82, (byte)95, (byte)48, (byte)55, (byte)48, (byte)53, (byte)49, (byte)49, (byte)95, (byte)49, (byte)49, 
+		(byte)52, (byte)52, (byte)13, (byte)99, (byte)97, (byte)108, (byte)108, (byte)115, (byte)116, (byte)111, 
+		(byte)97, (byte)99, (byte)116, (byte)105, (byte)111, (byte)110, (byte)9, (byte)106, (byte)0, (byte)0, (byte)0, 
+		(byte)5, (byte)0, (byte)0, (byte)0, (byte)11, (byte)97, (byte)99, (byte)116, (byte)105, (byte)111, (byte)110, 
+		(byte)99, (byte)111, (byte)117, (byte)110, (byte)116, (byte)2, (byte)1, (byte)0, (byte)0, (byte)0, (byte)7, 
+		(byte)97, (byte)99, (byte)116, (byte)105, (byte)111, (byte)110, (byte)49, (byte)4, (byte)11, (byte)0, (byte)0, 
+		(byte)0, (byte)76, (byte)65, (byte)78, (byte)68, (byte)73, (byte)78, (byte)71, (byte)80, (byte)65, (byte)71, 
+		(byte)69, (byte)5, (byte)100, (byte)97, (byte)116, (byte)97, (byte)49, (byte)4, (byte)0, (byte)0, (byte)0, 
+		(byte)0, (byte)9, (byte)116, (byte)114, (byte)97, (byte)99, (byte)107, (byte)117, (byte)114, (byte)108, 
+		(byte)49, (byte)4, (byte)0, (byte)0, (byte)0, (byte)0, (byte)18, (byte)68, (byte)101, (byte)102, (byte)97, 
+		(byte)117, (byte)108, (byte)116, (byte)85, (byte)115, (byte)101, (byte)114, (byte)65, (byte)99, (byte)116, 
+		(byte)105, (byte)111, (byte)110, (byte)49, (byte)4, (byte)11, (byte)0, (byte)0, (byte)0, (byte)76, (byte)65, 
+		(byte)78, (byte)68, (byte)73, (byte)78, (byte)71, (byte)80, (byte)65, (byte)71, (byte)69, (byte)11, (byte)99, 
+		(byte)111, (byte)117, (byte)110, (byte)116, (byte)114, (byte)121, (byte)99, (byte)111, (byte)100, (byte)101, 
+		(byte)4, (byte)0, (byte)0, (byte)0, (byte)0, (byte)10, (byte)101, (byte)120, (byte)112, (byte)105, (byte)114, 
+		(byte)121, (byte)100, (byte)97, (byte)116, (byte)101, (byte)4, (byte)19, (byte)0, (byte)0, (byte)0, (byte)50, 
+		(byte)48, (byte)49, (byte)50, (byte)46, (byte)48, (byte)55, (byte)46, (byte)48, (byte)53, (byte)46, (byte)50, 
+		(byte)51, (byte)46, (byte)53, (byte)57, (byte)46, (byte)53, (byte)57, (byte)10, (byte)105, (byte)109, (byte)97, 
+		(byte)103, (byte)101, (byte)99, (byte)111, (byte)117, (byte)110, (byte)116, (byte)2, (byte)0, (byte)0, (byte)0, 
+		(byte)0, (byte)12, (byte)110, (byte)111, (byte)115, (byte)116, (byte)111, (byte)114, (byte)101, (byte)102, 
+		(byte)114, (byte)111, (byte)110, (byte)116, (byte)2, (byte)0, (byte)0, (byte)0, (byte)0, (byte)15, (byte)115, 
+		(byte)116, (byte)111, (byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, (byte)116, (byte)99, 
+		(byte)111, (byte)117, (byte)110, (byte)116, (byte)2, (byte)1, (byte)0, (byte)0, (byte)0, (byte)23, (byte)115, 
+		(byte)116, (byte)111, (byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, (byte)116, (byte)49, 
+		(byte)115, (byte)116, (byte)111, (byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, (byte)116, 
+		(byte)105, (byte)100, (byte)3, (byte)87, (byte)77, (byte)8, (byte)0, (byte)0, (byte)0, (byte)0, (byte)0, 
+		(byte)18, (byte)115, (byte)116, (byte)111, (byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, 
+		(byte)116, (byte)49, (byte)110, (byte)97, (byte)109, (byte)101, (byte)116, (byte)97, (byte)103, (byte)4, 
+		(byte)9, (byte)0, (byte)0, (byte)0, (byte)57, (byte)57, (byte)56, (byte)49, (byte)51, (byte)56, (byte)52, 
+		(byte)50, (byte)48, (byte)15, (byte)115, (byte)116, (byte)111, (byte)114, (byte)101, (byte)102, (byte)114, 
+		(byte)111, (byte)110, (byte)116, (byte)49, (byte)110, (byte)97, (byte)109, (byte)101, (byte)4, (byte)43, 
+		(byte)0, (byte)0, (byte)0, (byte)66, (byte)101, (byte)115, (byte)116, (byte)32, (byte)66, (byte)117, 
+		(byte)121, (byte)32, (byte)56, (byte)55, (byte)49, (byte)32, (byte)69, (byte)32, (byte)76, (byte)65, 
+		(byte)78, (byte)67, (byte)65, (byte)83, (byte)84, (byte)69, (byte)82, (byte)32, (byte)65, (byte)86, 
+		(byte)69, (byte)32, (byte)68, (byte)79, (byte)87, (byte)78, (byte)73, (byte)78, (byte)71, (byte)84, 
+		(byte)79, (byte)87, (byte)78, (byte)32, (byte)80, (byte)65, (byte)16, (byte)115, (byte)116, (byte)111, 
+		(byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, (byte)116, (byte)49, (byte)97, (byte)100, 
+		(byte)100, (byte)114, (byte)49, (byte)4, (byte)19, (byte)0, (byte)0, (byte)0, (byte)56, (byte)55, (byte)49, 
+		(byte)32, (byte)69, (byte)32, (byte)76, (byte)97, (byte)110, (byte)99, (byte)97, (byte)115, (byte)116, 
+		(byte)101, (byte)114, (byte)32, (byte)65, (byte)118, (byte)101, (byte)16, (byte)115, (byte)116, (byte)111, 
+		(byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, (byte)116, (byte)49, (byte)97, (byte)100, 
+		(byte)100, (byte)114, (byte)50, (byte)4, (byte)0, (byte)0, (byte)0, (byte)0, (byte)19, (byte)115, (byte)116, 
+		(byte)111, (byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, (byte)116, (byte)49, (byte)97, 
+		(byte)100, (byte)100, (byte)114, (byte)99, (byte)105, (byte)116, (byte)121, (byte)4, (byte)11, (byte)0, 
+		(byte)0, (byte)0, (byte)68, (byte)111, (byte)119, (byte)110, (byte)105, (byte)110, (byte)103, (byte)116, 
+		(byte)111, (byte)119, (byte)110, (byte)20, (byte)115, (byte)116, (byte)111, (byte)114, (byte)101, (byte)102, 
+		(byte)114, (byte)111, (byte)110, (byte)116, (byte)49, (byte)97, (byte)100, (byte)100, (byte)114, (byte)115, 
+		(byte)116, (byte)97, (byte)116, (byte)101, (byte)4, (byte)2, (byte)0, (byte)0, (byte)0, (byte)80, (byte)65, 
+		(byte)18, (byte)115, (byte)116, (byte)111, (byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, 
+		(byte)116, (byte)49, (byte)97, (byte)100, (byte)100, (byte)114, (byte)122, (byte)105, (byte)112, (byte)4, 
+		(byte)5, (byte)0, (byte)0, (byte)0, (byte)49, (byte)57, (byte)51, (byte)51, (byte)53, (byte)16, (byte)115, 
+		(byte)116, (byte)111, (byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, (byte)116, (byte)49, 
+		(byte)112, (byte)104, (byte)111, (byte)110, (byte)101, (byte)4, (byte)0, (byte)0, (byte)0, (byte)0, (byte)20, 
+		(byte)115, (byte)116, (byte)111, (byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, (byte)116, 
+		(byte)49, (byte)108, (byte)111, (byte)110, (byte)103, (byte)105, (byte)116, (byte)117, (byte)100, (byte)101, 
+		(byte)2, (byte)18, (byte)27, (byte)125, (byte)251, (byte)19, (byte)115, (byte)116, (byte)111, (byte)114, 
+		(byte)101, (byte)102, (byte)114, (byte)111, (byte)110, (byte)116, (byte)49, (byte)108, (byte)97, (byte)116, 
+		(byte)105, (byte)116, (byte)117, (byte)100, (byte)101, (byte)2, (byte)106, (byte)149, (byte)98, (byte)2, 
+		(byte)22, (byte)115, (byte)116, (byte)111, (byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, 
+		(byte)116, (byte)49, (byte)99, (byte)111, (byte)117, (byte)110, (byte)116, (byte)114, (byte)121, (byte)99, 
+		(byte)111, (byte)100, (byte)101, (byte)4, (byte)2, (byte)0, (byte)0, (byte)0, (byte)85, (byte)83, (byte)14, 
+		(byte)115, (byte)116, (byte)111, (byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, (byte)116, 
+		(byte)49, (byte)117, (byte)114, (byte)108, (byte)4, (byte)0, (byte)0, (byte)0, (byte)0, (byte)18, (byte)115, 
+		(byte)116, (byte)111, (byte)114, (byte)101, (byte)102, (byte)114, (byte)111, (byte)110, (byte)116, (byte)49, 
+		(byte)112, (byte)108, (byte)97, (byte)99, (byte)101, (byte)105, (byte)100, (byte)4, (byte)0, (byte)0, (byte)0, 
+		(byte)0, (byte)19, (byte)115, (byte)116, (byte)111, (byte)114, (byte)101, (byte)102, (byte)114, (byte)111, 
+		(byte)110, (byte)116, (byte)49, (byte)100, (byte)105, (byte)115, (byte)116, (byte)97, (byte)110, (byte)99, 
+		(byte)101, (byte)4, (byte)4, (byte)0, (byte)0, (byte)0, (byte)50, (byte)46, (byte)53, (byte)52, (byte)12, 
+		(byte)109, (byte)101, (byte)115, (byte)115, (byte)97, (byte)103, (byte)101, (byte)99, (byte)111, (byte)117, 
+		(byte)110, (byte)116, (byte)2, (byte)1, (byte)0, (byte)0, (byte)0};	
+	
+	public Version_2_4_CheckinRequest() throws Exception{
+		this(MessageVersions.VERNUM_2_4);
+	}
+	
+	public Version_2_4_CheckinRequest(String versionNumber) throws Exception{
+		super(Version_2_4_CheckinRequest.class.getSimpleName()+versionNumber,versionNumber,hashCheckinResponse);
+		checkinResponse = new StringBuilder();
+		
+		checkinResponse.append("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>");
+		checkinResponse.append("<ilapresponse>");
+		checkinResponse.append("<message>");          
+		checkinResponse.append("<campaignid><![CDATA[000005D7E4171C0E171670478551371892132031]]></campaignid>");
+		checkinResponse.append("<creativeid><![CDATA[1495]]></creativeid>");
+		checkinResponse.append("<advertisername><![CDATA[OPR_070511_1144]]></advertisername>");
+		checkinResponse.append("<introtext><![CDATA[OPR_070511_1144]]></introtext>");
+		checkinResponse.append("<mainmessagetext><![CDATA[OPR_070511_1144]]></mainmessagetext>");
+		checkinResponse.append("<mainmessagephonetics><![CDATA[OPR_070511_1144]]></mainmessagephonetics>");
+		checkinResponse.append("<couponcode><![CDATA[OPR_070511_1144]]></couponcode>");
+		checkinResponse.append("<expirydate><![CDATA[2012.07.05.23.59.59]]></expirydate>");
+		checkinResponse.append("<htmltemplateid><![CDATA[]]></htmltemplateid>");
+		checkinResponse.append("<DefaultUserAction>");
+		checkinResponse.append("<UserAction><![CDATA[LANDINGPAGE]]></UserAction>");
+		checkinResponse.append("</DefaultUserAction>");
+		checkinResponse.append("<callstoaction>");
+		checkinResponse.append("<calltoaction>");
+		checkinResponse.append("<action><![CDATA[LANDINGPAGE]]></action>");
+		checkinResponse.append("<data><![CDATA[]]></data>");
+		checkinResponse.append("<trackurl><![CDATA[]]></trackurl>");
+		checkinResponse.append("</calltoaction>");
+		checkinResponse.append("</callstoaction>");
+		checkinResponse.append("<countrycode><![CDATA[]]></countrycode>");
+		checkinResponse.append("<language><![CDATA[en-us]]></language>");
+		checkinResponse.append("<nostorefront><![CDATA[0]]></nostorefront>");
+		checkinResponse.append("<storefront>");
+		checkinResponse.append("<storefrontid><![CDATA[544087]]></storefrontid>");
+		checkinResponse.append("<nametag><![CDATA[998138420]]></nametag>");
+		checkinResponse.append("<name><![CDATA[Best Buy 871 E LANCASTER AVE DOWNINGTOWN PA]]></name>");
+		checkinResponse.append("<addr1><![CDATA[871 E Lancaster Ave]]></addr1>");
+		checkinResponse.append("<addr2><![CDATA[]]></addr2>");
+		checkinResponse.append("<addrcity><![CDATA[Downingtown]]></addrcity>");
+		checkinResponse.append("<addrstate><![CDATA[PA]]></addrstate>");
+		checkinResponse.append("<addrzip><![CDATA[19335]]></addrzip>");
+		checkinResponse.append("<phone><![CDATA[]]></phone>");
+		checkinResponse.append("<longitude><![CDATA[-75687150]]></longitude>");
+		checkinResponse.append("<latitude><![CDATA[40015210]]></latitude>");
+		checkinResponse.append("<countrycode><![CDATA[US]]></countrycode>");
+		checkinResponse.append("<url><![CDATA[]]></url>");
+		checkinResponse.append("<placeid><![CDATA[]]></placeid>");
+		checkinResponse.append("<distance><![CDATA[2.54]]></distance>");
+		checkinResponse.append("</storefront>");
+		checkinResponse.append("</message>");
+		checkinResponse.append("</ilapresponse>");		
+		setXmlInputMessage(checkinResponse.toString());
+		
+		hashComparer = new HashMessageMapDrivenContentComparer(hashCheckinResponse);
+	}
+
+	@Override
+	public IHashCompare getHashComparer() {
+		return hashComparer;
+	}	
+}
+	

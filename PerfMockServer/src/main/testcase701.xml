@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+  <resource>
+    <merchant>
+      <infousa_id>302555289</infousa_id>
+      <name>Buccini's Mister Sub</name>
+      <locations>
+        <resource>
+          <location>
+            <city>North Quincy</city>
+            <name>Buccini's Mister Sub</name>
+            <zip>02171</zip>
+            <country>United States</country>
+            <state>MA</state>
+            <phonenumber>6173289764</phonenumber>
+            <address>64 Billings Rd</address>
+            <lat>42.2741</lat>
+            <lng>-71.0246</lng>
+            <unit/>
+          </location>
+        </resource>
+      </locations>
+      <images>
+        <productimage/>
+        <logo/>
+      </images>
+      <type>Physical</type>
+      <id>1930</id>
+      <market>North Quincy</market>
+    </merchant>
+    <category>
+      <subcategories>
+        <resource>
+          <id>24</id>
+          <name>sub</name>
+          <slug>sub</slug>
+        </resource>
+      </subcategories>
+      <id>5</id>
+      <name>dining &amp; food</name>
+      <slug>dining-food</slug>
+    </category>
+    <enddate>2012-01-20 23:59:00</enddate>
+    <description>Just because you've been making yourself sandwiches since you were 5 does not mean you're skilled enough to get behind the counter with this Sando-Pro. Sandwich artisanship is a well-honed craft in this shop. They churn out fresh bread, meats and everyday veggies; stacking up the goods to make sure you are satisfied with your final creation. For online delivery orders only at Allmenus.com using the special code on your voucher</description>
+    <maximpressions>0</maximpressions>
+    <startdate>2011-03-17 10:58:19</startdate>
+    <title>$3 for $6 on any purchase</title>
+    <numleft>20</numleft>
+    <rate>3</rate>
+    <value>6</value>
+    <state>activated</state>
+    <cost>3</cost>
+    <createddate>2011-03-17 10:58:19</createddate>
+    <images>
+      <productimage>
+        <small>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/52/25/5225d7901e5a900d79403948b7aa746e.jpg</url>
+          <width>100</width>
+          <height>120</height>
+        </small>
+        <large>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/62/7c/627c1371dcb6d42e699519a9d70d7067.jpg</url>
+          <width>180</width>
+          <height>200</height>
+        </large>
+        <medium>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/29/eb/29ebd449343f7629aff4bdc9ceb82c00.jpg</url>
+          <width>120</width>
+          <height>160</height>
+        </medium>
+        <thumbnail>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/b1/c4/b1c48f2185f60cec9ec1f72cf5de90a0.jpg</url>
+          <width>50</width>
+          <height>60</height>
+        </thumbnail>
+      </productimage>
+    </images>
+    <dealtype>2</dealtype>
+    <dip>https://www.mobilespinach.com/deals/2189/?source=2&amp;appid=39</dip>
+    <id>2189</id>
+  </resource>
+  <resource>
+    <merchant>
+      <infousa_id/>
+      <name>Frolick</name>
+      <locations>
+        <resource>
+          <location>
+            <city>Boston</city>
+            <name>Frolick</name>
+            <zip>02467</zip>
+            <country>United States</country>
+            <state>MA</state>
+            <phonenumber>www.frolickpet.com</phonenumber>
+            <address>123 Spinach Way</address>
+            <lat>42.3178198</lat>
+            <lng>-71.1626756</lng>
+            <unit/>
+          </location>
+        </resource>
+        <resource>
+          <location>
+            <city>San Francisco</city>
+            <name>Frolick</name>
+            <zip>94109</zip>
+            <country>United States</country>
+            <state>CA</state>
+            <phonenumber>www.frolickpet.com</phonenumber>
+            <address>123 Spinach Way</address>
+            <lat>37.7929789</lat>
+            <lng>-122.4212424</lng>
+            <unit/>
+          </location>
+        </resource>
+        <resource>
+          <location>
+            <city>New York City</city>
+            <name>Frolick</name>
+            <zip>10009</zip>
+            <country>United States</country>
+            <state>NY</state>
+            <phonenumber>www.frolickpet.com</phonenumber>
+            <address>123 Spinach Way</address>
+            <lat>40.761789</lat>
+            <lng>-73.957441</lng>
+            <unit/>
+          </location>
+        </resource>
+      </locations>
+      <images>
+        <productimage/>
+        <logo/>
+      </images>
+      <type>Physical</type>
+      <id>5844</id>
+      <market>Boston</market>
+    </merchant>
+    <category>
+      <subcategories>
+        <resource>
+          <id>52</id>
+          <name>pet products</name>
+          <slug>pet-products</slug>
+        </resource>
+      </subcategories>
+      <id>1</id>
+      <name>shopping</name>
+      <slug>shopping</slug>
+    </category>
+    <enddate>2011-09-01 00:00:00</enddate>
+    <description>$49 for Lumina clippers &amp; 6-packages of your pets favorite animal snackers (your choice of beef, chicken, or lamb). This special package comes with the world-renown Lumina clippers. Until nowits been difficult attempting to hold a clipper, a separate light source, and your pets paw all at once. Lumina integrates the same type of high-intensity light that veterinarians use to precisely see and avoid the sensitive quick inside the nail. The built-in light makes this delicate job easily manageable for one person, and it will shine through white, gray, and most solid black nails, depending on density. It also makes it easy to monitor nail growth every couple of weeks so that damaged overgrown nails can be avoided, along with the wear and tear they cause to your home. Frolick was created by a seasoned team of pet owning consumer products executives with backgrounds in marketing, branding, R&amp;D and product design. We came together through a mutual love and passion for animals and a desire to create a fresh, modern innovator pet brand for todays pet owner and to add more fun and adventure to the world.</description>
+    <maximpressions>0</maximpressions>
+    <startdate>1900-01-01 12:56:36</startdate>
+    <title>$49 for $80 Doggy Products</title>
+    <numleft>45</numleft>
+    <rate>49</rate>
+    <value>80</value>
+    <state>activated</state>
+    <cost>49</cost>
+    <createddate>2011-06-06 13:59:09</createddate>
+    <images>
+      <productimage>
+        <small>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/dc/80/dc8045c23f172af0ef04d10acdbd4011.jpg</url>
+          <width>100</width>
+          <height>120</height>
+        </small>
+        <large>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/5b/e7/5be70d7d99df2345d4d4eb8a76bbfc65.jpg</url>
+          <width>180</width>
+          <height>200</height>
+        </large>
+        <medium>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/da/e9/dae971621da08601f6d56f490181d600.jpg</url>
+          <width>120</width>
+          <height>160</height>
+        </medium>
+        <thumbnail>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/9a/29/9a29250b127053a3c6b63070c1ed2c63.jpg</url>
+          <width>50</width>
+          <height>60</height>
+        </thumbnail>
+      </productimage>
+    </images>
+    <dealtype>2</dealtype>
+    <dip>https://www.mobilespinach.com/deals/4027/?source=2&amp;appid=39</dip>
+    <id>4027</id>
+  </resource>
+  <resource>
+    <merchant>
+      <infousa_id>631728839</infousa_id>
+      <name>Papa Razzi</name>
+      <locations>
+        <resource>
+          <location>
+            <city>Chestnut Hill</city>
+            <name>Papa Razzi</name>
+            <zip>02467</zip>
+            <country>United States</country>
+            <state>MA</state>
+            <phonenumber>6175276600</phonenumber>
+            <address>199 Boylston St</address>
+            <lat>42.3203</lat>
+            <lng>-71.1762</lng>
+            <unit/>
+          </location>
+        </resource>
+      </locations>
+      <images>
+        <productimage/>
+        <logo/>
+      </images>
+      <type>Physical</type>
+      <id>1732</id>
+      <market>Chestnut Hill</market>
+    </merchant>
+    <category>
+      <subcategories>
+        <resource>
+          <id>26</id>
+          <name>italian</name>
+          <slug>italian</slug>
+        </resource>
+      </subcategories>
+      <id>5</id>
+      <name>dining &amp; food</name>
+      <slug>dining-food</slug>
+    </category>
+    <enddate>2012-01-20 23:59:00</enddate>
+    <description>The SceneAs part of the far-reaching Back Bay Restaurant Group, Papa Razzi mirrors sister establishments like Joe's American Bar &amp; Grill and Charley's by serving an accessible, family-friendly menu at affordable prices in a relaxed setting. Soothing color schemes and black-and-white photos of the famous and infamous (a nod to the restaurant's name) provide plenty of atmosphere, as do gregarious, attentive servers. When there's a wait, there's a well-stocked bar for passing the time.The FoodWhile perusing the menu of colorful salads, wood-fired thin-crust pizzas, and made-to-order pasta dishes, most diners absent-mindedly devour a basket of warm, freshly baked focaccia and breadsticks. Palatable insalata di campo, which combines mixed greens, dried cranberries, tomatoes and Gorgonzola in balsamic vinaigrette, makes a worthy starter. Among the signature pastas, the Porcini tortelloni, smothered in a savory wild mushroom and tomato sauce, is a sturdy crowd-pleaser. For dessert, creamy gelatos provide a cooling finish. For online delivery orders only at Allmenus.com using the special code on your voucher</description>
+    <maximpressions>0</maximpressions>
+    <startdate>2011-03-13 21:37:16</startdate>
+    <title>$3 for $6 on any purchase</title>
+    <numleft>80</numleft>
+    <rate>3</rate>
+    <value>6</value>
+    <state>activated</state>
+    <cost>3</cost>
+    <createddate>2011-03-13 21:37:16</createddate>
+    <images>
+      <productimage>
+        <small>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/b6/11/b611604954589982b9aaf4efb125f6a9.jpg</url>
+          <width>100</width>
+          <height>120</height>
+        </small>
+        <large>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/12/f2/12f266c10a34d60d825e4bbc38e09c46.jpg</url>
+          <width>180</width>
+          <height>200</height>
+        </large>
+        <medium>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/04/7c/047ccac9bc0b8e3396e41a594f064537.jpg</url>
+          <width>120</width>
+          <height>160</height>
+        </medium>
+        <thumbnail>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/44/31/443114d906e98a83830424f00eaa6164.jpg</url>
+          <width>50</width>
+          <height>60</height>
+        </thumbnail>
+      </productimage>
+    </images>
+    <dealtype>2</dealtype>
+    <dip>https://www.mobilespinach.com/deals/1991/?source=2&amp;appid=39</dip>
+    <id>1991</id>
+  </resource>
+  <resource>
+    <merchant>
+      <infousa_id/>
+      <name>Aquitaine - Chestnut Hill</name>
+      <locations>
+        <resource>
+          <location>
+            <city>Chestnut Hill</city>
+            <name>Aquitaine - Chestnut Hill</name>
+            <zip>02467</zip>
+            <country>United States</country>
+            <state>MA</state>
+            <phonenumber>6674663</phonenumber>
+            <address>11 Boylston St</address>
+            <lat>42.322077</lat>
+            <lng>-71.169708</lng>
+            <unit/>
+          </location>
+        </resource>
+      </locations>
+      <images>
+        <productimage/>
+        <logo/>
+      </images>
+      <type>Physical</type>
+      <id>1717</id>
+      <market>Chestnut Hill</market>
+    </merchant>
+    <category>
+      <subcategories/>
+      <id>5</id>
+      <name>dining &amp; food</name>
+      <slug>dining-food</slug>
+    </category>
+    <enddate>2012-01-20 23:59:00</enddate>
+    <description>Bon Appetit! This quaint and welcoming bistro specializes in the rich culinary tradition of French cuisine. The indulgent aromas and abounding tastes characterized by French fare are showcased beautifully in the bunch, lunch and dinner menus offered here. Come experience the wonderful and fanciful flavors that make French food so renowned throughout the world. For online delivery orders only at Allmenus.com using the special code on your voucher</description>
+    <maximpressions>0</maximpressions>
+    <startdate>2011-03-13 21:36:08</startdate>
+    <title>$3 for $6 on any purchase</title>
+    <numleft>20</numleft>
+    <rate>3</rate>
+    <value>6</value>
+    <state>activated</state>
+    <cost>3</cost>
+    <createddate>2011-03-13 21:36:08</createddate>
+    <images>
+      <productimage>
+        <small>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/5b/32/5b32d8873b0de99f0fea91e3811d4ba7.jpg</url>
+          <width>100</width>
+          <height>120</height>
+        </small>
+        <large>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/01/6e/016e7e91e7e15316bbddc1f7f3713f37.jpg</url>
+          <width>180</width>
+          <height>200</height>
+        </large>
+        <medium>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/d3/eb/d3eb28e9433e7228ac79ab75d632997f.jpg</url>
+          <width>120</width>
+          <height>160</height>
+        </medium>
+        <thumbnail>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/7a/05/7a054fa152cf76db3563bb7313c39a74.jpg</url>
+          <width>50</width>
+          <height>60</height>
+        </thumbnail>
+      </productimage>
+    </images>
+    <dealtype>2</dealtype>
+    <dip>https://www.mobilespinach.com/deals/1976/?source=2&amp;appid=39</dip>
+    <id>1976</id>
+  </resource>
+  <resource>
+    <merchant>
+      <infousa_id/>
+      <name>Legal Sea Foods</name>
+      <locations>
+        <resource>
+          <location>
+            <city>Chestnut Hill</city>
+            <name>Legal Sea Foods</name>
+            <zip>02467</zip>
+            <country>United States</country>
+            <state>MA</state>
+            <phonenumber>6172777300</phonenumber>
+            <address>43 Boylston St</address>
+            <lat>42.3225937</lat>
+            <lng>-71.1689935</lng>
+            <unit/>
+          </location>
+        </resource>
+      </locations>
+      <images>
+        <productimage/>
+        <logo/>
+      </images>
+      <type>Physical</type>
+      <id>1687</id>
+      <market>Chestnut Hill</market>
+    </merchant>
+    <category>
+      <subcategories/>
+      <id>5</id>
+      <name>dining &amp; food</name>
+      <slug>dining-food</slug>
+    </category>
+    <enddate>2012-01-20 23:59:00</enddate>
+    <description>Rule of Thumb about seafood: It must be fresh! This seafood delight packs in the goods right from the net of Poseidon as well as offering delicacies from the turf instead of the surf. Classic seafood dishes, pastas, a huge variety of appetizers and a friendly staff make this eatery an incredible dining experience. For online delivery orders only at Allmenus.com using the special code on your voucher</description>
+    <maximpressions>0</maximpressions>
+    <startdate>2011-03-13 21:33:38</startdate>
+    <title>$3 for $6 on any purchase</title>
+    <numleft>20</numleft>
+    <rate>3</rate>
+    <value>6</value>
+    <state>activated</state>
+    <cost>3</cost>
+    <createddate>2011-03-13 21:33:38</createddate>
+    <images>
+      <productimage>
+        <small>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/f6/d6/f6d6b00d6ba4909de89a749b29473c79.jpg</url>
+          <width>100</width>
+          <height>120</height>
+        </small>
+        <large>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/8b/e2/8be2f608d18e6ba17a2694c03c318987.jpg</url>
+          <width>180</width>
+          <height>200</height>
+        </large>
+        <medium>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/cc/82/cc82c049a4c993fe4df08437981b53cb.jpg</url>
+          <width>120</width>
+          <height>160</height>
+        </medium>
+        <thumbnail>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/a6/85/a68542bf0cbb0bcc04c53802538c2e93.jpg</url>
+          <width>50</width>
+          <height>60</height>
+        </thumbnail>
+      </productimage>
+    </images>
+    <dealtype>2</dealtype>
+    <dip>https://www.mobilespinach.com/deals/1946/?source=2&amp;appid=39</dip>
+    <id>1946</id>
+  </resource>
+</response>

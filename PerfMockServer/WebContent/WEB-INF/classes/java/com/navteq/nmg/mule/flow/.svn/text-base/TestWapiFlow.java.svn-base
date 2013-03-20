@@ -1,0 +1,379 @@
+package com.navteq.nmg.mule.flow;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Future;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import net.spy.memcached.MemcachedClientIF;
+import net.spy.memcached.OperationTimeoutException;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+import org.mule.DefaultMuleMessage;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.mule.tck.FunctionalTestCase;
+import org.mule.tck.functional.FunctionalTestComponent;
+import org.mule.util.IOUtils;
+import org.w3c.dom.Document;
+
+import com.navteq.nmg.mule.transformer.ConvertQueryStringToMap;
+
+/**
+ * Funcational Tests for nmg-wapi.xml mule configuration 
+ * @author misett
+ *
+ */
+public class TestWapiFlow extends FunctionalTestCase
+{
+	/* Private logger */
+	private static final Logger logger = Logger.getLogger(TestWapiFlow.class); 
+	
+	/* The Storage ID is obtained from fake ad server response xml's campaign idCurrently set as test/lpa/chilis-1521-bethlehem-ny.xml */	
+	private String CHECKIN_STORAGE_ID = "1521";
+	
+	/* XML file being used for testing */
+	private String XML_FILE_1 = "test/dealmaptransformedtolpa/bestwestern657toJacksOyster.xml";    	
+	
+	/* XML file being used for testing */
+	private String XML_FILE_2 = "test/lpa/chilis-1521-bethlehem-ny.xml";
+    	
+	private DocumentBuilderFactory DOC_BUILD_FACT = DocumentBuilderFactory.newInstance();   
+    	
+	/** Setup mule xml configuration files */
+    protected String getConfigResources()
+    {
+        //Test module specific config file
+        return "mule-test-wapi-gateway.xml";
+    }
+
+    /**
+     * testCheckinFlow - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+	@Test
+    public void testCheckinFlow() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?affiliatenametag=NONPANI&user-agent=TEST&deviceserialnum=NMGJUNITTEST-MI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.checkin", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();               
+                
+        //Test for task 23 (MCG return object)        
+        assertTrue(xmlStr.contains("html"));                
+
+        //Test for task 33 (query param has transactionid)
+        assertTrue(xmlStr.contains("transactionid"));
+        CharSequence transidValue = xmlStr.subSequence(xmlStr.indexOf("transactionid"), xmlStr.indexOf("transactionid")+25);
+        assertTrue(transidValue.toString().contains(CHECKIN_STORAGE_ID));
+        
+        //Test for Task 22 (Device detection, place ua data onto query params)
+    	FunctionalTestComponent ftc = getFunctionalTestComponent("OutboundAdServerInterface");
+    	if( ftc.getReceivedMessagesCount() == 0){
+    		fail("Expected to receive at least one message");
+    	}else if( ftc.getReceivedMessagesCount() == 1){    	    	    	    		
+    		if (ftc.getLastReceivedMessage() instanceof HashMap<?, ?>) {
+	    		@SuppressWarnings("rawtypes")
+				Map<String, String> actualmap = (HashMap) ftc.getLastReceivedMessage();		
+				assertEquals("endusercheckin", actualmap.get("a"));
+				assertEquals("iPhone", actualmap.get("model"));
+				assertEquals("Apple", actualmap.get("vendor"));
+			}else{				
+				fail("Expected to receive message for endusercheckin first");			
+			}
+    	}else{
+    		fail("Expected to receive one message");	
+    	}
+    	
+        //Test  for task 25 (store final value in membase)
+        Object storageValue = getStorageData(CHECKIN_STORAGE_ID);                 
+        Document actualPayload = null;      	        
+    	if (storageValue instanceof String) {    		
+    		String xmlString = (String) storageValue;    		
+            DocumentBuilder docBuilder = DOC_BUILD_FACT.newDocumentBuilder();            
+    		//logger.debug("XML output: "+ resultFile);        
+            InputStream is = new ByteArrayInputStream(xmlString.getBytes());
+            actualPayload = docBuilder.parse(is);				    		
+		}else{
+			logger.debug("Stoage value is not expected byte array: "+ storageValue.toString());
+			fail("Set Storage value is not expected byte array, must be an issue");
+		}            	    
+    	assertEquals(CHECKIN_STORAGE_ID, actualPayload.getElementsByTagName("campaignid").item(0).getTextContent());               	    	
+    	
+    }	
+
+    /**
+     * testGetPage - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+    @Test
+    public void testGetPage() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+    	
+    	//Set up test data
+    	String transid = "1134567890";
+    	Document expectedDoc = setStorageData(transid, XML_FILE_1);    	    	    	
+    	
+        String queryString="?user-agent=TEST&transactionid="+transid;
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.getpage", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();                          
+        logger.debug("TEST " + xmlStr);                
+        assertTrue(xmlStr.contains("html"));     	                
+       
+        //Test page was created with campaign id
+        assertTrue(xmlStr.contains("campaignid"));
+        CharSequence actualCampId = xmlStr.subSequence(xmlStr.indexOf("campaignid"), 
+        		xmlStr.indexOf("campaignid")+25);        
+        assertTrue(actualCampId.toString().contains(
+        		expectedDoc.getElementsByTagName("campaignid").item(0).getTextContent()));
+                
+        
+        //Test page was created with right template id
+        assertTrue(xmlStr.contains("wapi.js"));
+        CharSequence actualTempId = xmlStr.subSequence(xmlStr.indexOf("wapi.js")-5, 
+        		xmlStr.indexOf("wapi.js"));        
+        assertTrue(actualTempId.toString().contains("0/1"));//htmltemplate=0/os~iphone=1
+                
+    }
+    
+    /**
+     * testCheckinFlow - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+	@Test
+    public void testActionReportingFlow() throws Exception
+    {
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+    	
+        String queryString="?affiliatenametag=MATTI&deviceserialnum=JUNITACTIONREPORTING&lon1=-71071719&lat1=42351096&typ1=MAP&cid1=1&sid1=1";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);               
+        
+        //client.dispatch("vm://vm.reportAction", paramMap, null);                            
+        MuleMessage result = client.send("vm://vm.reportAction", paramMap, null);
+        assertNotNull(result); 
+        
+        FunctionalTestComponent ftc = getFunctionalTestComponent("OutboundAdServerInterface");
+        try{    	
+        	int i = 0;
+        	while(i++ < 5 && ftc.getReceivedMessagesCount() == 0){
+        		Thread.sleep(1000);
+        		logger.debug("Received Messages Count: "+ftc.getReceivedMessagesCount());
+        	}
+        	if (ftc.getReceivedMessagesCount() == 0 ){
+        		fail("Received Messages took longer then 5 seconds, must be an issue");
+        	}
+    	}catch (InterruptedException e) {
+			logger.debug(e.getMessage());
+		}
+        
+    	if (ftc.getLastReceivedMessage() instanceof HashMap<?,?>) {
+    		@SuppressWarnings("rawtypes")
+			Map<String, String> actualmap = (HashMap) ftc.getLastReceivedMessage();		
+			assertEquals("enduseractions", actualmap.get("a"));
+		}else{
+			fail("Not expected received object");			
+		}       	    
+        
+    }
+    
+    /**
+     * testSetMemCacheProxyFlow - Test SetMemCacheProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+    @Test
+    public void testSetMemCacheProxyFlow() throws Exception
+    {            	    	  
+    	        	    			
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+    	//Access storage by ID
+    	String storageId = "ASTID1";    	
+    	
+    	// Set up xml data to store        
+        DocumentBuilder docBuilder = DOC_BUILD_FACT.newDocumentBuilder();               
+        InputStream xmlIS = IOUtils.getResourceAsStream(XML_FILE_1,TestWapiFlow.class);
+        if (xmlIS == null ) {
+            throw new IOException("InputStream null for:"+XML_FILE_1);
+        }        
+        Document expectedPayload = docBuilder.parse(xmlIS);                       
+
+        ///create properties to associate with the message
+        Map<String, String> props = new HashMap<String, String>();
+
+        //Set the INBOUND property REQUESTID, which is where the request payload will be saved
+        props.put("MEM_ID", storageId);
+                
+        //try{
+        client.dispatch("vm://vm.setCache", expectedPayload, props);
+        	
+    	Object storageValue = getStorageData(storageId);
+        
+    	Document actualPayload = null;      	        
+    	if (storageValue instanceof Document) {
+    		actualPayload = (Document) storageValue;				
+		}else{
+			logger.debug("Stoage value is not expected Document: "+ storageValue.toString());
+			fail("Set Storage value is not expected Document, must be an issue");
+		}
+        
+        //Perform a few comparisons tests
+        assertEquals(expectedPayload.getFirstChild().getNodeName(), actualPayload.getFirstChild().getNodeName() );
+                        
+        assertEquals(expectedPayload.getElementsByTagName("campaignid").item(0).getTextContent(), 
+        			   actualPayload.getElementsByTagName("campaignid").item(0).getTextContent());
+        
+    }
+
+    /**
+     * testGetMemCacheProxyFlow - Test GetMemCacheProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+    @Test
+    public void testGetMemCacheProxyFlow() throws Exception
+    {            	    	      	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+    	
+    	//Save the payload in storage with this Id
+    	String storageId = "ASTID1";        
+        Document expectedPayload = setStorageData(storageId, XML_FILE_2);				    	
+        
+        ///Create properties to associate with the message
+        Map<String, String> props = new HashMap<String, String>();
+
+        //Set the INBOUND property REQUESTID, which is where the request payload will be saved        
+		props.put("MEM_ID", storageId);
+        
+		//Command under test
+        MuleMessage result = client.send("vm://vm.getCache", new DefaultMuleMessage("foo", muleContext), props);        
+        assertNotNull(result);                        
+        String resultFile = result.getPayloadAsString();
+              
+        //logger.debug("XML output: "+ resultFile);        
+        InputStream is = new ByteArrayInputStream(resultFile.getBytes());
+        DocumentBuilder docBuilder = DOC_BUILD_FACT.newDocumentBuilder();
+        Document actualPayload = docBuilder.parse(is);
+        
+        //Perform a few comparisons tests
+        assertEquals(expectedPayload.getFirstChild().getNodeName(), actualPayload.getFirstChild().getNodeName() );
+                        
+        assertEquals(expectedPayload.getElementsByTagName("campaignid").item(0).getTextContent(), 
+        			   actualPayload.getElementsByTagName("campaignid").item(0).getTextContent());
+                
+    }
+
+    /**
+     * testCheckinFlow - Test CheckInProxy flow with decimal lat/longs
+     * @throws Exception
+     */
+	@Test
+    public void testCheckinDecimalLocation() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?affiliatenametag=NONPANI&user-agent=TEST&deviceserialnum=JUNITTEST2&longitude=-71.071719&latitude=42.351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.checkin", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();               
+                
+        //Test for task 23 (MCG return object)        
+        assertTrue(xmlStr.contains("html"));                
+
+        //Test for task 33 (query param has transactionid)
+        assertTrue(xmlStr.contains("transactionid"));
+    }
+    
+    /*
+     * helper method that sets cache will a xml file
+     * @return the xml as a Document
+     */
+    private Document setStorageData(String storageId, String xmlFile) throws Exception {
+		
+    	//Set up test data, place XML file in storage
+    	MemcachedClientIF memClient = (MemcachedClientIF) muleContext.getRegistry().lookupObject("memCachedClient");
+            	
+        InputStream xmlIS = IOUtils.getResourceAsStream(xmlFile,TestWapiFlow.class);
+        if (xmlIS == null ) {
+            throw new IOException("InputStream null for:"+xmlFile);
+        }        
+        DocumentBuilder docBuilder = DOC_BUILD_FACT.newDocumentBuilder();
+        Document expectedPayload = docBuilder.parse(xmlIS);                       
+    
+		//null check
+		if (memClient == null) { throw new Exception("MEMCACHE client is null") ;}								
+		
+		Future<Boolean> didSet = memClient.set(storageId, 60, expectedPayload);
+		try{
+		
+			int i = 0;
+        	while(i++ < 5 && !didSet.isDone()){      					
+        		Thread.sleep(1000);
+        	}
+        	if(!didSet.isDone()){
+        		fail("Set Storage took longer then 5 seconds, must be an issue");
+        	}
+		}catch (InterruptedException ie ) {
+			logger.debug(ie.getMessage());
+		}
+		
+		return expectedPayload;
+		
+	}
+
+	/**
+	 * Easy util that returns data in storage. 
+	 * It checks the storage 5 times incase async write is not complete
+	 * @return - object
+	 * @throws OperationTimeoutException
+	 */
+	private Object getStorageData(String storageId) throws OperationTimeoutException {
+		//-- Check storage see if async task completed        
+    	MemcachedClientIF memClient = (MemcachedClientIF) muleContext.getRegistry().lookupObject("memCachedClient");        
+    	Object storageValue = memClient.get(storageId);
+        try{    	
+        	int i = 0;
+        	while(i++ < 5 && storageValue == null){        		
+        		Thread.sleep(1000);
+        		storageValue = memClient.get(storageId);
+        		logger.debug("Loppy ");
+        	}
+        	if (storageValue == null){
+        		fail("Get Storage took longer then 5 seconds, must be an issue");
+        	}
+        	
+    	}catch (InterruptedException ie ) {
+    			logger.debug(ie.getMessage());
+    	}
+		return storageValue;
+	}
+    
+    
+}

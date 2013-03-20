@@ -1,0 +1,194 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+import java.io.UnsupportedEncodingException;
+
+import org.apache.commons.io.EndianUtils;
+
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+
+public class HashMessageMapDrivenContentComparer implements IHashCompare{
+			
+	private HashTable messageDetail;
+	private byte[] header;
+	
+	public HashMessageMapDrivenContentComparer(byte[] hashMessage) throws UnsupportedEncodingException{	
+		
+		System.out.println("Expected:");
+		ByteForByteContentComparer.showByteArrayAsHexDump(hashMessage);
+		
+		header = new byte[8];
+		
+		// store off first 8 bytes
+		System.arraycopy(hashMessage, 0, header, 0, header.length);
+
+		byte[] remainder = new byte[hashMessage.length - header.length];
+		
+		System.arraycopy(hashMessage, header.length, remainder, 0, remainder.length);
+		
+		messageDetail = new HashTable(new String("ilapresponse"));	
+		
+		parse(messageDetail,remainder);
+	}
+
+	private void parse(HashTable hashtable, byte[] hashMessage)  {
+		
+		if (hashMessage == null || hashMessage.length < 4) return;
+		// first four bytes should be the count
+		
+		int nameLength = 0;
+		String paramName = null;
+		int len = 0;
+		int index = 0;
+		HashDataType hdt;
+		IHashContainer container;
+		int paramCount = EndianUtils.readSwappedInteger(hashMessage,index);
+
+		ByteForByteContentComparer.showByteArrayAsHexDump(hashMessage);
+		
+		System.out.println("Byte array size = "+hashMessage.length);
+
+		System.out.println("Param count = "+ paramCount);
+		
+		
+		// bump for the 4 byte param count
+		
+		index +=4;
+		
+		while ((paramCount--) > 0){
+			
+			System.out.println("Offset in byte array for param name length field = "+index);
+
+			nameLength = (int)hashMessage[index++]; // postfix index
+
+			System.out.println("Name length = "+nameLength);
+			System.out.println("Offset in byte array for param name = "+index);
+
+			paramName = new String(hashMessage,index,nameLength);
+			
+			System.out.println("Param name = "+paramName);
+			
+			index += nameLength;
+			System.out.println("Offset in byte array for data type field = "+index);
+			hdt = HashDataType.decode(hashMessage[index++]);
+			System.out.println("Param data type = "+hdt.toString());
+			
+			System.out.println("Offset in byte array for param data = "+index);
+			switch (hdt){
+			
+			case HASH_BOOLEAN:
+				container = new HashBoolean(paramName, hashMessage[index++] != 0);
+				System.out.println(container.displayContents());
+				hashtable.add(container);
+				break;
+				
+			case HASH_INTEGER:
+				container = new HashInteger(paramName, EndianUtils.readSwappedInteger(hashMessage, index));
+				System.out.println(container.displayContents());
+				index += 4;
+				hashtable.add(container);
+				break;
+				
+			case HASH_LONG:
+				container = new HashLong(paramName, EndianUtils.readSwappedLong(hashMessage, index));
+				System.out.println(container.displayContents());
+				index += 8;
+				hashtable.add(container);
+				break;
+				
+			case HASH_STRING:
+				len = EndianUtils.readSwappedInteger(hashMessage,index);
+				index += 4;
+				container = new HashString(paramName, new String(hashMessage, index, len));
+				System.out.println(container.displayContents());
+				index += len;
+				hashtable.add(container);
+				if (paramName.contains("placeID")){
+					//more clusterphlub...we need to eat the integer length field coded at 1 because it really means nothing to us
+					index += 4;
+				}
+				
+				break;
+				
+			case HASH_BYTEARRAY:
+				len = EndianUtils.readSwappedInteger(hashMessage,index);
+				index += 4;
+				byte[] byteArray = new byte[len];
+				System.arraycopy(hashMessage, index, byteArray, 0, len);
+				index += len;
+				// hack fest begins
+				if (paramName.contains("message")){
+					HashTable hashContainer = new HashTable(paramName);
+					System.out.println(hashContainer.displayContents());
+					parse(hashContainer,byteArray);
+					hashtable.add(hashContainer);
+				}
+				else{
+					container = new HashByteArray(paramName, byteArray);
+					System.out.println(container.displayContents());
+					hashtable.add(container);
+				}
+
+
+				break;
+				
+			case HASH_INTARRAY:
+				// not implemented because not used at all in the product
+				break;
+				
+			case HASH_LONGARRAY:
+				// not implemented because not used
+				break;
+			
+			case HASH_DOUBLE:
+				len = EndianUtils.readSwappedInteger(hashMessage,index);
+
+				index += 4;
+				container = new HashDouble(paramName, new String(hashMessage, index, len));
+				System.out.println(container.displayContents());
+				index += len;
+				hashtable.add(container);
+				break;
+				
+			case HASH_TABLE:
+				len = EndianUtils.readSwappedInteger(hashMessage,index);
+				index += 4;
+				byte[] hashArray = new byte[len];
+				System.arraycopy(hashMessage, index, hashArray, 0, len);
+				index += len;
+				HashTable hashContainer = new HashTable(paramName);
+				System.out.println(hashContainer.displayContents());
+				parse(hashContainer,hashArray);
+				hashtable.add(hashContainer);
+				break;
+			}	
+			
+		}
+	}
+
+	@Override
+	public void assertMessageEqualsCompareMessage(byte[] actualMessage)	throws AssertionError {
+	
+		
+
+		
+		System.out.println("Actual:");
+		ByteForByteContentComparer.showByteArrayAsHexDump(actualMessage);
+		
+		
+		HashTable ht;
+		byte[] hdr;
+		hdr = new byte[8];
+		
+		// store off first 8 bytes
+		System.arraycopy(actualMessage, 0, hdr, 0, hdr.length);
+
+		byte[] remainder = new byte[actualMessage.length - hdr.length];
+		
+		System.arraycopy(actualMessage, hdr.length, remainder, 0, remainder.length);
+		
+		ht = new HashTable(new String("ilapresponse"));	
+		parse(ht, remainder);
+		
+		messageDetail.assertContentsAreTheSame(ht);
+	}
+}	

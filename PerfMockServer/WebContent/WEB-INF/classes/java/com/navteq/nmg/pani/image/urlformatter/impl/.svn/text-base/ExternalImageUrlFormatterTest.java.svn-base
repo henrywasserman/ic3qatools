@@ -1,0 +1,112 @@
+package com.navteq.nmg.pani.image.urlformatter.impl;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.List;
+
+import org.apache.log4j.Appender;
+import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggingEvent;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+
+import com.navteq.nmg.pani.image.urlformatter.IImageUrlFormatter;
+import com.navteq.nmg.pani.image.urlformatter.impl.ExternalImageUrlFormatter;
+
+public class ExternalImageUrlFormatterTest {
+
+	private static final String CONTENT_URL = "http://www.dealmap.com/images/xj4512dga.jpg";
+
+	private Appender mockAppender;
+	
+	@Before
+	public void setup() {
+		mockAppender = mock(AppenderSkeleton.class);
+		Logger logger = Logger.getLogger(ExternalImageUrlFormatter.class);
+		logger.addAppender(mockAppender);
+		logger.setLevel(Level.INFO);
+	}	
+	
+	@After
+	public void tearDown(){
+		Logger logger = Logger.getLogger(ExternalImageUrlFormatter.class);
+		logger.removeAppender(mockAppender);		
+	}
+
+	@Test 
+	public void ensureCreateInstanceProvidesNewInstance1() throws Exception{
+		IImageUrlFormatter formatter = ExternalImageUrlFormatter.createInstance(CONTENT_URL);
+		assertNotNull(formatter);
+	}
+	
+	@Test 
+	public void ensureCreateInstanceProvidesNullOnNullOrEmptyData() throws Exception{
+		
+		Logger logger = Logger.getLogger(ExternalImageUrlFormatter.class);
+		logger.setLevel(Level.DEBUG);
+		
+		IImageUrlFormatter formatter = ExternalImageUrlFormatter.createInstance("");
+		assertNull(formatter);
+		
+		ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+		verify(mockAppender, times(1)).doAppend(loggingEventCaptor.capture());
+	
+		List<LoggingEvent> loggingEvents = loggingEventCaptor.getAllValues();		
+		
+		assertEquals("URL string is null or empty.  Returning null formatter.",loggingEvents.get(0).getRenderedMessage());
+		assertEquals(Level.DEBUG,loggingEvents.get(0).getLevel());
+		
+		logger.setLevel(Level.INFO);
+	}
+	
+	@Test 
+	public void ensureCreateInstanceProvidesNullOnBadUrl() throws Exception{
+		IImageUrlFormatter formatter = ExternalImageUrlFormatter.createInstance("&bow.%wow$wow!");
+		assertNull(formatter);
+		
+		ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+		verify(mockAppender, times(1)).doAppend(loggingEventCaptor.capture());
+	
+		List<LoggingEvent> loggingEvents = loggingEventCaptor.getAllValues();		
+		
+		assertEquals("URL string [&bow.%wow$wow!] is not in valid URL format.  Please verify proper URL string is being passed.  Returning null formatter.",loggingEvents.get(0).getRenderedMessage());
+		assertEquals(Level.ERROR,loggingEvents.get(0).getLevel());		
+	}
+	
+	@Test
+	public void testGetAsUrl() throws Exception{
+		IImageUrlFormatter formatter = new ExternalImageUrlFormatter(CONTENT_URL);
+		
+		URL expectedUrl = new URL(CONTENT_URL);
+		assertEquals(expectedUrl,formatter.getAsUrl());
+	}
+	
+	@Test
+	public void testGetAsString() throws Exception{
+		IImageUrlFormatter formatter = new ExternalImageUrlFormatter(CONTENT_URL);
+		assertEquals(CONTENT_URL,formatter.getAsString());
+	}
+	
+	@Test
+	public void testGetAsStringEncoded() throws Exception{
+		IImageUrlFormatter formatter = new ExternalImageUrlFormatter(CONTENT_URL);
+		assertEquals(URLEncoder.encode(CONTENT_URL,"UTF-8"),formatter.getAsString("UTF-8"));
+		
+		try{
+			formatter.getAsString("Red Team");
+			fail("Expected an exception for a bad encoding but did not receive one.");
+		}
+		catch(Exception ex){
+			assertEquals("Unable to encode url ["+CONTENT_URL+"] using [Red Team] encoding string.",ex.getMessage());
+		}		
+	}
+}

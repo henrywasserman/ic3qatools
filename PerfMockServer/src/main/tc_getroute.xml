@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<NavteqRoute>
+  <Start>
+    <Longitude><![CDATA[-75241988]]></Longitude>
+    <Latitude><![CDATA[39975432]]></Latitude>
+  </Start>
+  <Destination>
+    <Longitude><![CDATA[-76248086]]></Longitude>
+    <Latitude><![CDATA[40007881]]></Latitude>
+  </Destination>
+  <Segments>
+    <Segment><![CDATA[Turn left onto LANSDOWNE AVE. Go for 0.8 miles.]]></Segment>
+    <Segment><![CDATA[Turn right onto HAVERFORD AVE. Go for 4.5 miles.]]></Segment>
+    <Segment><![CDATA[Continue on COUNTY LINE RD. Go for 0.8 miles.]]></Segment>
+    <Segment><![CDATA[Turn left onto E LANCASTER AVE (US-30). Go for 1.6 mile.]]></Segment>
+    <Segment><![CDATA[Exit onto KING OF PRUSSIA RD. Go for 3.5 miles.]]></Segment>
+    <Segment><![CDATA[Turn left onto CROTON RD. Go for 0.7 miles.]]></Segment>
+    <Segment><![CDATA[Continue on S WARNER RD, WARNER RD. Go for 0.9 miles.]]></Segment>
+    <Segment><![CDATA[Turn left onto W DEKALB PIKE, SWEDESFORD RD. Go for 1.9 mile.]]></Segment>
+    <Segment><![CDATA[Continue on US-202 SOUTH. Go for 8.5 miles.]]></Segment>
+    <Segment><![CDATA[Exit onto US-30 WEST towards COATESVILLE, DOWNINGTOWN. Go for 24 miles.]]></Segment>
+    <Segment><![CDATA[Turn left onto NEWPORT PIKE (PA-41). Go for 0.5 miles.]]></Segment>
+    <Segment><![CDATA[Turn right onto BRIDGE ST (PA-741). Go for 400 feet.]]></Segment>
+    <Segment><![CDATA[Turn right onto STRASBURG RD (PA-741). Go for 9 miles.]]></Segment>
+    <Segment><![CDATA[Turn right onto LANCASTER AVE. Go for 0.5 miles.]]></Segment>
+    <Segment><![CDATA[Continue on STRASBURG PIKE. Go for 2.5 miles.]]></Segment>
+    <Segment><![CDATA[Turn left onto ROCKVALE RD. Go for 0.9 miles.]]></Segment>
+    <Segment><![CDATA[Turn right onto HUNTINGWOOD DR. Go for 200 feet.]]></Segment>
+    <Segment><![CDATA[Turn left onto FOX HOLLOW DR. Go for 300 feet.]]></Segment>
+    <Segment><![CDATA[Turn left onto GLEBE LN. Go for 0.1 miles.]]></Segment>
+    <Segment><![CDATA[Turn left onto CLEMENS CIR. Go for 250 feet.]]></Segment>
+    <Segment><![CDATA[You have arrived at your destination on CLEMENS CIR.]]></Segment>
+  </Segments>
+</NavteqRoute>

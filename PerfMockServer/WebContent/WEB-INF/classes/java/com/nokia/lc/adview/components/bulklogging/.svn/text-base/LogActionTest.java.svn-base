@@ -1,0 +1,176 @@
+package com.nokia.lc.adview.components.bulklogging;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.exc.UnrecognizedPropertyException;
+import org.codehaus.jackson.type.TypeReference;
+import org.junit.Test;
+
+public class LogActionTest {
+	
+	private static final String DATA = 
+			"[{" +
+			"\"pub\": \"NOKIA\"," +
+			"\"app\": \"nokiamaps_wp7\"," +
+			"\"os\": \"wp75\"," +
+			"\"spot\": \"detail_page\"," +
+			"\"id\": \"23ajiure98\"," +
+			"\"token\": \"sectoken\"," +
+			"\"seed\": \"secseed\"," +
+			"\"lat\": \"2312424\"," +
+			"\"lon\": \"874203\"," +
+			"\"type\": \"INFO\"," +
+			"\"detail\": \"mapshown\"," +
+			"\"cid\": \"23908270129382555\"," +
+			"\"sid\": \"aslkfj0000\"," +
+			"\"time\": \"2012.02.24.10.42.23\"" +
+			"}]";
+		
+	private static final String DATA_WITHOUT_SOME_FIELDS = 
+			"[{" +
+			"\"pub\": \"NOKIA\"," +
+			"\"app\": \"nokiamaps_wp7\"," +
+			"\"spot\": \"detail_page\"," +
+			"\"id\": \"23ajiure98\"," +
+			"\"token\": \"sectoken\"," +
+			"\"seed\": \"secseed\"," +
+			"\"lat\": \"2312424\"," +
+			"\"lon\": \"874203\"," +
+			"\"type\": \"INFO\"," +
+			"\"detail\": \"mapshown\"," +
+			"\"cid\": \"23908270129382555\"," +
+			"\"sid\": \"aslkfj0000\"," +
+			"\"time\": \"2012.02.24.10.42.23\"" +
+			"}]";
+
+	private static final String DATA_WITH_SOME_EXTRA_FIELDS = 
+			"[{" +
+			"\"pub\": \"NOKIA\"," +
+			"\"app\": \"nokiamaps_wp7\"," +
+			"\"spot\": \"detail_page\"," +
+			"\"id\": \"23ajiure98\"," +
+			"\"token\": \"sectoken\"," +
+			"\"seed\": \"secseed\"," +
+			"\"lat\": \"2312424\"," +
+			"\"lon\": \"874203\"," +
+			"\"splat\": \"2312424\"," +
+			"\"fat\": \"874203\"," +
+			"\"type\": \"INFO\"," +
+			"\"detail\": \"mapshown\"," +
+			"\"cid\": \"23908270129382555\"," +
+			"\"sid\": \"aslkfj0000\"," +
+			"\"time\": \"2012.02.24.10.42.23\"" +
+			"}]";	
+	
+	private static final String DATA_OUT_OF_ORDER_FIELDS = 
+			"[{" +
+			"\"pub\": \"NOKIA\"," +
+			"\"app\": \"nokiamaps_wp7\"," +
+			"\"seed\": \"secseed\"," +
+			"\"lat\": \"2312424\"," +
+			"\"lon\": \"874203\"," +
+			"\"type\": \"INFO\"," +
+			"\"detail\": \"mapshown\"," +
+			"\"spot\": \"detail_page\"," +
+			"\"id\": \"23ajiure98\"," +
+			"\"token\": \"sectoken\"," +
+			"\"cid\": \"23908270129382555\"," +
+			"\"sid\": \"aslkfj0000\"," +
+			"\"time\": \"2012.02.24.10.42.23\"" +
+			"}]";		
+	
+	private static final String MULTIPLE_ELEMENTS = 
+			"[{" +
+			"\"pub\": \"NOKIA\"," +
+			"\"app\": \"nokiamaps_wp7\"," +
+			"\"seed\": \"secseed\"," +
+			"\"lat\": \"2312424\"," +
+			"\"lon\": \"874203\"," +
+			"\"type\": \"INFO\"," +
+			"\"detail\": \"mapshown\"," +
+			"\"spot\": \"detail_page\"," +
+			"\"id\": \"23ajiure98\"," +
+			"\"token\": \"sectoken\"," +
+			"\"cid\": \"23908270129382555\"," +
+			"\"sid\": \"aslkfj0000\"," +
+			"\"time\": \"2012.02.24.10.42.23\"" +
+			"}" +
+			"," +
+			"{" +
+			"\"pub\": \"NOKillIA\"," +
+			"\"app\": \"nokiamaps_wp7\"," +
+			"\"seed\": \"secseed\"," +
+			"\"lat\": \"2312421\"," +
+			"\"lon\": \"774203\"," +
+			"\"type\": \"INFO\"," +
+			"\"detail\": \"listshown\"," +
+			"\"spot\": \"detail_page\"," +
+			"\"id\": \"23ajiure98\"," +
+			"\"token\": \"sectoken\"," +
+			"\"cid\": \"23908270129382666\"," +
+			"\"sid\": \"aslkfj0000\"," +
+			"\"time\": \"2012.02.24.10.42.24\"" +
+			"}]";	
+
+	
+	@Test
+	public void testJsonParse() throws Exception{
+		
+		ObjectMapper mapper = new ObjectMapper();
+
+		List<LogAction> logActionList = null;
+		
+		String src = null;
+		// src is a File, InputStream, String or such
+		logActionList = mapper.readValue(DATA, new TypeReference<ArrayList<LogAction>>(){});
+		
+		assertTrue(logActionList.size()==1);
+	}
+	
+	@Test
+	public void testJsonParseMissing() throws Exception{
+		
+		ObjectMapper mapper = new ObjectMapper();
+
+		List<LogAction> logActionList = null;
+		
+		String src = null;
+		// src is a File, InputStream, String or such
+		logActionList = mapper.readValue(DATA_WITHOUT_SOME_FIELDS, new TypeReference<ArrayList<LogAction>>(){});
+		
+		assertTrue(logActionList.size()==1);
+	}
+	
+	@Test
+	public void testJsonParseOutOfOrderFields() throws Exception{
+		
+		ObjectMapper mapper = new ObjectMapper();
+
+		List<LogAction> logActionList = null;
+		
+		String src = null;
+		// src is a File, InputStream, String or such
+		logActionList = mapper.readValue(DATA_OUT_OF_ORDER_FIELDS, new TypeReference<ArrayList<LogAction>>(){});
+		
+		assertTrue(logActionList.size()==1);
+	}
+	
+	@Test(expected=UnrecognizedPropertyException.class)
+	public void testJsonParseAddtionalNonPOJOFields() throws Exception{
+		
+		ObjectMapper mapper = new ObjectMapper();
+
+		List<LogAction> logActionList = null;
+		
+		String src = null;
+		// src is a File, InputStream, String or such
+		logActionList = mapper.readValue(DATA_WITH_SOME_EXTRA_FIELDS, new TypeReference<ArrayList<LogAction>>(){});
+		
+		assertTrue(logActionList.size()==1);
+	}
+
+}

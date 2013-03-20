@@ -1,0 +1,267 @@
+package com.nokia.lc.adview.components.bulklogging;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
+
+import java.util.List;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.spi.LoggingEvent;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mule.api.MuleContext;
+import org.mule.api.MuleEventContext;
+import org.mule.api.MuleMessage;
+
+import com.navteq.nmg.LogTest;
+import com.navteq.nmg.transformer.XmlMessageToHashMessageTransformer;
+import com.nokia.lc.adview.components.logger.LogActionLogger;
+import com.nokia.lc.adview.configuration.ILogActionInfoRemapper;
+import com.nokia.lc.adview.configuration.LogActionMapping;
+
+public class BulkJsonLogActionTest extends LogTest{
+
+	private static final String VM_LPA_ADAPTER = "vm://vm.lpaAdapter2?connector=vmConn";
+	private static String DETAIL_NAME_MARKER_SHOWN = "markershown";
+	private static String DETAIL_NAME_MARKER_CLICK = "markerclick";
+
+	private static String TYPE_NAME_INFO = "INFO";
+	private static String TYPE_NAME_IMPRESSION = "IMPRESSION";
+	private static String LPA_RESPONSE_GOOD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ilapresponse><enduserid><![CDATA[666]]></enduserid></ilapresponse>";
+	private static String LPA_RESPONSE_BAD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ilapresponse><errmsg><![CDATA[Yo, an error occured]]></errmsg></ilapresponse>";
+
+	private static String LOGACTION_PARAMETER_PUB = "LOGACTION_PARAMETER_pub";
+	private static String LOGACTION_PARAMETER_APP = "LOGACTION_PARAMETER_app";
+	private static String LOGACTION_PARAMETER_OS = "LOGACTION_PARAMETER_os";
+
+	
+	public BulkJsonLogActionTest(){
+		super(LogActionLogger.LOGACTION_LOGGER);
+	}
+
+	@Before
+	public void setup() {
+		super.setupBefore();
+	}	
+	
+	@After
+	public void tearDown(){
+		super.tearDownAfter();
+	}
+	
+	@Test
+	public void testOnCallWithNoMappableInfoItems() throws Exception{
+		
+		String messagePayload = "[{" +
+				"\"pub\": \"NOKIA\"," +
+				"\"app\": \"nokiamaps_wp7\"," +
+				"\"seed\": \"secseed\"," +
+				"\"lat\": \"2312424\"," +
+				"\"lon\": \"874203\"," +
+				"\"type\": \"INFO\"," +
+				"\"detail\": \"markershown\"," +
+				"\"spot\": \"detail_page\"," +
+				"\"id\": \"23ajiure98\"," +
+				"\"token\": \"sectoken\"," +
+				"\"cid\": \"23908270129382555\"," +
+				"\"sid\": \"aslkfj0000\"," +
+				"\"time\": \"2012.02.24.10.42.23\"" +
+				"}" +
+				"," +
+				"{" +
+				"\"pub\": \"NOKIA\"," +
+				"\"app\": \"nokiamaps_wp7\"," +
+				"\"seed\": \"secseed\"," +
+				"\"lat\": \"2312421\"," +
+				"\"lon\": \"774203\"," +
+				"\"type\": \"INFO\"," +
+				"\"detail\": \"markerclick\"," +
+				"\"spot\": \"detail_page\"," +
+				"\"id\": \"23ajiure98\"," +
+				"\"token\": \"sectoken\"," +
+				"\"cid\": \"23908270129382666\"," +
+				"\"sid\": \"aslkfj0000\"," +
+				"\"time\": \"2012.02.24.10.42.24\"" +
+				"}]";
+		
+		// mock the remapper and its backing classes
+		ILogActionInfoRemapper infoRemapper = mock(ILogActionInfoRemapper.class);
+
+		LogActionMapping lam1 = mock(LogActionMapping.class);
+		when(lam1.canBeMapped()).thenReturn(false);
+		when(lam1.detailName()).thenReturn(DETAIL_NAME_MARKER_SHOWN);
+		when(lam1.mappedAction()).thenReturn(null);
+		
+		LogActionMapping lam2 = mock(LogActionMapping.class);
+		when(lam2.canBeMapped()).thenReturn(false);
+		when(lam2.detailName()).thenReturn(DETAIL_NAME_MARKER_CLICK);
+		when(lam2.mappedAction()).thenReturn(null);
+
+		when(infoRemapper.getLogActionMapping(DETAIL_NAME_MARKER_SHOWN)).thenReturn(lam1);		
+		when(infoRemapper.getLogActionMapping(DETAIL_NAME_MARKER_CLICK)).thenReturn(lam2);
+		
+		// create the class
+		BulkJsonLogAction bjla = new BulkJsonLogAction(infoRemapper,VM_LPA_ADAPTER);
+			
+		// setup the MuleMessage
+		MuleMessage mm = mock(MuleMessage.class);
+		when(mm.getPayloadAsString()).thenReturn(messagePayload);
+		
+		// setup the MuleEventContext
+		MuleEventContext eventContext = mock(MuleEventContext.class);
+
+		when(eventContext.getMessage()).thenReturn(mm);
+			
+		bjla.onCall(eventContext);
+		
+		// make sure no outbound properties were set
+		ArgumentCaptor<String> setOutboundPropertyParam1Captor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<Object> setOutboundPropertyParam2Captor = ArgumentCaptor.forClass(Object.class);
+		verify(mm, times(0)).setOutboundProperty(setOutboundPropertyParam1Captor.capture(),setOutboundPropertyParam2Captor.capture());
+		
+		// make sure session properties were set for pub, app, and os so that template engine can pick up
+		ArgumentCaptor<String> setSessionPropertyParam1Captor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<Object> setSessionPropertyParam2Captor = ArgumentCaptor.forClass(Object.class);
+		verify(mm, times(3)).setSessionProperty(setSessionPropertyParam1Captor.capture(),setSessionPropertyParam2Captor.capture());
+		
+		assertEquals(LOGACTION_PARAMETER_PUB,setSessionPropertyParam1Captor.getAllValues().get(0));
+		assertEquals(LOGACTION_PARAMETER_APP,setSessionPropertyParam1Captor.getAllValues().get(1));
+		assertEquals(LOGACTION_PARAMETER_OS,setSessionPropertyParam1Captor.getAllValues().get(2));
+		
+		assertEquals("NOKIA",setSessionPropertyParam2Captor.getAllValues().get(0));
+		assertEquals("nokiamaps_wp7",setSessionPropertyParam2Captor.getAllValues().get(1));
+		assertNull(setSessionPropertyParam2Captor.getAllValues().get(2));
+	
+		// verify we dont send anything to LPA
+		ArgumentCaptor<MuleMessage> sendEventParam1Captor = ArgumentCaptor.forClass(MuleMessage.class);
+		ArgumentCaptor<String> sendEventParam2Captor = ArgumentCaptor.forClass(String.class);
+		verify(eventContext, times(0)).sendEvent(sendEventParam1Captor.capture(), sendEventParam2Captor.capture());
+		
+		// assert logging events to the appender for supplemental logs were triggered
+		List<LoggingEvent> events = gatherAndCheckLoggingEvents(2);
+		
+		assertEquals(Level.INFO,events.get(0).getLevel());
+		assertEquals("type=INFO,app=nokiamaps_wp7,cid=23908270129382555,detail=markershown,id=23ajiure98,lat=2312424,lon=874203,pub=NOKIA,seed=secseed,sid=aslkfj0000,spot=detail_page,time=2012.02.24.10.42.23,token=sectoken,remap.generated=false,remap.type=null",events.get(0).getMessage());	
+	
+		assertEquals(Level.INFO,events.get(1).getLevel());
+		assertEquals("type=INFO,app=nokiamaps_wp7,cid=23908270129382666,detail=markerclick,id=23ajiure98,lat=2312421,lon=774203,pub=NOKIA,seed=secseed,sid=aslkfj0000,spot=detail_page,time=2012.02.24.10.42.24,token=sectoken,remap.generated=false,remap.type=null",events.get(1).getMessage());	
+
+	}
+	
+	@Test
+	public void testOnCallWithOneMappableInfoItem() throws Exception{
+		
+		String messagePayload = "[{" +
+				"\"pub\": \"NOKIA\"," +
+				"\"app\": \"nokiamaps_wp7\"," +
+				"\"seed\": \"secseed\"," +
+				"\"lat\": \"2312424\"," +
+				"\"lon\": \"874203\"," +
+				"\"type\": \"INFO\"," +
+				"\"detail\": \"markershown\"," +
+				"\"spot\": \"detail_page\"," +
+				"\"id\": \"23ajiure98\"," +
+				"\"token\": \"sectoken\"," +
+				"\"cid\": \"23908270129382555\"," +
+				"\"sid\": \"aslkfj0000\"," +
+				"\"time\": \"2012.02.24.10.42.23\"" +
+				"}" +
+				"," +
+				"{" +
+				"\"pub\": \"NOKIA\"," +
+				"\"app\": \"nokiamaps_wp7\"," +
+				"\"seed\": \"secseed\"," +
+				"\"lat\": \"2312421\"," +
+				"\"lon\": \"774203\"," +
+				"\"type\": \"INFO\"," +
+				"\"detail\": \"markerclick\"," +
+				"\"spot\": \"detail_page\"," +
+				"\"id\": \"23ajiure98\"," +
+				"\"token\": \"sectoken\"," +
+				"\"cid\": \"23908270129382666\"," +
+				"\"sid\": \"aslkfj0000\"," +
+				"\"time\": \"2012.02.24.10.42.24\"" +
+				"}]";
+		
+		// mock the remapper and its backing classes
+		ILogActionInfoRemapper infoRemapper = mock(ILogActionInfoRemapper.class);
+
+		LogActionMapping lam1 = mock(LogActionMapping.class);
+		when(lam1.canBeMapped()).thenReturn(false);
+		when(lam1.detailName()).thenReturn(DETAIL_NAME_MARKER_SHOWN);
+		when(lam1.mappedAction()).thenReturn(null);
+		
+		LogActionMapping lam2 = mock(LogActionMapping.class);
+		when(lam2.canBeMapped()).thenReturn(true);
+		when(lam2.detailName()).thenReturn(DETAIL_NAME_MARKER_CLICK);
+		when(lam2.mappedAction()).thenReturn(TYPE_NAME_IMPRESSION);
+
+		when(infoRemapper.getLogActionMapping(DETAIL_NAME_MARKER_SHOWN)).thenReturn(lam1);		
+		when(infoRemapper.getLogActionMapping(DETAIL_NAME_MARKER_CLICK)).thenReturn(lam2);
+		
+		// create the class
+		BulkJsonLogAction bjla = new BulkJsonLogAction(infoRemapper,VM_LPA_ADAPTER);
+				
+		MuleMessage responseMessage = mock(MuleMessage.class);
+		when(responseMessage.getPayload()).thenReturn(LPA_RESPONSE_GOOD);
+		when(responseMessage.getPayloadAsString()).thenReturn(LPA_RESPONSE_GOOD);
+		
+		// setup the MuleMessage
+		MuleMessage mm = mock(MuleMessage.class);
+		when(mm.getPayloadAsString()).thenReturn(messagePayload);
+		
+		// setup the MuleEventContext
+		MuleEventContext eventContext = mock(MuleEventContext.class);
+		MuleContext mc = mock(MuleContext.class);
+		
+		when(eventContext.getMessage()).thenReturn(mm);
+		when(eventContext.getMuleContext()).thenReturn(mc);	
+		when(eventContext.sendEvent(any(MuleMessage.class),any(String.class))).thenReturn(responseMessage);
+		
+		bjla.onCall(eventContext);
+		
+		// make sure outbound properties were set that indicate we are not invoking hash table response
+		
+		ArgumentCaptor<String> setOutboundPropertyParam1Captor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<Object> setOutboundPropertyParam2Captor = ArgumentCaptor.forClass(Object.class);
+		verify(mm, times(1)).setOutboundProperty(setOutboundPropertyParam1Captor.capture(),setOutboundPropertyParam2Captor.capture());
+
+		assertEquals(XmlMessageToHashMessageTransformer.XML_TO_HASH_INVOCATION_PROPERTY,setOutboundPropertyParam1Captor.getValue());
+		assertEquals(((Object)XmlMessageToHashMessageTransformer.XML_TO_HASH_INVOCATION_FALSE), setOutboundPropertyParam2Captor.getValue());
+
+		// make sure session properties were set for pub, app, and os so that template engine can pick up
+		ArgumentCaptor<String> setSessionPropertyParam1Captor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<Object> setSessionPropertyParam2Captor = ArgumentCaptor.forClass(Object.class);
+		verify(mm, times(3)).setSessionProperty(setSessionPropertyParam1Captor.capture(),setSessionPropertyParam2Captor.capture());
+		
+		assertEquals(LOGACTION_PARAMETER_PUB,setSessionPropertyParam1Captor.getAllValues().get(0));
+		assertEquals(LOGACTION_PARAMETER_APP,setSessionPropertyParam1Captor.getAllValues().get(1));
+		assertEquals(LOGACTION_PARAMETER_OS,setSessionPropertyParam1Captor.getAllValues().get(2));
+		
+		assertEquals("NOKIA",setSessionPropertyParam2Captor.getAllValues().get(0));
+		assertEquals("nokiamaps_wp7",setSessionPropertyParam2Captor.getAllValues().get(1));
+		assertNull(setSessionPropertyParam2Captor.getAllValues().get(2));
+		
+		// verify we send something to LPA
+		ArgumentCaptor<MuleMessage> sendEventParam1Captor = ArgumentCaptor.forClass(MuleMessage.class);
+		ArgumentCaptor<String> sendEventParam2Captor = ArgumentCaptor.forClass(String.class);
+		verify(eventContext, times(1)).sendEvent(sendEventParam1Captor.capture(), sendEventParam2Captor.capture());
+
+		
+		// assert logging events to the appender for supplemental logs were triggered
+		List<LoggingEvent> events = gatherAndCheckLoggingEvents(2);
+		
+		assertEquals(Level.INFO,events.get(0).getLevel());
+		assertEquals("type=INFO,app=nokiamaps_wp7,cid=23908270129382555,detail=markershown,id=23ajiure98,lat=2312424,lon=874203,pub=NOKIA,seed=secseed,sid=aslkfj0000,spot=detail_page,time=2012.02.24.10.42.23,token=sectoken,remap.generated=false,remap.type=null",events.get(0).getMessage());	
+	
+		assertEquals(Level.INFO,events.get(1).getLevel());
+		assertEquals("type=INFO,app=nokiamaps_wp7,cid=23908270129382666,detail=markerclick,id=23ajiure98,lat=2312421,lon=774203,pub=NOKIA,seed=secseed,sid=aslkfj0000,spot=detail_page,time=2012.02.24.10.42.24,token=sectoken,remap.generated=true,remap.type=IMPRESSION",events.get(1).getMessage());	
+	}
+}

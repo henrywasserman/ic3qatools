@@ -1,0 +1,163 @@
+package com.navteq.nmg.mule.flow;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Future;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import net.spy.memcached.MemcachedClientIF;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.mule.tck.FunctionalTestCase;
+import org.mule.util.IOUtils;
+import org.w3c.dom.Document;
+
+import com.navteq.nmg.mule.transformer.ConvertQueryStringToMap;
+
+public class TestWapiShout extends FunctionalTestCase {
+
+	/* Private logger */
+	private static final Logger logger = Logger.getLogger(TestWapiShout.class);
+		
+	/* XML file being used for testing */
+	private String XML_FILE_1 = "test/dealmaptransformedtolpa/bestwestern657toJacksOyster.xml";    	
+		  
+	private DocumentBuilderFactory DOC_BUILD_FACT = DocumentBuilderFactory.newInstance();   
+   
+	
+	/** Setup mule xml configuration files */
+    protected String getConfigResources()
+    {
+        //Test module specific config file
+        return "mule-test-shout-gateway.xml";
+    }
+       
+	
+    /**
+     * testGetPage - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+    @Test
+    public void testShout() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+    	    	
+    	//Set up test data
+    	String transid = "1134567890";
+    	setStorageData(transid, XML_FILE_1);    	    	    	
+    	
+        String queryString="?user-agent=TEST&id="+transid;
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.shout", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();                          
+        logger.warn("TEST " + xmlStr);                
+        assertTrue(xmlStr.contains("content.lpad.mobi"));     	                
+               
+        //Test page was created with right template id
+        assertTrue(xmlStr.contains("shout.js"));
+                
+    }
+    
+    /**
+     * testGetPage - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+    @Test
+    public void testShoutCheckin() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+    	    	
+    	//Set up test data
+    	//String transid = "1134567890";
+    	//Document expectedDoc = setStorageData(transid, XML_FILE_1);    	    	    	
+    	
+        String queryString="?user-agent=TEST&noimpression=true&affiliatenametag=NONPANI&deviceserialnum=NMGJSONCHECKIN-MI";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.shout", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();                          
+        logger.warn("TEST CRAP" + xmlStr);                
+        assertTrue(xmlStr.contains("content.lpad.mobi"));     	                
+               
+        //Test page was created with right template id
+        assertTrue(xmlStr.contains("shout.js"));
+                
+    }
+    
+    /**
+     * testGetPage - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+    @Test
+    public void testShoutCheckinNewId() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+    	    	    	
+        String queryString="?id=99999&user-agent=TEST&affiliatenametag=SHOUTIDNULL&deviceserialnum=NMGJSONCHECKIN-MI";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.shout", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();                          
+        logger.warn("TEST CRAP" + xmlStr);                
+        assertTrue(xmlStr.contains("content.lpad.mobi"));     	                
+               
+        //Test page was created with right template id
+        assertTrue(xmlStr.contains("shout.js"));
+                
+    }
+    
+	/*
+     * helper method that sets cache will a xml file
+     * @return the xml as a Document
+     */
+    private Document setStorageData(String storageId, String xmlFile) throws Exception {
+		
+    	//Set up test data, place XML file in storage
+    	MemcachedClientIF memClient = (MemcachedClientIF) muleContext.getRegistry().lookupObject("memCachedClient");
+            	
+        InputStream xmlIS = IOUtils.getResourceAsStream(xmlFile,TestWapiShout.class);
+        if (xmlIS == null ) {
+            throw new IOException("InputStream null for:"+xmlFile);
+        }        
+        DocumentBuilder docBuilder = DOC_BUILD_FACT.newDocumentBuilder();
+        Document expectedPayload = docBuilder.parse(xmlIS);                       
+    
+		//null check
+		if (memClient == null) { throw new Exception("MEMCACHE client is null") ;}								
+		
+		Future<Boolean> didSet = memClient.set(storageId, 60, expectedPayload);
+		try{
+		
+			int i = 0;
+        	while(i++ < 5 && !didSet.isDone()){      					
+        		Thread.sleep(1000);
+        	}
+        	if(!didSet.isDone()){
+        		fail("Set Storage took longer then 5 seconds, must be an issue");
+        	}
+		}catch (InterruptedException ie ) {
+			logger.debug(ie.getMessage());
+		}
+		
+		return expectedPayload;
+		
+	}
+	
+}

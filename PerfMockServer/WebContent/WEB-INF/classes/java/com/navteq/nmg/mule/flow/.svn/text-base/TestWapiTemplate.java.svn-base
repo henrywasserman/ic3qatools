@@ -1,0 +1,481 @@
+package com.navteq.nmg.mule.flow;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Future;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import net.spy.memcached.MemcachedClientIF;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.mule.tck.FunctionalTestCase;
+import org.mule.util.IOUtils;
+import org.w3c.dom.Document;
+
+import com.navteq.nmg.mule.transformer.ConvertQueryStringToMap;
+
+public class TestWapiTemplate extends FunctionalTestCase{
+
+	/* Private logger */
+	private static final Logger logger = Logger.getLogger(TestWapiTemplate.class);
+
+	/* Factory for XML documents */
+	private static final DocumentBuilderFactory DOC_BUILD_FACT = DocumentBuilderFactory.newInstance();   
+	
+	/* The Storage ID is obtained from fake ad server response xml's campaign id
+	 * Currently set as test/lpa/areacheckin.xml */	
+	private static final String STORAGE_ID = "1521";
+	
+	/*  user agent for check */
+	private static final String UA = "Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16";
+	
+	/* The Storage ID is obtained from fake ad server response xml's campaign id
+	 * Currently set as test/lpa/int-2947.xml */	
+	//private static final String STORAGE_ID_2 = "00000B83CCF0A82F9CABDF4188464A5339FCF569";
+
+	/* XML file being used for testing */
+	private static final String XML_FILE_1 = "test/lpa/int-2947.xml";    	
+	
+	/* Storage Id for ad wallet */
+	//private static final String STORAGE_ID_3 = "adwallet.html";
+
+	/* Ad wallet object for storage */
+	//private static final String AD_WALLET_FILE = "test/adwallet/adwallet.xml"; 	
+
+	
+	/** Setup mule xml configuration files */
+    protected String getConfigResources()
+    {
+        //Test module specific config file
+        return "mule-test-wapi-gateway.xml";
+    }
+
+    /**
+     * testCheckinFlow - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+	@Test
+    public void testCheckinFlowWithUA() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?affiliatenametag=NONPANI&deviceserialnum=NMGJUNITTEST-MI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        
+        ///create properties to associate with the message
+        Map<String, String> props = new HashMap<String, String>();
+
+        //Set the INBOUND property REQUESTID, which is where the request payload will be saved
+        props.put("user-agent", UA);        
+        
+        MuleMessage result = client.send("vm://vm.checkin", paramMap, props);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();               
+        logger.debug("TEST " + xmlStr);        
+        //Test for task 23 (MCG return object)        
+        assertTrue(xmlStr.contains("html"));                
+
+        //Test for device detection Iphone was selected
+        assertTrue(xmlStr.contains("transactionid"));
+        CharSequence transidValue = xmlStr.subSequence(xmlStr.indexOf("transactionid"), xmlStr.indexOf("transactionid")+25);
+        assertTrue(transidValue.toString().contains(STORAGE_ID));
+        
+        //Test for device detection Iphone was selected
+        assertTrue(xmlStr.contains("checkin.js"));
+        CharSequence javascriptValue = xmlStr.subSequence(xmlStr.indexOf("checkin.js") - 10, xmlStr.indexOf("checkin.js"));
+        logger.debug(javascriptValue.toString());
+        assertTrue(javascriptValue.toString().contains("0/1"));
+        
+    }       
+
+
+	/**
+     * testCheckinFlowWithMW - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+	@Test
+    public void testCheckinFlowWithMW() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?mw=1&affiliatenametag=NONPANI&deviceserialnum=NMGJUNITTEST-MI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        
+        ///create properties to associate with the message
+        Map<String, String> props = new HashMap<String, String>();
+
+        //Set the INBOUND property REQUESTID, which is where the request payload will be saved
+        props.put("user-agent", UA);        
+        
+        MuleMessage result = client.send("vm://vm.checkin", paramMap, props);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();               
+        logger.debug("TEST " + xmlStr);        
+        //Test for task 23 (MCG return object)        
+        assertTrue(xmlStr.contains("html"));                
+
+        //Test for device detection Iphone was selected
+        assertTrue(xmlStr.contains("transactionid"));
+        CharSequence transidValue = xmlStr.subSequence(xmlStr.indexOf("transactionid"), xmlStr.indexOf("transactionid")+25);
+        assertTrue(transidValue.toString().contains(STORAGE_ID));
+        
+        //Test for device detection Iphone was selected
+        assertTrue(xmlStr.contains("checkin.js"));
+        CharSequence javascriptValue = xmlStr.subSequence(xmlStr.indexOf("checkin.js") - 10, xmlStr.indexOf("checkin.js"));
+        logger.debug(javascriptValue.toString());
+        assertTrue(javascriptValue.toString().contains("0/0"));
+        
+    }       
+
+
+	/**
+     * testCheckinFlowWithMW - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+	@Test
+    public void testCheckinFlowWithENUS() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?affiliatenametag=NONPANI&deviceserialnum=NMGJUNITTEST-MI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        
+        ///create properties to associate with the message
+        Map<String, String> props = new HashMap<String, String>();
+
+        //Set the INBOUND property REQUESTID, which is where the request payload will be saved
+        props.put("accept-language", "en-us");        
+        
+        MuleMessage result = client.send("vm://vm.checkin", paramMap, props);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();               
+        logger.debug("TEST " + xmlStr);        
+        //Test for task 23 (MCG return object)        
+        assertTrue(xmlStr.contains("html"));                
+
+        //Test for device detection Iphone was selected
+        assertTrue(xmlStr.contains("transactionid"));
+        CharSequence transidValue = xmlStr.subSequence(xmlStr.indexOf("transactionid"), xmlStr.indexOf("transactionid")+25);
+        assertTrue(transidValue.toString().contains(STORAGE_ID));
+        
+        //Test for device detection Iphone was selected
+        assertTrue(xmlStr.contains("localepref"));
+        CharSequence javascriptValue = xmlStr.subSequence(xmlStr.indexOf("localepref"), xmlStr.indexOf("localepref")+20);
+        logger.debug(javascriptValue.toString());
+        assertTrue(javascriptValue.toString().contains("en-us"));
+        
+    }       	
+
+	/**
+     * testjsoncheckin- Test AdWalletProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */    	
+	@Test
+    public void testJsonCheckinWithDe() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);    	
+    	
+    	String queryString="?localepref=de&affiliatenametag=NONPANI&deviceserialnum=NMGJSONCHECKIN-MI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.jsoncheckin", paramMap, null);
+        assertNotNull(result);                
+        String jsonStr = result.getPayloadAsString();               
+                
+        //Test for teaser        
+        assertTrue(jsonStr.contains("teaser")); 
+    	
+        //Test for remaining items
+        assertTrue(jsonStr.contains("hyperlocal"));
+        assertTrue(jsonStr.contains("expirydate"));
+        assertTrue(jsonStr.contains("url"));
+       
+        //Test for device detection Iphone was selected
+	    assertTrue(jsonStr.contains("localepref"));
+	    CharSequence lpValue = jsonStr.subSequence(jsonStr.indexOf("localepref"), jsonStr.indexOf("localepref")+20);
+	    logger.debug(lpValue.toString());
+	    //TODO change when i18N gets changed back assertTrue(javascriptValue.toString().contains("de"));
+	    assertTrue(lpValue.toString().contains("de"));
+    }
+	
+	/**
+     * testGetPageWithEn - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+    @Test
+    public void testGetPageWithEn() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+    	
+    	//Set up test data
+    	String transid = "00000B83CCF0A82F9CABDF4188464A5339FCF569";
+    	Document expectedDoc = setStorageData(transid, XML_FILE_1);    	    	    	
+    	
+        String queryString="?localepref=en-us&user-agent=TEST&transactionid="+transid;
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.getpage", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();                          
+        logger.debug("TEST " + xmlStr);                
+        assertTrue(xmlStr.contains("html"));     	                
+       
+        //Test page was created with campaign id
+        assertTrue(xmlStr.contains("campaignid"));
+        CharSequence actualCampId = xmlStr.subSequence(xmlStr.indexOf("campaignid"), 
+        		xmlStr.indexOf("campaignid")+55);        
+        assertTrue(actualCampId.toString().contains(
+        		expectedDoc.getElementsByTagName("campaignid").item(0).getTextContent()));
+                
+        //Test for device detection Iphone was selected
+        assertTrue(xmlStr.contains("localepref"));
+        CharSequence javascriptValue = xmlStr.subSequence(xmlStr.indexOf("localepref"), xmlStr.indexOf("localepref")+20);
+        logger.debug(javascriptValue.toString());
+        assertTrue(javascriptValue.toString().contains("en-us"));
+             
+    }
+	
+    
+    /**
+     * testGetPageWithDe - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+    @Test
+    public void testGetPageWithDe() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+    	
+    	//Set up test data
+    	String transid = "00000B83CCF0A82F9CABDF4188464A5339FCF569";
+    	Document expectedDoc = setStorageData(transid, XML_FILE_1);    	    	    	
+    	
+        String queryString="?user-agent=TEST&transactionid="+transid;
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+    
+	    ///create properties to associate with the message
+	    Map<String, String> props = new HashMap<String, String>();
+	
+	    //Set the INBOUND property REQUESTID, which is where the request payload will be saved
+	    props.put("accept-language", "de");        
+	  
+	    MuleMessage result = client.send("vm://vm.getpage", paramMap, props);
+	    assertNotNull(result);                
+	    String xmlStr = result.getPayloadAsString();                          
+	    logger.debug("TEST " + xmlStr);                
+	    assertTrue(xmlStr.contains("html"));     	                
+	   
+	    //Test page was created with campaign id
+	    assertTrue(xmlStr.contains("campaignid"));
+	    CharSequence actualCampId = xmlStr.subSequence(xmlStr.indexOf("campaignid"), 
+	    		xmlStr.indexOf("campaignid")+55);        
+	    assertTrue(actualCampId.toString().contains(
+	    		expectedDoc.getElementsByTagName("campaignid").item(0).getTextContent()));
+	            
+	    //Test for device detection Iphone was selected
+	    assertTrue(xmlStr.contains("localepref"));
+	    CharSequence javascriptValue = xmlStr.subSequence(xmlStr.indexOf("localepref"), xmlStr.indexOf("localepref")+20);
+	    logger.debug(javascriptValue.toString());
+	    //TODO change when i18N gets changed back assertTrue(javascriptValue.toString().contains("de"));
+	    //assertTrue(javascriptValue.toString().contains("de"));
+    }
+    
+    /**
+     * testGetPageWithDe - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+    @Test
+    public void testGetPageWithFr() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+    	
+    	//Set up test data
+    	String transid = "00000B83CCF0A82F9CABDF4188464A5339FCF569";
+    	Document expectedDoc = setStorageData(transid, XML_FILE_1);    	    	    	
+    	
+        String queryString="?localepref=fr&user-agent=TEST&transactionid="+transid;
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+    
+	    ///create properties to associate with the message
+	    Map<String, String> props = new HashMap<String, String>();
+	
+	    //Set the INBOUND property REQUESTID, which is where the request payload will be saved
+	    props.put("accept-language", "de");        
+	  
+	    MuleMessage result = client.send("vm://vm.getpage", paramMap, props);
+	    assertNotNull(result);                
+	    String xmlStr = result.getPayloadAsString();                          
+	    logger.debug("TEST " + xmlStr);                
+	    assertTrue(xmlStr.contains("html"));     	                
+	   
+	    //Test page was created with campaign id
+	    assertTrue(xmlStr.contains("campaignid"));
+	    CharSequence actualCampId = xmlStr.subSequence(xmlStr.indexOf("campaignid"), 
+	    		xmlStr.indexOf("campaignid")+55);        
+	    assertTrue(actualCampId.toString().contains(
+	    		expectedDoc.getElementsByTagName("campaignid").item(0).getTextContent()));
+	            
+	    //Test for device detection Iphone was selected
+	    assertTrue(xmlStr.contains("localepref"));
+	    CharSequence javascriptValue = xmlStr.subSequence(xmlStr.indexOf("localepref"), xmlStr.indexOf("localepref")+20);
+	    logger.debug(javascriptValue.toString());
+	    assertTrue(javascriptValue.toString().contains("en-us"));
+    }
+    
+    /**
+     * testDealfinderFlow - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+       
+	@SuppressWarnings("unchecked")
+	@Test
+    public void testDealfinderFlow() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?affiliatenametag=NONPANI&deviceserialnum=NMGJUNITTEST-MI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.dealfinder", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();
+        
+        //Test for html response  
+        assertTrue(xmlStr.contains("html"));                
+
+        //Test for transaction id returned
+        assertTrue(xmlStr.contains("transactionid"));
+                        
+        //Test for Task 22 (Device detection, place ua data onto query params)
+    	FunctionalTestComponent ftc = getFunctionalTestComponent("OutboundAdServerInterface");
+    	if( ftc.getReceivedMessagesCount() == 0){
+    		fail("Expected to receive at least one message");
+    	}else if( ftc.getReceivedMessagesCount() == 1){    	    	    	    		
+    		if (ftc.getLastReceivedMessage() instanceof HashMap<?, ?>) {
+	    		@SuppressWarnings("rawtypes")
+				Map<String, String> actualmap = (HashMap) ftc.getLastReceivedMessage();		
+				assertEquals("enduserareacheckin", actualmap.get("a"));								
+				assertEquals("iPhone", actualmap.get("model"));
+				assertEquals("Apple", actualmap.get("vendor"));
+				assertEquals("-71071719,-70973805", actualmap.get("polyLongitude"));				
+			}else{				
+				fail("Expected to receive message for endusercheckin first");			
+			}
+    	}else{
+    		fail("Expected to receive one message");	
+    	}
+
+    	//Test storage value in membase
+        Object storageValue = getStorageData(STORAGE_ID);                          	        
+    	if (storageValue instanceof DefaultDocument) {    		
+    		DefaultDocument xmlDoc = (DefaultDocument) storageValue;    		                                		
+    		
+    		assertNotNull(xmlDoc);    		
+    		assertEquals("message", xmlDoc.getRootElement().getName());
+    		
+    		logger.debug(xmlDoc.getRootElement().element("campaignid"));    		
+    		assertEquals(STORAGE_ID, 
+    				xmlDoc.getRootElement().element("campaignid").getText());
+    		
+		}else{
+			logger.debug("Stoage value is not expected byte array: "+ storageValue.toString());
+			fail("Set Storage value is not expected byte array, must be an issue");
+		}            	        	               	            
+    	        
+    }				
+	  */
+	   
+		
+    /*
+     * helper method that sets cache will a xml file
+     * @return the xml as a Document
+     */
+    private Document setStorageData(String storageId, String xmlFile) throws Exception {
+		
+    	//Set up test data, place XML file in storage
+    	MemcachedClientIF memClient = (MemcachedClientIF) muleContext.getRegistry().lookupObject("memCachedClient");
+         
+    	
+        InputStream xmlIS = IOUtils.getResourceAsStream(xmlFile,TestWapiTemplate.class);
+        if (xmlIS == null ) {
+            throw new IOException("InputStream null for:"+xmlFile);
+        }                
+        DocumentBuilder docBuilder = DOC_BUILD_FACT.newDocumentBuilder();        
+        Document expectedPayload = docBuilder.parse(xmlIS);                       
+        
+        //null check
+		if (memClient == null) { throw new Exception("MEMCACHE client is null") ;}								
+		
+		Future<Boolean> didSet = memClient.set(storageId, 60, expectedPayload);
+		try{
+		
+			int i = 0;
+        	while(i++ < 5 && !didSet.isDone()){      					
+        		Thread.sleep(1000);
+        	}
+        	if(!didSet.isDone()){
+        		fail("Set Storage took longer then 5 seconds, must be an issue");
+        	}
+		}catch (InterruptedException ie ) {
+			logger.debug(ie.getMessage());
+		}
+		
+		return expectedPayload;
+		
+	}
+
+    
+	/*
+	 * Easy util that returns data in storage. 
+	 * It checks the storage 5 times incase async write is not complete
+	 * @return - object
+	 * @throws OperationTimeoutException
+	 */
+//	private Object getStorageData(String storageId) throws OperationTimeoutException {
+//		//-- Check storage see if async task completed        
+//    	MemcachedClientIF memClient = (MemcachedClientIF) muleContext.getRegistry().lookupObject("memCachedClient");        
+//    	Object storageValue = memClient.get(storageId);
+//        try{    	
+//        	int i = 0;
+//        	while(i++ < 7 && storageValue == null){        		
+//        		Thread.sleep(1000);
+//        		storageValue = memClient.get(storageId);
+//        		logger.debug("Loppy ");
+//        	}
+//        	if (storageValue == null){
+//        		fail("Get Storage took longer then 5 seconds, must be an issue");
+//        	}
+//        	
+//    	}catch (InterruptedException ie ) {
+//    			logger.debug(ie.getMessage());
+//    	}
+//		return storageValue;
+//	}
+	
+}

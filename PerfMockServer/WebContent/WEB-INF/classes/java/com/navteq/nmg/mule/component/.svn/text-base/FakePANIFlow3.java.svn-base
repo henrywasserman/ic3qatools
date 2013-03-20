@@ -1,0 +1,99 @@
+package com.navteq.nmg.mule.component;
+
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.mule.DefaultMuleMessage;
+import org.mule.api.MuleEventContext;
+import org.mule.api.MuleException;
+import org.mule.api.MuleMessage;
+import org.mule.api.lifecycle.Callable;
+
+
+/**
+ * 
+ * @author sreavely
+ */	
+
+public class FakePANIFlow3 implements Callable {
+	private static final Logger logger = Logger.getLogger(FakePANIFlow.class);
+	
+	public Object onCall (MuleEventContext eventContext) throws MuleException, Exception {
+        if(logger.isDebugEnabled()) 
+        	logger.debug("In PANIFlow.onCall()");
+        
+        MuleMessage message = eventContext.getMessage();
+
+    
+        return getResponse(message,eventContext); 
+	}
+	
+	public FakePANIFlow3() {
+	}
+	
+	private String getResponse(MuleMessage message, MuleEventContext eventContext) throws Exception {
+		Map<?,?> paramMap = message.getPayload(Map.class);
+		
+        // OK HERE WE ASK FOR THE COLLECTOR'S ANSWER, WE DO SO SYNCHRONOUSLY...I.E. WE WAIT FOR THE RESULT
+        // THIS WILL HAVE A TIMEOUT THAT CONTROLS THE TOTAL TIME TO WAIT SINCE THE PREVIOUS CALLS WERE PRETTY
+        // INSTANT...JUST PUT MESSAGES ON QUEUES
+
+		// stop shouting SIMON! .... Brits!
+		
+		//FutureMessageResult future = callMuleEndpointASync(eventContext, "vm://vm.fakeservicetwo", paramMap);
+		
+		
+		String correlationId = message.getUniqueId();
+		
+		DefaultMuleMessage outgoingMsgOne = new DefaultMuleMessage(paramMap, eventContext.getMuleContext());
+		outgoingMsgOne.setCorrelationId(correlationId);
+		outgoingMsgOne.setCorrelationSequence(1);
+		outgoingMsgOne.setCorrelationGroupSize(2);
+		outgoingMsgOne.resetAccessControl(); // I need to call this to avoid the current thread owning this
+        eventContext.sendEventAsync(outgoingMsgOne, "vm://vm.fakeserviceone", 500);
+        
+		DefaultMuleMessage outgoingMsgTwo = new DefaultMuleMessage(paramMap, eventContext.getMuleContext());
+		outgoingMsgTwo.setCorrelationId(correlationId);
+		outgoingMsgTwo.setCorrelationSequence(2);
+		outgoingMsgTwo.setCorrelationGroupSize(2);
+		outgoingMsgTwo.resetAccessControl(); // I need to call this to avoid the current thread owning this
+        eventContext.sendEventAsync(outgoingMsgTwo, "vm://vm.fakeservicetwo", 500);
+        
+        DefaultMuleMessage mergedMsg = new DefaultMuleMessage(paramMap, eventContext.getMuleContext());
+		mergedMsg.setCorrelationId(correlationId);
+		
+        MuleMessage mergedResponse = eventContext.sendEvent(mergedMsg, "vm://vm.mergedresponse2");
+        
+        String responseStr = mergedResponse.getPayloadAsString();
+//      String responseStr = null;
+//      MuleMessageCollection mergedCollection = null;
+//        if (mergedResponse instanceof MuleMessageCollection) {
+//        	mergedCollection = (MuleMessageCollection)mergedResponse;
+//        	String response = new String("");
+//        	MuleMessage[] messages = mergedCollection.getMessagesAsArray();
+//        	for (MuleMessage msg : messages) {
+//        		response = response + msg.getPayloadAsString();
+//        	}
+//        	responseStr = response;
+//        }
+        	
+        return responseStr;
+	}
+//
+//	private MuleMessage callMuleEndpointSync(MuleEventContext eventContext,
+//			String endpoint, Object payload) throws MuleException {
+//		MuleMessage outgoingMsg = new DefaultMuleMessage(payload, eventContext
+//				.getMuleContext());
+//		MuleMessage result = eventContext.sendEvent(outgoingMsg, endpoint);
+//		return result;
+//	}
+//	
+//	private FutureMessageResult callMuleEndpointASync(MuleEventContext eventContext,
+//			String endpoint, Object payload) throws MuleException {
+//		MuleMessage outgoingMsg = new DefaultMuleMessage(payload, eventContext
+//				.getMuleContext());
+//		int timeout = 1000;
+//		FutureMessageResult future = eventContext.sendEventAsync(outgoingMsg, endpoint, timeout);
+//		return future;
+//	}
+}

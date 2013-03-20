@@ -1,0 +1,30 @@
+package com.navteq.nmg.pani.util;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+public class XMLHelperTest {
+	@Test
+	public void testXMLHelper() {
+		String xmlStr = "<book><ISBN><![CDATA[0123456789]]></ISBN><author>John</author><author>Bill</author><contents><chapter value = \"1\" title = \"First chapter\"/></contents></book>";
+		
+		XMLHelper xmlHelper = XMLHelper.newInstance(xmlStr);
+		
+		Node isbnNode = xmlHelper.getNode("/book/ISBN");
+		Assert.assertNotNull(isbnNode);
+		String isbn = xmlHelper.getNode("//ISBN/text()").getTextContent();
+		Assert.assertEquals("0123456789", isbn);
+		
+		NodeList ahthorList = xmlHelper.getNodeList("/book/author");
+		Assert.assertNotNull(ahthorList);
+		Assert.assertEquals(2, ahthorList.getLength());
+		
+	
+		NodeList chapterList = xmlHelper.getNodeList("contents/chapter");
+		Assert.assertNotNull(chapterList);
+		Assert.assertEquals(1, chapterList.getLength());
+	}
+}

@@ -1,0 +1,164 @@
+package com.navteq.nmg.hashtable.mapper.impl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import org.apache.commons.io.EndianUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IHashDataType;
+import com.navteq.nmg.hashtable.IHashStreamInjectorList;
+import com.navteq.nmg.hashtable.IMessageVersions.MessageVersionsType;
+import com.navteq.nmg.hashtable.IXmlEntryParser;
+import com.navteq.nmg.hashtable.impl.HashStreamInjectorList;
+import com.navteq.nmg.hashtable.mapper.IIndexName;
+import com.navteq.nmg.hashtable.mapper.IXmlToHashMapper;
+import com.navteq.nmg.hashtable.renderers.IntegerHashDataTypeRenderer;
+import com.navteq.nmg.hashtable.renderers.LongHashDataTypeRenderer;
+import com.navteq.nmg.hashtable.renderers.SerializedByteHashDataTypeRenderer;
+import com.navteq.nmg.hashtable.renderers.StringHashDataTypeRenderer;
+
+
+// this particular element does not follow the rules for a typical render of a hash message and will not be tested
+// using the abstract test class because it has different behaviors from a typical nested or non nested mapper
+public class ILAPResponseXMLToHashMapperTest {
+
+	private static final IIndexName XML_FIELD_NAME = new IndexName("ilapresponse","ilapresponse");
+	private static final IIndexName STRING_FIELD = new IndexName("stringField","stringField");
+	private static final String STRING_VALUE = "http://10.4.5.6:8080/bangbang?getImage=1234AFB4%%!";
+	private static final IIndexName LONG_FIELD = new IndexName("longField","longField");
+	private static final String LONG_VALUE = "2112";
+	private static final IIndexName XML_MESSAGE1_FIELD_NAME = new IndexName("message","message1");
+	private static final IIndexName XML_MESSAGE2_FIELD_NAME = new IndexName("message","message2");
+	
+	private static final class ParseFactory implements IXmlEntryParser{
+		public ParseFactory(){
+			
+		}
+
+		@Override
+		public void parseEntry(IXmlToHashMapper mapper) throws Exception {
+			if (XML_FIELD_NAME.getIndexedName().equals(mapper.getFieldName().getIndexedName())){
+				IXmlToHashMapper field1 = new MessageXmlToHashMapper(XML_MESSAGE1_FIELD_NAME, MessageVersionsType.VERSION_2_4, mapper);
+				field1.mapFromXmlToHash(this, LONG_VALUE);
+				IXmlToHashMapper field2 = new MessageXmlToHashMapper(XML_MESSAGE2_FIELD_NAME, MessageVersionsType.VERSION_2_4, mapper);
+				field2.mapFromXmlToHash(this, STRING_VALUE);
+			}
+			if (XML_MESSAGE1_FIELD_NAME.getIndexedName().equals(mapper.getFieldName().getIndexedName())){
+				IXmlToHashMapper field1 = new LongXmlToHashMapper(LONG_FIELD, MessageVersionsType.VERSION_2_4, mapper);
+				field1.mapFromXmlToHash(this, LONG_VALUE);
+				IXmlToHashMapper field2 = new StringXmlToHashMapper(STRING_FIELD, MessageVersionsType.VERSION_2_4, mapper);
+				field2.mapFromXmlToHash(this, STRING_VALUE);				
+			}
+			if (XML_MESSAGE2_FIELD_NAME.getIndexedName().equals(mapper.getFieldName().getIndexedName())){
+				IXmlToHashMapper field1 = new LongXmlToHashMapper(LONG_FIELD, MessageVersionsType.VERSION_2_4, mapper);
+				field1.mapFromXmlToHash(this, LONG_VALUE);
+				IXmlToHashMapper field2 = new StringXmlToHashMapper(STRING_FIELD, MessageVersionsType.VERSION_2_4, mapper);
+				field2.mapFromXmlToHash(this, STRING_VALUE);				
+			}
+		}
+	}
+	
+	@Test
+	public void testConstructor() throws Exception{
+		IXmlToHashMapper mapper = new ILAPResponseXMLToHashMapper(XML_FIELD_NAME, MessageVersionsType.VERSION_2_4, null);
+		
+		assertEquals(XML_FIELD_NAME,mapper.getFieldName());
+		assertEquals(MessageVersionsType.VERSION_2_4,mapper.getVersion());
+		assertTrue(mapper.isNested());
+		assertFalse(mapper.hasParent());
+		assertNull(mapper.getParent());
+		assertEquals(IXmlToHashMapper.XmlToHashMapperType.MAPPED_ILAP_RESPONSE,mapper.getMapperType());
+		
+		// should be nothing on construction
+		assertEquals(0,mapper.getElementCount());
+		// account for the header size which is always a fixed iLaxxxxx
+		assertEquals(8,mapper.getRenderedByteSize());
+	}
+	
+	@Test
+	public void testRendering() throws Exception{
+		
+		IXmlEntryParser pf = new ParseFactory();
+		IXmlToHashMapper mapper = new ILAPResponseXMLToHashMapper(XML_FIELD_NAME, MessageVersionsType.VERSION_2_4, null);
+		mapper.mapFromXmlToHash(pf, null);
+		
+		assertEquals(3,mapper.getElementCount());
+		
+		ByteArrayOutputStream compareStream = new ByteArrayOutputStream();
+			
+		// build up the header by hand
+		
+		byte[] header = new byte[]{(byte)'i',(byte)'L',(byte)'a',0};
+
+		compareStream.write(header);
+
+		// lets simulate a message
+		// we want at least two fake messages to simulate the field counter being incremented properly and to test
+		// the field name for message being numbered sequentially in the message
+		
+		IHashDataType message1 = buildCompareMessage(XML_MESSAGE1_FIELD_NAME);
+		IHashDataType message2 = buildCompareMessage(XML_MESSAGE2_FIELD_NAME);
+		IntegerHashDataTypeRenderer messageCount = new IntegerHashDataTypeRenderer(ILAPResponseXMLToHashMapper.MESSAGE_COUNT_FIELDNAME,2);
+
+		int totalBytes = message1.getRenderedByteSize();
+		totalBytes += message2.getRenderedByteSize();
+		totalBytes += messageCount.getRenderedByteSize()+ 4; // account for the count field also;
+
+		EndianUtils.writeSwappedInteger(compareStream, totalBytes);		
+		EndianUtils.writeSwappedInteger(compareStream, 3);
+		message1.injectStream(compareStream);
+		message2.injectStream(compareStream);
+		messageCount.injectStream(compareStream);
+
+		ByteArrayOutputStream actualStream = new ByteArrayOutputStream();
+		
+		mapper.injectStream(actualStream);
+		
+		byte[] compareValues = compareStream.toByteArray();
+		byte[] actualValues = actualStream.toByteArray();
+		
+		try{
+			
+			assertEquals("Length of output stream is not what is expected.", compareValues.length, actualValues.length);
+			
+			int offset = 0;
+			
+			// lets scour the byte array and compare values at each byte so if we find an issue in the testing we can toss
+			// an assertion at the exact spot in the array things are jacked up
+			// assert assert the field name contents
+			
+			while (offset < compareValues.length){
+				assertTrue(
+				    "Output stream contents is not what was expected in offset["+Integer.toString(offset)+"].",
+				    compareValues[offset] ==  actualValues[offset]
+				    );
+				offset++;
+			}			
+		}
+		catch(AssertionError ae){
+			System.out.println("Expected Hex Dump: ");
+			//ByteForByteContentComparer.showByteArrayAsHexDump(compareValues);
+			
+			System.out.println("Actual Hex Dump: ");
+			//ByteForByteContentComparer.showByteArrayAsHexDump(actualValues);
+			throw ae;
+		}
+
+	}
+
+	private IHashDataType buildCompareMessage(IIndexName xmlMessageFieldName) throws Exception {
+		
+		IHashStreamInjectorList injectorList = new HashStreamInjectorList();
+		
+		injectorList.add(new LongHashDataTypeRenderer(LONG_FIELD.getIndexedName(), LONG_VALUE));
+		injectorList.add(new StringHashDataTypeRenderer(STRING_FIELD.getIndexedName(), STRING_VALUE));
+		
+		SerializedByteHashDataTypeRenderer sbhd = new SerializedByteHashDataTypeRenderer(xmlMessageFieldName.getIndexedName(), injectorList);
+		
+		return sbhd;
+	}	
+}

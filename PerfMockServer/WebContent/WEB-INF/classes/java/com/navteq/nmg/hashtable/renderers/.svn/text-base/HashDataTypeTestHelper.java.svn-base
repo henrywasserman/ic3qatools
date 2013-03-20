@@ -1,0 +1,173 @@
+package com.navteq.nmg.hashtable.renderers;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.net.URLEncoder;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.apache.commons.lang.StringUtils;
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IHashDataType;
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+import com.navteq.nmg.hashtable.testdrivers.ByteForByteContentComparer;
+
+public abstract class HashDataTypeTestHelper {
+
+	private static final String TOO_LARGE_FIELD_NAME = StringUtils.repeat("z", 256);
+	protected static final String ENCODING = "UTF-8";
+	
+	public HashDataTypeTestHelper(){
+		
+	}
+	
+	abstract BaseHashDataTypeRenderer getNewInstanceForBoundsChecking(String fieldName) throws Exception;
+	
+	public void assertConstructor(
+	    String initializationFieldName, 
+	    HashDataType expectedDataType,
+	    int expectedRenderSize,
+	    IHashDataType dataType) throws Exception
+	{
+		// make sure we are rendering properly
+		String encodedFieldName = URLEncoder.encode(initializationFieldName, "UTF-8");
+		assertEquals("Field name is incorrect or not properly encoded.",encodedFieldName, dataType.getFieldName());
+		assertEquals(expectedDataType,dataType.getHashDataType());
+		assertEquals(expectedRenderSize, dataType.getRenderedByteSize());
+	}
+	
+	public void assertRender(
+		byte[] expectedFieldName, 
+		HashDataType expectedDataType, 
+		byte[] expectedPayloadLengthIndicator, 
+		byte[] expectedDataPayload, 
+		byte[] actualContents) throws Exception{
+		
+		
+		try{
+			
+			byte expectedFieldNameSizeFieldContents = (byte)expectedFieldName.length;
+			byte[] expectedFieldNameContents = expectedFieldName;
+			byte expectedDataTypeIndicatorContents = expectedDataType.encode();
+			// some types do not have a length so we need to figure zero header data size
+			int sizeofValueLengthIndicator = expectedPayloadLengthIndicator == null ? 0 : expectedPayloadLengthIndicator.length;
+			int sizeofValueData = expectedDataPayload.length;
+			
+			int expectedSize = BaseHashDataTypeRenderer.SIZEOF_HEADER_FIELDNAME_LENGTH_FIELD 
+			    + expectedFieldName.length 
+			    + BaseHashDataTypeRenderer.SIZEOF_DATATYPE_INDICATOR_SIZE 
+			    + sizeofValueLengthIndicator
+			    + sizeofValueData;
+		
+			assertEquals("Length of payload is not what is expected.", expectedSize,actualContents.length);
+			
+			int offset = 0;
+			
+			// lets scour the byte array and compare values at each byte so if we find an issue in the testing we can toss
+			// an assertion at the exact spot in the array things are jacked up
+			
+			// assert the field name size content
+			assertEquals("Field name size content is not what was expected in offset[0].",expectedFieldNameSizeFieldContents, actualContents[offset]);
+			
+			// assert assert the field name contents
+			while (offset < expectedFieldName.length){
+				assertEquals(
+				    "Field name contents is not what was expected in offset["+Integer.toString(offset)+"]."
+				    ,expectedFieldNameContents[offset]
+				    ,actualContents[++offset]);
+			}
+			// assert the data type indicator content
+			assertEquals(
+				"Field data type indicator content is not what was expected in offset["+Integer.toString(offset)+"]."
+				,expectedDataTypeIndicatorContents
+				,actualContents[++offset]);
+
+			// we have some fields with fixed lengths and some with a size indicator.  lets check that here by building up a 4 byte indicator and
+			// verifying with what we expect
+			if (sizeofValueLengthIndicator > 0){
+				for (int count = 0; count < sizeofValueLengthIndicator; count++){
+					assertEquals(
+						"Value length indicator is not what was expected in offset["+Integer.toString(offset)+"]."
+						,expectedPayloadLengthIndicator[count]
+						,actualContents[++offset]);
+				}
+			}
+			
+			
+			// assert remaining data
+	        for (int count = 0; count < expectedDataPayload.length; count++){
+				assertEquals(
+					"Value contents is not what was expected in offset["+Integer.toString(offset)+"]."
+					,expectedDataPayload[count]
+					,actualContents[++offset]);
+			}
+			
+		}
+		catch(AssertionError ae){
+			formatForOutput(expectedFieldName,expectedDataType,expectedPayloadLengthIndicator, expectedDataPayload,actualContents);
+			throw ae;
+		}
+	}
+	
+	private void formatForOutput(byte[] expectedFieldName, HashDataType expectedDataType, byte[] expectedPayloadLengthIndicator, byte[] expectedDataPayload, byte[] actualContents) throws Exception{
+
+		ByteArrayOutputStream fullExpectedPayload = new ByteArrayOutputStream();
+		
+		
+		fullExpectedPayload.write(new byte[]{(byte)expectedFieldName.length});
+		fullExpectedPayload.write(expectedFieldName);
+		fullExpectedPayload.write(expectedDataType.encode());
+		if (expectedPayloadLengthIndicator != null)	fullExpectedPayload.write(expectedPayloadLengthIndicator);
+		fullExpectedPayload.write(expectedDataPayload);
+		
+		System.out.println("Expected Hex Dump: ");
+		ByteForByteContentComparer.showByteArrayAsHexDump(fullExpectedPayload.toByteArray());
+
+		System.out.println("Actual Hex Dump: ");
+		ByteForByteContentComparer.showByteArrayAsHexDump(actualContents);
+	}
+
+	@Test
+	public void assertBounds() throws Exception{
+
+		
+		// test too large field name
+		try{
+			getNewInstanceForBoundsChecking(TOO_LARGE_FIELD_NAME);
+			fail("Constructor should have thrown an InvalidArgumentException but did not.");
+		}
+		catch(IllegalArgumentException iae){
+			assertTrue("getMessage detail of exception did not contain 'can be no larger than 255 bytes'.",iae.getMessage().contains("can be no larger than 255 bytes."));
+		}
+		catch(Exception ex){
+			fail("Constructor should have thrown an InvalidArgumentException but did not.");
+		}
+		
+		// test null field name
+		try{
+			getNewInstanceForBoundsChecking(null);
+			fail("Constructor should have thrown an InvalidArgumentException but did not.");
+		}
+		catch(IllegalArgumentException iae){
+			assertTrue("getMessage detail of exception did not contain 'Field name cannot be null for'.",iae.getMessage().contains("Field name cannot be null for"));
+		}
+		catch(Exception ex){
+			fail("Constructor should have thrown an InvalidArgumentException but did not.");
+		}
+
+		
+		try{
+			BaseHashDataTypeRenderer dataType = getNewInstanceForBoundsChecking("myDataField");
+			dataType.injectStream(null);
+			fail("injectStream() should have thrown an InvalidArgumentException but did not.");
+		}
+		catch(IllegalArgumentException ex){
+			assertTrue("getMessage detail of exception did not contain 'ByteArrayOutputStream cannot be null.'.",ex.getMessage().contains("ByteArrayOutputStream cannot be null."));			
+		}
+		catch(Exception ex){
+			fail("injectStream() should have thrown an InvalidArgumentException but did not.");
+		}
+	}	
+}

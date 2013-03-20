@@ -1,0 +1,10 @@
+package com.navteq.nmg.postalcode;
+
+public class XMLFormatPostalCodeConversionTest extends PostalCodeConversionTest {
+
+	@Override
+	protected String getConfigResources() {
+		return "test/test-postalcode-conversion-mule-xml.xml";
+	}
+
+}

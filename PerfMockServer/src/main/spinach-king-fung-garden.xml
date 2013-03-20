@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+<resource>
+    <merchant>
+      <infousa_id>628717381</infousa_id>
+      <name>King Fung Garden II</name>
+      <locations>
+        <resource>
+          <location>
+            <city>Brookline</city>
+            <name>King Fung Garden II</name>
+            <zip>02445</zip>
+            <country>United States</country>
+            <state>MA</state>
+            <phonenumber>6177398560</phonenumber>
+            <address>370 Boylston St</address>
+            <lat>42.3298</lat>
+            <lng>-71.1267</lng>
+            <unit/>
+          </location>
+        </resource>
+      </locations>
+      <images>
+        <productimage/>
+        <logo/>
+      </images>
+      <id>2552</id>
+      <market>Brookline</market>
+    </merchant>
+    <category>
+      <id>5</id>
+      <name>dining &amp; food</name>
+      <slug>dining-food</slug>
+    </category>
+    <enddate>2012-01-20 23:59:00</enddate>
+    <description>This establishment perfects the painstaking art of Chinese cuisine. Succulent pot stickers, garden-fresh vegetables and rich seafood are just a few of the delicacies you can expect from this restaurant. Get ready to experience your favorite dishes as you never have before! For online delivery orders only at Allmenus.com using the special code on your voucher</description>
+    <maximpressions>0</maximpressions>
+    <startdate>2011-03-18 18:39:29</startdate>
+    <title>$3 for $6 on any purchase</title>
+    <numleft>20</numleft>
+    <rate>3</rate>
+    <value>6</value>
+    <state>activated</state>
+    <cost>3</cost>
+    <createddate>2011-03-18 18:39:29</createddate>
+    <images>
+      <productimage>
+        <small>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/6a/28/6a28bbe2e679c4d538b0132fb48f35cd.jpg</url>
+          <width>100</width>
+          <height>120</height>
+        </small>
+        <large>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/6e/19/6e1916d3c94472877d125c5ecb75ef34.jpg</url>
+          <width>180</width>
+          <height>200</height>
+        </large>
+        <medium>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/9c/ce/9cce914568936c69cede500d084971fe.jpg</url>
+          <width>120</width>
+          <height>160</height>
+        </medium>
+        <thumbnail>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/2c/ed/2ced53f411c56d8befe5c1a09970d412.jpg</url>
+          <width>50</width>
+          <height>60</height>
+        </thumbnail>
+      </productimage>
+    </images>
+    <dealtype>2</dealtype>
+    <dip>https://www.mobilespinach.com/deals/2811/?source=2&amp;appid=39</dip>
+    <id>2811</id>
+  </resource>
+</response>

@@ -1,0 +1,43 @@
+package com.navteq.nmg.pani.image.nodebuilder.impl;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.net.URL;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.navteq.nmg.pani.PaniImage;
+import com.navteq.nmg.pani.image.ImageBaseHelper;
+import com.navteq.nmg.pani.image.category.IImageCategoryService.ImageCategory;
+import com.navteq.nmg.pani.image.enums.ImageMimeTypes;
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+import com.navteq.nmg.pani.image.factory.IPaniImageFactory;
+import com.navteq.nmg.pani.image.nodebuilder.IImageNodeBuilder;
+
+public class DefaultBinaryImageElementTest extends ImageBaseHelper{
+
+	@Test
+	public void testDefaultBinaryImageElementRendersProperly() throws Exception{
+		IPaniImageFactory imageFactory = mock(IPaniImageFactory.class);
+		
+		URL url = DefaultBinaryImageElementTest.class.getResource("./resources/nmg-activities-1.jpg");
+		
+		PaniImage image = new PaniImage(PaniImage.CREATION_MODE.URL, url.getFile());
+		
+		when(imageFactory.getImage(ImageCategory.ACTIVITIES,ImageSizeTypes.SMALL_INTRO_ICON,ImageMimeTypes.JPG)).thenReturn(image);
+
+		IImageNodeBuilder nodeBuilder = new DefaultBinaryImageElement(ImageSizeTypes.SMALL_INTRO_ICON,ImageCategory.ACTIVITIES,ImageMimeTypes.JPG,imageFactory);
+		
+		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		Element root = doc.createElement("root");
+		nodeBuilder.build(doc, root);
+
+		assertValues(root, TAG_DATA, image.getImageAsBase64String(), ImageSizeTypes.SMALL_INTRO_ICON);	
+	}
+	
+}

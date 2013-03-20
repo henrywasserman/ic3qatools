@@ -1,0 +1,51 @@
+package com.navteq.nmg.hashtable.renderers;
+
+import org.apache.commons.io.EndianUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+import com.navteq.nmg.hashtable.renderers.BaseHashDataTypeRenderer;
+import com.navteq.nmg.hashtable.renderers.IntegerHashDataTypeRenderer;
+
+
+public class IntegerHashDataTypeRendererTest extends HashDataTypeTestHelper{
+
+	private static final String FIELD_NAME = "fieldName";
+	private static final int DATA = 1234567890; 
+	
+	@Test
+	public void verifyConstructor() throws Exception{
+		IntegerHashDataTypeRenderer bhdt = new IntegerHashDataTypeRenderer(FIELD_NAME, DATA);
+		assertConstructor(
+			FIELD_NAME, 
+			HashDataType.HASH_INTEGER, 
+			FIELD_NAME.length()
+			   +IntegerHashDataTypeRenderer.INTEGER_FIELD_SIZE
+			   +IntegerHashDataTypeRenderer.SIZEOF_DATATYPE_INDICATOR_SIZE
+			   +IntegerHashDataTypeRenderer.SIZEOF_HEADER_FIELDNAME_LENGTH_FIELD, 
+			bhdt);
+	}	
+	
+	
+	@Test
+	public void verifyInjectStream() throws Exception{
+		IntegerHashDataTypeRenderer bhdt = new IntegerHashDataTypeRenderer(FIELD_NAME, DATA);
+
+		// make sure we are rendering properly
+		byte[] encodedFieldName = FIELD_NAME.getBytes(ENCODING);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		bhdt.injectStream(baos);
+		byte[] result = baos.toByteArray();
+		
+		byte[] expectedValueContents = new byte[4];
+		EndianUtils.writeSwappedInteger(expectedValueContents, 0, DATA);
+		assertRender(encodedFieldName,bhdt.getHashDataType(),null,expectedValueContents,result);		
+	}		
+	
+	@Override
+	BaseHashDataTypeRenderer getNewInstanceForBoundsChecking(String fieldName) throws Exception{
+		return new IntegerHashDataTypeRenderer(fieldName, DATA);
+	}			
+}

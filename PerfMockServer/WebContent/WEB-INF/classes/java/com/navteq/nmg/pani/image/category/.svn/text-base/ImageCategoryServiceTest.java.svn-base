@@ -1,0 +1,42 @@
+package com.navteq.nmg.pani.image.category;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import org.junit.Test;
+
+import com.navteq.nmg.pani.image.category.IImageCategoryService.ImageCategory;
+
+
+public class ImageCategoryServiceTest {
+
+	
+	@Test
+	public void testGetImageCategoryByName() throws Exception{
+		assertEquals(ImageCategory.ACTIVITIES, ImageCategory.getImageCategoryByName("activities",null));
+		assertEquals(ImageCategory.ATTRACTIONS, ImageCategory.getImageCategoryByName("attractions",null));
+		assertEquals(ImageCategory.DINING, ImageCategory.getImageCategoryByName("dining",null));
+		assertEquals(ImageCategory.EVENTS, ImageCategory.getImageCategoryByName("events",null));
+		assertEquals(ImageCategory.FITNESS, ImageCategory.getImageCategoryByName("fitness",null));
+		assertEquals(ImageCategory.GENERIC, ImageCategory.getImageCategoryByName("generic",null));
+		assertEquals(ImageCategory.GROCERY, ImageCategory.getImageCategoryByName("grocery",null));
+		assertEquals(ImageCategory.HEALTHBEAUTY, ImageCategory.getImageCategoryByName("healthbeauty",null));
+		assertEquals(ImageCategory.SERVICES, ImageCategory.getImageCategoryByName("services",null));
+		assertEquals(ImageCategory.SHOPPING, ImageCategory.getImageCategoryByName("shopping",null));
+		assertEquals(ImageCategory.TRAVEL, ImageCategory.getImageCategoryByName("travel",null));
+		
+		// make sure we have tested all the categories...if more get added...change this number to ensure your testing
+		assertEquals(11,ImageCategory.values().length);	
+	}
+	
+	@Test
+	public void testDefaultsForGetImageByCategoryName() throws Exception{
+		assertEquals(ImageCategory.ACTIVITIES, ImageCategory.getImageCategoryByName("abucnhoftrash",ImageCategory.ACTIVITIES));
+		assertNull(ImageCategory.getImageCategoryByName("abucnhoftrash",null));
+	}	
+
+	
+	
+	
+	
+}

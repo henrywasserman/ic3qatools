@@ -1,0 +1,8 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+import java.util.List;
+
+public interface ITestMessageFactory {
+	public ITestMessage getTestMessageForTestRun(String testRunId);
+	public List<ITestMessage> getAllTestMessagesForRun();
+}

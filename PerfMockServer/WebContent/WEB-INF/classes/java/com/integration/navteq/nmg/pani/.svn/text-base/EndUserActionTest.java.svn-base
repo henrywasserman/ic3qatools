@@ -1,0 +1,122 @@
+package com.integration.navteq.nmg.pani;
+
+import static org.junit.Assert.fail;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.junit.Test;
+
+public class EndUserActionTest {
+	@Test
+	public void testRimEndUserCheckin() {
+	
+		try {
+			long start = 0;
+			long stop = 0;
+			int two_hundreds = 0;
+			int five_hundreds = 0;
+			for (int n = 0;  n<500; n++) {
+				HttpClient httpclient = new HttpClient();
+				//final String url = "http://ilap.stg.amer.navteqads.lcl/lpa/api1.aspx?a=endusercheckin&ver=2.0&affiliatenametag=RIM-TrafficSec&deviceserialnum=5fbca8fd85eef490d60aa3addec74936&latitude=37401494&longitude=-122032163&maxads=3&maxstorefronts=2&localepref=en-us&graphicsFormat=1&responseType=xml&imagetype=binary&securityseed=12345&securitytoken=12+26+161+4+175+150+214+63+230+155+190+57+12+35+122+197+104+133+61+169&iconsizes=2&imagesizes=204&couponsizes=304";
+				//final String url = "http://silap.ilap-na.net/lpa/api1.aspx?a=endusercheckin&ver=2.0&affiliatenametag=RIM-TrafficSec&deviceserialnum=5fbca8fd85eef490d60aa3addec74936&latitude=37401494&longitude=-122032163&maxads=3&maxstorefronts=2&localepref=en-us&graphicsFormat=1&responseType=xml&imagetype=binary&securityseed=12345&securitytoken=12+26+161+4+175+150+214+63+230+155+190+57+12+35+122+197+104+133+61+169&iconsizes=2&imagesizes=204&couponsizes=304";
+				//final String url = "http://localhost:8080/nmg/adserver?ver=2.4&a=endusercheckin&affiliatenametag=DTI_NMS_AND_DEALMAP&deviceserialnum=yegelphfgdui&longitude=-71117901&latitude=42447822&localepref=en-us&responsetype=xml&disablepani=false&graphicsFormat=1&responseType=xml&imagetype=binary&securityseed=12345&securitytoken=12+26+161+4+175+150+214+63+230+155+190+57+12+35+122+197+104+133+61+169&iconsizes=2&imagesizes=204&couponsizes=304";
+				final String url ="http://localhost:8080/nmg/adserver?a=endusercheckin&ver=2.0&affiliatenametag=DTI_NMS_AND_DEALMAP&deviceserialnum=5fbca8fd85eef490d60aa3addec74936&latitude=42447822&longitude=-71117901&maxads=3&maxstorefronts=2&localepref=en-us&graphicsFormat=1&responseType=xml&imagetype=binary&securityseed=12345&securitytoken=12+26+161+4+175+150+214+63+230+155+190+57+12+35+122+197+104+133+61+169&iconsizes=2&imagesizes=204&couponsizes=304";
+				GetMethod method = new GetMethod(url);
+				
+				start = System.currentTimeMillis();
+				int result = httpclient.executeMethod(method);
+				if (result == 200) {
+					two_hundreds++;
+				}
+				if (result == 500) {
+					five_hundreds++;
+				}
+				stop = System.currentTimeMillis();
+				System.out.println(n + " Response status code " + result + " Time in ms: " + (stop - start));
+
+				//System.out.println(method.getResponseBodyAsString());
+				
+				InputStream is = method.getResponseBodyAsStream();
+				InputStreamReader isr = new InputStreamReader(is);
+				BufferedReader br = new BufferedReader(isr);
+				
+				String output = "";
+			
+				while ((output = br.readLine()) != null) {
+					if (output.contains("WEBURL")) {
+						System.out.println(br.readLine());
+					}
+				}
+				br.close();
+
+				//System.out.println(method.getResponseBodyAsString());
+	
+				//Assert.assertEquals(200, result);
+				//Thread.sleep(1000);
+			}
+			System.out.println("There were " + two_hundreds + " 200's and " + five_hundreds + " 500's");
+	
+		}  catch (Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+    /*
+	@Test
+	public void testEndUserActionPostWithoutXML() {
+		try {
+				HttpClient httpclient = new HttpClient();
+				//final String url = "http://localhost:8080/nmg/adserver";
+				final String url = "http://iilap.ilap-na.net/lpa/api1.aspx?ver=2.4";
+				PostMethod post = new PostMethod(url);
+				System.out.println(System.getProperty("user.dir"));
+				File xmlfile = new File(System.getProperty("user.dir") + "/com/integration/testfiles/post.req");
+				
+				post.setRequestEntity(new InputStreamRequestEntity(
+						new FileInputStream(xmlfile), xmlfile.length()));
+				
+				post.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+				
+				
+				Header[] headers = post.getRequestHeaders();
+				
+				System.out.println("Printing Headers");
+				for (Header header : headers) {
+					System.out.println(header.getName() + " " + header.getValue());
+				}
+				
+				int result = httpclient.executeMethod(post);
+				
+				System.out.println("Response body ");				
+				System.out.println(post.getResponseBodyAsString());
+				
+				InputStream is = post.getResponseBodyAsStream();
+				InputStreamReader isr = new InputStreamReader(is);
+				BufferedReader br = new BufferedReader(isr);
+				
+				String output = "";
+				boolean found = false;
+			
+				while ((output = br.readLine()) != null) {
+					if (output.contains("enduserid")) {
+						found = true;
+					}
+				}
+				br.close();
+				
+				System.out.println("Response status code " + result);
+			
+				Assert.assertEquals(200, result);
+				Assert.assertTrue(found);
+			
+		}  catch (Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+	*/	
+}

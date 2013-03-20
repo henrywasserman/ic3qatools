@@ -1,0 +1,55 @@
+package com.navteq.nmg.mule.component;
+
+import org.mule.DefaultMuleEvent;
+import org.mule.DefaultMuleMessage;
+import org.mule.api.MuleEvent;
+import org.mule.api.MuleMessage;
+import org.mule.routing.AbstractCorrelationAggregator;
+import org.mule.routing.AggregationException;
+import org.mule.routing.EventGroup;
+
+
+public class FakePANICustomAggregator extends AbstractCorrelationAggregator {
+
+	@Override
+	protected MuleEvent aggregateEvents(org.mule.routing.EventGroup events)
+			throws AggregationException {
+		
+		try {
+			return combineEvents(events);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AggregationException(events,this,e);
+		}
+	}
+	
+    public MuleEvent combineEvents(EventGroup events) throws Exception {
+
+        MuleEvent responseEvent = null;
+
+        String finalMsg = "";
+        MuleEvent collectionEvent = events.getMessageCollectionEvent();
+        if (events.size() < 1 || events.expectedSize() == -1) {
+        	// Lets create a response with an empty string for now
+        	// TODO: Revisit what to do in this case, especially if there are timeouts in one of the senders...certainly we should write a unit test with a fake PANI
+        	// source that timesout by having a sleep in it. etc
+            DefaultMuleMessage respMessage = new DefaultMuleMessage("", collectionEvent.getMuleContext());
+            responseEvent = new DefaultMuleEvent(respMessage, collectionEvent);
+            return responseEvent;
+        	//throw new Exception("EventGroup is empty or group size was not specified!");
+        }
+
+        // Aggregate messages into a single message
+        for (MuleEvent event : events.toArray()) {
+        	MuleMessage muleMsg = event.getMessage();
+            String msg = muleMsg.getPayloadAsString();
+            finalMsg = finalMsg + msg;
+        }
+        
+        // Create the new event with a new message from the old event
+        DefaultMuleMessage respMessage = new DefaultMuleMessage(finalMsg, collectionEvent.getMuleContext());
+        responseEvent = new DefaultMuleEvent(respMessage, collectionEvent);
+        return responseEvent;
+
+    }
+}

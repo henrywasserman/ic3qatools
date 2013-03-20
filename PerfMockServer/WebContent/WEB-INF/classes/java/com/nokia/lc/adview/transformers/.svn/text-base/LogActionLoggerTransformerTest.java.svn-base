@@ -1,0 +1,362 @@
+package com.nokia.lc.adview.transformers;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.spi.LoggingEvent;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mule.api.MuleMessage;
+import org.mule.api.transport.PropertyScope;
+
+import com.navteq.nmg.LogTest;
+import com.nokia.lc.adview.components.logger.LogActionLogger;
+import com.nokia.lc.adview.configuration.ILogActionInfoRemapper;
+import com.nokia.lc.adview.configuration.LogActionMapping;
+
+public class LogActionLoggerTransformerTest extends LogTest{
+	
+	public LogActionLoggerTransformerTest(){
+		super(LogActionLogger.LOGACTION_LOGGER);
+	}
+
+	@Before
+	public void setup() {
+		super.setupBefore();
+	}	
+	
+	@After
+	public void tearDown(){
+		super.tearDownAfter();
+	}    
+	
+	private static final String REQ_PARAM_TYPE = "REQUEST_PARAMETER_type";
+	private static final String REQ_PARAM_SID = "REQUEST_PARAMETER_sid";
+    private static final String REQ_PARAM_CID = "REQUEST_PARAMETER_cid";
+    private static final String REQ_PARAM_DETAIL = "REQUEST_PARAMETER_detail";
+    private static final String PARAM_JUNK = "junk";
+    
+    private static final String REQ_PARAM_TYPE_VALUE_INFO = "INFO"; 
+    private static final String REQ_PARAM_TYPE_VALUE_IMPRESSION = "IMPRESSION";
+    
+    private static final String REQ_PARAM_DETAIL_VALUE = "listshown";
+    private static final String PARAM_JUNK_VALUE = "junk_value";
+    
+    private static final String REQ_PARAM_SID_VALUE = "666";
+    private static final String REQ_PARAM_CID_VALUE = "888";
+
+	@Test
+	public void testTransformWithInfoTypeMappedToJLAP() throws Exception{
+
+		// mock the remapper and its backing classes
+		ILogActionInfoRemapper infoRemapper = mock(ILogActionInfoRemapper.class);
+
+		LogActionMapping lam = mock(LogActionMapping.class);
+		when(lam.canBeMapped()).thenReturn(true);
+		when(lam.detailName()).thenReturn(REQ_PARAM_DETAIL_VALUE);
+		when(lam.mappedAction()).thenReturn(REQ_PARAM_TYPE_VALUE_IMPRESSION);
+		
+		when(infoRemapper.getLogActionMapping(REQ_PARAM_DETAIL_VALUE)).thenReturn(lam);
+
+
+		// mock the portion of the mule message we will actually use 
+		Set<String> inboundPropertyNames = new HashSet<String>();
+		
+		inboundPropertyNames.add(REQ_PARAM_TYPE);
+		inboundPropertyNames.add(REQ_PARAM_SID);
+		inboundPropertyNames.add(REQ_PARAM_CID);
+		inboundPropertyNames.add(REQ_PARAM_DETAIL);
+		inboundPropertyNames.add(PARAM_JUNK);
+		
+		MuleMessage mm = mock(MuleMessage.class);
+
+		when(mm.getInboundPropertyNames()).thenReturn(inboundPropertyNames);
+		
+		when(mm.getInboundProperty(REQ_PARAM_TYPE)).thenReturn(REQ_PARAM_TYPE_VALUE_INFO);
+		when(mm.getInboundProperty(REQ_PARAM_DETAIL)).thenReturn(REQ_PARAM_DETAIL_VALUE);
+		when(mm.getInboundProperty(REQ_PARAM_SID)).thenReturn(REQ_PARAM_SID_VALUE);
+		when(mm.getInboundProperty(REQ_PARAM_CID)).thenReturn(REQ_PARAM_CID_VALUE);
+		when(mm.getInboundProperty(PARAM_JUNK)).thenReturn(PARAM_JUNK_VALUE);
+		
+		LogActionLoggerTransformer transformer = new LogActionLoggerTransformer();
+		transformer.setLogActionRemapper(infoRemapper);	
+		
+		transformer.transform(mm,"UTF-8");
+		
+		// verify inbound prop is begin remapped / reset
+		ArgumentCaptor<String> setPropertyParam1Captor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<Object> setPropertyParam2Captor = ArgumentCaptor.forClass(Object.class);
+		ArgumentCaptor<PropertyScope> setPropertyParam3Captor = ArgumentCaptor.forClass(PropertyScope.class);
+		verify(mm, times(1)).setProperty(setPropertyParam1Captor.capture(),setPropertyParam2Captor.capture(),setPropertyParam3Captor.capture());
+	
+		assertEquals(REQ_PARAM_TYPE,setPropertyParam1Captor.getValue());
+		assertEquals(REQ_PARAM_TYPE_VALUE_IMPRESSION,setPropertyParam2Captor.getValue());
+		assertEquals(PropertyScope.INBOUND,setPropertyParam3Captor.getValue());		
+		
+		// verify a new session property is being set...in this case to true because it needs to funnel to JLAP
+		
+		ArgumentCaptor<String> setSessionPropertyParam1Captor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<Object> setSessionPropertyParam2Captor = ArgumentCaptor.forClass(Object.class);
+		verify(mm, times(1)).setSessionProperty(setSessionPropertyParam1Captor.capture(),setSessionPropertyParam2Captor.capture());
+		
+		assertEquals(LogActionLoggerTransformer.LOGACTION_JLAP,setSessionPropertyParam1Captor.getValue());
+		assertEquals("true",setSessionPropertyParam2Captor.getValue());
+		
+		// verify that our log values are being written as we expect
+		
+		List<LoggingEvent> events = gatherAndCheckLoggingEvents(1);
+		
+		assertEquals(Level.INFO,events.get(0).getLevel());
+		assertEquals("cid=888,sid=666,type=INFO,detail=listshown,remap.generated=true,remap.type=IMPRESSION",events.get(0).getMessage());
+		
+	}
+	
+	@Test
+	public void testTransformWithInfoTypeNotMappedToJLAP() throws Exception{
+
+		// mock the remapper and its backing classes
+		ILogActionInfoRemapper infoRemapper = mock(ILogActionInfoRemapper.class);
+
+		LogActionMapping lam = mock(LogActionMapping.class);
+		when(lam.canBeMapped()).thenReturn(false);
+		when(lam.detailName()).thenReturn(REQ_PARAM_DETAIL_VALUE);
+		when(lam.mappedAction()).thenReturn(null);
+		
+		when(infoRemapper.getLogActionMapping(REQ_PARAM_DETAIL_VALUE)).thenReturn(lam);
+
+
+		// mock the portion of the mule message we will actually use 
+		Set<String> inboundPropertyNames = new HashSet<String>();
+		
+		inboundPropertyNames.add(REQ_PARAM_TYPE);
+		inboundPropertyNames.add(REQ_PARAM_SID);
+		inboundPropertyNames.add(REQ_PARAM_CID);
+		inboundPropertyNames.add(REQ_PARAM_DETAIL);
+		inboundPropertyNames.add(PARAM_JUNK);
+		
+		MuleMessage mm = mock(MuleMessage.class);
+
+		when(mm.getInboundPropertyNames()).thenReturn(inboundPropertyNames);
+		
+		when(mm.getInboundProperty(REQ_PARAM_TYPE)).thenReturn(REQ_PARAM_TYPE_VALUE_INFO);
+		when(mm.getInboundProperty(REQ_PARAM_DETAIL)).thenReturn(REQ_PARAM_DETAIL_VALUE);
+		when(mm.getInboundProperty(REQ_PARAM_SID)).thenReturn(REQ_PARAM_SID_VALUE);
+		when(mm.getInboundProperty(REQ_PARAM_CID)).thenReturn(REQ_PARAM_CID_VALUE);
+		when(mm.getInboundProperty(PARAM_JUNK)).thenReturn(PARAM_JUNK_VALUE);
+		
+		LogActionLoggerTransformer transformer = new LogActionLoggerTransformer();
+		transformer.setLogActionRemapper(infoRemapper);	
+		
+		transformer.transform(mm,"UTF-8");
+		
+		// verify a new session property is being set...in this case to false because it wont funnel to JLAP
+		
+		ArgumentCaptor<String> setSessionPropertyParam1Captor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<Object> setSessionPropertyParam2Captor = ArgumentCaptor.forClass(Object.class);
+		verify(mm, times(1)).setSessionProperty(setSessionPropertyParam1Captor.capture(),setSessionPropertyParam2Captor.capture());
+		
+		assertEquals(LogActionLoggerTransformer.LOGACTION_JLAP,setSessionPropertyParam1Captor.getValue());
+		assertEquals("false",setSessionPropertyParam2Captor.getValue());
+		
+		
+		List<LoggingEvent> events = gatherAndCheckLoggingEvents(1);
+		
+		assertEquals(Level.INFO,events.get(0).getLevel());
+		assertEquals("cid=888,sid=666,type=INFO,detail=listshown,remap.generated=false,remap.type=null",events.get(0).getMessage());
+	}
+	
+	@Test
+	public void testTransformWithInfoTypeNotConfigured() throws Exception{
+		
+		LogTest lt = new LogTest(LogActionLogger.class);
+		
+		try{
+			lt.setupBefore();
+			
+			// mock the remapper and its backing classes
+			ILogActionInfoRemapper infoRemapper = mock(ILogActionInfoRemapper.class);
+		
+			when(infoRemapper.getLogActionMapping(REQ_PARAM_DETAIL_VALUE)).thenReturn(null);
+
+			// mock the portion of the mule message we will actually use 
+			Set<String> inboundPropertyNames = new HashSet<String>();
+			
+			inboundPropertyNames.add(REQ_PARAM_TYPE);
+			inboundPropertyNames.add(REQ_PARAM_SID);
+			inboundPropertyNames.add(REQ_PARAM_CID);
+			inboundPropertyNames.add(REQ_PARAM_DETAIL);
+			inboundPropertyNames.add(PARAM_JUNK);
+			
+			MuleMessage mm = mock(MuleMessage.class);
+
+			when(mm.getInboundPropertyNames()).thenReturn(inboundPropertyNames);
+			
+			when(mm.getInboundProperty(REQ_PARAM_TYPE)).thenReturn(REQ_PARAM_TYPE_VALUE_INFO);
+			when(mm.getInboundProperty(REQ_PARAM_DETAIL)).thenReturn(REQ_PARAM_DETAIL_VALUE);
+			when(mm.getInboundProperty(REQ_PARAM_SID)).thenReturn(REQ_PARAM_SID_VALUE);
+			when(mm.getInboundProperty(REQ_PARAM_CID)).thenReturn(REQ_PARAM_CID_VALUE);
+			when(mm.getInboundProperty(PARAM_JUNK)).thenReturn(PARAM_JUNK_VALUE);
+			
+			LogActionLoggerTransformer transformer = new LogActionLoggerTransformer();
+			transformer.setLogActionRemapper(infoRemapper);	
+			
+			transformer.transform(mm,"UTF-8");
+			
+			// verify a new session property is being set...in this case to false because it wont funnel to JLAP
+			
+			ArgumentCaptor<String> setSessionPropertyParam1Captor = ArgumentCaptor.forClass(String.class);
+			ArgumentCaptor<Object> setSessionPropertyParam2Captor = ArgumentCaptor.forClass(Object.class);
+			verify(mm, times(1)).setSessionProperty(setSessionPropertyParam1Captor.capture(),setSessionPropertyParam2Captor.capture());
+			
+			assertEquals(LogActionLoggerTransformer.LOGACTION_JLAP,setSessionPropertyParam1Captor.getValue());
+			assertEquals("false",setSessionPropertyParam2Captor.getValue());
+			
+			// assert action logging
+			List<LoggingEvent> events = gatherAndCheckLoggingEvents(1);
+			
+			assertEquals(Level.INFO,events.get(0).getLevel());
+			assertEquals("cid=888,sid=666,type=INFO,detail=listshown,remap.generated=false,remap.type=null",events.get(0).getMessage());
+
+			// assert class logger
+
+			List<LoggingEvent> classEvents = lt.gatherAndCheckLoggingEvents(1);
+			assertEquals(Level.WARN,classEvents.get(0).getLevel());
+			assertEquals("Expected a mapping for detail=listshown, but did not find one.  Will log but will not route to JLAP.  Check configurations and add entry for the detail.",classEvents.get(0).getMessage());
+			
+		}
+		finally{
+			lt.tearDownAfter();
+		}
+		
+	}
+	
+	@Test
+	public void testTransformWithStandardActionType() throws Exception{
+		
+		LogTest lt = new LogTest(LogActionLoggerTransformer.class);
+		
+		try{
+			lt.setupBefore();
+			
+			// mock the remapper and its backing classes
+			ILogActionInfoRemapper infoRemapper = mock(ILogActionInfoRemapper.class);
+
+			// mock the portion of the mule message we will actually use 
+			Set<String> inboundPropertyNames = new HashSet<String>();
+			
+			inboundPropertyNames.add(REQ_PARAM_TYPE);
+			inboundPropertyNames.add(REQ_PARAM_SID);
+			inboundPropertyNames.add(REQ_PARAM_CID);
+			inboundPropertyNames.add(PARAM_JUNK);
+			
+			MuleMessage mm = mock(MuleMessage.class);
+
+			when(mm.getInboundPropertyNames()).thenReturn(inboundPropertyNames);
+			
+			when(mm.getInboundProperty(REQ_PARAM_TYPE)).thenReturn(REQ_PARAM_TYPE_VALUE_IMPRESSION);
+			when(mm.getInboundProperty(REQ_PARAM_SID)).thenReturn(REQ_PARAM_SID_VALUE);
+			when(mm.getInboundProperty(REQ_PARAM_CID)).thenReturn(REQ_PARAM_CID_VALUE);
+			when(mm.getInboundProperty(PARAM_JUNK)).thenReturn(PARAM_JUNK_VALUE);
+			
+			LogActionLoggerTransformer transformer = new LogActionLoggerTransformer();
+			transformer.setLogActionRemapper(infoRemapper);	
+			
+			transformer.transform(mm,"UTF-8");
+			
+			// verify a new session property is being set...in this case to true because it will funnel to JLAP
+			
+			ArgumentCaptor<String> setSessionPropertyParam1Captor = ArgumentCaptor.forClass(String.class);
+			ArgumentCaptor<Object> setSessionPropertyParam2Captor = ArgumentCaptor.forClass(Object.class);
+			verify(mm, times(1)).setSessionProperty(setSessionPropertyParam1Captor.capture(),setSessionPropertyParam2Captor.capture());
+			
+			assertEquals(LogActionLoggerTransformer.LOGACTION_JLAP,setSessionPropertyParam1Captor.getValue());
+			assertEquals("true",setSessionPropertyParam2Captor.getValue());
+			
+			// assert action logging
+			List<LoggingEvent> events = gatherAndCheckLoggingEvents(0);
+			assertEquals(0,events.size());
+			List<LoggingEvent> classEvents = lt.gatherAndCheckLoggingEvents(0);
+			assertEquals(0,classEvents.size());
+			
+		}
+		finally{
+			lt.tearDownAfter();
+		}	
+	}
+	
+	@Test
+	public void testTransformWithInfoTypeButNoDetailPresent() throws Exception{
+		
+		LogTest lt = new LogTest(LogActionLogger.class);
+		
+		try{
+			lt.setupBefore();
+			
+			// mock the remapper and its backing classes
+			ILogActionInfoRemapper infoRemapper = mock(ILogActionInfoRemapper.class);
+		
+			when(infoRemapper.getLogActionMapping(REQ_PARAM_DETAIL_VALUE)).thenReturn(null);
+
+			// mock the portion of the mule message we will actually use 
+			Set<String> inboundPropertyNames = new HashSet<String>();
+			
+			inboundPropertyNames.add(REQ_PARAM_TYPE);
+			inboundPropertyNames.add(REQ_PARAM_SID);
+			inboundPropertyNames.add(REQ_PARAM_CID);
+			inboundPropertyNames.add(PARAM_JUNK);
+			
+			MuleMessage mm = mock(MuleMessage.class);
+
+			when(mm.getInboundPropertyNames()).thenReturn(inboundPropertyNames);
+			
+			when(mm.getInboundProperty(REQ_PARAM_TYPE)).thenReturn(REQ_PARAM_TYPE_VALUE_INFO);
+			when(mm.getInboundProperty(REQ_PARAM_SID)).thenReturn(REQ_PARAM_SID_VALUE);
+			when(mm.getInboundProperty(REQ_PARAM_CID)).thenReturn(REQ_PARAM_CID_VALUE);
+			when(mm.getInboundProperty(PARAM_JUNK)).thenReturn(PARAM_JUNK_VALUE);
+			
+			LogActionLoggerTransformer transformer = new LogActionLoggerTransformer();
+			transformer.setLogActionRemapper(infoRemapper);	
+			
+			transformer.transform(mm,"UTF-8");
+			
+			// verify a new session property is being set...in this case to false because it wont funnel to JLAP
+			
+			ArgumentCaptor<String> setSessionPropertyParam1Captor = ArgumentCaptor.forClass(String.class);
+			ArgumentCaptor<Object> setSessionPropertyParam2Captor = ArgumentCaptor.forClass(Object.class);
+			verify(mm, times(1)).setSessionProperty(setSessionPropertyParam1Captor.capture(),setSessionPropertyParam2Captor.capture());
+			
+			assertEquals(LogActionLoggerTransformer.LOGACTION_JLAP,setSessionPropertyParam1Captor.getValue());
+			assertEquals("false",setSessionPropertyParam2Captor.getValue());
+			
+			// assert action logging
+			List<LoggingEvent> events = gatherAndCheckLoggingEvents(1);
+			
+			assertEquals(Level.INFO,events.get(0).getLevel());
+			assertEquals("cid=888,sid=666,type=INFO,remap.generated=false,remap.type=null",events.get(0).getMessage());
+
+			// assert class logger
+
+			List<LoggingEvent> classEvents = lt.gatherAndCheckLoggingEvents(1);
+			assertEquals(Level.WARN,classEvents.get(0).getLevel());
+			assertEquals("Expected a mapping for detail param due to type=INFO, but did not find one.  Will log but will not route to JLAP.  Check request and ensure detail is being passed with type=INFO.",classEvents.get(0).getMessage());
+			
+		}
+		finally{
+			lt.tearDownAfter();
+		}
+		
+	}
+
+	
+	
+}

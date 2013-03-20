@@ -1,0 +1,146 @@
+package com.navteq.nmg.pani.image.factory;
+
+import java.net.URL;
+
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+import com.navteq.nmg.pani.PaniImage;
+import com.navteq.nmg.pani.image.ImageBaseHelper;
+import com.navteq.nmg.pani.image.category.IImageCategoryService.ImageCategory;
+import com.navteq.nmg.pani.image.enums.ImageMimeTypes;
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+
+
+import static org.junit.Assert.*;
+
+
+public class PaniImageFactoryTest extends ImageBaseHelper{
+	
+
+	private static final int PARTNER_TIMEOUT = 5000;
+	private static final int FIVE_MS_TIMEOUT = 5;
+	
+	@Test
+	public void testCreateFromCachedImages() throws Exception{
+		
+		URL url = PaniImageFactoryTest.class.getResource("./resources");
+		IPaniImageFactory factory = new PaniImageFactory(url, PARTNER_TIMEOUT);
+		PaniImage paniImage = factory.getImage(ImageCategory.EVENTS, ImageSizeTypes.SMALL_INTRO_ICON, ImageMimeTypes.JPG);
+		
+		assertNotNull(paniImage);
+
+		// lets make sure we are getting the proper thing back from the factory
+		String base64Image = paniImage.getImageAsBase64String();
+		String compareBase64Image = getImageAsBase64String("./resources/nmg-events-1.jpg");
+		assertNotNull(base64Image);
+		assertEquals(compareBase64Image, base64Image);
+	}	
+	
+	@Test
+	public void testCreateThrowsExceptionNoImagesForCategory() throws Exception{
+		
+		URL url = PaniImageFactoryTest.class.getResource("./resources");
+		IPaniImageFactory factory = new PaniImageFactory(url, PARTNER_TIMEOUT);
+		
+		try{
+			factory.getImage(ImageCategory.HEALTHBEAUTY, ImageSizeTypes.SMALL_INTRO_ICON, ImageMimeTypes.JPG);
+			fail("Method getImage(ImageCategory,ImageSizeTypes,ImageMimeTypes) should have thrown exception but did not.");
+		}
+		catch(Exception ex){
+			assertEquals("Category "+ImageCategory.HEALTHBEAUTY.getCategoryName()+" does not have any mappings for PANI images.",ex.getMessage());
+		}
+	}
+
+	@Test
+	public void testCreateThrowsExceptionNoImagesForCategoryAndSize() throws Exception{
+		
+		URL url = PaniImageFactoryTest.class.getResource("./resources");
+		IPaniImageFactory factory = new PaniImageFactory(url, PARTNER_TIMEOUT);
+		
+		try{
+			factory.getImage(ImageCategory.ATTRACTIONS, ImageSizeTypes.SMALL_INTRO_ICON, ImageMimeTypes.JPG);
+			fail("Method getImage(ImageCategory,ImageSizeTypes,ImageMimeTypes) should have thrown exception but did not.");
+		}
+		catch(Exception ex){
+			assertEquals("Category "+ImageCategory.ATTRACTIONS.getCategoryName()+" does not have any mappings for image size type "+ImageSizeTypes.SMALL_INTRO_ICON.toString(),ex.getMessage());
+		}
+	}
+
+	@Test
+	public void testCreateThrowsExceptionNoImagesForCategoryAndSizeAndMimeType() throws Exception{
+		
+		URL url = PaniImageFactoryTest.class.getResource("./resources");
+		IPaniImageFactory factory = new PaniImageFactory(url, PARTNER_TIMEOUT);
+		
+		try{
+			factory.getImage(ImageCategory.ATTRACTIONS, ImageSizeTypes.MID_INTRO_ICON, ImageMimeTypes.PNG);
+			fail("Method getImage(ImageCategory,ImageSizeTypes,ImageMimeTypes) should have thrown exception but did not.");
+		}
+		catch(Exception ex){
+			assertEquals("Category "+ImageCategory.ATTRACTIONS.getCategoryName()+" does not have any mappings for image size type "+ImageSizeTypes.MID_INTRO_ICON.toString()+" having a mime type of "+ImageMimeTypes.PNG.getMimeTypeName(),ex.getMessage());
+		}
+	}
+	
+	@Test
+	public void verifyTimeoutFailsHttpCallForImageUrlToExternalUrl() throws Exception{
+		URL localImageStoreUrl = PaniImageFactoryTest.class.getResource("./resources");
+		IPaniImageFactory factory = new PaniImageFactory(localImageStoreUrl, FIVE_MS_TIMEOUT);
+	
+		PaniImage image = factory.getImage(ImageCategory.ACTIVITIES, ImageSizeTypes.X_LARGE_BANNER, ImageMimeTypes.JPG,"https://d2x9dz1etb1m98.cloudfront.net/ugassets/deal/images/0/b/92a03c93/large.jpg");
+		assertNotNull(image);
+		image.getImgUrl();
+		
+	}
+	
+	@Test
+	@Ignore("Not happy bamboo cant man up and push the -Djava.awt.headless=true to fix the X11 env exception when this runs on bamboo.")
+	public void verifyImageResizesFromExternalUrlToDesiredSmallerSizeProperRatio() throws Exception{
+		URL fileUrl2 = PaniImageFactoryTest.class.getResource("./resources/external/fat-punk-240x40.jpg");
+		
+		URL url = PaniImageFactoryTest.class.getResource("./resources");
+		IPaniImageFactory factory = new PaniImageFactory(url, PARTNER_TIMEOUT);
+		
+		PaniImage image = factory.getImage(ImageCategory.ACTIVITIES, ImageSizeTypes.LARGE_BANNER, ImageMimeTypes.PNG,fileUrl2.getFile());		
+		assertNotNull(image);
+		
+		assertEquals(ImageSizeTypes.LARGE_BANNER.height(),image.getImage().getHeight());
+		assertEquals(ImageSizeTypes.LARGE_BANNER.width(),image.getImage().getWidth());		
+	}
+
+	@Test
+	public void verifyImageDoesNotResizeFromExternalUrlToLargeSizeProperRatioTakesDefault() throws Exception{
+		URL fileUrl2 = PaniImageFactoryTest.class.getResource("./resources/external/fat-punk-240x40.jpg");
+		
+		URL url = PaniImageFactoryTest.class.getResource("./resources");
+		IPaniImageFactory factory = new PaniImageFactory(url, PARTNER_TIMEOUT);
+		
+		// get default image (always is catgeory, size, and mime type)
+		PaniImage defaultImage = factory.getImage(ImageCategory.ACTIVITIES, ImageSizeTypes.X_LARGE_BANNER, ImageMimeTypes.PNG);
+		
+		PaniImage image = factory.getImage(ImageCategory.ACTIVITIES, ImageSizeTypes.X_LARGE_BANNER, ImageMimeTypes.PNG,fileUrl2.getFile());		
+		assertNotNull(image);
+		
+		// verify binary contents are the same with default and what came from the factory by external url sizing failure
+		assertEquals(defaultImage.getImage(),image.getImage());
+	}	
+	
+
+	@Test
+	public void testGetImageFromUrlString() throws Exception{
+		
+		URL fileUrl = PaniImageFactoryTest.class.getResource("./resources/external/daves-300x50.jpg");
+		
+		URL url = PaniImageFactoryTest.class.getResource("./resources");
+		IPaniImageFactory factory = new PaniImageFactory(url, PARTNER_TIMEOUT);
+		
+		PaniImage image = factory.getImage(ImageCategory.SERVICES, ImageSizeTypes.X_LARGE_BANNER, ImageMimeTypes.PNG, fileUrl.getFile());
+		assertNotNull(image);
+		
+		assertEquals(ImageSizeTypes.X_LARGE_BANNER.height(),image.getImage().getHeight());
+		assertEquals(ImageSizeTypes.X_LARGE_BANNER.width(),image.getImage().getWidth());
+	}
+
+
+}

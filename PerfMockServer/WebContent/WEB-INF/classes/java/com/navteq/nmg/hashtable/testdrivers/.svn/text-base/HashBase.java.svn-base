@@ -1,0 +1,23 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+
+public abstract class HashBase implements IHashContainer{
+	protected String key;
+	protected HashDataType hdt;
+	
+	public HashBase(String key, HashDataType hdt){
+		this.key = key;
+		this.hdt = hdt;
+	}
+    	
+	@Override
+	public String getKey() {
+		return key;
+	}
+
+	@Override
+	public HashDataType getHashdataType() {
+		return hdt;
+	}
+}

@@ -1,0 +1,132 @@
+package com.navteq.nmg.hashtable.testdrivers.impl.errorresponses;
+
+import com.navteq.nmg.hashtable.impl.MessageVersions;
+import com.navteq.nmg.hashtable.testdrivers.ByteForByteContentComparer;
+import com.navteq.nmg.hashtable.testdrivers.IHashCompare;
+import com.navteq.nmg.hashtable.testdrivers.StaticTestMessage;
+
+public class InvalidNumberOfLatLongPolyPointsAreaCheckin extends StaticTestMessage {
+	
+	private IHashCompare hashComparer;
+	private static StringBuilder xmlErrorMessage;
+	private static final byte[] hashErrorMessage = new byte[]{
+		(byte)'i',
+		(byte)'L',
+		(byte)'a',
+		(byte)100,
+		(byte)78,
+		(byte)0,
+		(byte)0,
+		(byte)0,
+		(byte)73,
+		(byte)110,
+		(byte)118,
+		(byte)97,
+		(byte)108,
+		(byte)105,
+		(byte)100,
+		(byte)32,
+		(byte)110,
+		(byte)117,
+		(byte)109,
+		(byte)98,
+		(byte)101,
+		(byte)114,
+		(byte)32,
+		(byte)111,
+		(byte)102,
+		(byte)32,
+		(byte)108,
+		(byte)97,
+		(byte)116,
+		(byte)47,
+		(byte)108,
+		(byte)111,
+		(byte)110,
+		(byte)103,
+		(byte)32,
+		(byte)112,
+		(byte)111,
+		(byte)108,
+		(byte)121,
+		(byte)32,
+		(byte)112,
+		(byte)111,
+		(byte)105,
+		(byte)110,
+		(byte)116,
+		(byte)115,
+		(byte)32,
+		(byte)112,
+		(byte)97,
+		(byte)115,
+		(byte)115,
+		(byte)101,
+		(byte)100,
+		(byte)32,
+		(byte)105,
+		(byte)110,
+		(byte)32,
+		(byte)116,
+		(byte)111,
+		(byte)32,
+		(byte)116,
+		(byte)104,
+		(byte)105,
+		(byte)115,
+		(byte)32,
+		(byte)97,
+		(byte)114,
+		(byte)101,
+		(byte)97,
+		(byte)32,
+		(byte)99,
+		(byte)104,
+		(byte)101,
+		(byte)99,
+		(byte)107,
+		(byte)105,
+		(byte)110,
+		(byte)32,
+		(byte)114,
+		(byte)101,
+		(byte)113,
+		(byte)117,
+		(byte)101,
+		(byte)115,
+		(byte)116,
+		(byte)46
+	};
+	
+	public InvalidNumberOfLatLongPolyPointsAreaCheckin() throws Exception{
+		this(MessageVersions.VERNUM_1_1);
+	}
+	
+	public InvalidNumberOfLatLongPolyPointsAreaCheckin(String versionNumber) throws Exception{
+		super(InvalidNumberOfLatLongPolyPointsAreaCheckin.class.getSimpleName()+versionNumber,versionNumber,hashErrorMessage);
+		xmlErrorMessage = new StringBuilder();
+		
+		xmlErrorMessage.append("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>");
+		xmlErrorMessage.append("<ilapresponse>");
+		xmlErrorMessage.append("<errmsg><![CDATA[Invalid number of lat/long poly points passed in to this area checkin request. ReferenceID : fABXFbkrT06qp-zfz7tc5g]]></errmsg>");
+		xmlErrorMessage.append("</ilapresponse>");		
+		setXmlInputMessage(xmlErrorMessage.toString());
+		
+		hashComparer = new ByteForByteContentComparer(hashErrorMessage);
+	}
+
+	@Override
+	public IHashCompare getHashComparer() {
+		return hashComparer;
+	}	
+}
+
+
+//<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+//
+//<ilapresponse>
+//
+//  <errmsg><![CDATA[An invalid or missing Latitude value was passed to this checkin request.  An invalid or missing Longitude value was passed to this checkin request. ReferenceID : vL8iAsJ95UiFQrOWxhr3Fg]]></errmsg>
+//
+//</ilapresponse>	
+

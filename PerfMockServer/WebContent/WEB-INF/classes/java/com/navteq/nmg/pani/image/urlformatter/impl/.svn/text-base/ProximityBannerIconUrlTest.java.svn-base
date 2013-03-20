@@ -1,0 +1,66 @@
+package com.navteq.nmg.pani.image.urlformatter.impl;
+
+import static org.junit.Assert.assertEquals;
+
+import java.net.URL;
+import java.net.URLEncoder;
+
+import org.junit.Test;
+
+import com.navteq.nmg.pani.image.category.IImageCategoryService.ImageCategory;
+import com.navteq.nmg.pani.image.enums.ImageMimeTypes;
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+import com.navteq.nmg.pani.image.enums.ImageType;
+import com.navteq.nmg.pani.image.urlformatter.IImageUrlFormatter;
+import com.navteq.nmg.pani.image.urlformatter.impl.ProximityBannerIconUrl;
+
+
+public class ProximityBannerIconUrlTest {
+	
+	private static final String contextUrlString = "http://my.server.lcl:8080/nmg";
+	
+	@Test
+	public void testConstructorWithProximityBannerSize() throws Exception{
+		URL contextUrl = new URL(contextUrlString);
+		
+		for (ImageCategory category : ImageCategory.values()){
+			for (ImageSizeTypes size : ImageSizeTypes.PROXIMITY_BANNER_SIZES){
+				for (ImageMimeTypes mimeType : ImageMimeTypes.values()){
+					IImageUrlFormatter proximityBannerIconUrl = new ProximityBannerIconUrl(contextUrl,category,size,mimeType);
+					
+					// create the assert string on the fly
+					
+					StringBuilder sb = new StringBuilder(128);
+					sb.append(contextUrlString);
+					sb.append("/gwimg/");
+					sb.append("nmg-");
+					sb.append(category.getCategoryName());
+					sb.append("-");
+					sb.append(ImageSizeTypes.getIconSizeForProximityBanner(size).intValue());
+					sb.append(".");
+					sb.append(mimeType.getMimeTypeName());
+					
+					assertEquals(sb.toString(),proximityBannerIconUrl.getAsString());
+					assertEquals(new URL(sb.toString()),proximityBannerIconUrl.getAsUrl());
+					assertEquals(URLEncoder.encode(sb.toString(), "UTF-8"),proximityBannerIconUrl.getAsString("UTF-8"));
+
+				}
+			}
+		}
+	}
+	
+	@Test
+	public void testConstructorWithAllOtherSizesThrowsException() throws Exception{
+		
+		URL contextUrl = new URL(contextUrlString);
+		for (ImageSizeTypes size : ImageSizeTypes.values()){
+			if (size.imageType() == ImageType.PROXIMITY_BANNER) continue;
+			try{
+				new ProximityBannerIconUrl(contextUrl,ImageCategory.ACTIVITIES,size,ImageMimeTypes.JPG);
+			}
+			catch(Exception ex){
+				assertEquals("Only proximity banner sizes are supported for mapping to an icon size.",ex.getMessage());
+			}
+		}
+	}
+}

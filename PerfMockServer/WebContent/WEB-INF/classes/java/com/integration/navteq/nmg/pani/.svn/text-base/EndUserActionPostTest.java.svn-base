@@ -1,0 +1,102 @@
+package com.integration.navteq.nmg.pani;
+
+import static org.junit.Assert.fail;
+
+
+import java.io.File;
+import java.io.FileInputStream;
+
+
+import junit.framework.Assert;
+
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
+import org.apache.commons.httpclient.methods.PostMethod;
+
+import org.junit.Test;
+
+public class EndUserActionPostTest {
+	@Test
+	public void testEndUserActionPostWithXML() {
+	try {
+		HttpClient httpclient = new HttpClient();
+		//final String url = "http://iilap.ilap-na.net/lpa/api2.aspx?ver=2.4";
+		final String url = "http://localhost:8079/lpa/api1.aspx?ver=2.4";
+		PostMethod post = new PostMethod(url);
+		System.out.println(System.getProperty("user.dir"));
+		//File xmlfile = new File(System.getProperty("user.dir") + "/com/integration/testfiles/post.xml");
+		File xmlfile = new File(System.getProperty("user.dir") + "/com/integration/testfiles/test.req");
+		
+		post.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+		
+		post.setRequestEntity(new InputStreamRequestEntity(
+				new FileInputStream(xmlfile), xmlfile.length()));
+				
+		int result = httpclient.executeMethod(post);
+		System.out.println("Response status code " + result);
+		System.out.println("Response body ");
+		System.out.println(post.getResponseBodyAsString());
+	
+		Assert.assertEquals(200, result);
+	
+	}  catch (Exception e) {
+		e.printStackTrace();
+		fail(e.getMessage());
+		}
+	}
+    /*
+	@Test
+	public void testEndUserActionPostWithoutXML() {
+		try {
+				HttpClient httpclient = new HttpClient();
+				//final String url = "http://localhost:8080/nmg/adserver";
+				final String url = "http://iilap.ilap-na.net/lpa/api1.aspx?ver=2.4";
+				PostMethod post = new PostMethod(url);
+				System.out.println(System.getProperty("user.dir"));
+				File xmlfile = new File(System.getProperty("user.dir") + "/com/integration/testfiles/post.req");
+				
+				post.setRequestEntity(new InputStreamRequestEntity(
+						new FileInputStream(xmlfile), xmlfile.length()));
+				
+				post.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+				
+				
+				Header[] headers = post.getRequestHeaders();
+				
+				System.out.println("Printing Headers");
+				for (Header header : headers) {
+					System.out.println(header.getName() + " " + header.getValue());
+				}
+				
+				int result = httpclient.executeMethod(post);
+				
+				System.out.println("Response body ");				
+				System.out.println(post.getResponseBodyAsString());
+				
+				InputStream is = post.getResponseBodyAsStream();
+				InputStreamReader isr = new InputStreamReader(is);
+				BufferedReader br = new BufferedReader(isr);
+				
+				String output = "";
+				boolean found = false;
+			
+				while ((output = br.readLine()) != null) {
+					if (output.contains("enduserid")) {
+						found = true;
+					}
+				}
+				br.close();
+				
+				System.out.println("Response status code " + result);
+			
+				Assert.assertEquals(200, result);
+				Assert.assertTrue(found);
+			
+		}  catch (Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+	*/	
+}

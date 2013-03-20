@@ -1,0 +1,56 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+import static org.junit.Assert.assertEquals;
+
+import org.apache.commons.io.HexDump;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+
+public class ByteForByteContentComparer implements IHashCompare {
+
+	private byte[] expectedMessage;
+	
+	public ByteForByteContentComparer(byte[] expectedMessage){
+		this.expectedMessage = expectedMessage;
+	}
+	
+	@Override
+	public void assertMessageEqualsCompareMessage(byte[] actualMessage) throws AssertionError {
+		assertBytesAreEqual(expectedMessage, actualMessage);
+	}
+	
+	public static void assertBytesAreEqual(byte[] expected, byte[] actual) throws AssertionError {
+
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Expected byte stream:\n");
+		sb.append(getByteArrayAsStringFormattedDump(expected));
+		sb.append("\nActual byte stream:\n");
+		sb.append(getByteArrayAsStringFormattedDump(actual));
+		
+		String output = sb.toString();
+
+		for (int index = 0; index < actual.length; index++){
+			assertEquals(
+				"Content of byte stream is not what was expected in offset["+Integer.toString(index)+"].\n"+output
+				,expected[index]
+				,actual[index]);
+		}	
+	}
+	
+	public static void showByteArrayAsHexDump(byte[] data){
+		System.out.println(getByteArrayAsStringFormattedDump(data));			
+	}
+	
+	public static String getByteArrayAsStringFormattedDump(byte[] data){
+		try{
+			
+			ByteArrayOutputStream printStream = new ByteArrayOutputStream();
+			HexDump.dump(data, 0, printStream, 0);
+			return printStream.toString();			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return "[no content]";
+	}
+}

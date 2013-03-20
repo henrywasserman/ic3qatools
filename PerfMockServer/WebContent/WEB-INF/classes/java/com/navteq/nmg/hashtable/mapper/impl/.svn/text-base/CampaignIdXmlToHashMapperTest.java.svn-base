@@ -1,0 +1,86 @@
+package com.navteq.nmg.hashtable.mapper.impl;
+
+import static org.mockito.Mockito.mock;
+
+import java.net.URLEncoder;
+
+import org.apache.commons.io.EndianUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IXmlEntryParser;
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+import com.navteq.nmg.hashtable.IMessageVersions.MessageVersionsType;
+import com.navteq.nmg.hashtable.mapper.IIndexName;
+import com.navteq.nmg.hashtable.mapper.IXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.CampaignIdXmlToHashMapper;
+
+public class CampaignIdXmlToHashMapperTest extends XmlToHashMapperHelper{
+	
+	private static final IIndexName XML_FIELD = new IndexName("campaignid","campaignid");
+	private static final String XML_VALUE_GUID = "00000D329B9CF2C446B47741B44BA66F7574CFDD";
+	private static final String XML_VALUE_NUMBUH = "666555444333222111";
+	
+	@Test
+	public void testConstructor() throws Exception{
+		IXmlToHashMapper mockParent = mock(IXmlToHashMapper.class);
+		assertConstructor(XML_FIELD, MessageVersionsType.VERSION_2_4, mockParent, false);
+	}
+
+	@Test
+	public void testMapFromXmlToHashGUID() throws Exception{
+		String utfName = URLEncoder.encode(XML_FIELD.getIndexedName(), "UTF-8");
+		String utfValue = URLEncoder.encode(XML_VALUE_GUID, "UTF-8");
+		
+		int size = HEADER_LENGTH_FIELD_SIZE + utfName.length()+ DATATYPE_LENGTH_FIELD_SIZE + COUNT_SIZE + utfValue.length();
+		
+		assertMapFromXmlToHash(createMapperInstance(XML_FIELD, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class)),XML_VALUE_GUID,1,size);		
+	}
+
+	@Test
+	public void testMapFromXmlToHashLong() throws Exception{
+		String utfName = URLEncoder.encode(XML_FIELD.getIndexedName(), "UTF-8");
+		
+		int size = HEADER_LENGTH_FIELD_SIZE + utfName.length()+ DATATYPE_LENGTH_FIELD_SIZE + LONG_SIZE;
+		
+		assertMapFromXmlToHash(createMapperInstance(XML_FIELD, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class)),XML_VALUE_NUMBUH,1,size);		
+	}
+	
+	@Test
+	public void testStreamInjectionAsGUID() throws Exception{
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		String utfName = URLEncoder.encode(XML_FIELD.getIndexedName(), "UTF-8");
+		String utfValue = URLEncoder.encode(XML_VALUE_GUID, "UTF-8");
+		
+		outputStream.write(new byte[]{(byte)utfName.length()});
+		outputStream.write(utfName.getBytes());
+		outputStream.write(HashDataType.HASH_STRING.encode());
+		EndianUtils.writeSwappedInteger(outputStream, utfValue.length());
+		outputStream.write(utfValue.getBytes());
+		byte[] expectedBytes = outputStream.toByteArray();
+		assertStreamInjectedProperly(createMapperInstance(XML_FIELD, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class)),XML_VALUE_GUID, expectedBytes);
+	}
+	
+	@Test
+	public void testStreamInjectionAsLong() throws Exception{
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		String utfName = URLEncoder.encode(XML_FIELD.getBaseName(), "UTF-8");
+		
+		outputStream.write(new byte[]{(byte)utfName.length()});
+		outputStream.write(utfName.getBytes());
+		outputStream.write(HashDataType.HASH_LONG.encode());
+		EndianUtils.writeSwappedLong(outputStream, Long.valueOf(XML_VALUE_NUMBUH));
+		byte[] expectedBytes = outputStream.toByteArray();
+		assertStreamInjectedProperly(createMapperInstance(XML_FIELD, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class)),XML_VALUE_NUMBUH, expectedBytes);
+	}	
+	
+	@Override
+	protected IXmlEntryParser createParser() throws Exception {
+		return mock(IXmlEntryParser.class);
+	}
+
+	@Override
+	protected IXmlToHashMapper createMapperInstance(IIndexName xmlElementName,	MessageVersionsType mvt, IXmlToHashMapper parent) throws Exception {
+		return new CampaignIdXmlToHashMapper(xmlElementName, mvt, parent);
+	}	
+}

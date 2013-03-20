@@ -1,0 +1,119 @@
+package com.navteq.nmg.pani.image.nodebuilder.impl;
+
+import static org.junit.Assert.*;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+import com.navteq.nmg.pani.image.nodebuilder.IImageNodeBuilder;
+
+public class ImageElementTest {
+	
+	private static final String CDATA_URL_COMPARE = "http://10.49.48.195:9000/nmg/gwimg/nmg-dining-101.png";
+	private static final String TAG_DATA = "url";
+	private static final String TAG_TYPE = "type";
+	private static final String TAG_IMAGE = "image";
+	
+	private static final class ConcreteImageElement extends ImageElement{
+		public ConcreteImageElement() {
+			super(TAG_DATA,ImageSizeTypes.SMALL_BANNER);
+		}
+		
+		@Override
+		protected String getCDATASectionForTagName() {
+			return CDATA_URL_COMPARE;
+		}		
+	}
+	
+	@Test 
+	public void verifyContructorIsSettingImageSizeTypeCorrectly() throws Exception{
+		IImageNodeBuilder imageNodeBuilder = new ConcreteImageElement();
+		assertEquals(ImageSizeTypes.SMALL_BANNER, imageNodeBuilder.getImageSizeType());
+	}
+
+	
+	@Test
+	public void testBuildMethod() throws Exception{
+		IImageNodeBuilder imageNodeBuilder = new ConcreteImageElement();
+		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		Element root = doc.createElement("root");
+		imageNodeBuilder.build(doc, root);
+				
+		
+		assertTrue(root.hasChildNodes());
+		assertEquals(1,root.getChildNodes().getLength());
+		assertEquals(TAG_IMAGE,root.getChildNodes().item(0).getNodeName());
+		
+		assertNotNull(root.getElementsByTagName(TAG_DATA));
+		assertNotNull(root.getElementsByTagName(TAG_TYPE));
+		
+		NodeList nl = root.getElementsByTagName(TAG_DATA).item(0).getChildNodes();
+		
+		assertEquals(1, nl.getLength());
+		
+		Node cdataNode = nl.item(0); 
+		assertEquals(Node.CDATA_SECTION_NODE,cdataNode.getNodeType());
+		assertEquals(CDATA_URL_COMPARE,cdataNode.getNodeValue());
+		
+		assertEquals(Node.CDATA_SECTION_NODE,nl.item(0).getNodeType());
+
+        nl = root.getElementsByTagName(TAG_TYPE).item(0).getChildNodes();
+		
+		assertEquals(1, nl.getLength());
+		
+		cdataNode = nl.item(0); 
+		assertEquals(Node.CDATA_SECTION_NODE,cdataNode.getNodeType());
+		assertEquals(Integer.toString(ImageSizeTypes.SMALL_BANNER.intValue()),cdataNode.getNodeValue());
+	}
+	
+	@Test
+	public void testImageSizeTypeGeneratesNewElementDataOnBuild() throws Exception{
+		IImageNodeBuilder imageNodeBuilder = new ConcreteImageElement();
+		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		Element root = doc.createElement("root");
+		imageNodeBuilder.build(doc, root);
+
+		NodeList nl = root.getElementsByTagName(TAG_TYPE).item(0).getChildNodes();
+		
+		assertEquals(1, nl.getLength());
+		
+		Node cdataNode = nl.item(0); 
+		assertEquals(Node.CDATA_SECTION_NODE,cdataNode.getNodeType());
+		assertEquals(Integer.toString(ImageSizeTypes.SMALL_BANNER.intValue()),cdataNode.getNodeValue());
+		
+		doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		root = doc.createElement("root");
+		imageNodeBuilder.remapImageSizeType(ImageSizeTypes.LARGE_BANNER);
+		imageNodeBuilder.build(doc, root);
+		
+		nl = root.getElementsByTagName(TAG_TYPE).item(0).getChildNodes();
+		
+		assertEquals(1, nl.getLength());
+		
+		cdataNode = nl.item(0); 
+		assertEquals(Node.CDATA_SECTION_NODE,cdataNode.getNodeType());
+		assertEquals(Integer.toString(ImageSizeTypes.LARGE_BANNER.intValue()),cdataNode.getNodeValue());
+		
+		// now try and reset with a null member, should stay the same as above LARGE BANNER and not fail
+		
+		doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		root = doc.createElement("root");
+		imageNodeBuilder.remapImageSizeType(null);
+		imageNodeBuilder.build(doc, root);
+		
+		nl = root.getElementsByTagName(TAG_TYPE).item(0).getChildNodes();
+		
+		assertEquals(1, nl.getLength());
+		
+		cdataNode = nl.item(0); 
+		assertEquals(Node.CDATA_SECTION_NODE,cdataNode.getNodeType());
+		assertEquals(Integer.toString(ImageSizeTypes.LARGE_BANNER.intValue()),cdataNode.getNodeValue());		
+		
+	}
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ilapresponse>
+  <message>
+    <campaignid><![CDATA[13043866337280]]></campaignid>
+    <creativeid><![CDATA[3037]]></creativeid>
+    <advertisername><![CDATA[PlaceID Test]]></advertisername>
+    <introtext><![CDATA[]]></introtext>
+    <mainmessagetext><![CDATA[endusercheckin NMS]]></mainmessagetext>
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+    <couponcode><![CDATA[]]></couponcode>
+
+    <expirydate><![CDATA[2012.04.25.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+    <callstoaction>
+      <calltoaction>
+        <action><![CDATA[IMPRESSION]]></action>
+        <data><![CDATA[]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+    </callstoaction>
+    <countrycode><![CDATA[US]]></countrycode>
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[215639]]></storefrontid>
+      <nametag><![CDATA[PlaceID Test]]></nametag>
+
+      <name><![CDATA[Storefront Name]]></name>
+      <addr1><![CDATA[133 Wood Rd]]></addr1>
+      <addr2><![CDATA[]]></addr2>
+      <addrcity><![CDATA[Springfield]]></addrcity>
+      <addrstate><![CDATA[PA]]></addrstate>
+      <addrzip><![CDATA[19064]]></addrzip>
+      <phone><![CDATA[]]></phone>
+      <longitude><![CDATA[-75322517]]></longitude>
+      <latitude><![CDATA[39941760]]></latitude>
+
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[840dr47j-e58f71793f454b36a92d70cc1c3337b2]]></placeid>
+      <distance><![CDATA[8.48]]></distance>
+    </storefront>
+  </message>
+</ilapresponse>

@@ -1,0 +1,33 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
+
+import com.google.inject.Inject;
+import com.navteq.nmg.hashtable.IHashStreamInjector;
+import com.navteq.nmg.hashtable.IXmlToHashParser;
+
+public class TestMessageExecutor {
+
+	private ITestMessageFactory testMessageFactory;
+	private IXmlToHashParser parser;
+	
+	@Inject
+	public TestMessageExecutor(ITestMessageFactory testMessageFactory, IXmlToHashParser parser){
+		this.testMessageFactory = testMessageFactory;
+		this.parser = parser;
+	}
+	
+	public void executeSuiteAgainstParser() throws Exception{
+	
+		for (ITestMessage testMessage : testMessageFactory.getAllTestMessagesForRun()){
+			IHashStreamInjector streamInjector = parser.hashify(testMessage.getXmlInputMessage(), testMessage.getVersionNumber());
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			
+			streamInjector.injectStream(outputStream);
+			
+			byte[] hashFormat = outputStream.toByteArray();
+			
+			testMessage.getHashComparer().assertMessageEqualsCompareMessage(hashFormat);
+		}
+	}
+}

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20916/nmg-common/trunk/src/test/java/com/nokia/lc/adview/components/bulklogging
+END
+LogActionTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20864/nmg-common/trunk/src/test/java/com/nokia/lc/adview/components/bulklogging/LogActionTest.java
+END
+EndUserActionTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 182
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20864/nmg-common/trunk/src/test/java/com/nokia/lc/adview/components/bulklogging/EndUserActionTest.java
+END
+BulkJsonLogActionTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20916/nmg-common/trunk/src/test/java/com/nokia/lc/adview/components/bulklogging/BulkJsonLogActionTest.java
+END

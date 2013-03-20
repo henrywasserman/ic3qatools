@@ -1,0 +1,39 @@
+package com.navteq.nmg.hashtable.testdrivers.impl.successresponses;
+
+import com.navteq.nmg.hashtable.impl.MessageVersions;
+import com.navteq.nmg.hashtable.testdrivers.HashMessageMapDrivenContentComparer;
+import com.navteq.nmg.hashtable.testdrivers.IHashCompare;
+import com.navteq.nmg.hashtable.testdrivers.StaticTestMessage;
+
+public class Version_2_4_EnduserIdResponse extends StaticTestMessage{
+
+	private IHashCompare hashComparer;
+	
+	private static StringBuilder enduserTag;
+	private static final byte[] hashEnduserResponse = new byte[]{	
+	(byte)105, (byte)76, (byte)97, (byte)0, (byte)41, (byte)0, (byte)0, (byte)0, (byte)2, (byte)0, (byte)0, (byte)0, (byte)9, (byte)101, 
+	(byte)110, (byte)100, (byte)117, (byte)115, (byte)101, (byte)114, (byte)105, (byte)100, (byte)3, (byte)-10, (byte)97, (byte)53, (byte)0, 
+	(byte)0, (byte)0, (byte)0, (byte)0, (byte)12, (byte)109, (byte)101, (byte)115, (byte)115, (byte)97, (byte)103, (byte)101, (byte)99, 
+	(byte)111, (byte)117, (byte)110, (byte)116, (byte)2, (byte)1, (byte)0, (byte)0, (byte)0
+	};
+	
+	
+	public Version_2_4_EnduserIdResponse() throws Exception{
+		this(MessageVersions.VERNUM_2_4);
+	}
+	
+	public Version_2_4_EnduserIdResponse(String versionNumber) throws Exception{
+		super(Version_2_4_EnduserIdResponse.class.getSimpleName()+versionNumber,versionNumber,hashEnduserResponse);
+		enduserTag = new StringBuilder();
+		enduserTag.append("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>");
+		enduserTag.append("<ilapresponse>");
+		enduserTag.append("<enduserid>3498486</enduserid>");  
+		enduserTag.append("</ilapresponse>");
+		setXmlInputMessage(enduserTag.toString());
+		hashComparer = new HashMessageMapDrivenContentComparer(hashEnduserResponse);
+	}
+	@Override
+	public IHashCompare getHashComparer() {
+		return hashComparer;
+	}
+}

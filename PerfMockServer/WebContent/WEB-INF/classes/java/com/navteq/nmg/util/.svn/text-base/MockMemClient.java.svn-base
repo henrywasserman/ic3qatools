@@ -1,0 +1,503 @@
+package com.navteq.nmg.util;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import net.spy.memcached.CASResponse;
+import net.spy.memcached.CASValue;
+import net.spy.memcached.ConnectionObserver;
+import net.spy.memcached.MemcachedClientIF;
+import net.spy.memcached.NodeLocator;
+import net.spy.memcached.OperationTimeoutException;
+import net.spy.memcached.transcoders.Transcoder;
+
+import org.apache.log4j.Logger;
+
+public class MockMemClient implements MemcachedClientIF {
+
+	/* Private logger */
+	private static final Logger logger = Logger.getLogger(MockMemClient.class); 
+	
+	private static Map<String, Object> STORAGE = new HashMap<String, Object>();
+	
+	public MockMemClient(InetSocketAddress[] ia) throws IOException {
+		logger.debug("Cstr of MockMemClient called");	
+	}
+
+	@Override
+	public Object get(String key){
+		logger.debug("Storage get with " + key); 
+		return STORAGE.get(key);	
+	}
+	
+	@Override
+	public Future<Object> asyncGet(String key) {
+		logger.debug("Storage aysnc get with " + key); 		
+		return new GetFuture(key);
+	}
+
+	@Override
+	public Future<Boolean> set(String key, int time, Object value){		
+		logger.debug("Storage set with " + key);
+		STORAGE.put(key, value);
+		return new FakeFuture();
+	}
+	
+	@Override
+	public Future<Map<String, Object>> asyncGetBulk(String... args) {
+		logger.debug("Storage aysnc get with " + args); 		
+		return new GetBulkFuture(args);
+	}
+			
+	//Fake Future object that all was set isDone to true and get to True
+	static class FakeFuture implements Future<Boolean>{
+		
+			@Override
+			public boolean cancel(boolean mayInterruptIfRunning) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public Boolean get() throws InterruptedException,
+					ExecutionException {				
+				return false;
+			}
+
+			@Override
+			public Boolean get(long timeout, TimeUnit unit)
+					throws InterruptedException, ExecutionException,
+					TimeoutException {
+				return true;
+			}
+
+			@Override
+			public boolean isCancelled() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean isDone() {
+				// TODO Auto-generated method stub
+				return true;
+			}
+	};
+	
+	//Get Future object that all was set isDone to true and get to True
+	class GetFuture implements Future<Object>{		
+			private String key;									
+			
+			public GetFuture(String key) {
+				this.key = key;
+		}
+
+			@Override
+			public boolean cancel(boolean mayInterruptIfRunning) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public Object get() throws InterruptedException,
+					ExecutionException {				
+				return false;
+			}
+
+			@Override
+			public Object get(long timeout, TimeUnit unit)
+					throws InterruptedException, ExecutionException,
+					TimeoutException {
+				return STORAGE.get(key);
+			}
+
+			@Override
+			public boolean isCancelled() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean isDone() {
+				// TODO Auto-generated method stub
+				return true;
+			}
+	};
+	
+	//Get Future object that all was set isDone to true and get to True
+	class GetBulkFuture implements Future<Map<String, Object>>{		
+			private String[] keys;									
+			
+			public GetBulkFuture(String... key) {
+				this.keys = key;
+		}
+
+			@Override
+			public boolean cancel(boolean mayInterruptIfRunning) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public Map<String, Object> get() throws InterruptedException,
+					ExecutionException {				
+				return null;
+			}
+
+			@Override
+			public Map<String, Object> get(long timeout, TimeUnit unit)
+					throws InterruptedException, ExecutionException,
+					TimeoutException {
+				Map<String, Object> ret = new HashMap<String, Object>();										
+				for(String key:keys){
+					ret.put(key, STORAGE.get(key));
+				}				
+				return ret;
+			}
+
+			@Override
+			public boolean isCancelled() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean isDone() {
+				// TODO Auto-generated method stub
+				return true;
+			}
+	};
+
+	
+	//------
+	@Override
+	public Future<Boolean> add(String arg0, int arg1, Object arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Future<Boolean> add(String arg0, int arg1, T arg2,
+			Transcoder<T> arg3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addObserver(ConnectionObserver arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Future<Boolean> append(long arg0, String arg1, Object arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Future<Boolean> append(long arg0, String arg1, T arg2,
+			Transcoder<T> arg3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Future<CASResponse> asyncCAS(String arg0, long arg1, Object arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Future<CASResponse> asyncCAS(String arg0, long arg1, T arg2,
+			Transcoder<T> arg3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Future<Long> asyncDecr(String arg0, int arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Future<T> asyncGet(String arg0, Transcoder<T> arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Future<Map<String, Object>> asyncGetBulk(Collection<String> arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}	
+
+	@Override
+	public <T> Future<Map<String, T>> asyncGetBulk(Collection<String> arg0,
+			Transcoder<T> arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Future<Map<String, T>> asyncGetBulk(Transcoder<T> arg0,
+			String... arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Future<CASValue<Object>> asyncGets(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Future<CASValue<T>> asyncGets(String arg0, Transcoder<T> arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Future<Long> asyncIncr(String arg0, int arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CASResponse cas(String arg0, long arg1, Object arg2)
+			throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> CASResponse cas(String arg0, long arg1, T arg2,
+			Transcoder<T> arg3) throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public long decr(String arg0, int arg1) throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long decr(String arg0, int arg1, long arg2)
+			throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long decr(String arg0, int arg1, long arg2, int arg3)
+			throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Future<Boolean> delete(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Future<Boolean> flush() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Future<Boolean> flush(int arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> T get(String arg0, Transcoder<T> arg1)
+			throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<SocketAddress> getAvailableServers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> getBulk(Collection<String> arg0)
+			throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> getBulk(String... arg0)
+			throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Map<String, T> getBulk(Collection<String> arg0,
+			Transcoder<T> arg1) throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Map<String, T> getBulk(Transcoder<T> arg0, String... arg1)
+			throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeLocator getNodeLocator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<SocketAddress, Map<String, String>> getStats() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<SocketAddress, Map<String, String>> getStats(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Transcoder<Object> getTranscoder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<SocketAddress> getUnavailableServers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<SocketAddress, String> getVersions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CASValue<Object> gets(String arg0) throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> CASValue<T> gets(String arg0, Transcoder<T> arg1)
+			throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public long incr(String arg0, int arg1) throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long incr(String arg0, int arg1, long arg2)
+			throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long incr(String arg0, int arg1, long arg2, int arg3)
+			throws OperationTimeoutException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Set<String> listSaslMechanisms() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Future<Boolean> prepend(long arg0, String arg1, Object arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Future<Boolean> prepend(long arg0, String arg1, T arg2,
+			Transcoder<T> arg3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean removeObserver(ConnectionObserver arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Future<Boolean> replace(String arg0, int arg1, Object arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Future<Boolean> replace(String arg0, int arg1, T arg2,
+			Transcoder<T> arg3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Future<Boolean> set(String arg0, int arg1, T arg2,
+			Transcoder<T> arg3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void shutdown() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean shutdown(long arg0, TimeUnit arg1) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean waitForQueues(long arg0, TimeUnit arg1) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
+}

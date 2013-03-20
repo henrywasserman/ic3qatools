@@ -1,0 +1,43 @@
+package com.navteq.nmg.pani.image.enums;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class ImageElementFormatTest {
+	
+	private static final String BINARY = "BINARY";
+	private static final String URL = "URL";
+		
+	@Test
+	public void testToString() throws Exception{
+		assertEquals(BINARY,ImageElementFormat.BINARY.toString());
+		assertEquals(URL,ImageElementFormat.URL.toString());
+	}	
+	
+	@Test
+	public void testGetImageElementFormatByName() throws Exception{
+	
+		assertEquals(ImageElementFormat.BINARY,ImageElementFormat.getImageElementFormatByName(BINARY, null));
+		assertEquals(ImageElementFormat.URL,ImageElementFormat.getImageElementFormatByName(URL, null));
+		
+		// ensure null default when not matched
+		assertNull(ImageElementFormat.getImageElementFormatByName("junk", null));
+		
+		// ensure specified default when not matched
+		assertEquals(ImageElementFormat.URL,ImageElementFormat.getImageElementFormatByName("junk",ImageElementFormat.URL ));
+		
+	}
+	
+	@Test
+	public void testTagNames() throws Exception{
+		assertEquals("url",ImageElementFormat.URL.tagName());
+		assertEquals("data",ImageElementFormat.BINARY.tagName());
+	}
+	
+	@Test 
+	public void testValueOf() throws Exception{
+		assertEquals(ImageElementFormat.URL,ImageElementFormat.valueOf("URL"));
+		assertEquals(ImageElementFormat.BINARY,ImageElementFormat.valueOf("BINARY"));
+	}
+}

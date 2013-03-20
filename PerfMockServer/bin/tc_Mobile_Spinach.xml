@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ilapresponse>
+  <message>
+    <campaignid><![CDATA[00000931BC2899AF04450F4189B2D57783726762]]></campaignid>
+    <creativeid><![CDATA[2353]]></creativeid>
+    <advertisername><![CDATA[Pani Sample Advertiser]]></advertisername>
+    <introtext><![CDATA[]]></introtext>
+    <mainmessagetext><![CDATA[]]></mainmessagetext>
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+    <couponcode><![CDATA[]]></couponcode>
+
+    <expirydate><![CDATA[2011.06.25.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+    <callstoaction>
+      <calltoaction>
+        <action><![CDATA[IMPRESSION]]></action>
+        <data><![CDATA[]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[MAP]]></action>
+        <data><![CDATA[]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ROUTE]]></action>
+
+        <data><![CDATA[]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ARRIVAL]]></action>
+        <data><![CDATA[]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+
+        <action><![CDATA[COUPONCODE]]></action>
+        <data><![CDATA[]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[USERSAVE]]></action>
+        <data><![CDATA[]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+
+      <calltoaction>
+        <action><![CDATA[PHONECALL]]></action>
+        <data><![CDATA[]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[WEBURL]]></action>
+        <data><![CDATA[http://www.navteqmedia.com]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+    </callstoaction>
+    <countrycode><![CDATA[]]></countrycode>
+    <language><![CDATA[en-us]]></language>
+
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[215139]]></storefrontid>
+      <nametag><![CDATA[PANIPANI]]></nametag>
+      <name><![CDATA[PANI Storefront]]></name>
+      <addr1><![CDATA[31 St James Ave]]></addr1>
+      <addr2><![CDATA[]]></addr2>
+      <addrcity><![CDATA[Boston]]></addrcity>
+      <addrstate><![CDATA[MA]]></addrstate>
+
+      <addrzip><![CDATA[02116]]></addrzip>
+      <phone><![CDATA[]]></phone>
+      <longitude><![CDATA[-71071386]]></longitude>
+      <latitude><![CDATA[42350789]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[840drt2y-dbd0add91ae34dddbae2216dc907a4d9]]></placeid>
+      <distance><![CDATA[0.03]]></distance>
+    </storefront>
+
+  </message>
+</ilapresponse>

@@ -1,0 +1,11 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+import java.io.InputStream;
+
+public interface ITestMessage {
+	public String getTestMessageId();
+	public String getVersionNumber();
+	public InputStream getXmlInputMessage();
+	public byte[] getByteArrayCompareMessage();
+	public IHashCompare getHashComparer();
+}

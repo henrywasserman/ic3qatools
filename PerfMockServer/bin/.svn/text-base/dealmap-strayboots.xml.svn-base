@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<Deals xmlns="http://thedealmap.com/api" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <Message/>
+  <Results>
+    <Deal>
+      <Activity>0</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>800 Boylston St</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID/>
+      <BusinessName>Stray Boots</BusinessName>
+      <Capability>83</Capability>
+      <Category>Arts and Entertainment,Walking Tours</Category>
+      <City>Boston</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Groupon</DealSource>
+      <DealType>24</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>10</DiscountedValue>
+      <EffectiveTime>2011-05-01T02:01:00</EffectiveTime>
+      <ExpirationTime>2011-05-03T20:59:00</ExpirationTime>
+      <FaceValue>20</FaceValue>
+      <ID>5-578A523A984BB19B2019164292FF636C</ID>
+      <IconUrl/>
+      <ImageUrl>http://www.groupon.com/images/site_images/0957/8395/Stray-Boots-LLC-jpg.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3488176055253</Latitude>
+      <Longitude>-71.0818355809897</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=5-578A523A984BB19B2019164292FF636C&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone/>
+      <Ratings>0</Ratings>
+      <ReviewCount>0</ReviewCount>
+      <SoldCount>4</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$10 For Two Tickets To Boston: The Game Scavenger Hunt And Tour ($20 Value)</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=5-578A523A984BB19B2019164292FF636C</TransactionUrl>
+      <YouSave>50 %</YouSave>
+      <ZipCode/>
+    </Deal>
+  </Results>
+  <TotalResults>1481</TotalResults>
+</Deals>

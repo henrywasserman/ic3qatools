@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20544/nmg-testing-tools/trunk/PerfMockServer/src/main/com/navteq/atg/mas
+END
+RuleInfoCollection.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20547/nmg-testing-tools/trunk/PerfMockServer/src/main/com/navteq/atg/mas/RuleInfoCollection.java
+END
+NoMatchRuleException.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20511/nmg-testing-tools/trunk/PerfMockServer/src/main/com/navteq/atg/mas/NoMatchRuleException.java
+END
+RuleKey.java
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20511/nmg-testing-tools/trunk/PerfMockServer/src/main/com/navteq/atg/mas/RuleKey.java
+END
+RuleInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20547/nmg-testing-tools/trunk/PerfMockServer/src/main/com/navteq/atg/mas/RuleInfo.java
+END
+MockLPAServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20547/nmg-testing-tools/trunk/PerfMockServer/src/main/com/navteq/atg/mas/MockLPAServlet.java
+END

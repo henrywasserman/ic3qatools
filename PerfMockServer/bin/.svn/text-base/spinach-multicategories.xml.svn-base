@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+  <resource>
+    <merchant>
+      <infousa_id>302555289</infousa_id>
+      <name>Buccini's Mister Sub</name>
+      <locations>
+        <resource>
+          <location>
+            <city>North Quincy</city>
+            <name>Buccini's Mister Sub</name>
+            <zip>02171</zip>
+            <country>United States</country>
+            <state>MA</state>
+            <phonenumber>6173289764</phonenumber>
+            <address>64 Billings Rd</address>
+            <lat>42.2741</lat>
+            <lng>-71.0246</lng>
+            <unit/>
+          </location>
+        </resource>
+      </locations>
+      <images>
+        <productimage/>
+        <logo/>
+      </images>
+      <id>1930</id>
+      <market>North Quincy</market>
+    </merchant>
+    <category>
+      <id>5</id>
+      <name>dining beauty events</name>
+      <slug>dining-food</slug>
+    </category>
+    <enddate>2012-01-20 23:59:00</enddate>
+    <description>Just because you've been making yourself sandwiches since you were 5 does not mean you're skilled enough to get behind the counter with this Sando-Pro. Sandwich artisanship is a well-honed craft in this shop. They churn out fresh bread, meats and everyday veggies; stacking up the goods to make sure you are satisfied with your final creation. For online delivery orders only at Allmenus.com using the special code on your voucher</description>
+    <maximpressions>0</maximpressions>
+    <startdate>2011-03-17 10:58:19</startdate>
+    <title>$3 for $6 on any purchase</title>
+    <numleft>20</numleft>
+    <rate>3</rate>
+    <value>6</value>
+    <state>activated</state>
+    <cost>3</cost>
+    <createddate>2011-03-17 10:58:19</createddate>
+    <images>
+      <productimage>
+        <small>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/1a/5a/1a5a64dfc7b537d4c587eeba1d72af45.jpg</url>
+          <width>100</width>
+          <height>120</height>
+        </small>
+        <large>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/c7/37/c737cf229306a70fd14547986783cb6b.jpg</url>
+          <width>180</width>
+          <height>200</height>
+        </large>
+        <medium>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/a9/3a/a93a2316abb199604745ae5a9851810d.jpg</url>
+          <width>120</width>
+          <height>160</height>
+        </medium>
+        <thumbnail>
+          <url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/8c/fb/8cfbfb6799cb47476e56f7d408738816.jpg</url>
+          <width>50</width>
+          <height>60</height>
+        </thumbnail>
+      </productimage>
+    </images>
+    <dealtype>2</dealtype>
+    <dip>https://www.mobilespinach.com/deals/2189/?source=2&amp;appid=39</dip>
+    <id>2189</id>
+  </resource>
+</response>

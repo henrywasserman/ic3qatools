@@ -1,0 +1,175 @@
+package com.navteq.nmg.pani.image.enums;
+
+import static org.junit.Assert.*;
+
+import java.text.ParseException;
+
+import org.junit.Test;
+
+public class ImageMimeTypesTest {
+	
+	public static final String JPG_EXTENSION = "testfile.jpg";
+	public static final String JPEG_EXTENSION = "testfile.jpeg";
+	public static final String PNG_EXTENSION = "testfile.png";
+	public static final String INVALID_EXTENSION = "testfile.bad";
+	public static final String NO_EXTENSION = "testfile";
+	
+	public static final String JPG_NAME = "jpg";
+	public static final String JPEG_NAME = "jpeg";
+	public static final String PNG_NAME = "png";
+	public static final String JUNK = "bad";
+	
+	@Test
+	public void testGetMimeTypeName() throws Exception{
+		assertEquals("jpg",ImageMimeTypes.JPG.getMimeTypeName());
+		assertEquals("png",ImageMimeTypes.PNG.getMimeTypeName());
+	}
+	
+	@Test
+	public void testValueOf() throws Exception{
+		assertEquals(ImageMimeTypes.PNG,ImageMimeTypes.valueOf("PNG"));
+		assertEquals(ImageMimeTypes.JPG,ImageMimeTypes.valueOf("JPG"));
+	}
+	
+	@Test
+	public void testIntValue() throws Exception{
+		assertEquals(2,ImageMimeTypes.JPG.intValue());
+		assertEquals(1,ImageMimeTypes.PNG.intValue());
+	}
+	
+	@Test
+	public void testGetMimeTypeById() throws Exception{
+		assertEquals(ImageMimeTypes.PNG,ImageMimeTypes.getMimeTypeById(1, null));
+		assertEquals(ImageMimeTypes.JPG,ImageMimeTypes.getMimeTypeById(2, null));
+	}
+
+	@Test
+	public void testGetMimeTypeByIdDefaultsOnBadInput() throws Exception{
+		assertEquals(ImageMimeTypes.PNG,ImageMimeTypes.getMimeTypeById(666, ImageMimeTypes.PNG));
+		assertEquals(ImageMimeTypes.JPG,ImageMimeTypes.getMimeTypeById(777, ImageMimeTypes.JPG));
+	}
+	
+	@Test
+	public void testGetMimeTypeByString() throws Exception{
+		assertEquals(ImageMimeTypes.PNG,ImageMimeTypes.getMimeTypeByString("1", null));
+		assertEquals(ImageMimeTypes.JPG,ImageMimeTypes.getMimeTypeByString("2", null));
+	}
+
+	@Test
+	public void testGetMimeTypeByStringDefaultsOnBadInput() throws Exception{
+		assertEquals(ImageMimeTypes.PNG,ImageMimeTypes.getMimeTypeByString("abc", ImageMimeTypes.PNG));
+		assertEquals(ImageMimeTypes.JPG,ImageMimeTypes.getMimeTypeByString("666", ImageMimeTypes.JPG));
+	}
+	
+	
+	@Test
+	public void testValues() throws Exception{
+		assertEquals(2,ImageMimeTypes.values().length);
+	}
+
+	@Test
+	public void testGetMimeTypeByFileExtension() throws Exception{
+		assertEquals(ImageMimeTypes.JPG,ImageMimeTypes.getMimeTypeByFileExtension(JPG_EXTENSION));
+		assertEquals(ImageMimeTypes.JPG,ImageMimeTypes.getMimeTypeByFileExtension(JPEG_EXTENSION));
+		assertEquals(ImageMimeTypes.PNG,ImageMimeTypes.getMimeTypeByFileExtension(PNG_EXTENSION));
+	}
+	
+	@Test
+	public void testGetMimeTypeByFileExtensionThrowsExceptionOnWrongExtension() throws Exception{
+		try{
+			ImageMimeTypes.getMimeTypeByFileExtension(INVALID_EXTENSION);
+			fail("Expected ParseException but did not receive one using an invalid filename extension.");
+		}
+		catch(ParseException ex){
+			assertEquals("Unable to parse mime type by name ["+JUNK+"] and no default is provided.",ex.getMessage());
+		}
+	}
+	
+	@Test
+	public void testGetMimeTypeByFileExtensionThrowsExceptionOnNoExtension() throws Exception{
+		try{
+			ImageMimeTypes.getMimeTypeByFileExtension(NO_EXTENSION);
+			fail("Expected ParseException but did not receive one using filename with no extension.");
+		}
+		catch(ParseException ex){
+			assertEquals("Cannot parse name for valid image mime type extension because no extension exists ["+NO_EXTENSION+"].",ex.getMessage());
+		}
+	}	
+	
+	@Test
+	public void testGetMimeTypeByFileExtensionThrowsExceptionOnEmptyOrNullFileName() throws Exception{
+		try{
+			ImageMimeTypes.getMimeTypeByFileExtension(null);
+			fail("Expected ParseException but did not receive one using a null filename.");
+
+		}
+		catch(ParseException ex){
+			assertEquals("Cannot parse name for valid image mime type extension because it is not populated.",ex.getMessage());
+		}
+		
+		try{
+			ImageMimeTypes.getMimeTypeByFileExtension("");
+			fail("Expected ParseException but did not receive one using an empty filename.");
+
+		}
+		catch(ParseException ex){
+			assertEquals("Cannot parse name for valid image mime type extension because it is not populated.",ex.getMessage());
+		}
+	}
+	
+	@Test
+	public void testGetMimeTypeByName() throws Exception{
+		assertEquals(ImageMimeTypes.JPG,ImageMimeTypes.getMimeTypeByName(JPG_NAME,null));
+		assertEquals(ImageMimeTypes.JPG,ImageMimeTypes.getMimeTypeByName(JPEG_NAME,null));
+		assertEquals(ImageMimeTypes.PNG,ImageMimeTypes.getMimeTypeByName(PNG_NAME,null));
+		
+		// test defaults
+		assertEquals(ImageMimeTypes.PNG,ImageMimeTypes.getMimeTypeByName(JUNK,ImageMimeTypes.PNG));
+		assertEquals(ImageMimeTypes.JPG,ImageMimeTypes.getMimeTypeByName(JUNK,ImageMimeTypes.JPG));
+		assertEquals(ImageMimeTypes.JPG, ImageMimeTypes.getMimeTypeByName(null,ImageMimeTypes.JPG));
+		assertEquals(ImageMimeTypes.JPG, ImageMimeTypes.getMimeTypeByName("",ImageMimeTypes.JPG));
+	}
+	
+	@Test
+	public void testGetMimeTypeByNameThrowsExceptionOnEmptyOrNullAndNoDefault() throws Exception{
+		try{
+			ImageMimeTypes.getMimeTypeByName(null,null);
+			fail("Expected ParseException but did not receive one using null type name and null default.");
+		}
+		catch(ParseException pe){
+			assertEquals("Unable to parse mime type by name because name is null or empty and no default is provided.",pe.getMessage());
+		}
+		
+		try{
+			ImageMimeTypes.getMimeTypeByName("",null);
+			fail("Expected ParseException but did not receive one using null type name and null default.");
+		}
+		catch(ParseException pe){
+			assertEquals("Unable to parse mime type by name because name is null or empty and no default is provided.",pe.getMessage());
+		}
+	}
+	
+	@Test
+	public void testGetMimeTypeByNameThrowsExceptionOnBadTypeNameAndNullDefault() throws Exception{
+		try{
+			ImageMimeTypes.getMimeTypeByName(JUNK,null);
+			fail("Expected ParseException but did not receive one using bad type name and null default.");
+		}
+		catch(ParseException pe){
+			assertEquals("Unable to parse mime type by name ["+JUNK+"] and no default is provided.",pe.getMessage());
+		}
+	}
+	
+	@Test
+	public void testGetUrlFieldFormat() throws Exception{
+		assertEquals("Png",ImageMimeTypes.PNG.getUrlFieldFormat());
+		assertEquals("Jpeg",ImageMimeTypes.JPG.getUrlFieldFormat());
+	}
+	
+	@Test
+	public void testGetContentType() throws Exception{
+		assertEquals("image/png",ImageMimeTypes.PNG.getContentType());
+		assertEquals("image/jpeg",ImageMimeTypes.JPG.getContentType());
+	}
+	
+}

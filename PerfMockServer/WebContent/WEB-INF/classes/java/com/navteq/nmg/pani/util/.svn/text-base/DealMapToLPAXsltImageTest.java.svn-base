@@ -1,0 +1,70 @@
+package com.navteq.nmg.pani.util;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+import org.w3c.dom.NodeList;
+
+public class DealMapToLPAXsltImageTest {
+	@Test
+	public void testImageProcess() {
+		String xslPath = "c:\\projects\\PANI\\mule-testing\\resources\\xsl\\DealMapDealToLpaMessage.xsl";
+		String xmlPath = "c:\\projects\\testfiles\\XMLFile4.xml";
+		String outputPath = "c:\\projects\\testfiles\\trans_dealmap.xml";
+		
+		ArrayList<Integer> iconSizeList = new ArrayList<Integer>();
+		iconSizeList.add(1);
+		iconSizeList.add(3);
+		
+		ArrayList<Integer> mainImgSizeList = new ArrayList<Integer>();
+		mainImgSizeList.add(201);
+		mainImgSizeList.add(202);
+		mainImgSizeList.add(203);
+		mainImgSizeList.add(204);
+		
+		 TransformerFactory xformFactory = TransformerFactory.newInstance();
+		    
+		    try {
+		    	Source xslSource = new StreamSource(new File(xslPath));
+		    	Transformer transformer = xformFactory.newTransformer(xslSource);
+		    	transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		    	
+		    	//transformer.setParameter("iconSizeList", iconSizeList);
+		    	transformer.setParameter("mainImageSizeList", mainImgSizeList);
+		    	
+		    	ByteArrayOutputStream bos = new ByteArrayOutputStream(2048);
+				Result tgt = new StreamResult(bos);
+				Source xmlSource = new StreamSource(new File(xmlPath));
+				transformer.transform(xmlSource, tgt);
+				
+				FileOutputStream fo = new FileOutputStream(outputPath);
+				try {
+					fo.write(bos.toByteArray());
+					fo.flush();
+				} finally {
+					fo.close();
+				}
+				
+				File transXmlFile = new File(outputPath);
+				XMLHelper xmlHelper = XMLHelper.newInstance(transXmlFile);
+				
+				NodeList imgNodes = xmlHelper.getNodeList("//image");
+				Assert.assertEquals(4, imgNodes.getLength());
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
+	}
+}

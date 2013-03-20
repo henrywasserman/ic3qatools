@@ -1,0 +1,44 @@
+package com.navteq.nmg.pani.image.nodebuilder.impl;
+
+
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.navteq.nmg.pani.image.ImageBaseHelper;
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+import com.navteq.nmg.pani.image.nodebuilder.IImageNodeBuilder;
+
+
+public class BinaryImageElementTest extends ImageBaseHelper{
+
+	private static final class ConcreteBinaryImageElement extends BinaryImageElement{
+
+		private String base64String;
+		
+		private ConcreteBinaryImageElement(String base64String){
+			super(ImageSizeTypes.SMALL_INTRO_ICON);
+			this.base64String = base64String;
+		}
+				
+		@Override
+		protected String getCDATASectionForTagName() {
+			return base64String;
+		}
+	}
+
+	@Test
+	public void testNodeRendering() throws Exception{
+		String base64String = getImageAsBase64String("./resources/nmg-activities-1.jpg");
+		IImageNodeBuilder nodeBuilder = new ConcreteBinaryImageElement(base64String);
+		
+		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		Element root = doc.createElement("root");
+		nodeBuilder.build(doc, root);
+		
+		assertValues(root, TAG_DATA, base64String, ImageSizeTypes.SMALL_INTRO_ICON);	
+	}
+
+}

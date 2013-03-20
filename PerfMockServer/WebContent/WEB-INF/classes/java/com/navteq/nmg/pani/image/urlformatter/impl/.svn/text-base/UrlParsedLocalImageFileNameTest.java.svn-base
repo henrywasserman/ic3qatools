@@ -1,0 +1,113 @@
+package com.navteq.nmg.pani.image.urlformatter.impl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
+
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+import com.navteq.nmg.pani.image.urlformatter.IImageFileName;
+
+public class UrlParsedLocalImageFileNameTest {
+
+	private static final String PARTNER_NAME = "pahtnuh";
+	private static final String URL_STRING = "https://d2x9dz1etb1m98.cloudfront.net/ugassets/deal/images/0/b/92a03c93/large.jpg";
+	private static final String URL_STRING_WITH_QUESTION = "https://d2x9dz1etb1m98.cloudfront.net?large.jpg";
+	private static final String URL_STRING_BMP_EXTENSION = "https://d2x9dz1etb1m98.cloudfront.net/ugassets/deal/images/0/b/92a03c93/large.bmp";
+	
+	private static final String EXPECTED_RESULT = PARTNER_NAME + "-large-103.jpg";
+	
+	@Test
+	public void testConstructor() throws Exception{
+		IImageFileName fileName = new UrlParsedLocalImageFileName(URL_STRING, PARTNER_NAME, ImageSizeTypes.LARGE_BANNER);
+		assertEquals(EXPECTED_RESULT,fileName.getImageFileName());
+	}
+	
+	@Test
+	public void ensureInvalidExtensionThrowsException() throws Exception{
+		
+		try{
+			new UrlParsedLocalImageFileName(URL_STRING_BMP_EXTENSION, PARTNER_NAME, ImageSizeTypes.LARGE_BANNER);
+			fail("Constructor should have throw exception on invalid file name extension in url");
+		}
+		catch(IllegalArgumentException ex){
+			assertEquals("[large.bmp] is not supported. Only JPG or PNG mime type images are supported at this time.",ex.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+	}
+	
+	@Test
+	public void ensureQuestionMarkStrippedFromFilenameOnQueryParam() throws Exception{	
+		IImageFileName fileName = new UrlParsedLocalImageFileName(URL_STRING_WITH_QUESTION, PARTNER_NAME, ImageSizeTypes.LARGE_BANNER);
+		assertEquals(EXPECTED_RESULT,fileName.getImageFileName());
+	}
+	
+	
+	@Test
+	public void testNullImageSizeTypeThrowsException() throws Exception{
+		try{
+			new UrlParsedLocalImageFileName(URL_STRING, PARTNER_NAME, null);
+			fail("Constructor should have throw exception on null image size type");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [imageSize] cannot be null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+	}
+	
+	@Test
+	public void testEmptyOrNullPartnerNameThrowsException() throws Exception{
+		
+		try{
+			new UrlParsedLocalImageFileName(URL_STRING, null, ImageSizeTypes.LARGE_BANNER);
+			fail("Constructor should have throw exception on null partner name");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [partnerName] cannot be empty or null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+		
+		try{
+			new UrlParsedLocalImageFileName(URL_STRING, "", ImageSizeTypes.LARGE_BANNER);
+			fail("Constructor should have throw exception on empty partner name");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [partnerName] cannot be empty or null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}	
+	}
+	
+	@Test
+	public void testEmptyOrNullUrlStringThrowsException() throws Exception{
+		
+		try{
+			new UrlParsedLocalImageFileName(null, PARTNER_NAME, ImageSizeTypes.LARGE_BANNER);
+			fail("Constructor should have throw exception on null url");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [url] cannot be empty or null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}
+		
+		try{
+			new UrlParsedLocalImageFileName("", PARTNER_NAME, ImageSizeTypes.LARGE_BANNER);
+			fail("Constructor should have throw exception on empty url");
+		}
+		catch(IllegalArgumentException iae){
+			assertEquals("Argument [url] cannot be empty or null.",iae.getMessage());
+		}
+		catch(Exception ex){
+			fail("Expected IllegalArgumentException but did not get one");
+		}	
+	}
+}

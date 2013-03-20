@@ -1,0 +1,46 @@
+package com.reavely.util;
+
+import javax.xml.xpath.*;
+import javax.xml.parsers.*;
+import java.io.IOException;
+import java.io.InputStream;
+import org.xml.sax.SAXException;
+import org.junit.Test;
+
+public class TestXPathExp {
+
+    @Test
+    public void testFollowingSibling() throws ParserConfigurationException,
+            SAXException, IOException, XPathExpressionException {
+        //String xmlInputFile = "/lpa/chilis-1521-bethlehem-ny.xml";
+        //String campaignId = "1521";
+        String xmlInputFile = "/test/lpa/snowcone-bestwest-hackensack-nj.xml";
+        String campaignId = "657";
+
+        String resultType="string";
+        String field = "introtext";
+        
+
+        String xpathExpression = "/ilapresponse/message[campaignid=" + campaignId + "]/" + field;
+        InputStream is = TestXPathExp.class.getResourceAsStream(xmlInputFile);
+        Object result = XpathHelper.executeXpathExpression(is, xpathExpression, resultType);
+        System.out.println("Result:" + result.toString());
+    }
+
+    public static void main(String[] args) throws ParserConfigurationException, XPathExpressionException, SAXException, IOException {
+        if (args.length != 3) {
+            System.out.println("Params: xml-inputfile xpath-expression [nodeset|string|boolean|number]");
+            System.exit(-1);
+        }
+        String xmlInputFile = args[0];
+        String xpathExpression = args[1];
+        String resultType = args[2];
+        System.out.println("xmlInputFile=" + xmlInputFile);
+        System.out.println("xpathExpression=" + xpathExpression);
+        System.out.println("resultType=" + resultType);
+
+        InputStream is = TestXPathExp.class.getResourceAsStream(xmlInputFile);
+        Object result = XpathHelper.executeXpathExpression(is, xpathExpression, resultType);
+        System.out.println("Result:" + result.toString());
+    }
+}

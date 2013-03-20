@@ -1,0 +1,199 @@
+package com.navteq.nmg.mule.flow;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.mule.tck.FunctionalTestCase;
+
+import com.navteq.nmg.mule.transformer.ConvertQueryStringToMap;
+
+public class TestWapiExceptions extends FunctionalTestCase {
+
+	/* Private logger */
+	private static final Logger logger = Logger.getLogger(TestWapiExceptions.class);
+
+	/** Setup mule xml configuration files */
+    protected String getConfigResources()
+    {
+        //Test module specific config file
+        return "mule-exception-wapi-gateway.xml";
+    }
+	       
+    /**
+     * testExceptionDealfinder - Test dealfinder response of errmsg from lpa
+     * @throws Exception
+      */ 	
+	@Test
+    public void testExceptionDealfinder() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?affiliatenametag=NONPANI&deviceserialnum=NMGJUNITTEST-MI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.dealfinder", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();
+        
+        logger.info(xmlStr);
+        
+        assertTrue(xmlStr.contains("credentials provided failed"));
+    }
+     	
+	/**
+     * testEmptyAreaCheckin- Test dealfinder flow handling of empty lpa return
+     * @throws Exception
+     */  
+	@Test
+    public void testEmptyAreaCheckin() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?deviceserialnum=EMPTYAREACHECKIN&affiliatenametag=NONPANI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.dealfinder", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();               
+        
+        logger.info(xmlStr);
+                        
+        //Test for task 33 (query param has transactionid)
+        assertTrue(xmlStr.contains("html"));
+        assertTrue(xmlStr.contains("Deal Finder"));
+    }
+	
+	/**
+     * testExceptionCheckin - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */  
+	@Test
+    public void testExceptionCheckin() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?affiliatenametag=NONPANI&deviceserialnum=NMGJUNITTEST-MI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.checkin", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();               
+        
+        logger.info(xmlStr);
+                        
+        //Test for error message
+        assertTrue(xmlStr.contains("credentials provided failed"));
+    }	    
+
+	/**
+     * testExceptionCheckin - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */  
+	@Test
+    public void testPRDException() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+    	//Change the env to PRD
+    	@SuppressWarnings({ "rawtypes", "unchecked" })
+		HashMap<String, String> props = (HashMap) muleContext.getRegistry().lookupObject("wapiProps");    	
+    	props.put("disableErrorMessages", "true");
+    	
+        String queryString="?affiliatenametag=NONPANI&deviceserialnum=NMGJUNITTEST-MI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.checkin", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();                                                   
+        //Test that the error message is not returned to the user
+        assertFalse(xmlStr.contains("credentials provided failed"));
+        //test thats its included in header value
+        assertEquals("The security credentials provided failed the security check.", result.getInboundProperty("wapi.error"));
+        
+    }	
+	
+	/**
+     * testEmptyResponse- Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */  
+	@Test
+    public void testEmptyResponse() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?affiliatenametag=NONPANI&deviceserialnum=EMPTYRESPONSE&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.checkin", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();               
+        
+        logger.info(xmlStr);
+                        
+        //Test for task 33 (query param has transactionid)
+        assertTrue(xmlStr.contains("empty response"));
+    }
+
+	/**
+     * testUnknownResponse- Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */  
+	@Test
+    public void testUnknownResponse() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?affiliatenametag=NONPANI&deviceserialnum=UNKNOWNRESPONSE&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.checkin", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();               
+        
+        logger.info(xmlStr);
+                        
+        //Test for unknown response
+        assertTrue(xmlStr.contains("Unknown response:"));
+    }
+	
+	/**
+     * testExceptionJsonCheckin - Test JsonCheckIn with an errmsg
+     * @throws Exception
+     */  
+	@Test
+    public void testExceptionJsonCheckin() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?deviceserialnum=JSONERRMSG&affiliatenametag=NONPANI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.jsoncheckin", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();               
+        
+        logger.info(xmlStr);
+                        
+        //Test for error message
+        assertTrue(xmlStr.contains("credentials provided failed"));
+    }
+	
+}

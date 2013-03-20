@@ -1,0 +1,51 @@
+package com.navteq.nmg;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import java.util.List;
+
+import org.apache.log4j.Appender;
+import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggingEvent;
+import org.mockito.ArgumentCaptor;
+
+public class LogTest {
+
+	private Appender mockAppender;
+	
+	private Logger logger;  
+	
+	public LogTest(Class<?> loggerClass){
+		this.logger = Logger.getLogger(loggerClass);
+	}
+	
+	public LogTest(String loggerName){
+		this.logger = Logger.getLogger(loggerName);
+	}
+	
+	
+	public void setupBefore() {
+		mockAppender = mock(AppenderSkeleton.class);
+		logger.addAppender(mockAppender);
+		logger.setLevel(Level.INFO);
+	}	
+	
+
+	public void tearDownAfter(){
+		logger.removeAppender(mockAppender);		
+	}   	
+	
+	public void setLogLevel(Level level){
+		logger.setLevel(level);
+	}
+	
+	public List<LoggingEvent> gatherAndCheckLoggingEvents(int numberOfEvents) throws Exception{
+		ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+		verify(mockAppender, times(numberOfEvents)).doAppend(loggingEventCaptor.capture());
+		return loggingEventCaptor.getAllValues();
+	}		
+}

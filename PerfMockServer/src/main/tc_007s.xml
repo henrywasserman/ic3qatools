@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ilapresponse>
+  <message>
+    <campaignid><![CDATA[00000F1BE92089A589B1EC40812D8929A1E34DE3]]></campaignid>
+    <creativeid><![CDATA[3867]]></creativeid>
+    <advertisername><![CDATA[NMG_AUTO_MIXED_SPINACH]]></advertisername>
+    <introtext><![CDATA[]]></introtext>
+    <mainmessagetext><![CDATA[NMG_AUTO_MIXED_SPINACH Main Message - S1]]></mainmessagetext>
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+    <couponcode><![CDATA[NMG_AUTO_MIXED_SPINACH - S1]]></couponcode>
+
+    <expirydate><![CDATA[2015.01.01.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[0]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+    <callstoaction>
+      <calltoaction>
+        <action><![CDATA[IMPRESSION]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+
+        <trackurl><![CDATA[NMG_AUTO_MIXED_SPINACH]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[MAP]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ROUTE]]></action>
+
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ARRIVAL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+
+        <action><![CDATA[COUPONCODE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[USERSAVE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+
+      <calltoaction>
+        <action><![CDATA[PHONECALL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[NMG_AUTO_MIXED_SPINACH]]></trackurl>
+
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[SMS]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH|NMG_AUTO_MIXED_SPINACH|NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[WEBURL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[REDEEM]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+    </callstoaction>
+    <countrycode><![CDATA[]]></countrycode>
+
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[218454]]></storefrontid>
+      <nametag><![CDATA[NMG_AUTO_BOSTON]]></nametag>
+      <name><![CDATA[NMG_AUTO_BOSTON]]></name>
+      <addr1><![CDATA[NMG_AUTO_BOSTON]]></addr1>
+      <addr2><![CDATA[NMG_AUTO_BOSTON]]></addr2>
+      <addrcity><![CDATA[NMG_AUTO_BOSTON]]></addrcity>
+
+      <addrstate><![CDATA[NMG_AUTO_BOSTON]]></addrstate>
+      <addrzip><![CDATA[NMG_AUTO_BOSTON]]></addrzip>
+      <phone><![CDATA[NMG_AUTO_MIXED_SPINACH]]></phone>
+      <longitude><![CDATA[-71056962]]></longitude>
+      <latitude><![CDATA[42358728]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[]]></placeid>
+      <distance><![CDATA[0.09]]></distance>
+
+    </storefront>
+  </message>
+  <message>
+    <campaignid><![CDATA[00000F1CE92089A589B1EC40812D8929A1E34DE3]]></campaignid>
+    <creativeid><![CDATA[3868]]></creativeid>
+    <advertisername><![CDATA[NMG_AUTO_MIXED_SPINACH]]></advertisername>
+    <introtext><![CDATA[]]></introtext>
+    <mainmessagetext><![CDATA[NMG_AUTO_MIXED_SPINACH Main Message - S2]]></mainmessagetext>
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+
+    <couponcode><![CDATA[NMG_AUTO_MIXED_SPINACH - S2]]></couponcode>
+    <expirydate><![CDATA[2015.01.01.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[0]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+    <callstoaction>
+      <calltoaction>
+        <action><![CDATA[IMPRESSION]]></action>
+
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[NMG_AUTO_MIXED_SPINACH]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[MAP]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+
+        <action><![CDATA[ROUTE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ARRIVAL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+
+      <calltoaction>
+        <action><![CDATA[COUPONCODE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[USERSAVE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[PHONECALL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+
+        <trackurl><![CDATA[NMG_AUTO_MIXED_SPINACH]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[SMS]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH|NMG_AUTO_MIXED_SPINACH|NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[WEBURL]]></action>
+
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[REDEEM]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+    </callstoaction>
+
+    <countrycode><![CDATA[]]></countrycode>
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[218454]]></storefrontid>
+      <nametag><![CDATA[NMG_AUTO_BOSTON]]></nametag>
+      <name><![CDATA[NMG_AUTO_BOSTON]]></name>
+      <addr1><![CDATA[NMG_AUTO_BOSTON]]></addr1>
+      <addr2><![CDATA[NMG_AUTO_BOSTON]]></addr2>
+
+      <addrcity><![CDATA[NMG_AUTO_BOSTON]]></addrcity>
+      <addrstate><![CDATA[NMG_AUTO_BOSTON]]></addrstate>
+      <addrzip><![CDATA[NMG_AUTO_BOSTON]]></addrzip>
+      <phone><![CDATA[NMG_AUTO_MIXED_SPINACH]]></phone>
+      <longitude><![CDATA[-71056962]]></longitude>
+      <latitude><![CDATA[42358728]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[]]></placeid>
+
+      <distance><![CDATA[0.09]]></distance>
+    </storefront>
+  </message>
+  <message>
+    <campaignid><![CDATA[00000F1DE92089A589B1EC40812D8929A1E34DE3]]></campaignid>
+    <creativeid><![CDATA[3869]]></creativeid>
+    <advertisername><![CDATA[NMG_AUTO_MIXED_SPINACH]]></advertisername>
+    <introtext><![CDATA[]]></introtext>
+    <mainmessagetext><![CDATA[NMG_AUTO_MIXED_SPINACH Main Message - S3]]></mainmessagetext>
+
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+    <couponcode><![CDATA[NMG_AUTO_MIXED_SPINACH - S3]]></couponcode>
+    <expirydate><![CDATA[2015.01.01.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[0]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+    <callstoaction>
+      <calltoaction>
+
+        <action><![CDATA[IMPRESSION]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[NMG_AUTO_MIXED_SPINACH]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[MAP]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+
+      <calltoaction>
+        <action><![CDATA[ROUTE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ARRIVAL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[COUPONCODE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[USERSAVE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[PHONECALL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[NMG_AUTO_MIXED_SPINACH]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[SMS]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH|NMG_AUTO_MIXED_SPINACH|NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+
+        <action><![CDATA[WEBURL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[REDEEM]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+
+    </callstoaction>
+    <countrycode><![CDATA[]]></countrycode>
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[218454]]></storefrontid>
+      <nametag><![CDATA[NMG_AUTO_BOSTON]]></nametag>
+      <name><![CDATA[NMG_AUTO_BOSTON]]></name>
+      <addr1><![CDATA[NMG_AUTO_BOSTON]]></addr1>
+
+      <addr2><![CDATA[NMG_AUTO_BOSTON]]></addr2>
+      <addrcity><![CDATA[NMG_AUTO_BOSTON]]></addrcity>
+      <addrstate><![CDATA[NMG_AUTO_BOSTON]]></addrstate>
+      <addrzip><![CDATA[NMG_AUTO_BOSTON]]></addrzip>
+      <phone><![CDATA[NMG_AUTO_MIXED_SPINACH]]></phone>
+      <longitude><![CDATA[-71056962]]></longitude>
+      <latitude><![CDATA[42358728]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+
+      <placeid><![CDATA[]]></placeid>
+      <distance><![CDATA[0.09]]></distance>
+    </storefront>
+  </message>
+  <message>
+    <campaignid><![CDATA[00000F1EE92089A589B1EC40812D8929A1E34DE3]]></campaignid>
+    <creativeid><![CDATA[3870]]></creativeid>
+    <advertisername><![CDATA[NMG_AUTO_MIXED_SPINACH]]></advertisername>
+    <introtext><![CDATA[]]></introtext>
+
+    <mainmessagetext><![CDATA[NMG_AUTO_MIXED_SPINACH Main Message - S4]]></mainmessagetext>
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+    <couponcode><![CDATA[NMG_AUTO_MIXED_SPINACH - S4]]></couponcode>
+    <expirydate><![CDATA[2015.01.01.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[0]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+    <callstoaction>
+
+      <calltoaction>
+        <action><![CDATA[IMPRESSION]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[NMG_AUTO_MIXED_SPINACH]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[MAP]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ROUTE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ARRIVAL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[COUPONCODE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[USERSAVE]]></action>
+
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[PHONECALL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[NMG_AUTO_MIXED_SPINACH]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[SMS]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH|NMG_AUTO_MIXED_SPINACH|NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+
+      <calltoaction>
+        <action><![CDATA[WEBURL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[REDEEM]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_SPINACH]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+
+      </calltoaction>
+    </callstoaction>
+    <countrycode><![CDATA[]]></countrycode>
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[218454]]></storefrontid>
+      <nametag><![CDATA[NMG_AUTO_BOSTON]]></nametag>
+      <name><![CDATA[NMG_AUTO_BOSTON]]></name>
+
+      <addr1><![CDATA[NMG_AUTO_BOSTON]]></addr1>
+      <addr2><![CDATA[NMG_AUTO_BOSTON]]></addr2>
+      <addrcity><![CDATA[NMG_AUTO_BOSTON]]></addrcity>
+      <addrstate><![CDATA[NMG_AUTO_BOSTON]]></addrstate>
+      <addrzip><![CDATA[NMG_AUTO_BOSTON]]></addrzip>
+      <phone><![CDATA[NMG_AUTO_MIXED_SPINACH]]></phone>
+      <longitude><![CDATA[-71056962]]></longitude>
+      <latitude><![CDATA[42358728]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[]]></placeid>
+      <distance><![CDATA[0.09]]></distance>
+    </storefront>
+  </message>
+  <message>
+    <campaignid><![CDATA[00000D59E92089A589B1EC40812D8929A1E34DE3]]></campaignid>
+    <creativeid><![CDATA[3417]]></creativeid>
+    <advertisername><![CDATA[NMG_AUTO_MIXED_NMS]]></advertisername>
+
+    <introtext><![CDATA[]]></introtext>
+    <mainmessagetext><![CDATA[NMG_AUTO_MIXED_NMS Main Message - L1]]></mainmessagetext>
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+    <couponcode><![CDATA[NMG_AUTO_MIXED_NMS - L1]]></couponcode>
+    <expirydate><![CDATA[2015.01.01.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[0]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+
+    <callstoaction>
+      <calltoaction>
+        <action><![CDATA[IMPRESSION]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[NMG_AUTO_MIXED_NMS]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[MAP]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ROUTE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ARRIVAL]]></action>
+
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[COUPONCODE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+
+        <action><![CDATA[USERSAVE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[PHONECALL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[NMG_AUTO_MIXED_NMS]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[SMS]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS|NMG_AUTO_MIXED_NMS|NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[WEBURL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[REDEEM]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+    </callstoaction>
+    <countrycode><![CDATA[]]></countrycode>
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[217831]]></storefrontid>
+      <nametag><![CDATA[NMG_AUTO_BOSTON]]></nametag>
+
+      <name><![CDATA[NMG_AUTO_BOSTON]]></name>
+      <addr1><![CDATA[NMG_AUTO_BOSTON]]></addr1>
+      <addr2><![CDATA[NMG_AUTO_BOSTON]]></addr2>
+      <addrcity><![CDATA[NMG_AUTO_BOSTON]]></addrcity>
+      <addrstate><![CDATA[NMG_AUTO_BOSTON]]></addrstate>
+      <addrzip><![CDATA[NMG_AUTO_BOSTON]]></addrzip>
+      <phone><![CDATA[NMG_AUTO_MIXED_NMS]]></phone>
+      <longitude><![CDATA[-71056962]]></longitude>
+      <latitude><![CDATA[42358728]]></latitude>
+
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[123456789]]></placeid>
+      <distance><![CDATA[0.09]]></distance>
+    </storefront>
+  </message>
+  <message>
+    <campaignid><![CDATA[00000D5AE92089A589B1EC40812D8929A1E34DE3]]></campaignid>
+    <creativeid><![CDATA[3418]]></creativeid>
+
+    <advertisername><![CDATA[NMG_AUTO_MIXED_NMS]]></advertisername>
+    <introtext><![CDATA[]]></introtext>
+    <mainmessagetext><![CDATA[NMG_AUTO_MIXED_NMS Main Message - L2]]></mainmessagetext>
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+    <couponcode><![CDATA[NMG_AUTO_MIXED_NMS - L2]]></couponcode>
+    <expirydate><![CDATA[2015.01.01.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[0]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+
+    </DefaultUserAction>
+    <callstoaction>
+      <calltoaction>
+        <action><![CDATA[IMPRESSION]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[NMG_AUTO_MIXED_NMS]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[MAP]]></action>
+
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ROUTE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+
+        <action><![CDATA[ARRIVAL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[COUPONCODE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+
+      <calltoaction>
+        <action><![CDATA[USERSAVE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[PHONECALL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[NMG_AUTO_MIXED_NMS]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[SMS]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS|NMG_AUTO_MIXED_NMS|NMG_AUTO_MIXED_NMS]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[WEBURL]]></action>
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[REDEEM]]></action>
+
+        <data><![CDATA[NMG_AUTO_MIXED_NMS]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+    </callstoaction>
+    <countrycode><![CDATA[]]></countrycode>
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[217831]]></storefrontid>
+
+      <nametag><![CDATA[NMG_AUTO_BOSTON]]></nametag>
+      <name><![CDATA[NMG_AUTO_BOSTON]]></name>
+      <addr1><![CDATA[NMG_AUTO_BOSTON]]></addr1>
+      <addr2><![CDATA[NMG_AUTO_BOSTON]]></addr2>
+      <addrcity><![CDATA[NMG_AUTO_BOSTON]]></addrcity>
+      <addrstate><![CDATA[NMG_AUTO_BOSTON]]></addrstate>
+      <addrzip><![CDATA[NMG_AUTO_BOSTON]]></addrzip>
+      <phone><![CDATA[NMG_AUTO_MIXED_NMS]]></phone>
+      <longitude><![CDATA[-71056962]]></longitude>
+
+      <latitude><![CDATA[42358728]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[123456789]]></placeid>
+      <distance><![CDATA[0.09]]></distance>
+    </storefront>
+  </message>
+</ilapresponse>

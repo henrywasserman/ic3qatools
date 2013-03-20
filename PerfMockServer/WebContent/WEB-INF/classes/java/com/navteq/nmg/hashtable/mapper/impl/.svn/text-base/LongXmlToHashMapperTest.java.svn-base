@@ -1,0 +1,59 @@
+package com.navteq.nmg.hashtable.mapper.impl;
+
+import static org.mockito.Mockito.mock;
+
+import java.net.URLEncoder;
+
+import org.apache.commons.io.EndianUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IXmlEntryParser;
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+import com.navteq.nmg.hashtable.IMessageVersions.MessageVersionsType;
+import com.navteq.nmg.hashtable.mapper.IIndexName;
+import com.navteq.nmg.hashtable.mapper.IXmlToHashMapper;
+import com.navteq.nmg.hashtable.mapper.impl.LongXmlToHashMapper;
+
+public class LongXmlToHashMapperTest extends XmlToHashMapperHelper{
+	
+	private static final IIndexName XML_FIELD = new IndexName("creativeid","creativeid");
+	private static final String XML_VALUE = "2112211221122112";
+	
+	@Test
+	public void testConstructor() throws Exception{
+		assertConstructor(XML_FIELD, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class), false);
+	}
+
+	@Test
+	public void testMapFromXmlToHash() throws Exception{
+		String utfName = URLEncoder.encode(XML_FIELD.getIndexedName(), "UTF-8");
+		
+		int size = HEADER_LENGTH_FIELD_SIZE + utfName.length()+ DATATYPE_LENGTH_FIELD_SIZE + LONG_SIZE;
+		
+		assertMapFromXmlToHash(createMapperInstance(XML_FIELD, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class)),XML_VALUE,1,size);		
+	}
+
+	@Test
+	public void testStreamInjection() throws Exception{
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		String utfName = URLEncoder.encode(XML_FIELD.getIndexedName(), "UTF-8");
+		
+		outputStream.write(new byte[]{(byte)utfName.length()});
+		outputStream.write(utfName.getBytes());
+		outputStream.write(HashDataType.HASH_LONG.encode());
+		EndianUtils.writeSwappedLong(outputStream, Long.parseLong(XML_VALUE));
+		byte[] expectedBytes = outputStream.toByteArray();
+		assertStreamInjectedProperly(createMapperInstance(XML_FIELD, MessageVersionsType.VERSION_2_4, mock(IXmlToHashMapper.class)),XML_VALUE, expectedBytes);
+	}
+		
+	@Override
+	protected IXmlEntryParser createParser() throws Exception {
+		return mock(IXmlEntryParser.class);
+	}
+
+	@Override
+	protected IXmlToHashMapper createMapperInstance(IIndexName xmlElementName,	MessageVersionsType mvt, IXmlToHashMapper parent) throws Exception {
+		return new LongXmlToHashMapper(xmlElementName, mvt, parent);
+	}	
+}

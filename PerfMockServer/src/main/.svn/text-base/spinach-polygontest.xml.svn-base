@@ -1,0 +1,109 @@
+<response>
+<resource>
+<merchant>
+<infousa_id/>
+<name>Frolick</name>
+<locations>
+<resource>
+<location>
+<city>Boston</city>
+<name>Frolick</name>
+<zip>02113</zip>
+<country>United States</country>
+<state>MA</state>
+<phonenumber>www.frolickpet.com</phonenumber>
+<address>100 Prince Street</address>
+<lat>42.36577</lat>
+<lng>-71.05635</lng>
+<unit/>
+</location>
+</resource>
+<resource>
+<location>
+<city>Boston</city>
+<name>Frolick</name>
+<zip>02114</zip>
+<country>United States</country>
+<state>MA</state>
+<phonenumber>www.frolickpet.com</phonenumber>
+<address>45B Bowdoin Street</address>
+<lat>42.35972</lat>
+<lng>-71.06287</lng>
+<unit/>
+</location>
+</resource>
+<resource>
+<location>
+<city>Boston</city>
+<name>Frolick</name>
+<zip>02114</zip>
+<country>United States</country>
+<state>MA</state>
+<phonenumber>www.frolickpet.com</phonenumber>
+<address>100 State Street</address>
+<lat>42.35919</lat>
+<lng>-71.0550</lng>
+<unit/>
+</location>
+</resource>
+</locations>
+<images>
+<productimage/>
+<logo/>
+</images>
+<type>Physical</type>
+<id>5844</id>
+<market>Boston</market>
+</merchant>
+<category>
+<subcategories>
+<resource>
+<id>52</id>
+<name>pet products</name>
+<slug>pet-products</slug>
+</resource>
+</subcategories>
+<id>1</id>
+<name>shopping</name>
+<slug>shopping</slug>
+</category>
+<enddate>2011-09-01 00:00:00</enddate>
+<description>$49 for Lumina clippers &amp; 6-packages of your pets favorite animal snackers (your choice of beef, chicken, or lamb). This special package comes with the world-renown Lumina clippers. Until nowits been difficult attempting to hold a clipper, a separate light source, and your pets paw all at once. Lumina integrates the same type of high-intensity light that veterinarians use to precisely see and avoid the sensitive quick inside the nail. The built-in light makes this delicate job easily manageable for one person, and it will shine through white, gray, and most solid black nails, depending on density. It also makes it easy to monitor nail growth every couple of weeks so that damaged overgrown nails can be avoided, along with the wear and tear they cause to your home. Frolick was created by a seasoned team of pet owning consumer products executives with backgrounds in marketing, branding, R&amp;D and product design. We came together through a mutual love and passion for animals and a desire to create a fresh, modern innovator pet brand for todays pet owner and to add more fun and adventure to the world.</description>
+<maximpressions>0</maximpressions>
+<startdate>1900-01-01 12:56:36</startdate>
+<title>$49 for $80 Doggy Products</title>
+<numleft>45</numleft>
+<rate>49</rate>
+<value>80</value>
+<state>activated</state>
+<cost>49</cost>
+<createddate>2011-06-06 13:59:09</createddate>
+<images>
+<productimage>
+<small>
+<url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/dc/80/dc8045c23f172af0ef04d10acdbd4011.jpg</url>
+<width>100</width>
+<height>120</height>
+</small>
+<large>
+<url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/5b/e7/5be70d7d99df2345d4d4eb8a76bbfc65.jpg</url>
+<width>180</width>
+<height>200</height>
+</large>
+<medium>
+<url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/da/e9/dae971621da08601f6d56f490181d600.jpg</url>
+<width>120</width>
+<height>160</height>
+</medium>
+<thumbnail>
+<url>http://dh3n3q6ba2dn8.cloudfront.net/thumbnails/9a/29/9a29250b127053a3c6b63070c1ed2c63.jpg</url>
+<width>50</width>
+<height>60</height>
+</thumbnail>
+</productimage>
+</images>
+<dealtype>2</dealtype>
+<dip>https://www.mobilespinach.com/deals/4027/?source=2&amp;appid=39</dip>
+<id>4027</id>
+</resource>
+</response>

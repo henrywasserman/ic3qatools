@@ -1,0 +1,144 @@
+package com.navteq.nmg.mule.flow;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.mule.tck.FunctionalTestCase;
+import org.mule.tck.functional.FunctionalTestComponent;
+
+import com.navteq.nmg.mule.transformer.ConvertQueryStringToMap;
+
+public class TestWapiAdditional extends FunctionalTestCase {
+
+	/* Private logger */
+	private static final Logger logger = Logger.getLogger(TestWapiAdditional.class);
+	
+	/** Setup mule xml configuration files */
+    protected String getConfigResources()
+    {
+        //Test module specific config file
+        return "mule-test-wapi-gateway.xml";
+    }
+
+    
+    /**
+     * testRouteFlow - Test AdWalletProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */    	
+	@Test
+    public void testRoute() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);    	
+    	
+    	String queryString="?affiliatenametag=NONPANI&deviceserialnum=NMGROUTE-MI&sflon=-75502213&sflat=40055741&lon=-75510149&lat=40054765";    	
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.route", paramMap, null);
+        assertNotNull(result);                
+        String jsonStr = result.getPayloadAsString();               
+                
+        //Test for route        
+        assertTrue(jsonStr.contains("NavteqRoute"));
+        assertTrue(jsonStr.contains("Segments"));
+        assertTrue(jsonStr.contains("Segment"));    	              
+        
+    }
+	
+	/**
+     * testjsoncheckin- Test AdWalletProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */    	
+	@Test
+    public void testJsonCheckin() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);    	
+    	
+    	String queryString="?affiliatenametag=NONPANI&deviceserialnum=NMGJSONCHECKIN-MI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.jsoncheckin", paramMap, null);
+        assertNotNull(result);                
+        String jsonStr = result.getPayloadAsString();               
+                
+        //Test for teaser        
+        assertTrue(jsonStr.contains("teaser")); 
+    	
+        //Test for remaining items
+        assertTrue(jsonStr.contains("hyperlocal"));
+        assertTrue(jsonStr.contains("expirydate"));
+        assertTrue(jsonStr.contains("url"));
+        
+        FunctionalTestComponent ftc = getFunctionalTestComponent("OutboundAdServerInterface");
+        try{    	
+        	Thread.sleep(1000);
+        	int i = 0;
+        	while(i++ < 5 && ftc.getReceivedMessagesCount() < 2){
+        		Thread.sleep(1000);
+        		logger.debug("Received Messages Count: "+ftc.getReceivedMessagesCount());
+        	}
+        	if (ftc.getReceivedMessagesCount() == 0 ){
+        		fail("Received Messages took longer then 5 seconds, must be an issue");
+        	}
+    	}catch (InterruptedException e) {
+			logger.debug(e.getMessage());
+		}
+        
+    }
+	
+
+	/**
+     * testjsoncheckin- Test AdWalletProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */    	
+	@Test
+    public void testJsonCheckinNoImpression() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);    	
+    	
+    	String queryString="?noimpression=true&affiliatenametag=NONPANI&deviceserialnum=NMGJSONCHECKIN-MI&longitude=-71071719&latitude=42351096";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.jsoncheckin", paramMap, null);
+        assertNotNull(result);                
+        String jsonStr = result.getPayloadAsString();               
+                
+        //Test for teaser        
+        assertTrue(jsonStr.contains("teaser")); 
+    	
+        //Test for remaining items
+        assertTrue(jsonStr.contains("hyperlocal"));
+        assertTrue(jsonStr.contains("expirydate"));
+        assertTrue(jsonStr.contains("url"));
+        
+        FunctionalTestComponent ftc = getFunctionalTestComponent("OutboundAdServerInterface");
+        try{    	
+        	Thread.sleep(1000);
+        	int i = 0;
+        	while(i++ < 5 && ftc.getReceivedMessagesCount() < 2){
+        		Thread.sleep(1000);
+        		logger.debug("Received Messages Count: "+ftc.getReceivedMessagesCount());
+        	}
+        	if (ftc.getReceivedMessagesCount() == 0 ){
+        		fail("Received Messages took longer then 5 seconds, must be an issue");
+        	}
+          	if (ftc.getReceivedMessagesCount() > 1){
+        		fail("Received More then one message, but should not have");
+        	}
+    	}catch (InterruptedException e) {
+			logger.debug(e.getMessage());
+		}
+        
+    }
+
+	
+}

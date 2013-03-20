@@ -1,0 +1,47 @@
+package com.navteq.nmg.mule.component;
+
+import java.util.Map;
+import java.util.HashMap;
+import org.junit.Test;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.mule.tck.FunctionalTestCase;
+import org.mule.transport.NullPayload;
+
+
+public class TestFakePANIFlow extends FunctionalTestCase
+{
+    protected String getConfigResources()
+    {
+        //TODO You'll need to edit this file to make the test applicable to your module
+        return "test/mule-test-branch-merge.xml";
+    }
+
+    @Test
+    public void testAdServerProxy() throws Exception
+    {
+        MuleClient client = new MuleClient(muleContext);
+
+        //Map<String,Object> msgProps = new HashMap<String,Object>();
+        //msgProps.put(HttpConnector.HTTP_METHOD_PROPERTY, "GET");
+        
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        paramMap.put("param1","value1");
+        MuleMessage result = client.send("vm://vm.testentrypoint", paramMap, null);
+        System.out.println("=======================================================");
+        System.out.println("=======================================================");
+        
+        assertNotNull(result);
+        String response = result.getPayloadAsString();
+        System.out.println("TestCaseOutput:" + response);
+        assertNull(result.getExceptionPayload());
+        assertFalse(result.getPayload() instanceof NullPayload);
+        assertTrue(response.contains("FakeServiceOne"));
+        assertTrue(response.contains("FakeServiceTwo")); 
+        System.out.println("=======================================================");
+        System.out.println("=======================================================");
+        
+
+    }
+      
+}

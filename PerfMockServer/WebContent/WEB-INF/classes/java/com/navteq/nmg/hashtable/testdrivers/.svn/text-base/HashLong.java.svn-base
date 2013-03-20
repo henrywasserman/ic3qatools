@@ -1,0 +1,31 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+
+public final class HashLong extends HashBase{
+    public long value;
+	public HashLong(String key, long value){
+		super(key,HashDataType.HASH_LONG);
+		this.value = value;
+	}
+
+	@Override
+	public void assertContentsAreTheSame(IHashContainer hashContainer) throws AssertionError {
+		assertTrue(hashContainer instanceof HashLong);
+		HashLong ht = (HashLong)hashContainer;
+		if (!this.key.contains("campaignid")) {
+			assertEquals("Keys does not match.  Expected ["+this.key+"], actual ["+ht.key+"].", this.key,ht.key);
+			assertEquals("Hash data types do not match.  Expected ["+this.hdt.toString()+"], actual ["+ht.hdt.toString()+"].",this.hdt,ht.hdt);
+			assertEquals("Values for field ["+this.key+"] do not match.  Expected ["+this.value+"], actual ["+ht.value+"].",this.value,ht.value);
+		}
+	}
+
+	@Override
+	public String displayContents() {
+		return getKey()+" = "+Long.toString(value);
+	}		
+}	
+

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<Deals xmlns="http://thedealmap.com/api" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <Message/>
+  <Results>
+    <Deal>
+      <Activity>0</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>2151 Mystic Valley Pkwy</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID/>
+      <BusinessName>Turningart</BusinessName>
+      <Capability>83</Capability>
+      <Category>Shopping,Art</Category>
+      <City>Medford</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Groupon</DealSource>
+      <DealType>24</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>60</DiscountedValue>
+      <EffectiveTime>2011-05-01T02:01:00</EffectiveTime>
+      <ExpirationTime>2011-05-03T20:59:00</ExpirationTime>
+      <FaceValue>120</FaceValue>
+      <ID>5-2346FE4B9B593B411DFD7CC6F7748DCD</ID>
+      <IconUrl/>
+      <ImageUrl>http://www.groupon.com/images/site_images/0936/5013/TurningArt.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.4177851621062</Latitude>
+      <Longitude>-71.1272768955678</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=5-2346FE4B9B593B411DFD7CC6F7748DCD&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone/>
+      <Ratings>0</Ratings>
+      <ReviewCount>0</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$60 For A Premium Membership To Turningart</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=5-2346FE4B9B593B411DFD7CC6F7748DCD</TransactionUrl>
+      <YouSave>50 %</YouSave>
+      <ZipCode/>
+    </Deal>
+  </Results>
+  <TotalResults>1481</TotalResults>
+</Deals>

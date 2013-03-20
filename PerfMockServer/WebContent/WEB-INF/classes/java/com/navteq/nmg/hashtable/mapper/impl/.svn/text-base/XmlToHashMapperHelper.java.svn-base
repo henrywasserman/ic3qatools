@@ -1,0 +1,175 @@
+package com.navteq.nmg.hashtable.mapper.impl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
+
+import com.navteq.nmg.hashtable.IHashStreamInjector;
+import com.navteq.nmg.hashtable.IHashStreamInjectorList;
+import com.navteq.nmg.hashtable.IMessageVersions.MessageVersionsType;
+import com.navteq.nmg.hashtable.IXmlEntryParser;
+import com.navteq.nmg.hashtable.impl.HashStreamInjectorList;
+import com.navteq.nmg.hashtable.mapper.IIndexName;
+import com.navteq.nmg.hashtable.mapper.IXmlToHashMapper;
+import com.navteq.nmg.hashtable.testdrivers.ByteForByteContentComparer;
+
+public abstract class XmlToHashMapperHelper {
+	
+	protected static final int HEADER_LENGTH_FIELD_SIZE = 1;
+	protected static final int DATATYPE_LENGTH_FIELD_SIZE = 1;
+	protected static final int BYTE_SIZE = 1;
+	protected static final int INTEGER_SIZE = 4;
+	protected static final int LONG_SIZE = 8;
+	protected static final int COUNT_SIZE = 4;
+		
+	// TODO: inject this mocked
+	// canned dummy test parent
+	protected static class TestParent implements IXmlToHashMapper{
+
+		private IHashStreamInjectorList list; 
+		
+		public TestParent(){
+			list = new HashStreamInjectorList();
+		}
+		
+		@Override
+		public void injectStream(ByteArrayOutputStream stream) throws Exception {		
+		}
+
+		@Override
+		public int getRenderedByteSize() throws Exception{
+			return list.getRenderedByteSize();
+		}
+
+		@Override
+		public int getElementCount() throws Exception{
+			return list.getElementCount();
+		}
+
+		@Override
+		public IIndexName getFieldName() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public MessageVersionsType getVersion() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public XmlToHashMapperType getMapperType() {
+			// TODO Auto-generated method stub 
+			return null;
+		}
+
+		@Override
+		public boolean hasParent() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public IXmlToHashMapper getParent() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean isNested() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public void mapFromXmlToHash(IXmlEntryParser parser, String content) throws Exception {
+		}
+
+		@Override
+		public void add(IHashStreamInjector streamInjector) throws Exception{
+			list.add(streamInjector);
+		}
+
+		@Override
+		public void setFieldName(IIndexName indexName) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	protected XmlToHashMapperHelper(){}
+	
+	protected abstract IXmlEntryParser createParser() throws Exception;
+	protected abstract IXmlToHashMapper createMapperInstance(IIndexName xmlElementName, MessageVersionsType mvt, IXmlToHashMapper parent) throws Exception;
+	
+	protected void assertConstructor(IIndexName xmlElementName, MessageVersionsType mvt, IXmlToHashMapper parent, boolean isNested) throws Exception{
+		IXmlToHashMapper mapper = createMapperInstance(xmlElementName,mvt,parent);
+	
+		assertEquals(xmlElementName, mapper.getFieldName());
+		assertEquals(mvt,mapper.getVersion());
+		if (parent != null){
+			assertTrue(mapper.hasParent());
+			assertNotNull(mapper.getParent());
+		}
+		else{
+			assertFalse(mapper.hasParent());
+			assertNull(mapper.getParent());
+		}
+
+		assertEquals(isNested, mapper.isNested());		
+	}
+	
+	protected void assertMapFromXmlToHash(IXmlToHashMapper xmlToHashMapper, String xmlData, int expectedElementCount, int expectedRenderedByteSize) throws Exception{
+		IXmlEntryParser parseFactory = createParser();
+		assertMapFromXmlToHash(parseFactory, xmlToHashMapper, xmlData, expectedElementCount, expectedRenderedByteSize);
+	}
+	
+	protected void assertMapFromXmlToHash(IXmlEntryParser parseFactory, IXmlToHashMapper xmlToHashMapper, String xmlData, int expectedElementCount, int expectedRenderedByteSize) throws Exception{
+		xmlToHashMapper.mapFromXmlToHash(parseFactory, xmlData);
+		assertEquals(expectedElementCount,xmlToHashMapper.getElementCount());
+		assertEquals(expectedRenderedByteSize,xmlToHashMapper.getRenderedByteSize());
+	}
+		
+	protected void assertStreamInjectedProperly(IXmlToHashMapper xmlToHashMapper, String xmlData, byte[] expectedByteStream) throws Exception{
+		IXmlEntryParser parseFactory = createParser();
+		xmlToHashMapper.mapFromXmlToHash(parseFactory, xmlData);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		xmlToHashMapper.injectStream(outputStream);
+		
+		byte[] actualContents = outputStream.toByteArray();
+		
+		try{
+			
+			
+			assertEquals("Length of output stream is not what is expected.", xmlToHashMapper.getRenderedByteSize(),actualContents.length);
+			
+			int offset = 0;
+			
+			// lets scour the byte array and compare values at each byte so if we find an issue in the testing we can toss
+			// an assertion at the exact spot in the array things are jacked up
+			
+			// assert assert the field name contents
+			while (offset < actualContents.length){
+				assertEquals(
+				    "Output stream contents is not what was expected in offset["+Integer.toString(offset)+"]."
+				    ,expectedByteStream[offset]
+				    ,actualContents[offset]);
+				
+				offset++;
+			}	
+			
+		}
+		catch(AssertionError ae){
+			System.out.println("Expected byte stream:");
+			ByteForByteContentComparer.showByteArrayAsHexDump(expectedByteStream);
+			System.out.println("Actual byte stream:");
+			ByteForByteContentComparer.showByteArrayAsHexDump(actualContents);
+			throw ae;
+		}
+	}
+}

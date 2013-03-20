@@ -1,0 +1,712 @@
+<?xml version="1.0"?>
+<Deals xmlns="http://thedealmap.com/api" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <Message/>
+  <Results>
+    <Deal>
+      <Activity>8</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>235 Holland St</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/9252E65D939198F7EA9A634CEF927DD8</BusinessID>
+      <BusinessName>House Of Tibet Kitchen</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,asian</Category>
+      <City>Somerville</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>20</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:37:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:37:00</ExpirationTime>
+      <FaceValue>50</FaceValue>
+      <ID>2-1BCF6B3139AD2C225BFC3B1359105FFA</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/442754photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.4025028571486</Latitude>
+      <Longitude>-71.1268234346062</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-1BCF6B3139AD2C225BFC3B1359105FFA&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6176297567</Phone>
+      <Ratings>5</Ratings>
+      <ReviewCount>4</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$50 Gift Certificate, Your Price $20</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-1BCF6B3139AD2C225BFC3B1359105FFA</TransactionUrl>
+      <YouSave>60 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>8</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>235 Holland St</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/9252E65D939198F7EA9A634CEF927DD8</BusinessID>
+      <BusinessName>House Of Tibet Kitchen</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,asian</Category>
+      <City>Somerville</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>40</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:37:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:37:00</ExpirationTime>
+      <FaceValue>100</FaceValue>
+      <ID>2-1C400F2010FF86EA249EC85274478BD1</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/442754photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.4025028571486</Latitude>
+      <Longitude>-71.1268234346062</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-1C400F2010FF86EA249EC85274478BD1&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6176297567</Phone>
+      <Ratings>5</Ratings>
+      <ReviewCount>4</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$100 Gift Certificate, Your Price $40</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-1C400F2010FF86EA249EC85274478BD1</TransactionUrl>
+      <YouSave>60 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>8</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>235 Holland St</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/9252E65D939198F7EA9A634CEF927DD8</BusinessID>
+      <BusinessName>House Of Tibet Kitchen</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,asian</Category>
+      <City>Somerville</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>30</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:37:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:37:00</ExpirationTime>
+      <FaceValue>75</FaceValue>
+      <ID>2-2A7EA3F598F0863A64BC265BF698DA65</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/442754photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.4025028571486</Latitude>
+      <Longitude>-71.1268234346062</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-2A7EA3F598F0863A64BC265BF698DA65&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6176297567</Phone>
+      <Ratings>5</Ratings>
+      <ReviewCount>4</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$75 Gift Certificate, Your Price $30</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-2A7EA3F598F0863A64BC265BF698DA65</TransactionUrl>
+      <YouSave>60 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>8</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>235 Holland St</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/9252E65D939198F7EA9A634CEF927DD8</BusinessID>
+      <BusinessName>House Of Tibet Kitchen</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,asian</Category>
+      <City>Somerville</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>10</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:37:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:37:00</ExpirationTime>
+      <FaceValue>25</FaceValue>
+      <ID>2-8244FFAEBA8D6D2D7175BA40F51FA531</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/442754photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.4025028571486</Latitude>
+      <Longitude>-71.1268234346062</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-8244FFAEBA8D6D2D7175BA40F51FA531&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6176297567</Phone>
+      <Ratings>5</Ratings>
+      <ReviewCount>4</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$25 Gift Certificate, Your Price $10</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-8244FFAEBA8D6D2D7175BA40F51FA531</TransactionUrl>
+      <YouSave>60 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>8</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>235 Holland St</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/9252E65D939198F7EA9A634CEF927DD8</BusinessID>
+      <BusinessName>House Of Tibet Kitchen</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,asian</Category>
+      <City>Somerville</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>5</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:37:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:37:00</ExpirationTime>
+      <FaceValue>10</FaceValue>
+      <ID>2-BC7290411EBE9627029ED36D49FEF9D8</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/442754photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.4025028571486</Latitude>
+      <Longitude>-71.1268234346062</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-BC7290411EBE9627029ED36D49FEF9D8&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6176297567</Phone>
+      <Ratings>5</Ratings>
+      <ReviewCount>4</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$10 Gift Certificate, Your Price $5</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-BC7290411EBE9627029ED36D49FEF9D8</TransactionUrl>
+      <YouSave>50 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>8256</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>1616 Commonwealth Ave</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/0AABB55ED6C01515204E67CA80A7C4F6</BusinessID>
+      <BusinessName>Bamboo</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,thai,restaurants thai</Category>
+      <City>Brighton</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>20</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:28:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:28:00</ExpirationTime>
+      <FaceValue>50</FaceValue>
+      <ID>2-06C5A9F58E8231199EA08046ECBC1323</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/413218photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3433051630855</Latitude>
+      <Longitude>-71.1428904533386</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-06C5A9F58E8231199EA08046ECBC1323&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6177348192</Phone>
+      <Ratings>4.34614989999682</Ratings>
+      <ReviewCount>13</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$50 Gift Certificate, Your Price $20</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-06C5A9F58E8231199EA08046ECBC1323</TransactionUrl>
+      <YouSave>60 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>8256</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>1616 Commonwealth Ave</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/0AABB55ED6C01515204E67CA80A7C4F6</BusinessID>
+      <BusinessName>Bamboo</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,thai,restaurants thai</Category>
+      <City>Brighton</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>40</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:28:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:28:00</ExpirationTime>
+      <FaceValue>100</FaceValue>
+      <ID>2-2057209E5A667A56ABD148E9AE38167F</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/413218photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3433051630855</Latitude>
+      <Longitude>-71.1428904533386</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-2057209E5A667A56ABD148E9AE38167F&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6177348192</Phone>
+      <Ratings>4.34614989999682</Ratings>
+      <ReviewCount>13</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$100 Gift Certificate, Your Price $40</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-2057209E5A667A56ABD148E9AE38167F</TransactionUrl>
+      <YouSave>60 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>33304</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>123 Stuart St</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/FE77D016799353875A03544C717A7046</BusinessID>
+      <BusinessName>Tantric India Bistro</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,indian,restaurants indian</Category>
+      <City>Boston</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>5</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:10:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:10:00</ExpirationTime>
+      <FaceValue>10</FaceValue>
+      <ID>2-54BCDFF5C393A02E0CC0029397F966ED</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/371811photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3509848304093</Latitude>
+      <Longitude>-71.065654149279</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-54BCDFF5C393A02E0CC0029397F966ED&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6173678742</Phone>
+      <Ratings>4</Ratings>
+      <ReviewCount>37</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$10 Gift Certificate, Your Price $5</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-54BCDFF5C393A02E0CC0029397F966ED</TransactionUrl>
+      <YouSave>50 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>8256</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>1616 Commonwealth Ave</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/0AABB55ED6C01515204E67CA80A7C4F6</BusinessID>
+      <BusinessName>Bamboo</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,thai,restaurants thai</Category>
+      <City>Brighton</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>30</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:28:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:28:00</ExpirationTime>
+      <FaceValue>75</FaceValue>
+      <ID>2-755920421B68064D2422C5600C8475D7</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/413218photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3433051630855</Latitude>
+      <Longitude>-71.1428904533386</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-755920421B68064D2422C5600C8475D7&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6177348192</Phone>
+      <Ratings>4.34614989999682</Ratings>
+      <ReviewCount>13</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$75 Gift Certificate, Your Price $30</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-755920421B68064D2422C5600C8475D7</TransactionUrl>
+      <YouSave>60 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>33304</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>123 Stuart St</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/FE77D016799353875A03544C717A7046</BusinessID>
+      <BusinessName>Tantric India Bistro</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,indian,restaurants indian</Category>
+      <City>Boston</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>10</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:10:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:10:00</ExpirationTime>
+      <FaceValue>25</FaceValue>
+      <ID>2-77CC24C4792F3B057FE5F8ACD75C6FDB</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/371811photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3509848304093</Latitude>
+      <Longitude>-71.065654149279</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-77CC24C4792F3B057FE5F8ACD75C6FDB&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6173678742</Phone>
+      <Ratings>4</Ratings>
+      <ReviewCount>37</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$25 Gift Certificate, Your Price $10</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-77CC24C4792F3B057FE5F8ACD75C6FDB</TransactionUrl>
+      <YouSave>60 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>33304</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>123 Stuart St</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/FE77D016799353875A03544C717A7046</BusinessID>
+      <BusinessName>Tantric India Bistro</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,indian,restaurants indian</Category>
+      <City>Boston</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>20</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:10:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:10:00</ExpirationTime>
+      <FaceValue>50</FaceValue>
+      <ID>2-8724368F7DB988329E2102072D82FEF5</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/371811photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3509848304093</Latitude>
+      <Longitude>-71.065654149279</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-8724368F7DB988329E2102072D82FEF5&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6173678742</Phone>
+      <Ratings>4</Ratings>
+      <ReviewCount>37</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$50 Gift Certificate, Your Price $20</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-8724368F7DB988329E2102072D82FEF5</TransactionUrl>
+      <YouSave>60 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>8256</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>1616 Commonwealth Ave</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/0AABB55ED6C01515204E67CA80A7C4F6</BusinessID>
+      <BusinessName>Bamboo</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,thai,restaurants thai</Category>
+      <City>Brighton</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>10</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:28:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:28:00</ExpirationTime>
+      <FaceValue>25</FaceValue>
+      <ID>2-A09AFAB659C7565B4E465C4CB13483B6</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/413218photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3433051630855</Latitude>
+      <Longitude>-71.1428904533386</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-A09AFAB659C7565B4E465C4CB13483B6&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6177348192</Phone>
+      <Ratings>4.34614989999682</Ratings>
+      <ReviewCount>13</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$25 Gift Certificate, Your Price $10</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-A09AFAB659C7565B4E465C4CB13483B6</TransactionUrl>
+      <YouSave>60 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>0</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>283 Causeway St</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/1B7A61CAB91316EF193D73A4E21562BE</BusinessID>
+      <BusinessName>Filippo Ristorante</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,italian,restaurants italian</Category>
+      <City>Boston</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>35</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:01:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:01:00</ExpirationTime>
+      <FaceValue>75</FaceValue>
+      <ID>2-00F8BE911B482561A9E9CE521156C8A9</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/421857photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3670127056539</Latitude>
+      <Longitude>-71.0584969259799</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-00F8BE911B482561A9E9CE521156C8A9&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6177424142</Phone>
+      <Ratings>5</Ratings>
+      <ReviewCount>3</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$75 Gift Certificate, Your Price $35</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-00F8BE911B482561A9E9CE521156C8A9</TransactionUrl>
+      <YouSave>53 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>8265</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>1124 Cambridge St</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/E92229F01EC6D6C647EFE4F38C0ACA64</BusinessID>
+      <BusinessName>Midwest Grill Brazilian BBQ</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,latin/south american</Category>
+      <City>Cambridge</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>10</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:09:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:09:00</ExpirationTime>
+      <FaceValue>25</FaceValue>
+      <ID>2-61D8A84E8B35BE978816005D6E155C71</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/359801photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.3731143120676</Latitude>
+      <Longitude>-71.0961021669209</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-61D8A84E8B35BE978816005D6E155C71&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>6173547536</Phone>
+      <Ratings>4</Ratings>
+      <ReviewCount>24</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$25 Gift Certificate, Your Price $10</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-61D8A84E8B35BE978816005D6E155C71</TransactionUrl>
+      <YouSave>60 %</YouSave>
+      <ZipCode/>
+    </Deal>
+    <Deal>
+      <Activity>0</Activity>
+      <AddedBy/>
+      <AdditionalDiscountCouponCode/>
+      <AdditionalDiscountCouponEffectiveTime>0001-01-01T00:00:00</AdditionalDiscountCouponEffectiveTime>
+      <AdditionalDiscountCouponExpirationTime>0001-01-01T00:00:00</AdditionalDiscountCouponExpirationTime>
+      <AdditionalDiscountDealUnit>0</AdditionalDiscountDealUnit>
+      <AdditionalDiscountedValue>0</AdditionalDiscountedValue>
+      <AddressLine>5 Playstead Rd</AddressLine>
+      <Affiliation/>
+      <BDescription/>
+      <BusinessID>b/1/A1A1757C9DA6F47D96A66DF3FA38554B</BusinessID>
+      <BusinessName>Bistro 5</BusinessName>
+      <Capability>83</Capability>
+      <Category>gift certificates,restaurants,italian,restaurants bistro</Category>
+      <City>Medford</City>
+      <Country/>
+      <Currency>1</Currency>
+      <DealSource>Restaurant</DealSource>
+      <DealType>1</DealType>
+      <DealUnit>1</DealUnit>
+      <Description/>
+      <DiscountedValue>10</DiscountedValue>
+      <EffectiveTime>2011-12-02T00:42:00</EffectiveTime>
+      <ExpirationTime>2011-12-03T00:42:00</ExpirationTime>
+      <FaceValue>25</FaceValue>
+      <ID>2-863EC234689C7D40051DB7F28A9A34A8</ID>
+      <IconUrl/>
+      <ImageUrl>http://vrdcimage.restaurant.com/microsites/332120photo1.jpg</ImageUrl>
+      <IsSoldOut>false</IsSoldOut>
+      <Keywords/>
+      <Latitude>42.4213934876025</Latitude>
+      <Longitude>-71.1325919441879</Longitude>
+      <MoreInfoLink>http://www.thedealmap.com/deal/?dealid=2-863EC234689C7D40051DB7F28A9A34A8&amp;s=0-579566779-634444377132343750&amp;utm_campaign=api</MoreInfoLink>
+      <Phone>7813957464</Phone>
+      <Ratings>4.30000020000443</Ratings>
+      <ReviewCount>15</ReviewCount>
+      <SoldCount>0</SoldCount>
+      <State>MA</State>
+      <Tags/>
+      <Terms/>
+      <Title>$25 Gift Certificate, Your Price $10</Title>
+      <TrackingUrl/>
+      <TransactionUrl>http://www.thedealmap.com/x/?s=0-579566779-634444377132343750&amp;id=2-863EC234689C7D40051DB7F28A9A34A8</TransactionUrl>
+      <YouSave>60 %</YouSave>
+      <ZipCode/>
+    </Deal>
+  </Results>
+  <TotalResults>300</TotalResults>
+</Deals>

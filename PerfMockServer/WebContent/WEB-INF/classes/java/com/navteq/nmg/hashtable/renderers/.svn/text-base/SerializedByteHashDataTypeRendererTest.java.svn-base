@@ -1,0 +1,102 @@
+package com.navteq.nmg.hashtable.renderers;
+
+import org.apache.commons.io.EndianUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IHashStreamInjectorList;
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+import com.navteq.nmg.hashtable.impl.HashStreamInjectorList;
+
+
+public class SerializedByteHashDataTypeRendererTest extends HashDataTypeTestHelper{
+	private static IHashStreamInjectorList GROUP;  
+	private static final String FIELD_NAME = "fieldNameSerializedHash";
+
+	@BeforeClass
+	public static void setupOnce() throws Exception{
+		
+		GROUP = new HashStreamInjectorList();
+		
+    	GROUP.add(new BooleanHashDataTypeRenderer("booleanField", true));
+    	GROUP.add(new IntegerHashDataTypeRenderer("integerField", 2112));
+    	GROUP.add(new LongHashDataTypeRenderer("longField", 2112211221122112211L));
+    	GROUP.add(new StringHashDataTypeRenderer("stringField", "http://navteq.rocks.com/getsome/code?^4436623*&$#!"));
+    	GROUP.add(new ByteArrayHashDataTypeRenderer("byteArrayField", new byte[]{(byte)10,(byte)2}));
+    	GROUP.add(new IntegerArrayHashDataTypeRenderer("integerArrayField", new int[]{66,77,888}));
+    	GROUP.add(new LongArrayHashDataTypeRenderer("longArrayField", new long[]{4000L,1234567890123456L}));
+    	GROUP.add(new DoubleHashDataTypeRenderer("doubleField", -71.546321));
+    	
+    	
+    	IHashStreamInjectorList embeddedHash1 = new HashStreamInjectorList();
+    	embeddedHash1.add(new DoubleHashDataTypeRenderer("lat", -72.336325));
+    	embeddedHash1.add(new DoubleHashDataTypeRenderer("long", 40.123456));
+    	
+    	IHashStreamInjectorList embeddedHash2 = new HashStreamInjectorList();
+    	embeddedHash1.add(new StringHashDataTypeRenderer("getting", "close"));
+    	embeddedHash1.add(new StringHashDataTypeRenderer("toThe", "end of data for hacked up hashtable type"));
+    	
+    	IHashStreamInjectorList hdtgl = new HashStreamInjectorList();
+    	hdtgl.add(embeddedHash1);
+    	hdtgl.add(embeddedHash2);
+    	
+    	// ho thundercats...give me hash beyond hash...
+        GROUP.add(new HashTableHashDataTypeRenderer("hash1", hdtgl));
+		
+	}
+	
+	@Test
+	public void verifyConstructor() throws Exception{
+		
+		IHashStreamInjectorList hdtgl = new HashStreamInjectorList();
+    	hdtgl.add(GROUP);
+		
+		HashTableHashDataTypeRenderer bhdt = new HashTableHashDataTypeRenderer(FIELD_NAME, hdtgl);
+		assertConstructor(
+			FIELD_NAME, 
+			HashDataType.HASH_TABLE,
+			StringHashDataTypeRenderer.SIZEOF_HEADER_FIELDNAME_LENGTH_FIELD
+			    +FIELD_NAME.length()
+			    +HashTableHashDataTypeRenderer.SIZEOF_DATATYPE_INDICATOR_SIZE
+			    +HashTableHashDataTypeRenderer.SIZEOF_VALUE_LENGTH_FIELD
+			    + 4
+			    +GROUP.getRenderedByteSize(), 
+			bhdt);
+	}	
+
+	@Test
+	public void verifyInjectStream() throws Exception{
+
+		SerializedByteHashDataTypeRenderer bhdt = new SerializedByteHashDataTypeRenderer(FIELD_NAME, GROUP);
+
+		// make sure we are rendering properly
+		byte[] encodedFieldName = FIELD_NAME.getBytes(ENCODING);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		bhdt.injectStream(baos);
+		byte[] result = baos.toByteArray();
+		
+		byte[] valueLengthField = new byte[BaseHashDataTypeRenderer.SIZEOF_VALUE_LENGTH_FIELD];
+
+		EndianUtils.writeSwappedInteger(valueLengthField, 0, GROUP.getRenderedByteSize()+4);
+		
+		ByteArrayOutputStream renderedDataForTest = new ByteArrayOutputStream(GROUP.getRenderedByteSize()+4);
+		
+		EndianUtils.writeSwappedInteger(renderedDataForTest,GROUP.getElementCount());
+		
+		GROUP.injectStream(renderedDataForTest);
+
+		byte[] ba = renderedDataForTest.toByteArray();
+		
+		assertRender(encodedFieldName,bhdt.getHashDataType(),valueLengthField,ba,result);		
+	}		
+	
+	@Override
+	BaseHashDataTypeRenderer getNewInstanceForBoundsChecking(String fieldName) throws Exception{
+    	
+		return new SerializedByteHashDataTypeRenderer(fieldName, GROUP);
+	}		
+
+}

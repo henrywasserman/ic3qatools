@@ -1,0 +1,48 @@
+package com.navteq.nmg.pani.image.urlformatter.impl;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.net.URL;
+import java.net.URLEncoder;
+
+import org.junit.Test;
+
+import com.navteq.nmg.pani.image.category.IImageCategoryService.ImageCategory;
+import com.navteq.nmg.pani.image.enums.ImageMimeTypes;
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+import com.navteq.nmg.pani.image.urlformatter.IImageFileName;
+import com.navteq.nmg.pani.image.urlformatter.IImageUrlFormatter;
+import com.navteq.nmg.pani.image.urlformatter.impl.DefaultImageUrl;
+
+public class DefaultImageUrlTest {
+	
+	@Test
+	public void testConstructorWithIImageFileName() throws Exception{
+		String contextUrlString = "http://silap.ulap.jackslap:8080/nmg";
+		String fileName = "nmg-dining-101.png";
+		String expectedUrlString = contextUrlString+"/gwimg/"+fileName;
+		URL expectedURL = new URL(expectedUrlString);
+		URL contextUrl = new URL(contextUrlString);
+		IImageFileName imageFileName = mock(IImageFileName.class);
+		when(imageFileName.getImageFileName()).thenReturn(fileName);
+		IImageUrlFormatter imageUrl = new DefaultImageUrl(contextUrl, imageFileName);
+		assertEquals(expectedUrlString,imageUrl.getAsString());
+		assertEquals(URLEncoder.encode(expectedUrlString,"UTF-8"),imageUrl.getAsString("UTF-8"));
+		assertEquals(expectedURL,imageUrl.getAsUrl());
+	}
+	
+	@Test
+	public void testConstructorWithEnums() throws Exception{
+		String contextUrlString = "http://silap.ulap.jackslap:8080/nmg";
+		String fileName = "nmg-dining-101.png";
+		String expectedUrlString = contextUrlString+"/gwimg/"+fileName;
+		URL expectedURL = new URL(expectedUrlString);
+		URL contextUrl = new URL(contextUrlString);
+		IImageUrlFormatter imageUrl = new DefaultImageUrl(contextUrl, ImageCategory.DINING, ImageSizeTypes.SMALL_BANNER,ImageMimeTypes.PNG);
+		assertEquals(expectedUrlString,imageUrl.getAsString());
+		assertEquals(URLEncoder.encode(expectedUrlString,"UTF-8"),imageUrl.getAsString("UTF-8"));
+		assertEquals(expectedURL,imageUrl.getAsUrl());
+	}
+}

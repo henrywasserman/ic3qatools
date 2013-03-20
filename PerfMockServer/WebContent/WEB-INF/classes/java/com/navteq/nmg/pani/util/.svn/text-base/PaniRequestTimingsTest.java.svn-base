@@ -1,0 +1,67 @@
+package com.navteq.nmg.pani.util;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import junit.framework.Assert;
+import org.junit.Test;
+import com.navteq.nmg.mule.component.RequestType;
+import com.navteq.nmg.pani.management.Constants;
+
+
+public class PaniRequestTimingsTest {
+	@Test
+	public void testCalculatePerf() {
+		// test null condition
+		PaniRequestTimings timings = new PaniRequestTimings();
+		timings.reset();
+		try {
+			timings.calculatePerf();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+		
+		// test success
+		Long currentTime = System.nanoTime();
+		timings.setStartTimeInPaniFlow(currentTime);
+		timings.setEndTimeInPaniFlow(currentTime+5000000);
+		timings.setStartTimeForLPAPhase(currentTime);
+		timings.setEndTimeForLPAPhase(currentTime+5000000);
+		timings.setStartTimeForPANPhase(currentTime);
+		timings.setEndTimeForPANPhase(currentTime+5000000);
+		timings.setRequestType(RequestType.endusercheckin);
+		try {
+			Map<String, String> perfMap = new HashMap<String, String> ();
+			perfMap = timings.calculatePerf();
+			Assert.assertEquals(perfMap.get(Constants.TIME_IN_PANI_FLOW), "5");
+			Assert.assertEquals(perfMap.get(Constants.TIME_FOR_LPA_PHASE), "5");
+			Assert.assertEquals(perfMap.get(Constants.TIME_FOR_PAN_PHASE), "5");
+			Assert.assertEquals(perfMap.get(Constants.REQUEST_TYPE), RequestType.endusercheckin.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void testReset() {
+		PaniRequestTimings timings = new PaniRequestTimings();
+		timings.setStartTimeInPaniFlow(System.nanoTime());
+		timings.setEndTimeInPaniFlow(System.nanoTime());
+		timings.setStartTimeForLPAPhase(System.nanoTime());
+		timings.setEndTimeForLPAPhase(System.nanoTime());
+		timings.setStartTimeForPANPhase(System.nanoTime());
+		timings.setEndTimeForPANPhase(System.nanoTime());
+		timings.setRequestType(RequestType.endusercheckin);
+		timings.reset();
+		Assert.assertNull(timings.getStartTimeInPaniFlow());
+		Assert.assertNull(timings.getEndTimeInPaniFlow());
+		Assert.assertNull(timings.getStartTimeForLPAPhase());
+		Assert.assertNull(timings.getEndTimeForLPAPhase());
+		Assert.assertNull(timings.getStartTimeForPANPhase());
+		Assert.assertNull(timings.getEndTimeForPANPhase());
+		Assert.assertNull(timings.getRequestType());
+	}
+		
+}

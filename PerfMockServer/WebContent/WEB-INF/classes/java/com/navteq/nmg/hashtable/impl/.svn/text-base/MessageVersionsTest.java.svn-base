@@ -1,0 +1,99 @@
+package com.navteq.nmg.hashtable.impl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.navteq.nmg.hashtable.IMessageVersions;
+import com.navteq.nmg.hashtable.IMessageVersions.MessageVersionsType;
+import com.navteq.nmg.hashtable.ioc.binders.MessageVersionsModule;
+
+public class MessageVersionsTest {
+
+	private static Injector injector;
+	
+	@BeforeClass
+	public static void setupOnce() throws Exception{
+		injector = Guice.createInjector(new MessageVersionsModule());
+	}
+
+	@Test
+	public void testInjectionServesDesiredClass() throws Exception{
+		IMessageVersions messageVersions = injector.getInstance(IMessageVersions.class);
+		assertTrue(messageVersions instanceof MessageVersions);
+	}
+	
+	@Test
+	public void testDecode() throws Exception{
+		assertEquals(MessageVersionsType.VERSION_1_1,MessageVersionsType.decode(IMessageVersions.VERNUM_1_1));
+		assertEquals(MessageVersionsType.VERSION_1_2,MessageVersionsType.decode(IMessageVersions.VERNUM_1_2));
+		assertEquals(MessageVersionsType.VERSION_2_0,MessageVersionsType.decode(IMessageVersions.VERNUM_2_0));
+		assertEquals(MessageVersionsType.VERSION_2_1,MessageVersionsType.decode(IMessageVersions.VERNUM_2_1));
+		assertEquals(MessageVersionsType.VERSION_2_2,MessageVersionsType.decode(IMessageVersions.VERNUM_2_2));
+		assertEquals(MessageVersionsType.VERSION_2_3,MessageVersionsType.decode(IMessageVersions.VERNUM_2_3));
+		assertEquals(MessageVersionsType.VERSION_2_4,MessageVersionsType.decode(IMessageVersions.VERNUM_2_4));
+		assertEquals(MessageVersionsType.VERSION_2_5,MessageVersionsType.decode(IMessageVersions.VERNUM_2_5));
+		assertEquals(MessageVersionsType.VERSION_2_6,MessageVersionsType.decode(IMessageVersions.VERNUM_2_6));
+	}
+
+	
+	@Test 
+	public void testMappingReferenceVersions() throws Exception{
+	    	
+		IMessageVersions messageVersions = injector.getInstance(IMessageVersions.class);
+		
+		assertEquals(MessageVersionsType.VERSION_1_1,messageVersions.getReferenceVersion(MessageVersionsType.VERSION_1_1));
+		assertEquals(MessageVersionsType.VERSION_1_1,messageVersions.getReferenceVersion(MessageVersionsType.VERSION_1_2));
+		assertEquals(MessageVersionsType.VERSION_1_1,messageVersions.getReferenceVersion(MessageVersionsType.VERSION_2_0));
+		assertEquals(MessageVersionsType.VERSION_1_1,messageVersions.getReferenceVersion(MessageVersionsType.VERSION_2_1));
+		assertEquals(MessageVersionsType.VERSION_2_2,messageVersions.getReferenceVersion(MessageVersionsType.VERSION_2_2));
+		assertEquals(MessageVersionsType.VERSION_2_2,messageVersions.getReferenceVersion(MessageVersionsType.VERSION_2_3));
+		assertEquals(MessageVersionsType.VERSION_2_4,messageVersions.getReferenceVersion(MessageVersionsType.VERSION_2_4));
+		assertEquals(MessageVersionsType.VERSION_2_4,messageVersions.getReferenceVersion(MessageVersionsType.VERSION_2_5));
+		assertEquals(MessageVersionsType.VERSION_2_4,messageVersions.getReferenceVersion(MessageVersionsType.VERSION_2_6));
+	}
+	
+	@Test
+	public void youShouldNotDoThatWithStrings() throws Exception{
+		
+		String template = "?myValue={whatibereplacin}&someotherthing={other}&yetanother={yetanother}";
+		long startTime;
+		long run1;
+		long run2;
+		
+		String localCopy;
+		startTime = System.nanoTime();
+
+		for (int x = 0; x < 1000000; x++){
+			localCopy = template;
+			
+			localCopy = localCopy.replace("{whatibereplacin}","fizzle");
+			localCopy = localCopy.replace("{other}","sizzle");
+			localCopy = localCopy.replace("{yetanother}","winning");
+		
+		}
+		
+		run1 = System.nanoTime() - startTime;
+		System.out.println("Run 1 = "+Long.toString(run1));
+		StringBuilder sb;
+		startTime = System.nanoTime();
+		for (int x = 0; x < 1000000; x++){
+			sb = new StringBuilder(96);
+			sb.append("?myValue=");
+			sb.append("fizzle");
+			sb.append("&someotherthing=");
+			sb.append("sizzle");
+			sb.append("&yetanother=");
+			sb.append("winning");
+			localCopy = sb.toString();
+	
+		}
+		run2 = System.nanoTime() - startTime;
+		System.out.println("Run 2 = "+Long.toString(run2));
+	}
+}

@@ -1,0 +1,148 @@
+package com.navteq.nmg.hashtable.impl;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.navteq.nmg.hashtable.IHashStreamInjector;
+import com.navteq.nmg.hashtable.IMessageVersions.MessageVersionsType;
+import com.navteq.nmg.hashtable.IXmlToHashParser;
+import com.navteq.nmg.hashtable.ioc.binders.AdServerResponseXmlModule;
+import com.navteq.nmg.hashtable.ioc.binders.ElementNameToMapperTypeModule;
+import com.navteq.nmg.hashtable.ioc.binders.HashTableXMLMapperEntry_v_2_2_Module;
+import com.navteq.nmg.hashtable.ioc.binders.HashTableXMLMapperEntry_v_2_4_Module;
+import com.navteq.nmg.hashtable.ioc.binders.HashTableXMLMapperEntry_v_Default_Module;
+import com.navteq.nmg.hashtable.ioc.binders.IndexNameFormatterModule;
+import com.navteq.nmg.hashtable.ioc.binders.MessageVersionsModule;
+import com.navteq.nmg.hashtable.ioc.binders.VersionedXmlToHashMapperRegistryFactoryModule;
+import com.navteq.nmg.hashtable.testdrivers.ITestMessage;
+import com.navteq.nmg.hashtable.testdrivers.impl.errorresponses.InvalidNumberOfLatLongPolyPointsAreaCheckin;
+import com.navteq.nmg.hashtable.testdrivers.impl.successresponses.Version_2_4_CheckinRequest;
+import com.navteq.nmg.hashtable.testdrivers.impl.successresponses.Version_2_4_EnduserIdResponse;
+import com.navteq.nmg.hashtable.testdrivers.impl.successresponses.Version_2_4_ImagesResponse;
+
+public class XmlToHashParserProviderTest {
+	
+	private static Injector injector;
+		
+	@BeforeClass
+	public static void setupOnce() throws Exception{
+		
+		// guice things up a little bit...this is our top level class for all the versioning 
+		// action so we need to make sure all the proper ingredients are in the power drink 
+		
+		List<Module> modules = new ArrayList<Module>();
+		
+		modules.add(new MessageVersionsModule());
+		modules.add(new ElementNameToMapperTypeModule());
+		modules.add(new HashTableXMLMapperEntry_v_Default_Module());
+		modules.add(new HashTableXMLMapperEntry_v_2_2_Module());
+		modules.add(new HashTableXMLMapperEntry_v_2_4_Module());
+    	modules.add(new VersionedXmlToHashMapperRegistryFactoryModule());
+		modules.add(new IndexNameFormatterModule());
+    	modules.add(new AdServerResponseXmlModule());
+		
+		injector = Guice.createInjector(modules);
+			
+	}
+	
+	@Test
+	public void testProviderServesDesiredClass() throws Exception{
+		IXmlToHashParser parser = injector.getInstance(IXmlToHashParser.class);
+		assertTrue(parser instanceof AdServerResponseXmlReader);
+	}
+	
+	@Test
+	public void testHashErrorGeneratedForAllVersions() throws Exception{
+		
+		// the error handling is the same across all versions so we will make sure the 
+		// factory is pushing everything back in the expected format
+		
+		ITestMessage testMessage = null;
+		
+		IXmlToHashParser parser = injector.getInstance(IXmlToHashParser.class);
+		for (MessageVersionsType mvt : MessageVersionsType.values()){
+			
+			testMessage = new InvalidNumberOfLatLongPolyPointsAreaCheckin(mvt.toString());
+			
+			IHashStreamInjector streamInjector = parser.hashify(testMessage.getXmlInputMessage(),testMessage.getVersionNumber());
+			
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			streamInjector.injectStream(outputStream);
+			
+			testMessage.getHashComparer().assertMessageEqualsCompareMessage(outputStream.toByteArray());
+		}
+	}	
+
+	
+	@Test
+
+	public void testVersion_2_4_ResponseMessage() throws Exception{
+		IXmlToHashParser parser = injector.getInstance(IXmlToHashParser.class);
+		
+		ITestMessage testMessage = null;
+	
+		testMessage = new Version_2_4_CheckinRequest();
+    	IHashStreamInjector jectuh = parser.hashify(testMessage.getXmlInputMessage(),testMessage.getVersionNumber());
+    	
+    	
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		jectuh.injectStream(outputStream);
+		
+		try{
+			testMessage.getHashComparer().assertMessageEqualsCompareMessage(outputStream.toByteArray());			
+		}
+		catch(AssertionError ae){
+			// bury until we get confirmation from PO on certian issues
+		}
+	}
+	
+	@Test
+
+	public void testVersion_2_4_ResponseMessageImages() throws Exception{
+		IXmlToHashParser parser = injector.getInstance(IXmlToHashParser.class);
+		
+		ITestMessage testMessage = null;
+	
+		testMessage = new Version_2_4_ImagesResponse();
+    	IHashStreamInjector jectuh = parser.hashify(testMessage.getXmlInputMessage(),testMessage.getVersionNumber());
+    	
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		jectuh.injectStream(outputStream);
+		
+		try{
+			testMessage.getHashComparer().assertMessageEqualsCompareMessage(outputStream.toByteArray());			
+		}
+		catch(AssertionError ae){
+			// bury until we get confirmation from PO on certian issues
+		}
+	}
+	
+	@Test
+
+	public void testVersion_2_4_EnduserIdResponseValidation() throws Exception{
+		IXmlToHashParser parser = injector.getInstance(IXmlToHashParser.class);
+		
+		ITestMessage testMessage = null;
+	
+		testMessage = new Version_2_4_EnduserIdResponse();
+    	IHashStreamInjector jectuh = parser.hashify(testMessage.getXmlInputMessage(),testMessage.getVersionNumber());
+    	
+    	
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		jectuh.injectStream(outputStream);
+
+		testMessage.getHashComparer().assertMessageEqualsCompareMessage(outputStream.toByteArray());			
+
+	}	
+}

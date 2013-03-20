@@ -1,0 +1,35 @@
+package com.navteq.nmg.hashtable.mapper.impl.nameformatter;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.mapper.IIndexName;
+import com.navteq.nmg.hashtable.mapper.IIndexNameFormatter;
+
+
+public class ILAPResponseChildIndexNameFormatterTest {
+
+	private static final String MESSAGE = "message";
+	private static final String MESSAGE1 = "message1";
+	private static final String MESSAGE2 = "message2";
+
+	@Test
+	public void testFormatting() throws Exception{
+		
+		IIndexNameFormatter formatter = new ILAPResponseChildIndexNameFormatter();
+		
+		IIndexName name = formatter.getFormattedIndexName(MESSAGE);
+		assertEquals(MESSAGE,name.getBaseName());
+		assertEquals(MESSAGE1,name.getIndexedName());
+		
+		// since the bump counter is no op'd, a subsequent call to the formatter
+		// will actually bump the next index since message is a special case indexing
+		// all the chilren under message are NOT numbered like storefront, actions, keywords
+		// etc, etc
+		
+		name = formatter.getFormattedIndexName(MESSAGE);
+		assertEquals(MESSAGE,name.getBaseName());
+		assertEquals(MESSAGE2,name.getIndexedName());
+	}
+}

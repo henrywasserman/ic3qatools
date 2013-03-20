@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ilapresponse>
+  <message>
+    <campaignid><![CDATA[14618537623552]]></campaignid>
+    <creativeid><![CDATA[3403]]></creativeid>
+    <advertisername><![CDATA[Henry_Advertiser_Dealmap_1]]></advertisername>
+    <introtext><![CDATA[]]></introtext>
+    <mainmessagetext><![CDATA[Dealmap 1 Flight 2]]></mainmessagetext>
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+    <couponcode><![CDATA[]]></couponcode>
+
+    <expirydate><![CDATA[2011.05.13.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+    <callstoaction>
+      <calltoaction>
+        <action><![CDATA[MAP]]></action>
+        <data><![CDATA[]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ROUTE]]></action>
+        <data><![CDATA[]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[COUPONCODE]]></action>
+
+        <data><![CDATA[]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+    </callstoaction>
+
+    <countrycode><![CDATA[]]></countrycode>
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[215681]]></storefrontid>
+      <nametag><![CDATA[Henry_Name_Tag_Dealmap_1]]></nametag>
+      <name><![CDATA[]]></name>
+      <addr1><![CDATA[16 Charter Street]]></addr1>
+      <addr2><![CDATA[]]></addr2>
+
+      <addrcity><![CDATA[Boston]]></addrcity>
+      <addrstate><![CDATA[MA]]></addrstate>
+      <addrzip><![CDATA[02113]]></addrzip>
+      <phone><![CDATA[]]></phone>
+      <longitude><![CDATA[-71058567]]></longitude>
+      <latitude><![CDATA[42359771]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[]]></placeid>
+
+      <distance><![CDATA[2.13]]></distance>
+    </storefront>
+  </message>
+  <message>
+    <campaignid><![CDATA[14034422071296]]></campaignid>
+    <creativeid><![CDATA[3267]]></creativeid>
+    <advertisername><![CDATA[Henry_Advertiser_Dealmap_1]]></advertisername>
+    <introtext><![CDATA[]]></introtext>
+    <mainmessagetext><![CDATA[Henry Main Message Dealmap 1]]></mainmessagetext>
+
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+    <couponcode><![CDATA[]]></couponcode>
+    <expirydate><![CDATA[2011.05.13.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+    <callstoaction>
+      <calltoaction>
+
+        <action><![CDATA[IMPRESSION]]></action>
+        <data><![CDATA[impression]]></data>
+        <trackurl><![CDATA[impression]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[landingpage]]></data>
+        <trackurl><![CDATA[http://google.com]]></trackurl>
+      </calltoaction>
+
+    </callstoaction>
+    <countrycode><![CDATA[]]></countrycode>
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[215681]]></storefrontid>
+      <nametag><![CDATA[Henry_Name_Tag_Dealmap_1]]></nametag>
+      <name><![CDATA[]]></name>
+      <addr1><![CDATA[16 Charter Street]]></addr1>
+
+      <addr2><![CDATA[]]></addr2>
+      <addrcity><![CDATA[Boston]]></addrcity>
+      <addrstate><![CDATA[MA]]></addrstate>
+      <addrzip><![CDATA[02113]]></addrzip>
+      <phone><![CDATA[]]></phone>
+      <longitude><![CDATA[-71058567]]></longitude>
+      <latitude><![CDATA[42359771]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+
+      <placeid><![CDATA[]]></placeid>
+      <distance><![CDATA[2.13]]></distance>
+    </storefront>
+  </message>
+</ilapresponse>

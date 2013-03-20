@@ -1,0 +1,56 @@
+package com.navteq.nmg.hashtable.renderers;
+
+import org.apache.commons.io.EndianUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+import com.navteq.nmg.hashtable.renderers.BaseHashDataTypeRenderer;
+import com.navteq.nmg.hashtable.renderers.DoubleHashDataTypeRenderer;
+import com.navteq.nmg.hashtable.renderers.StringHashDataTypeRenderer;
+
+
+public class DoubleHashDataTypeRendererTest extends HashDataTypeTestHelper{
+
+	private static final String FIELD_NAME = "fieldName";
+	private static final double DATA = -71.35643; 
+	
+	@Test
+	public void verifyConstructor() throws Exception{
+		DoubleHashDataTypeRenderer bhdt = new DoubleHashDataTypeRenderer(FIELD_NAME, DATA);
+		assertConstructor(
+			FIELD_NAME, 
+			HashDataType.HASH_DOUBLE,
+			DoubleHashDataTypeRenderer.SIZEOF_HEADER_FIELDNAME_LENGTH_FIELD
+			    +FIELD_NAME.length()
+			    +DoubleHashDataTypeRenderer.SIZEOF_DATATYPE_INDICATOR_SIZE
+			    +DoubleHashDataTypeRenderer.SIZEOF_VALUE_LENGTH_FIELD
+			    +Double.toString(DATA).getBytes(ENCODING).length, 
+			bhdt);
+	}	
+	
+	@Test
+	public void verifyInjectStream() throws Exception{
+		StringHashDataTypeRenderer bhdt = new DoubleHashDataTypeRenderer(FIELD_NAME, DATA);
+
+		// make sure we are rendering properly
+		byte[] encodedFieldName = FIELD_NAME.getBytes(ENCODING);
+		byte[] encodedFieldValue = Double.toString(DATA).getBytes(ENCODING);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		bhdt.injectStream(baos);
+		byte[] result = baos.toByteArray();
+		
+		byte[] valueLengthField = new byte[StringHashDataTypeRenderer.SIZEOF_VALUE_LENGTH_FIELD];
+		int valueLength = encodedFieldValue.length;
+		EndianUtils.writeSwappedInteger(valueLengthField, 0, valueLength);
+		
+		assertRender(encodedFieldName,bhdt.getHashDataType(),valueLengthField,encodedFieldValue,result);		
+	}		
+	
+	@Override
+	BaseHashDataTypeRenderer getNewInstanceForBoundsChecking(String fieldName) throws Exception{
+		return new DoubleHashDataTypeRenderer(fieldName, DATA);
+	}			
+
+}

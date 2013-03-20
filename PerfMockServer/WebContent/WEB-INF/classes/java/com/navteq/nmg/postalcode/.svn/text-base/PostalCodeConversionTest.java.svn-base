@@ -1,0 +1,119 @@
+package com.navteq.nmg.postalcode;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.mule.tck.FunctionalTestCase;
+
+public abstract class PostalCodeConversionTest extends FunctionalTestCase {
+	
+	private Map<String, Object> createRequestParamMap(String postalCodeStr, double latitude, double longitude) {
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		
+		if (postalCodeStr != null && !postalCodeStr.isEmpty())
+			paramMap.put("postalcode", postalCodeStr);
+		
+		if (Math.abs(latitude) > 0.001)
+			paramMap.put("latitude", latitude);
+		
+		if (Math.abs(longitude) > 0.001)
+			paramMap.put("longitude", longitude);
+		
+		return paramMap;
+	}
+	
+	private Object getResponseFromLBSP(String postalCodeStr, double latitude, double longitude) {
+		Map<String, Object> paramMap = createRequestParamMap(postalCodeStr, latitude, longitude);
+		
+		try {
+			MuleClient client = new MuleClient(muleContext);
+			MuleMessage result = client.send("vm://vm.postalCodeConverter", paramMap, null);
+			
+			return result;
+		} catch (Exception e) {	
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void testSuccessfulEntry(String postalCodeStr, double lat, double lon, double expLat, double expLon) {
+		Object resp = getResponseFromLBSP(postalCodeStr, lat, lon);
+		
+		Assert.assertNotNull(resp);
+		
+		MuleMessage message = (MuleMessage) resp;
+		try {
+			Map<String, Object> payloadMap = (Map<String, Object>) message.getPayload(Map.class);
+			Assert.assertNotNull(payloadMap);
+			
+			double latValue = 0.0;
+			double lonValue = 0.0;
+			
+			Object latObj = payloadMap.get("latitude");
+			Object lonObj = payloadMap.get("longitude");
+			
+			Assert.assertNotNull(latObj);
+			Assert.assertNotNull(lonObj);
+			
+			if (latObj instanceof String)
+				latValue = Double.parseDouble((String) latObj);
+			else if (latObj instanceof Double)
+				latValue = ((Double) latObj).doubleValue();
+			
+			if (lonObj instanceof String)
+				lonValue = Double.parseDouble((String) lonObj);
+			else if (lonObj instanceof Double)
+				lonValue = ((Double) lonObj).doubleValue();
+			
+			Assert.assertTrue(Math.abs(latValue - expLat) < 0.000001);
+			Assert.assertTrue(Math.abs(lonValue - expLon) < 0.000001);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void testFailureEntry(String postalCodeStr, double lat, double lon, double expLat, double expLon) {
+		Object resp = getResponseFromLBSP(postalCodeStr, lat, lon);
+		
+		Assert.assertNotNull(resp);
+		
+		MuleMessage message = (MuleMessage) resp;
+		try {
+			String payload = message.getPayloadAsString();
+			Assert.assertNotNull(payload);
+			Assert.assertFalse(payload.isEmpty());
+		} catch (Exception e) {
+			try {
+				Map<String, Object> payloadMap = (Map<String, Object>) message.getPayload(Map.class);
+				
+				if (payloadMap == null)
+					Assert.assertNull(payloadMap);
+				
+				Assert.assertTrue(true);
+			} catch (Exception ex) {}
+		}
+	}
+	
+	@Test
+	public void testSuccsessfulResponses() {
+		testSuccessfulEntry("01950:USA", 0.0, 0.0, 42.8119583, -70.8721008);
+		testSuccessfulEntry("01950", 0.0, 0.0, 42.8119583, -70.8721008);
+		testSuccessfulEntry("01950:", 0.0, 0.0, 42.8119583, -70.8721008);
+		testSuccessfulEntry("01950:", 42.8119583, -70.8721008, 42.8119583, -70.8721008);
+	}
+	
+	@Test
+	public void testFailureResponses() {
+		testFailureEntry(":USA", 0.0, 0.0, 42.8119583, -70.8721008);
+		testFailureEntry("xs345:USA", 0.0, 0.0, 42.8119583, -70.8721008);
+	}
+	
+}

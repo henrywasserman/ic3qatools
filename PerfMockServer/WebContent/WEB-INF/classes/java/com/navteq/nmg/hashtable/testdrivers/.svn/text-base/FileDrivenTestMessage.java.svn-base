@@ -1,0 +1,11 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+import java.io.File;
+import java.io.FileInputStream;
+
+public abstract class FileDrivenTestMessage extends BaseTestMessage {
+
+	public FileDrivenTestMessage(String testMessageId, String version, File xmlfileHandle, File byteArrayFileHandle) throws Exception{
+		super(testMessageId,version,new FileInputStream(xmlfileHandle),(new FileInputStream(byteArrayFileHandle)).toString().getBytes());
+	}
+}

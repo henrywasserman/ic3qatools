@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ilapresponse>
+  <message>
+    <campaignid><![CDATA[14285593772032]]></campaignid>
+    <creativeid><![CDATA[3326]]></creativeid>
+    <advertisername><![CDATA[Henry_Advertiser_NMS_1]]></advertisername>
+    <introtext><![CDATA[]]></introtext>
+    <mainmessagetext><![CDATA[Henry Dealmap Main Message]]></mainmessagetext>
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+    <couponcode><![CDATA[]]></couponcode>
+
+    <expirydate><![CDATA[2011.05.12.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+    <callstoaction>
+      <calltoaction>
+        <action><![CDATA[IMPRESSION]]></action>
+        <data><![CDATA[]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+    </callstoaction>
+    <countrycode><![CDATA[]]></countrycode>
+
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[215696]]></storefrontid>
+      <nametag><![CDATA[Henry_Name_Tag_NMS_1]]></nametag>
+      <name><![CDATA[Henry_Name_Tag_NMS_1]]></name>
+      <addr1><![CDATA[16 Charter Street]]></addr1>
+      <addr2><![CDATA[]]></addr2>
+      <addrcity><![CDATA[Boston]]></addrcity>
+
+      <addrstate><![CDATA[MA]]></addrstate>
+      <addrzip><![CDATA[02113]]></addrzip>
+      <phone><![CDATA[]]></phone>
+      <longitude><![CDATA[-71058283]]></longitude>
+      <latitude><![CDATA[42359754]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[840drt2z-7af238e43f394d969a39cae0b4137272]]></placeid>
+      <distance><![CDATA[8.32]]></distance>
+
+    </storefront>
+  </message>
+  <message>
+    <campaignid><![CDATA[14277003837440]]></campaignid>
+    <creativeid><![CDATA[3324]]></creativeid>
+    <advertisername><![CDATA[Henry_Advertiser_NMS_1]]></advertisername>
+    <introtext><![CDATA[]]></introtext>
+    <mainmessagetext><![CDATA[Henry Main Message NMS 1]]></mainmessagetext>
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+
+    <couponcode><![CDATA[]]></couponcode>
+    <expirydate><![CDATA[2011.05.12.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+    <callstoaction>
+      <calltoaction>
+        <action><![CDATA[IMPRESSION]]></action>
+
+        <data><![CDATA[impression]]></data>
+        <trackurl><![CDATA[impression]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[STOREINFO]]></action>
+        <data><![CDATA[storeinfo]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+
+        <action><![CDATA[MAP]]></action>
+        <data><![CDATA[map]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[ROUTE]]></action>
+        <data><![CDATA[route]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+
+      <calltoaction>
+        <action><![CDATA[ARRIVAL]]></action>
+        <data><![CDATA[arrival]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[COUPONCODE]]></action>
+        <data><![CDATA[couponcode]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[USERSAVE]]></action>
+        <data><![CDATA[usersave]]></data>
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[PHONECALL]]></action>
+        <data><![CDATA[123-456-7890]]></data>
+
+        <trackurl><![CDATA[]]></trackurl>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[landingpage]]></data>
+        <trackurl><![CDATA[landingpage]]></trackurl>
+      </calltoaction>
+    </callstoaction>
+    <countrycode><![CDATA[]]></countrycode>
+
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[215696]]></storefrontid>
+      <nametag><![CDATA[Henry_Name_Tag_NMS_1]]></nametag>
+      <name><![CDATA[Henry_Name_Tag_NMS_1]]></name>
+      <addr1><![CDATA[16 Charter Street]]></addr1>
+      <addr2><![CDATA[]]></addr2>
+      <addrcity><![CDATA[Boston]]></addrcity>
+
+      <addrstate><![CDATA[MA]]></addrstate>
+      <addrzip><![CDATA[02113]]></addrzip>
+      <phone><![CDATA[123-456-7890]]></phone>
+      <longitude><![CDATA[-71058283]]></longitude>
+      <latitude><![CDATA[42359754]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[840drt2z-7af238e43f394d969a39cae0b4137272]]></placeid>
+      <distance><![CDATA[8.32]]></distance>
+
+    </storefront>
+  </message>
+</ilapresponse>

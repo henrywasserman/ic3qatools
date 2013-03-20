@@ -1,0 +1,76 @@
+package com.navteq.nmg.hashtable.renderers;
+
+import javax.xml.bind.DatatypeConverter;
+
+import org.apache.commons.io.EndianUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+
+public class ByteArrayHashDataTypeRendererTest extends HashDataTypeTestHelper{
+
+	private static final String FIELD_NAME = "fieldName";
+	private static final byte[] DATA = {(byte)2, (byte)1, (byte)1, (byte)2, (byte)255, (byte)0}; 
+	
+	@Test
+	public void verifyConstructor() throws Exception{
+		ByteArrayHashDataTypeRenderer bhdt = new ByteArrayHashDataTypeRenderer(FIELD_NAME, DATA);
+		assertConstructor(
+			FIELD_NAME, 
+			HashDataType.HASH_BYTEARRAY,
+			ByteArrayHashDataTypeRenderer.SIZEOF_HEADER_FIELDNAME_LENGTH_FIELD
+			   +FIELD_NAME.length()
+			   +ByteArrayHashDataTypeRenderer.SIZEOF_DATATYPE_INDICATOR_SIZE
+			   +ByteArrayHashDataTypeRenderer.SIZEOF_VALUE_LENGTH_FIELD
+			   +DATA.length, 
+			bhdt);
+	}	
+	
+	@Test
+	public void verifyBase64EncodedString() throws Exception{
+		
+		String data = "R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==";
+		
+		byte[] image = DatatypeConverter.parseBase64Binary(data);
+		
+		ByteArrayHashDataTypeRenderer bhdt = new ByteArrayHashDataTypeRenderer(FIELD_NAME, data);
+		assertConstructor(
+			FIELD_NAME, 
+			HashDataType.HASH_BYTEARRAY,
+			ByteArrayHashDataTypeRenderer.SIZEOF_HEADER_FIELDNAME_LENGTH_FIELD
+			   +FIELD_NAME.length()
+			   +ByteArrayHashDataTypeRenderer.SIZEOF_DATATYPE_INDICATOR_SIZE
+			   +ByteArrayHashDataTypeRenderer.SIZEOF_VALUE_LENGTH_FIELD
+			   +image.length, 
+			bhdt);
+		
+//        for (int count = 0; count < bhdt..length; count++){
+//			assertEquals(
+//				"Value contents is not what was expected in offset["+Integer.toString(offset)+"]."
+//				,expectedDataPayload[count]
+//				,actualContents[++offset]);
+//		}
+	}
+	
+	@Test
+	public void verifyInjectStream() throws Exception{
+		ByteArrayHashDataTypeRenderer bhdt = new ByteArrayHashDataTypeRenderer(FIELD_NAME, DATA);
+
+		byte[] encodedFieldName = FIELD_NAME.getBytes(ENCODING);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		bhdt.injectStream(baos);
+		byte[] result = baos.toByteArray();
+		
+		byte[] valueLengthField = new byte[ByteArrayHashDataTypeRenderer.SIZEOF_VALUE_LENGTH_FIELD];
+		int valueLength = DATA.length;
+		EndianUtils.writeSwappedInteger(valueLengthField, 0, valueLength);
+		assertRender(encodedFieldName,bhdt.getHashDataType(),valueLengthField,DATA,result);		
+	}		
+	
+	@Override
+	BaseHashDataTypeRenderer getNewInstanceForBoundsChecking(String fieldName) throws Exception{
+		return new ByteArrayHashDataTypeRenderer(fieldName, DATA);
+	}			
+}

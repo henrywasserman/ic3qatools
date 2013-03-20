@@ -1,0 +1,101 @@
+package com.navteq.nmg.hashtable.mapper.factory.impl;
+
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.navteq.nmg.hashtable.IMessageVersions.MessageVersionsType;
+import com.navteq.nmg.hashtable.ioc.binders.ElementNameToMapperTypeModule;
+import com.navteq.nmg.hashtable.ioc.binders.HashTableXMLMapperEntry_v_2_2_Module;
+import com.navteq.nmg.hashtable.ioc.binders.HashTableXMLMapperEntry_v_2_4_Module;
+import com.navteq.nmg.hashtable.ioc.binders.HashTableXMLMapperEntry_v_Default_Module;
+import com.navteq.nmg.hashtable.ioc.binders.MessageVersionsModule;
+import com.navteq.nmg.hashtable.ioc.binders.VersionedXmlToHashMapperRegistryFactoryModule;
+import com.navteq.nmg.hashtable.mapper.factory.IVersionedXmlToHashMapperRegistry;
+import com.navteq.nmg.hashtable.mapper.factory.IVersionedXmlToHashMapperRegistryFactory;
+
+
+public class VersionedXmlToHashMapperRegistryFactoryTest {
+
+	private static Injector injector;
+	
+	@BeforeClass
+	public static void setupOnce() throws Exception{
+		
+		List<Module> modules = new ArrayList<Module>();
+		
+		modules.add(new MessageVersionsModule());
+		modules.add(new ElementNameToMapperTypeModule());
+		modules.add(new HashTableXMLMapperEntry_v_Default_Module());
+		modules.add(new HashTableXMLMapperEntry_v_2_2_Module());
+		modules.add(new HashTableXMLMapperEntry_v_2_4_Module());
+    	modules.add(new VersionedXmlToHashMapperRegistryFactoryModule());
+		
+		injector = Guice.createInjector(modules);
+	}
+	
+	@Test
+	public void testProviderServesDesiredClass() throws Exception{
+
+		IVersionedXmlToHashMapperRegistryFactory parser = injector.getInstance(IVersionedXmlToHashMapperRegistryFactory.class);
+		assertTrue(parser instanceof VersionedXmlToHashMapperRegistryFactory);
+		// lets make sure the factory is serving up one and only one instance of this object (we dont want this created every 
+		// request due to the fact that runtime injections of this could be costly
+		
+		IVersionedXmlToHashMapperRegistryFactory hopefullySameInstanceAsParser = injector.getInstance(IVersionedXmlToHashMapperRegistryFactory.class);
+		
+		assertTrue(hopefullySameInstanceAsParser == parser);
+	}
+	
+	@Test
+	public void testDifferentVersionsGenerateDifferentClasses() throws Exception{
+		
+		IVersionedXmlToHashMapperRegistryFactory parser = injector.getInstance(IVersionedXmlToHashMapperRegistryFactory.class);		
+		
+		IVersionedXmlToHashMapperRegistry registry = parser.getRegistry(MessageVersionsType.VERSION_1_1);
+		assertTrue(registry instanceof DefaultXmlToHashMapperRegistry);
+		
+		registry = parser.getRegistry(MessageVersionsType.VERSION_2_2);
+		assertTrue(registry instanceof Version_2_2_XmlToHashMapperRegistry);
+		
+		registry = parser.getRegistry(MessageVersionsType.VERSION_2_4);
+		assertTrue(registry instanceof Version_2_4_XmlToHashMapperRegistry);
+	}
+	
+	@Test
+	public void testNonMappedVersionsGenerateDefaultReferenceImplementation() throws Exception{
+		
+		IVersionedXmlToHashMapperRegistryFactory parser = injector.getInstance(IVersionedXmlToHashMapperRegistryFactory.class);		
+		
+		IVersionedXmlToHashMapperRegistry registry = parser.getRegistry(MessageVersionsType.VERSION_1_2);
+		assertTrue(registry instanceof DefaultXmlToHashMapperRegistry);
+		
+		registry = parser.getRegistry(MessageVersionsType.VERSION_2_0);
+		assertTrue(registry instanceof DefaultXmlToHashMapperRegistry);
+		
+		registry = parser.getRegistry(MessageVersionsType.VERSION_2_1);
+		assertTrue(registry instanceof DefaultXmlToHashMapperRegistry);
+		
+		registry = parser.getRegistry(MessageVersionsType.VERSION_2_2);
+		assertTrue(registry instanceof Version_2_2_XmlToHashMapperRegistry);
+		
+		registry = parser.getRegistry(MessageVersionsType.VERSION_2_3);
+		assertTrue(registry instanceof Version_2_2_XmlToHashMapperRegistry);		
+		
+		registry = parser.getRegistry(MessageVersionsType.VERSION_2_4);
+		assertTrue(registry instanceof Version_2_4_XmlToHashMapperRegistry);	
+		
+		registry = parser.getRegistry(MessageVersionsType.VERSION_2_5);
+		assertTrue(registry instanceof Version_2_4_XmlToHashMapperRegistry);	
+		
+		registry = parser.getRegistry(MessageVersionsType.VERSION_2_6);
+		assertTrue(registry instanceof Version_2_4_XmlToHashMapperRegistry);			
+	}	
+}

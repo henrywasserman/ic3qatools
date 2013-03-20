@@ -1,0 +1,59 @@
+package com.navteq.nmg.hashtable.renderers;
+
+import org.apache.commons.io.EndianUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+import com.navteq.nmg.hashtable.renderers.BaseHashDataTypeRenderer;
+import com.navteq.nmg.hashtable.renderers.ByteArrayHashDataTypeRenderer;
+import com.navteq.nmg.hashtable.renderers.LongArrayHashDataTypeRenderer;
+import com.navteq.nmg.hashtable.renderers.LongHashDataTypeRenderer;
+
+public class LongArrayHashDataTypeRendererTest extends HashDataTypeTestHelper{
+
+	private static final String FIELD_NAME = "fieldName";
+	private static final long[] DATA = {2L,1L,1L,2L,255L,12345678901234567L,0L}; 
+	
+	@Test
+	public void verifyConstructor() throws Exception{
+		LongArrayHashDataTypeRenderer bhdt = new LongArrayHashDataTypeRenderer(FIELD_NAME, DATA);
+		assertConstructor(
+			FIELD_NAME, 
+			HashDataType.HASH_LONGARRAY,
+			ByteArrayHashDataTypeRenderer.SIZEOF_HEADER_FIELDNAME_LENGTH_FIELD
+			   +FIELD_NAME.length()
+			   +ByteArrayHashDataTypeRenderer.SIZEOF_DATATYPE_INDICATOR_SIZE
+			   +ByteArrayHashDataTypeRenderer.SIZEOF_VALUE_LENGTH_FIELD
+			   +DATA.length*LongHashDataTypeRenderer.LONG_FIELD_SIZE, 
+			bhdt);
+	}	
+	
+	@Test
+	public void verifyInjectStream() throws Exception{
+		LongArrayHashDataTypeRenderer bhdt = new LongArrayHashDataTypeRenderer(FIELD_NAME, DATA);
+
+		byte[] encodedFieldName = FIELD_NAME.getBytes(ENCODING);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		bhdt.injectStream(baos);
+		byte[] result = baos.toByteArray();
+		
+		byte[] valueLengthField = new byte[LongArrayHashDataTypeRenderer.SIZEOF_VALUE_LENGTH_FIELD];
+		int valueLength = DATA.length;
+		EndianUtils.writeSwappedInteger(valueLengthField, 0, valueLength);
+		
+		ByteArrayOutputStream flippedData = new ByteArrayOutputStream();
+		
+		for (long data : DATA){
+			EndianUtils.writeSwappedLong(flippedData, data);
+		}
+		
+		assertRender(encodedFieldName,bhdt.getHashDataType(),valueLengthField,flippedData.toByteArray(),result);		
+	}		
+	
+	@Override
+	BaseHashDataTypeRenderer getNewInstanceForBoundsChecking(String fieldName) throws Exception{
+		return new LongArrayHashDataTypeRenderer(fieldName, DATA);
+	}			
+}

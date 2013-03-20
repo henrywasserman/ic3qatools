@@ -1,0 +1,81 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.navteq.nmg.mule.transformer;
+
+//import com.reavely.util.TestXPathExp;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.mule.util.IOUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
+/**
+ *
+ * @author sreavely
+ */
+public class TestMergeXmlNodes {
+
+    public TestMergeXmlNodes() {
+    }
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
+    }
+
+    @Test
+    public void testTransform() throws TransformerConfigurationException, TransformerException, IOException, ParserConfigurationException, SAXException {
+
+        DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
+
+        String xmlFile = "test/dealmaptransformedtolpa/bestwestern657toJacksOyster.xml";
+        
+        InputStream xmlIS = IOUtils.getResourceAsStream(xmlFile,TestMergeXmlNodes.class);
+        if (xmlIS == null ) {
+            throw new IOException("InputStream null for:"+xmlFile);
+        }
+        
+        Document toBeMergedDoc = docBuilder.parse(xmlIS);
+
+        Document mergedDoc = docBuilder.newDocument();
+
+        Element mergedRoot = mergedDoc.createElement("ilapresponse");
+        mergedDoc.appendChild(mergedRoot);
+        
+        Element bodyRootElement = toBeMergedDoc.getDocumentElement();
+        Node nd = mergedDoc.importNode(bodyRootElement, true);
+        mergedRoot.appendChild(nd);
+
+        //assertTrue(XMLUnit.compareXML(message.getPayloadAsString(), resultData).similar());
+
+    }
+}

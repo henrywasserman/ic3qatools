@@ -1,0 +1,141 @@
+package com.navteq.nmg.pani.util;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+
+
+public class UtilitiesTest {
+	
+	@Test
+	public void testConvertDealmapDegreesToLpaDegrees() {
+        String lpaDegree;
+
+        lpaDegree = Utilities.convertDealmapDegreesToLpaDegrees("43.12321253");
+
+        Assert.assertEquals("43123213", lpaDegree);
+	}
+	
+	@Test
+	public void testGetDistanceLongLongDoubleDoubleShouldReturnZeroInMiles() {
+        double distance;
+
+        distance = Utilities.getDistance(1000000l, 2000000l, 1.0, 2.0, false);
+
+        Assert.assertEquals(0.0, distance);
+	}
+
+	@Test
+	public void testGetDistanceLongLongDoubleDoubleShouldReturnZeroInKm() {
+        double distance;
+
+        distance = Utilities.getDistance(1000000l, 2000000l, 1.0, 2.0 , true);
+
+        Assert.assertEquals(0.0, distance);
+	}
+	
+	@Test
+	public void testGetDistanceIntIntIntIntShouldReturnZeroInMiles() {
+        double distance;
+
+        distance = Utilities.getDistanceInt(1, 2, 1, 2, false);
+
+        Assert.assertEquals(0.0, distance);
+	}
+
+	@Test
+	public void testGetDistanceIntIntIntIntShouldReturnZeroInKm() {
+        double distance;
+
+        distance = Utilities.getDistanceInt(1, 2, 1, 2, true);
+
+        Assert.assertEquals(0.0, distance);
+	}
+	
+	@Test
+    public void testGetDistance_WhenSourceLatitudeEqualsDestinationLatitude_AndSourceLongitudeEqualsDestinationLongitude_ShouldReturnZeroInMiles()
+    {
+        double distance;
+
+        distance = Utilities.getDistanceInternal(1.0, 2.0, 1.0, 2.0, false);
+
+        Assert.assertEquals(0.0, distance);
+    }
+	
+	@Test
+    public void testGetDistance_WhenSourceLatitudeEqualsDestinationLatitude_AndSourceLongitudeEqualsDestinationLongitude_ShouldReturnZeroInKm()
+    {
+        double distance;
+
+        distance = Utilities.getDistanceInternal(1.0, 2.0, 1.0, 2.0, true);
+
+        Assert.assertEquals(0.0, distance);
+    }
+
+	
+	@Test
+	public void testGetDistanceDoubleDoubleDoubleDoubleMiles() {
+		double distance = Utilities.getDistanceInternal(42.350670, -71.071531, 42.350708, -71.541290, false);
+		Assert.assertEquals((int) distance, 24);
+	
+		distance = Utilities.getDistanceInternal(32.9697, -96.80322, 29.46786, -98.53506, false);
+		Assert.assertEquals(Math.round(262.6777938054349), Math.round(distance));
+
+	}
+	@Test
+	public void testGetDistanceDoubleDoubleDoubleDoubleKm() {
+		double distance = Utilities.getDistanceInternal(42.350670, -71.071531, 42.350708, -71.541290, true);
+		Assert.assertEquals((int)(24.0 * 1.609344), (int) distance);
+
+		distance = Utilities.getDistanceInternal(32.9697, -96.80322, 29.46786, -98.53506, true);
+		Assert.assertEquals(Math.round(422.73893139401383), Math.round(distance));
+	}
+
+	@Test
+	public void testEndofDayToday()
+	{
+		Date today = new Date();
+		SimpleDateFormat lpaFormat = new SimpleDateFormat("yyyy.MM.dd");
+		String lpaTime = lpaFormat.format(today) + ".23.59.59";
+		String endofDayToday = Utilities.endofDayToday();
+		Assert.assertEquals(lpaTime, endofDayToday);
+		
+		lpaTime = "2012.02.01.23.59.59";
+		Assert.assertFalse(lpaTime.equals(endofDayToday));
+	}
+	
+    //dealmap time:
+	//<expirationtime>2011-02-16T01:59:00</expirationtime>
+
+	//ilap time:
+	//    <expirydate><![CDATA[2012.03.20.23.59.59]]></expirydate>
+	@Test
+	public void testConvertDealmapDateTimeToLpaDateTime()
+	{
+		String dealmapTime = "2011-02-16T01:59:00";
+		String lpaTime = "2011.02.16.01.59.00";
+		String returnTime = Utilities.convertDealmapDateTimeToLpaDateTime(dealmapTime);
+		Assert.assertEquals(lpaTime, returnTime);
+		
+		dealmapTime = "2012-03-20T23:59:59";
+		lpaTime = "2012.03.20.23.59.59";
+		returnTime = Utilities.convertDealmapDateTimeToLpaDateTime(dealmapTime);
+		Assert.assertEquals(lpaTime, returnTime);
+	}
+	@Test
+	public void testConvertDealmapDateTimeToLpaDateTimeFail()
+	{
+		String dealmapTime = "2011-02-16S01:59:00";
+		String lpaTime = "";
+		String returnTime = Utilities.convertDealmapDateTimeToLpaDateTime(dealmapTime);
+		Assert.assertEquals(lpaTime, returnTime);
+		
+		dealmapTime = "2012.03.20T23:59:59";
+		lpaTime = "";
+		returnTime = Utilities.convertDealmapDateTimeToLpaDateTime(dealmapTime);
+		Assert.assertEquals(lpaTime, returnTime);
+	}
+}

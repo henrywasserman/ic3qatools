@@ -1,0 +1,50 @@
+package com.navteq.nmg.pani.image.nodebuilder.impl;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.navteq.nmg.pani.image.ImageBaseHelper;
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+import com.navteq.nmg.pani.image.nodebuilder.IImageNodeBuilder;
+
+public class UrlImageElementTest extends ImageBaseHelper{
+	
+	private static final String ORIG_URL = "http://local.yocal.sts.lcl:9000/nmg/gwimg/nmg-dining-101.png"; 
+	private static final String ORIG_URL_STRIPPED = "local.yocal.sts.lcl:9000/nmg/gwimg/nmg-dining-101.png"; 
+	
+	private static final class ConcreteUrlImageElement extends UrlImageElement{
+
+		// test impl
+		public ConcreteUrlImageElement(boolean stripHttp){
+			super(ImageSizeTypes.SMALL_BANNER,stripHttp);
+		}
+		
+		@Override
+		protected String getUrlString() {
+			return ORIG_URL;
+		}
+	}
+		
+	@Test
+	public void testNodeRenderingWithHTTPStripped() throws Exception{
+		IImageNodeBuilder imageNodeBuilder = new ConcreteUrlImageElement(true);
+		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		Element root = doc.createElement("root");
+		imageNodeBuilder.build(doc, root);
+				
+		assertValues(root, TAG_URL, ORIG_URL_STRIPPED, ImageSizeTypes.SMALL_BANNER);
+	}
+
+	@Test
+	public void testNodeRenderingWithHTTPNotStripped() throws Exception{
+		IImageNodeBuilder imageNodeBuilder = new ConcreteUrlImageElement(false);
+		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		Element root = doc.createElement("root");
+		imageNodeBuilder.build(doc, root);
+		
+		assertValues(root, TAG_URL, ORIG_URL, ImageSizeTypes.SMALL_BANNER);		
+	}
+}

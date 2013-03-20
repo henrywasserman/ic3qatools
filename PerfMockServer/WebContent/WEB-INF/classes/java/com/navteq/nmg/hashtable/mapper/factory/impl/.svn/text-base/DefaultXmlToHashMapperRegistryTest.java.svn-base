@@ -1,0 +1,53 @@
+package com.navteq.nmg.hashtable.mapper.factory.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.BeforeClass;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.navteq.nmg.hashtable.IMessageVersions.MessageVersionsType;
+import com.navteq.nmg.hashtable.ioc.binders.ElementNameToMapperTypeModule;
+import com.navteq.nmg.hashtable.ioc.binders.HashTableXMLMapperEntry_v_Default_Module;
+import com.navteq.nmg.hashtable.ioc.binders.IndexNameFormatterModule;
+import com.navteq.nmg.hashtable.ioc.binders.MessageVersionsModule;
+import com.navteq.nmg.hashtable.mapper.IXmlToHashMapper.XmlToHashMapperType;
+import com.navteq.nmg.hashtable.mapper.factory.IVersionedXmlToHashMapperRegistry;
+import com.navteq.nmg.hashtable.mapper.impl.LongXmlToHashMapper;
+
+public class DefaultXmlToHashMapperRegistryTest extends XmlToHashMapperRegistryTestHelper{
+
+	private static Injector injector;
+	
+	@BeforeClass
+	public static void setupOnce() throws Exception{
+		
+		List<Module> modules = new ArrayList<Module>();
+		
+		modules.add(new MessageVersionsModule());
+		modules.add(new ElementNameToMapperTypeModule());
+		modules.add(new HashTableXMLMapperEntry_v_Default_Module());
+		modules.add(new IndexNameFormatterModule());
+		injector = Guice.createInjector(modules);
+	}
+	
+	public DefaultXmlToHashMapperRegistryTest() {
+	}
+
+	@Override
+	protected List<VersionClass> getVersionList() {
+		
+		List<VersionClass> versionClassList = new ArrayList<VersionClass>();
+		loadCommonFields(versionClassList, MessageVersionsType.VERSION_1_1);
+		versionClassList.add(new VersionClass("campaignid", LongXmlToHashMapper.class, XmlToHashMapperType.MAPPED_LONG,MessageVersionsType.VERSION_1_1,getMockedMessageMapper()));
+		
+		return versionClassList;
+	}
+
+	@Override
+	protected IVersionedXmlToHashMapperRegistry getRegistry() {
+		return injector.getInstance(DefaultXmlToHashMapperRegistry.class);
+	}
+}

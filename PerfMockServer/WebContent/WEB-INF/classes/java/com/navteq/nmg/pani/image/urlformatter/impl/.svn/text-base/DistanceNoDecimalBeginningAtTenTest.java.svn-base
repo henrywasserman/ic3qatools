@@ -1,0 +1,36 @@
+package com.navteq.nmg.pani.image.urlformatter.impl;
+
+import static org.junit.Assert.assertEquals;
+
+import java.text.DecimalFormat;
+
+import org.junit.Test;
+
+import com.navteq.nmg.pani.image.urlformatter.IDistance;
+import com.navteq.nmg.pani.image.urlformatter.IDistance.UnitOfMeasurement;
+
+public class DistanceNoDecimalBeginningAtTenTest {
+	
+	@Test
+	public void testUnderTenMakesFormattedValueWithOneDecimal() throws Exception{
+		
+		IDistance dist = new DistanceNoDecimalBeginningAtTen("42.537777", "-71.056716","42.537777", "-71.249999", UnitOfMeasurement.MILES, new DecimalFormat("#,##0.0"));
+		
+		assertEquals("9.9",dist.getFormattedDistance());
+		
+	}
+	
+	@Test
+	public void testTenAndOverMakesFormattedValueWithNoDecimal() throws Exception{
+		
+		IDistance dist = new DistanceNoDecimalBeginningAtTen("42.537777", "-71.056716","42.537777", "-71.259999", UnitOfMeasurement.MILES, new DecimalFormat("#,##0.0"));
+		
+		assertEquals("10",dist.getFormattedDistance());
+		
+		dist.adjustSource("42.537777", "-71.556716");
+		
+		assertEquals("15",dist.getFormattedDistance());
+	}	
+	
+	
+}

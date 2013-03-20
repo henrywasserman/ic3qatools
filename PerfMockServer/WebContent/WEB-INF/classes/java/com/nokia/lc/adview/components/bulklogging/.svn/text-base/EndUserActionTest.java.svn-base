@@ -1,0 +1,33 @@
+package com.nokia.lc.adview.components.bulklogging;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
+import org.junit.Test;
+
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
+
+public class EndUserActionTest {
+
+	@Test
+	public void testRenderViaJackson() throws Exception{
+	
+		
+		ObjectMapper mapper = new ObjectMapper();
+
+		EndUserAction eua = new EndUserAction();
+		
+		
+		XmlMapper xmlmapper = new XmlMapper();
+		String xml = xmlmapper.writeValueAsString(eua); // serialize as xml
+		
+		System.out.println(xml);		
+		
+		
+		
+	}
+	
+}

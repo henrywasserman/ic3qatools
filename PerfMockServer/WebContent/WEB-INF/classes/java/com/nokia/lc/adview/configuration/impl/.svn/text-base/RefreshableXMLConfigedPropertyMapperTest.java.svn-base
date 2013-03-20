@@ -1,0 +1,46 @@
+package com.nokia.lc.adview.configuration.impl;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Test;
+import org.mule.api.MuleMessage;
+
+import com.navteq.nmg.pani.cache.ICacheRefreshService;
+
+
+public class RefreshableXMLConfigedPropertyMapperTest {
+
+
+	@Test
+	public void testRefresh() throws Exception{
+		ICacheRefreshService refreshService = mock(ICacheRefreshService.class);
+		
+		MuleMessage message = mock(MuleMessage.class);		
+		
+		RefreshableXMLConfigedPropertyMapper mapper = new RefreshableXMLConfigedPropertyMapper("ParamMappings", "param-mappings-test.xml", refreshService);
+		
+		mapper.refresh();
+		
+		Map<String, Object> testMap = new HashMap<String, Object>();
+		
+		testMap.put("ser","1234567");
+		testMap.put("lat","42.212913");
+		testMap.put("lon","71.033712");
+		testMap.put("ua", "E71i");
+		
+		Map<String, Object> expectedMap = new HashMap<String, Object>();
+		
+		expectedMap.put("deviceserialnum","1234567");
+		expectedMap.put("ser","1234567");
+		expectedMap.put("latitude","42.212913");
+		expectedMap.put("longitude","71.033712");
+		expectedMap.put("user-agent", "E71i");
+		expectedMap.put("ua", "E71i");
+		
+
+	}
+}

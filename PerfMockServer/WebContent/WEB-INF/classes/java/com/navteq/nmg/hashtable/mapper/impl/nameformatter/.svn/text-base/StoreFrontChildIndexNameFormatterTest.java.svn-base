@@ -1,0 +1,49 @@
+package com.navteq.nmg.hashtable.mapper.impl.nameformatter;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.mapper.IIndexName;
+import com.navteq.nmg.hashtable.mapper.IIndexNameFormatter;
+
+public class StoreFrontChildIndexNameFormatterTest {
+
+	// image names are a combination of the parent + the child (save the actual embedded images)
+	// under the data element in which the data name is just image+ a counter e.g. image1 and the
+	// rest of the items are image1url, etc,etc
+	
+	private static final String STOREFRONTID = "storefrontid";
+	private static final String STOREFRONTID1 = "storefront1storefrontid";
+	private static final String STOREFRONTID2 = "storefront2storefrontid";
+	
+	private static final String NAME = "name";
+	private static final String NAME1 = "storefront1name";
+	private static final String NAME2 = "storefront2name";
+	
+	@Test
+	public void testFormatting() throws Exception{
+		
+		IIndexNameFormatter formatter = new StoreFrontChildIndexNameFormatter();
+		
+		formatter.bumpCounter();
+		
+		IIndexName name = formatter.getFormattedIndexName(STOREFRONTID);
+		assertEquals(STOREFRONTID,name.getBaseName());
+		assertEquals(STOREFRONTID1,name.getIndexedName());
+
+		name = formatter.getFormattedIndexName(NAME);
+		assertEquals(NAME,name.getBaseName());
+		assertEquals(NAME1,name.getIndexedName());
+		
+		formatter.bumpCounter();
+		
+		name = formatter.getFormattedIndexName(STOREFRONTID);
+		assertEquals(STOREFRONTID,name.getBaseName());
+		assertEquals(STOREFRONTID2,name.getIndexedName());
+		
+		name = formatter.getFormattedIndexName(NAME);
+		assertEquals(NAME,name.getBaseName());
+		assertEquals(NAME2,name.getIndexedName());		
+	}
+}

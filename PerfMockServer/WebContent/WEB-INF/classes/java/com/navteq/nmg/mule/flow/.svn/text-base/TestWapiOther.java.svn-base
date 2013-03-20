@@ -1,0 +1,388 @@
+package com.navteq.nmg.mule.flow;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Future;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import net.spy.memcached.MemcachedClientIF;
+import net.spy.memcached.OperationTimeoutException;
+
+import org.apache.log4j.Logger;
+import org.dom4j.tree.DefaultDocument;
+import org.junit.Test;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.mule.tck.FunctionalTestCase;
+import org.mule.tck.functional.FunctionalTestComponent;
+import org.mule.util.IOUtils;
+import org.w3c.dom.Document;
+
+import com.navteq.nmg.mule.transformer.ConvertQueryStringToMap;
+
+public class TestWapiOther extends FunctionalTestCase{
+
+	/* Private logger */
+	private static final Logger logger = Logger.getLogger(TestWapiOther.class);
+
+	/* Factory for XML documents */
+	private static final DocumentBuilderFactory DOC_BUILD_FACT = DocumentBuilderFactory.newInstance();   
+	
+	/* The Storage ID is obtained from fake ad server response xml's campaign id
+	 * Currently set as test/lpa/areacheckin.xml */	
+	private static final String STORAGE_ID = "1028846321664";
+
+	/* The Storage ID is obtained from fake ad server response xml's campaign id
+	 * Currently set as test/lpa/int-2947.xml */	
+	private static final String STORAGE_ID_2 = "00000B83CCF0A82F9CABDF4188464A5339FCF569";
+
+	/* XML file being used for testing */
+	private static final String XML_FILE_1 = "test/lpa/int-2947.xml";    	
+
+	/* Storage Id for ad wallet */
+	private static final String STORAGE_ID_3 = "adwallet.1.html"; //we default to Apple in test
+
+	/* Ad wallet object for storage */
+	private static final String AD_WALLET_FILE = "test/adwallet/adwallet.xml"; 	
+	
+	/** Setup mule xml configuration files */
+    protected String getConfigResources()
+    {
+        //Test module specific config file
+        return "mule-test-wapi-gateway.xml";
+    }
+
+    /**
+     * testDealfinderFlow - Test CheckInProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */    
+	@SuppressWarnings("unchecked")
+	@Test
+    public void testDealfinderFlow() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?affiliatenametag=NONPANI&deviceserialnum=NMGJUNITTEST-MI&longitude=-71071719&latitude=42351096&user-agent=TEST";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.dealfinder", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();
+        
+        //Test for html response  
+        assertTrue(xmlStr.contains("html"));                
+
+        //Test for transaction id returned
+        assertTrue(xmlStr.contains("transactionid"));
+                        
+        //Test for Task 22 (Device detection, place ua data onto query params)
+    	FunctionalTestComponent ftc = getFunctionalTestComponent("OutboundAdServerInterface");
+    	if( ftc.getReceivedMessagesCount() == 0){
+    		fail("Expected to receive at least one message");
+    	}else if( ftc.getReceivedMessagesCount() == 1){    	    	    	    		
+    		if (ftc.getLastReceivedMessage() instanceof HashMap<?, ?>) {
+	    		@SuppressWarnings("rawtypes")
+				Map<String, String> actualmap = (HashMap) ftc.getLastReceivedMessage();		
+				assertEquals("enduserareacheckin", actualmap.get("a"));								
+				assertEquals("iPhone", actualmap.get("model"));
+				assertEquals("Apple", actualmap.get("vendor"));
+				assertEquals("-71071719,-70973805", actualmap.get("polyLongitude"));				
+			}else{				
+				fail("Expected to receive message for endusercheckin first");			
+			}
+    	}else{
+    		fail("Expected to receive one message");	
+    	}
+
+    	//Test storage value in membase
+        Object storageValue = getStorageData(STORAGE_ID);                          	        
+    	if (storageValue instanceof DefaultDocument) {    		
+    		DefaultDocument xmlDoc = (DefaultDocument) storageValue;    		                                		
+    		
+    		assertNotNull(xmlDoc);    		
+    		assertEquals("message", xmlDoc.getRootElement().getName());
+    		
+    		logger.debug(xmlDoc.getRootElement().element("campaignid"));    		
+    		assertEquals(STORAGE_ID, 
+    				xmlDoc.getRootElement().element("campaignid").getText());
+    		
+		}else{
+			logger.debug("Stoage value is not expected byte array: "+ storageValue.toString());
+			fail("Set Storage value is not expected byte array, must be an issue");
+		}            	        	               	            
+    	        
+    }		
+	
+	/**
+     * testActionReporting - Test Action Reporting flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+	@Test
+    public void testActionReportingFlow() throws Exception
+    {
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+    	
+    	//Set up test data    	
+    	setStorageData(STORAGE_ID_2, XML_FILE_1);    	    	    	
+    	    	
+        String queryString="?transactionid="+ STORAGE_ID_2 + "&affiliatenametag=MATTI&deviceserialnum=JUNITACTIONREPORTING&lon1=-71071719&lat1=42351096&typ1=IMPRESSION";        
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);               
+        
+        //client.dispatch("vm://vm.reportAction", paramMap, null);                            
+        MuleMessage result = client.send("vm://vm.reportAction", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();
+        
+        //Test for html response  
+        assertTrue(xmlStr.contains("enduserid"));
+        
+        FunctionalTestComponent ftc = getFunctionalTestComponent("OutboundAdServerInterface");
+        try{    	
+        	int i = 0;
+        	while(i++ < 5 && ftc.getReceivedMessagesCount() == 0){
+        		Thread.sleep(1000);
+        		logger.debug("Received Messages Count: "+ftc.getReceivedMessagesCount());
+        	}
+        	if (ftc.getReceivedMessagesCount() == 0 ){
+        		fail("Received Messages took longer then 5 seconds, must be an issue");
+        	}
+    	}catch (InterruptedException e) {
+			logger.debug(e.getMessage());
+		}
+        
+    	if (ftc.getLastReceivedMessage() instanceof HashMap<?,?>) {
+    		@SuppressWarnings("rawtypes")
+			Map<String, String> actualmap = (HashMap) ftc.getLastReceivedMessage();		
+			assertEquals("enduseractions", actualmap.get("a"));
+			assertEquals("MATTI", actualmap.get("affiliatenametag"));
+			assertEquals("194731", actualmap.get("sid1"));
+			assertEquals("00000B83CCF0A82F9CABDF4188464A5339FCF569", actualmap.get("cid1"));
+		}else{
+			fail("Not expected received object");			
+		}       	    
+        
+    }
+	
+    /**
+     * testDealfinderFlow - Test AdWalletProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */    	
+	@Test
+    public void testAdWallet() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);    	
+    	//Set up test data    	
+    	setStorageData(STORAGE_ID_3, AD_WALLET_FILE);    	    	    	    	
+        Map<String,Object> paramMap = new HashMap<String,Object>();                             
+        MuleMessage result = client.send("vm://vm.adwallet", paramMap, null);
+
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();
+        
+        //Test for html response  
+        assertTrue(xmlStr.contains("html"));                
+
+        //Test for transaction id returned
+        assertTrue(xmlStr.contains("AdWallet"));
+               
+    }
+    	
+	/**
+     * testRouteFlow - Test AdWalletProxy flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */    	
+	@Test
+    public void testWebsite() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);    	
+    	
+    	//Set up test data    	
+    	setStorageData(STORAGE_ID_2, XML_FILE_1); 
+    	
+    	String queryString="?transactionid="+STORAGE_ID_2;    	
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.website", paramMap, null);
+        assertNotNull(result);                
+        String htmlStr = result.getPayloadAsString();               
+                
+        //Test for route        
+        assertTrue(htmlStr.contains("html"));
+        assertTrue(htmlStr.contains("title"));
+        assertTrue(htmlStr.contains("url"));    	      
+
+    }
+	
+	/**
+     * testReportThirdParty - Test ReportThirdParty flow defined in nmg-wapi.xml configuration
+     * @throws Exception
+     */    
+	@Test
+    public void testReportThirdParty() throws Exception
+    {
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+    	
+    	//Set up test data    	
+    	setStorageData(STORAGE_ID_2, XML_FILE_1);    	    	    	
+    	    	
+        String queryString="?trans_id="+ STORAGE_ID_2 + "&action=MAP";        
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);               
+        
+        client.dispatch("vm://vm.reportThirdParty", paramMap, null);                            
+    	                          
+        try{    	
+        	int i = 0;
+        	while(i++ < 3 ){
+        		Thread.sleep(1000);
+        		logger.debug("waiting for call to be completed");
+        	}
+    	}catch (InterruptedException e) {
+			logger.debug(e.getMessage());
+		}
+                
+    }
+
+	/**
+	 * testDealfinderDecimalLocation
+	 * @throws Exception
+	 */
+	@Test
+    public void testDealfinderDecimalLocation() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?longitude=-71.071719&latitude=42.351096&affiliatenametag=NONPANI&deviceserialnum=NMGJUNITTEST-MI";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.dealfinder", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();
+        
+        //Test for html response  
+        assertTrue(xmlStr.contains("html"));                
+
+        //Test for transaction id returned
+        assertTrue(xmlStr.contains("transactionid"));
+    }
+	
+	/**
+	 * testDealfinderDecimalLocation
+	 * @throws Exception
+	 */
+	@Test
+    public void testDealfinderDefineRadius() throws Exception
+    {            	
+    	//Set up Mule
+    	MuleClient client = new MuleClient(muleContext);
+
+        String queryString="?radius=10&longitude=-71.071719&latitude=42.351096&affiliatenametag=NONPANI&deviceserialnum=NMGJUNITTEST-MI";
+        ConvertQueryStringToMap converter = new ConvertQueryStringToMap();
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        converter.convertQueryStringToMap(queryString, paramMap);
+        MuleMessage result = client.send("vm://vm.dealfinder", paramMap, null);
+        assertNotNull(result);                
+        String xmlStr = result.getPayloadAsString();
+        
+        //Test for html response  
+        assertTrue(xmlStr.contains("html"));                
+
+        //Test for transaction id returned
+        assertTrue(xmlStr.contains("transactionid"));
+
+        //wait for test to complete
+        try{    	
+        	int i = 0;
+        	while(i++ < 2 ){
+        		Thread.sleep(1000);
+        		logger.debug("waiting for call to be completed");
+        	}
+    	}catch (InterruptedException e) {
+			logger.debug(e.getMessage());
+		}
+    }
+	
+    /*
+     * helper method that sets cache will a xml file
+     * @return the xml as a Document
+     */
+    private Document setStorageData(String storageId, String xmlFile) throws Exception {
+		
+    	//Set up test data, place XML file in storage
+    	MemcachedClientIF memClient = (MemcachedClientIF) muleContext.getRegistry().lookupObject("memCachedClient");
+         
+    	
+        InputStream xmlIS = IOUtils.getResourceAsStream(xmlFile,TestWapiOther.class);
+        if (xmlIS == null ) {
+            throw new IOException("InputStream null for:"+xmlFile);
+        }                
+        DocumentBuilder docBuilder = DOC_BUILD_FACT.newDocumentBuilder();        
+        Document expectedPayload = docBuilder.parse(xmlIS);                       
+        
+        //null check
+		if (memClient == null) { throw new Exception("MEMCACHE client is null") ;}								
+		
+		Future<Boolean> didSet = memClient.set(storageId, 60, expectedPayload);
+		try{
+		
+			int i = 0;
+        	while(i++ < 5 && !didSet.isDone()){      					
+        		Thread.sleep(1000);
+        	}
+        	if(!didSet.isDone()){
+        		fail("Set Storage took longer then 5 seconds, must be an issue");
+        	}
+		}catch (InterruptedException ie ) {
+			logger.debug(ie.getMessage());
+		}
+		
+		return expectedPayload;
+		
+	}
+
+    
+	/*
+	 * Easy util that returns data in storage. 
+	 * It checks the storage 5 times incase async write is not complete
+	 * @return - object
+	 * @throws OperationTimeoutException
+	 */
+	private Object getStorageData(String storageId) throws OperationTimeoutException {
+		//-- Check storage see if async task completed        
+    	MemcachedClientIF memClient = (MemcachedClientIF) muleContext.getRegistry().lookupObject("memCachedClient");        
+    	Object storageValue = memClient.get(storageId);
+        try{    	
+        	int i = 0;
+        	while(i++ < 7 && storageValue == null){        		
+        		Thread.sleep(1000);
+        		storageValue = memClient.get(storageId);
+        		logger.debug("Loppy ");
+        	}
+        	if (storageValue == null){
+        		fail("Get Storage took longer then 5 seconds, must be an issue");
+        	}
+        	
+    	}catch (InterruptedException ie ) {
+    			logger.debug(ie.getMessage());
+    	}
+		return storageValue;
+	}
+	
+}

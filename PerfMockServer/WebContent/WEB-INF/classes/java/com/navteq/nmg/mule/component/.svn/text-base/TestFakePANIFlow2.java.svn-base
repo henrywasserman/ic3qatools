@@ -1,0 +1,74 @@
+package com.navteq.nmg.mule.component;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Test;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.mule.tck.FunctionalTestCase;
+import org.mule.transport.NullPayload;
+
+public class TestFakePANIFlow2 extends FunctionalTestCase
+{
+    protected String getConfigResources()
+    {
+        //TODO You'll need to edit this file to make the test applicable to your module
+        return "test/mule-test-branch-merge2.xml";
+    }
+
+    @Test
+    public void testAdServerProxy() throws Exception
+    {
+        MuleClient client = new MuleClient(muleContext);
+
+        //Map<String,Object> msgProps = new HashMap<String,Object>();
+        //msgProps.put(HttpConnector.HTTP_METHOD_PROPERTY, "GET");
+        
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        paramMap.put("param1","value1");
+        MuleMessage result = client.send("vm://vm.testentrypoint", paramMap, null);
+        System.out.println("=======================================================");
+        System.out.println("=======================================================");
+        
+        assertNotNull(result);
+        String response = result.getPayloadAsString();
+        System.out.println("TestCaseOutput:" + response);
+        assertNull(result.getExceptionPayload());
+        assertFalse(result.getPayload() instanceof NullPayload);
+        assertTrue(response.contains("FakeServiceThree"));
+        assertTrue(response.contains("FakeServiceFour")); 
+        System.out.println("=======================================================");
+        System.out.println("=======================================================");
+
+        
+
+    }
+    
+    @Test
+    public void testAdServerProxy2() throws Exception
+    {
+        MuleClient client = new MuleClient(muleContext);
+
+        //Map<String,Object> msgProps = new HashMap<String,Object>();
+        //msgProps.put(HttpConnector.HTTP_METHOD_PROPERTY, "GET");
+        
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        paramMap.put("param1","value1");
+        MuleMessage result2 = client.send("vm://vm.testentrypoint2", paramMap, null);
+        System.out.println("=======================================================");
+        System.out.println("=======================================================");
+
+        assertNotNull(result2);
+        String response2 = result2.getPayloadAsString();
+        System.out.println("TestCaseOutput:" + response2);
+        assertNull(result2.getExceptionPayload());
+        assertFalse(result2.getPayload() instanceof NullPayload);
+        assertTrue(response2.contains("FakeServiceOne"));
+        assertTrue(response2.contains("FakeServiceTwo"));
+        System.out.println("=======================================================");
+        System.out.println("=======================================================");
+       
+    }
+      
+}

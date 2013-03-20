@@ -1,0 +1,17 @@
+package com.navteq.nmg.hashtable.testdrivers;
+
+// this type of response checking has a fixed byte array that will not change such as stuff
+// in which we get error messages from the ad server.  the element is is in a fixed position
+// based on the xsd definitions
+
+public abstract class StaticTestMessage extends BaseTestMessage {
+	
+	public StaticTestMessage(String testMessageId, String versionNumber, byte[] compareHashMessage) throws Exception{
+		super(testMessageId,versionNumber,compareHashMessage);
+	}
+	
+	public StaticTestMessage(String testMessageId, String versionNumber, String compareXml, byte[] compareHashMessage) throws Exception{
+		super(testMessageId,versionNumber,compareXml, compareHashMessage);
+	}	
+	
+}

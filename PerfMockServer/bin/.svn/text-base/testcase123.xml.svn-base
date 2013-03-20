@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ilapresponse>
+  <message>
+    <campaignid><![CDATA[1632]]></campaignid>
+    <advertisername><![CDATA[Test]]></advertisername>
+    <introtext><![CDATA[]]></introtext>
+    <mainmessagetext><![CDATA[]]></mainmessagetext>
+    <mainmessagephonetics><![CDATA[]]></mainmessagephonetics>
+    <couponcode><![CDATA[]]></couponcode>
+    <expirydate><![CDATA[2011.03.12.23.59.59]]></expirydate>
+    <htmltemplateid><![CDATA[]]></htmltemplateid>
+    <DefaultUserAction>
+      <UserAction><![CDATA[LANDINGPAGE]]></UserAction>
+    </DefaultUserAction>
+    <callstoaction>
+      <calltoaction>
+        <action><![CDATA[IMPRESSION]]></action>
+        <data><![CDATA[]]></data>
+      </calltoaction>
+      <calltoaction>
+        <action><![CDATA[LANDINGPAGE]]></action>
+        <data><![CDATA[]]></data>
+      </calltoaction>
+    </callstoaction>
+    <countrycode><![CDATA[US]]></countrycode>
+    <language><![CDATA[en-us]]></language>
+    <nostorefront><![CDATA[0]]></nostorefront>
+    <storefront>
+      <storefrontid><![CDATA[204535]]></storefrontid>
+      <nametag><![CDATA[pani_auto1]]></nametag>
+      <name><![CDATA[pani_auto1]]></name>
+      <addr1><![CDATA[fdsfds]]></addr1>
+      <addr2><![CDATA[]]></addr2>
+      <addrcity><![CDATA[fdsfds]]></addrcity>
+      <addrstate><![CDATA[fdsfds]]></addrstate>
+      <addrzip><![CDATA[fdsfds]]></addrzip>
+      <phone><![CDATA[]]></phone>
+      <longitude><![CDATA[-71080172]]></longitude>
+      <latitude><![CDATA[42364584]]></latitude>
+      <countrycode><![CDATA[US]]></countrycode>
+      <url><![CDATA[]]></url>
+      <placeid><![CDATA[]]></placeid>
+      <distance><![CDATA[1.10]]></distance>
+    </storefront>
+  </message>
+</ilapresponse>
+

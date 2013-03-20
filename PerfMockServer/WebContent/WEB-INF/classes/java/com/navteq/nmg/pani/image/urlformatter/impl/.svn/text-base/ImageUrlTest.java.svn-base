@@ -1,0 +1,47 @@
+package com.navteq.nmg.pani.image.urlformatter.impl;
+
+import java.net.URL;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import org.junit.Test;
+
+import com.navteq.nmg.pani.image.category.IImageCategoryService.ImageCategory;
+import com.navteq.nmg.pani.image.enums.ImageMimeTypes;
+import com.navteq.nmg.pani.image.enums.ImageSizeTypes;
+import com.navteq.nmg.pani.image.urlformatter.IImageFileName;
+import com.navteq.nmg.pani.image.urlformatter.IImageUrlFormatter;
+import com.navteq.nmg.pani.image.urlformatter.impl.ImageUrl;
+
+public class ImageUrlTest {
+	
+	private static final String IMAGE_DIRECTORY = "gwimg";
+	private static final String SERVER_CONTEXT = "http://10.20.30.40:666";
+	private static final String PARTNER_NAME = "nmg";
+	private static final String EXPECTED_URL = "http://10.20.30.40:666/gwimg/nmg-dining-104.png";
+	
+	
+	@Test
+	public void testImageUrl_FilenameConstruction() throws Exception{
+		
+		URL url = new URL(SERVER_CONTEXT);
+		
+		IImageFileName imageFileName = mock(IImageFileName.class);
+		
+		when(imageFileName.getImageFileName()).thenReturn("nmg-dining-104.png");
+		
+		IImageUrlFormatter imageUrl = new ImageUrl(url,IMAGE_DIRECTORY,imageFileName);
+		
+		assertEquals(EXPECTED_URL,imageUrl.getAsString());
+	}
+	
+	@Test
+	public void testImageUrl_EnumConstruction() throws Exception{
+		
+		URL url = new URL(SERVER_CONTEXT);
+		
+		IImageUrlFormatter imageUrl = new ImageUrl(url,IMAGE_DIRECTORY,PARTNER_NAME,ImageCategory.DINING,ImageSizeTypes.X_LARGE_BANNER,ImageMimeTypes.PNG);
+		
+		assertEquals(EXPECTED_URL,imageUrl.getAsString());
+	}
+}

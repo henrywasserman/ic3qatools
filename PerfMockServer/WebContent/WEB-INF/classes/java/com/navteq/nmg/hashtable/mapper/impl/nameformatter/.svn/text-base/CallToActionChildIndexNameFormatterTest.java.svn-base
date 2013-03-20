@@ -1,0 +1,45 @@
+package com.navteq.nmg.hashtable.mapper.impl.nameformatter;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.mapper.IIndexName;
+import com.navteq.nmg.hashtable.mapper.IIndexNameFormatter;
+
+public class CallToActionChildIndexNameFormatterTest {
+
+	private static final String URL = "trackurl";
+	private static final String URL1 = "trackurl1";
+	private static final String URL2 = "trackurl2";
+	
+	private static final String ACTION = "action";
+	private static final String ACTION1 = "action1";
+
+	@Test
+	public void testFormatting() throws Exception{
+		
+		// actions are numbered as the child element and do not include the parent element
+		// in the final name slapped into the hash message.  so we will test different
+		// child elements to see that we get what we want
+	
+		IIndexNameFormatter formatter = new CallToActionChildIndexNameFormatter();
+		
+		formatter.bumpCounter();
+		
+		IIndexName name = formatter.getFormattedIndexName(URL);
+		assertEquals(URL,name.getBaseName());
+		assertEquals(URL1,name.getIndexedName());
+		
+		// make sure subsequent calls keep the same index until counter is physically bumped
+		name = formatter.getFormattedIndexName(ACTION);
+		assertEquals(ACTION,name.getBaseName());
+		assertEquals(ACTION1,name.getIndexedName());
+		
+		formatter.bumpCounter();
+		
+		name = formatter.getFormattedIndexName(URL);
+		assertEquals(URL,name.getBaseName());
+		assertEquals(URL2,name.getIndexedName());
+	}
+}

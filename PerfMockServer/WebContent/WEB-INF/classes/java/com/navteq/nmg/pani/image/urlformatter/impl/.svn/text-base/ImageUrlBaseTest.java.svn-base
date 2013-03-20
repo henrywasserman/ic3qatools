@@ -1,0 +1,230 @@
+package com.navteq.nmg.pani.image.urlformatter.impl;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.List;
+
+import org.apache.log4j.Appender;
+import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggingEvent;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+
+import com.navteq.nmg.pani.image.urlformatter.IImageUrlFormatter;
+import com.navteq.nmg.pani.image.urlformatter.impl.ImageUrlBase;
+
+public class ImageUrlBaseTest {
+
+	private static final String TEST_SERVER_CONTEXT = "http://10.4.5.6:80";
+	private static final String TEST_URL_STRING = "http://10.4.5.6:80/test/some.aspx?";
+	private static final String TEST_URL_STRING_LESS_QUESTION_MARK = "http://10.4.5.6:80/test/some.aspx";	
+	private static final String NAME = "somenamefulllength";
+	private static final String PARAM_ABC = "abc";
+	private static final String PARAM_ABC_VALUE = "123";
+	private static final String PARAM_XYZ = "xyz";
+	private static final String PARAM_XYZ_VALUE = "666";
+	private static final String PARAM_NAME = "name";
+	private static final String PARAM_ANOTHERNAME = "anothername";
+	private static final String UTF16_TEST_VALUE_UNENCODED = "Sliggy sliggy, & some crazy //. formating";
+	private static final String UTF16_TEST_VALUE_ENCODED = "Sliggy+sliggy%FE%FF%00%2C+%FE%FF%00%26+some+crazy+%FE%FF%00%2F%00%2F.+formating";
+	
+	
+	private Appender mockAppender;
+	
+	@Before
+	public void setup() {
+		mockAppender = mock(AppenderSkeleton.class);
+		Logger logger = Logger.getLogger(ImageUrlBase.class);
+		logger.addAppender(mockAppender);
+		logger.setLevel(Level.INFO);
+	}	
+	
+	@After
+	public void tearDown(){
+		Logger logger = Logger.getLogger(ImageUrlBase.class);
+		logger.removeAppender(mockAppender);		
+	}		
+	
+	@Test
+	public void testUrlConstructor() throws Exception{
+		URL url = new URL(TEST_URL_STRING);
+		IImageUrlFormatter formatter = new ImageUrlBase(url);
+		assertEquals(TEST_URL_STRING_LESS_QUESTION_MARK,formatter.getAsString());
+		url = new URL(TEST_URL_STRING_LESS_QUESTION_MARK);
+		formatter = new ImageUrlBase(url);
+		assertEquals(TEST_URL_STRING_LESS_QUESTION_MARK,formatter.getAsString());
+
+	}
+	
+	@Test
+	public void testUrlConstructorThrowsExceptionOnNull() throws Exception{
+		try{
+			URL url = null;
+			new ImageUrlBase(url);	
+			fail("Expected exception but did not receive one for a null context URL.");
+		}
+		catch(Exception ex){
+			assertEquals("Server Context URL is null.  This must be populated with a valid URL.",ex.getMessage());
+		}
+	}
+	
+	@Test
+	public void testUrlStringConstructorThrowsExceptionOnNull() throws Exception{
+		try{
+			String urlString = null;
+			new ImageUrlBase(urlString);	
+			fail("Expected exception but did not receive one for a null context url string.");
+		}
+		catch(Exception ex){
+			assertEquals("Server Context URL string is null.  This must be populated with a valid URL string.",ex.getMessage());
+		}
+	}
+	
+	@Test
+	public void testUrlStringConstructor() throws Exception{
+		IImageUrlFormatter formatter = new ImageUrlBase(TEST_URL_STRING);
+		assertEquals(TEST_URL_STRING_LESS_QUESTION_MARK,formatter.getAsString());
+		formatter = new ImageUrlBase(TEST_URL_STRING_LESS_QUESTION_MARK);
+		assertEquals(TEST_URL_STRING_LESS_QUESTION_MARK,formatter.getAsString());
+	}
+	
+	@Test
+	public void testAddQueryParamsAllOverloads() throws Exception{
+		ImageUrlBase urlFormatterBase = new ImageUrlBase(TEST_URL_STRING);
+		
+		
+		StringBuilder expectedResult = new StringBuilder(TEST_URL_STRING_LESS_QUESTION_MARK);
+		expectedResult.append("?");
+		expectedResult.append(PARAM_ABC);
+		expectedResult.append("=");
+		expectedResult.append(PARAM_ABC_VALUE);
+		
+		// test first version no trim, first one flag on will call overload
+		assertTrue(urlFormatterBase.addQueryParam(PARAM_ABC, PARAM_ABC_VALUE, true));
+		assertEquals(expectedResult.toString(),urlFormatterBase.getAsString());
+		
+		expectedResult.append("&");
+		expectedResult.append(PARAM_XYZ);
+		expectedResult.append("=");
+		expectedResult.append(PARAM_XYZ_VALUE);
+		
+		//test second version no trim, first one flag defaults to false
+		assertTrue(urlFormatterBase.addQueryParam(PARAM_XYZ, PARAM_XYZ_VALUE));
+		assertEquals(expectedResult.toString(),urlFormatterBase.getAsString());
+		
+		expectedResult.append("&");
+		expectedResult.append(PARAM_NAME);
+		expectedResult.append("=");
+		expectedResult.append(NAME.substring(0,8));
+		
+		//test third version trim, first one flag defaults to false
+		assertTrue(urlFormatterBase.addQueryParam(PARAM_NAME, NAME, 8));
+		assertEquals(expectedResult.toString(),urlFormatterBase.getAsString());
+		
+		ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+		verify(mockAppender, times(1)).doAppend(loggingEventCaptor.capture());
+	
+		List<LoggingEvent> loggingEvents = loggingEventCaptor.getAllValues();		
+		
+		assertEquals("Truncating name field with value ["+NAME+"] to 8 because field is too long.  Old ["+NAME+"], new ["+NAME.substring(0,8)+"]",loggingEvents.get(0).getRenderedMessage());		
+		assertEquals(Level.WARN,loggingEvents.get(0).getLevel());
+		
+		expectedResult.append("&");
+		expectedResult.append(PARAM_ANOTHERNAME);
+		expectedResult.append("=");
+		expectedResult.append(NAME);
+		
+		//test last version no trim, first one flag defaults to false
+		assertTrue(urlFormatterBase.addQueryParam(PARAM_ANOTHERNAME, NAME, 0, false));
+		assertEquals(expectedResult.toString(),urlFormatterBase.getAsString());	
+	}
+	
+	@Test
+	public void testOverridingDefaultURF8Encoding() throws Exception {
+		ImageUrlBase urlFormatterBase = new ImageUrlBase(TEST_URL_STRING);
+	
+		urlFormatterBase.overrideEncodingValue("UTF-16");
+		StringBuilder expectedResult = new StringBuilder(TEST_URL_STRING_LESS_QUESTION_MARK);
+		expectedResult.append("?");
+		expectedResult.append(PARAM_ABC);
+		expectedResult.append("=");
+		expectedResult.append(UTF16_TEST_VALUE_ENCODED);
+		
+		assertTrue(urlFormatterBase.addQueryParam(PARAM_ABC, UTF16_TEST_VALUE_UNENCODED, true));
+		assertEquals(expectedResult.toString(),urlFormatterBase.getAsString());	
+	}
+	
+	@Test
+	public void testOverridingDefaultURF8EncodingWithBadValue() throws Exception {
+		ImageUrlBase urlFormatterBase = new ImageUrlBase(TEST_URL_STRING);
+	
+		urlFormatterBase.overrideEncodingValue("Red Team");
+		StringBuilder expectedResult = new StringBuilder(TEST_URL_STRING_LESS_QUESTION_MARK);
+		expectedResult.append("?");
+		expectedResult.append(PARAM_ABC);
+		expectedResult.append("=");
+		expectedResult.append(UTF16_TEST_VALUE_ENCODED);
+		
+
+
+		assertFalse(urlFormatterBase.addQueryParam(PARAM_ABC, UTF16_TEST_VALUE_UNENCODED, true));
+		
+		ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+		verify(mockAppender, times(1)).doAppend(loggingEventCaptor.capture());
+	
+		List<LoggingEvent> loggingEvents = loggingEventCaptor.getAllValues();		
+		
+		assertEquals("Unable to encode param ["+PARAM_ABC+"] with value ["+UTF16_TEST_VALUE_UNENCODED+"] to Red Team format.",loggingEvents.get(0).getRenderedMessage());
+		assertEquals(Level.ERROR,loggingEvents.get(0).getLevel());
+	}		
+	
+	@Test
+	public void testNullParamOrNullValueReturnsFalseOnAddQueryParam() throws Exception{
+		ImageUrlBase urlFormatterBase = new ImageUrlBase(TEST_URL_STRING);
+		assertFalse(urlFormatterBase.addQueryParam(PARAM_ABC, null));
+		assertFalse(urlFormatterBase.addQueryParam(null, PARAM_ABC_VALUE));
+		assertTrue(urlFormatterBase.addQueryParam(PARAM_ABC, PARAM_ABC_VALUE));
+	}
+	
+	@Test
+	public void testBuildFile() throws Exception{
+		URL url = new URL(TEST_SERVER_CONTEXT);
+		ImageUrlBase formatter = new ImageUrlBase(url);
+		formatter.buildFile("test");
+		formatter.buildFile("some.aspx");
+		assertEquals(TEST_URL_STRING_LESS_QUESTION_MARK,formatter.getAsString());	
+	}
+	
+	@Test
+	public void testGetAsUrl() throws Exception{
+		URL url = new URL(TEST_URL_STRING);
+		IImageUrlFormatter formatter = new ImageUrlBase(url);
+		URL expectedUrl = new URL(TEST_URL_STRING_LESS_QUESTION_MARK);
+		assertEquals(expectedUrl,formatter.getAsUrl());
+	}
+		
+	@Test
+	public void testGetAsUrlStringEncoded() throws Exception{
+		URL url = new URL(TEST_URL_STRING);
+		IImageUrlFormatter formatter = new ImageUrlBase(url);
+	
+		assertEquals(URLEncoder.encode(TEST_URL_STRING_LESS_QUESTION_MARK,"UTF-8"),formatter.getAsString("UTF-8"));
+		
+		try{
+			formatter.getAsString("Red Team");
+			fail("Expected encoding exception but did not receive one.");
+		}
+		catch(Exception ex){
+			assertEquals("Unable to encode url [http://10.4.5.6:80/test/some.aspx].",ex.getMessage());
+		}
+	}
+}

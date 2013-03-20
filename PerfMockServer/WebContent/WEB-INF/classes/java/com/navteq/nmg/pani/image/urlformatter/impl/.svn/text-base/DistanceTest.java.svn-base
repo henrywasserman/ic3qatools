@@ -1,0 +1,126 @@
+package com.navteq.nmg.pani.image.urlformatter.impl;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import java.text.DecimalFormat;
+import java.util.List;
+
+import org.apache.log4j.Appender;
+import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggingEvent;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+
+import com.navteq.nmg.pani.image.urlformatter.IDistance;
+import com.navteq.nmg.pani.image.urlformatter.IDistance.UnitOfMeasurement;
+
+public class DistanceTest {
+	
+	private static final String SOURCE_LAT = "40.714542";	
+	private static final String SOURCE_LONG = "-91.007197";
+	private static final String DEST_LAT = "40.714542";
+	private static final String DEST_LONG = "-71.447197";
+	
+	
+	private static final String ADJUST_LAT = "40.714542";
+	private static final String ADJUST_LONG = "-74.107233";
+	
+	private Appender mockAppender;
+	
+	@Before
+	public void setup() {
+		mockAppender = mock(AppenderSkeleton.class);
+		Logger logger = Logger.getLogger(Distance.class);
+		logger.addAppender(mockAppender);
+		logger.setLevel(Level.INFO);
+	}	
+	
+	@After
+	public void tearDown(){
+		Logger logger = Logger.getLogger(Distance.class);
+		logger.removeAppender(mockAppender);		
+	}	
+		
+	@Test
+	public void testDistanceConstructor() throws Exception{
+	
+		IDistance distance = null;
+		DecimalFormat df = new DecimalFormat("##,##0.0");
+
+		distance = new Distance(SOURCE_LAT,SOURCE_LONG,DEST_LAT,DEST_LONG,UnitOfMeasurement.MILES,df);
+		assertEquals(1023.36,distance.getDistance(),2);
+		assertEquals(UnitOfMeasurement.MILES,distance.getUnitOfMeasurement());
+		assertEquals("1,023.4",distance.getFormattedDistance());			
+	
+		distance = new Distance(SOURCE_LAT,SOURCE_LONG,DEST_LAT,DEST_LONG,UnitOfMeasurement.KILOMETERS,df);
+		assertEquals(1646.93,distance.getDistance(),2);
+		assertEquals(UnitOfMeasurement.KILOMETERS,distance.getUnitOfMeasurement());
+		assertEquals("1,646.9",distance.getFormattedDistance());
+		
+	}
+	
+	@Test
+	public void testLogging() throws Exception{
+		
+		Logger logger = Logger.getLogger(Distance.class);
+		logger.setLevel(Level.DEBUG);
+		
+		DecimalFormat df = new DecimalFormat("##,##0.0");
+		new Distance(SOURCE_LAT, SOURCE_LONG, ADJUST_LAT, ADJUST_LONG, UnitOfMeasurement.MILES, df);
+		
+		ArgumentCaptor<LoggingEvent> loggingEventCaptor = ArgumentCaptor.forClass(LoggingEvent.class);
+		verify(mockAppender, times(1)).doAppend(loggingEventCaptor.capture());
+	
+		List<LoggingEvent> loggingEvents = loggingEventCaptor.getAllValues();		
+		
+		assertEquals("Calculated distance between [" + SOURCE_LAT+"/"+SOURCE_LONG+"] and [" + ADJUST_LAT+"/"+ADJUST_LONG +"] to be 884.7 mi",loggingEvents.get(0).getRenderedMessage());		
+		assertEquals(Level.DEBUG,loggingEvents.get(0).getLevel());
+		
+		logger.setLevel(Level.INFO);
+	
+	}
+	
+	@Test
+	public void testAdjustDistance() throws Exception{
+		DecimalFormat df = new DecimalFormat("##,##0.0");
+		IDistance distance = new Distance(SOURCE_LAT,SOURCE_LONG,DEST_LAT,DEST_LONG,UnitOfMeasurement.MILES,df);
+		double numericDistance = distance.getDistance();
+		distance.adjustSource(ADJUST_LAT, ADJUST_LONG);
+		assertEquals(139.45,distance.getDistance(),2);
+		assertTrue(numericDistance!=distance.getDistance());
+	}
+	
+	@Test
+	public void testConvertLatLongFromString() throws Exception{
+		double convertedValue = Distance.convertLatLongFromString("179001200");
+		assertEquals(179.001200,convertedValue,6);
+		convertedValue = Distance.convertLatLongFromString("179.001200");
+		assertEquals(179.001200,convertedValue,6);
+	}
+	
+	@Test
+	public void testCalcDistance() throws Exception{
+		
+		double fromLat = Distance.convertLatLongFromString(SOURCE_LAT);
+		double fromLong = Distance.convertLatLongFromString(SOURCE_LONG);
+		double toLat = Distance.convertLatLongFromString(DEST_LAT);
+		double toLong = Distance.convertLatLongFromString(DEST_LONG);
+		
+		double distanceValue = Distance.calcDistance(fromLat, fromLong, toLat, toLong, UnitOfMeasurement.MILES);
+		assertEquals(1023.36,distanceValue,2);	
+		
+		distanceValue = Distance.calcDistance(fromLat, fromLong, toLat, toLong, UnitOfMeasurement.KILOMETERS);
+		assertEquals(1646.93,distanceValue,2);
+		
+		distanceValue = Distance.calcDistance(fromLat, fromLong, fromLat, fromLong, UnitOfMeasurement.MILES);
+		assertEquals(0,distanceValue,0);
+		
+	}
+}

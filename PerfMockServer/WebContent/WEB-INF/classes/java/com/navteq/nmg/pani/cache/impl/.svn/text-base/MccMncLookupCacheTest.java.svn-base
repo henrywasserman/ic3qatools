@@ -1,0 +1,152 @@
+package com.navteq.nmg.pani.cache.impl;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.spi.LoggingEvent;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import org.springframework.jdbc.core.simple.SimpleJdbcOperations;
+
+import com.navteq.nmg.LogTest;
+import com.navteq.nmg.pani.cache.ICacheRefreshService;
+import com.navteq.nmg.pani.cache.IDBProvider;
+import com.navteq.nmg.pani.cache.MccMncCacheMissException;
+import com.navteq.nmg.pani.cache.IMccMncLookupCache.IMccMnc;
+import com.navteq.nmg.pani.cache.impl.MSSqlMccMncLookupCache;
+
+public class MccMncLookupCacheTest extends LogTest{
+	
+    private static final String US = "USA";
+	private static final String VERIZON = "Verizon";
+	private static final String DE = "DE";
+    private static final String SPRINT = "Sprint";
+	
+    
+    public MccMncLookupCacheTest(){
+    	super(MSSqlMccMncLookupCache.class);
+    }
+    
+    
+	@Before
+	public void setup() {
+		super.setupBefore();
+	}	
+	
+	@After
+	public void tearDown(){
+		super.tearDownAfter();
+	}    
+	
+	@Test
+	public void ensureUnknownMappingThrowsException() throws Exception{
+
+		SimpleJdbcOperations jdbc = mock(SimpleJdbcOperations.class);
+		
+		List<Map<String, Object>> queryList = new ArrayList<Map<String, Object>>();
+		
+		queryList.add(loadMap(VERIZON,US,310,4));
+		queryList.add(loadMap(SPRINT,US,310,10));
+
+		when(jdbc.queryForList(MSSqlMccMncLookupCache.QUERY)).thenReturn(queryList);
+		
+		
+		IDBProvider dbProvider = mock(IDBProvider.class);
+		when(dbProvider.provide()).thenReturn(jdbc);
+		
+		ICacheRefreshService refreshService = mock(ICacheRefreshService.class);
+		MSSqlMccMncLookupCache cache = new MSSqlMccMncLookupCache(dbProvider,refreshService);
+	
+		cache.refresh();
+	
+		try{
+			cache.getMccMncByOperatorNameAnd3DigitCountryCode(VERIZON, US);			
+		}
+		catch(MccMncCacheMissException cacheException){
+			fail("Should not have received an exception.  Details "+cacheException.getMessage());
+		}	
+		
+		try{
+			cache.getMccMncByOperatorNameAnd3DigitCountryCode(SPRINT, DE);
+			fail("Should have received an exception but did not get one.");
+		}
+		catch(MccMncCacheMissException cacheException){
+			assertEquals(SPRINT,cacheException.getOperatorName());
+			assertEquals(DE, cacheException.getAlphaTwoCountryCode());
+		}
+	}
+
+	@Test 
+	public void ensureRefreshHandlesException() throws Exception{
+		IDBProvider dbProvider = mock(IDBProvider.class);
+		when(dbProvider.provide()).thenReturn(null);
+		
+		ICacheRefreshService refreshService = mock(ICacheRefreshService.class);
+		MSSqlMccMncLookupCache cache = new MSSqlMccMncLookupCache(dbProvider,refreshService);
+		
+		setLogLevel(Level.ERROR);
+		
+		try{
+			cache.refresh();
+			fail("Expected an exception to be thrown but did not receive one.");
+		}
+		catch(Exception ex){
+			List<LoggingEvent> loggingEvents = gatherAndCheckLoggingEvents(1);
+			assertEquals("Refresh encountered errors.  Check data source to make sure it is configured properly.",loggingEvents.get(0).getMessage());
+			assertEquals(Level.ERROR,loggingEvents.get(0).getLevel());
+		}
+	}
+	
+	
+	@Test
+	public void verifyMappingsComeBackAsExpected() throws Exception{
+		
+		SimpleJdbcOperations jdbc = mock(SimpleJdbcOperations.class);
+		
+		List<Map<String, Object>> queryList = new ArrayList<Map<String, Object>>();
+		
+		queryList.add(loadMap(VERIZON,US,310,4));
+		queryList.add(loadMap(SPRINT,US,310,10));
+
+		when(jdbc.queryForList(MSSqlMccMncLookupCache.QUERY)).thenReturn(queryList);
+
+		
+		
+		IDBProvider dbProvider = mock(IDBProvider.class);
+		when(dbProvider.provide()).thenReturn(jdbc);
+		
+		ICacheRefreshService refreshService = mock(ICacheRefreshService.class);
+		MSSqlMccMncLookupCache cache = new MSSqlMccMncLookupCache(dbProvider,refreshService);
+
+		cache.refresh();
+		
+		IMccMnc mccMnc = cache.getMccMncByOperatorNameAnd3DigitCountryCode(VERIZON, US);
+		
+		assertEquals("310",mccMnc.getMCC());
+		assertEquals("004",mccMnc.getMNC());
+
+        mccMnc = cache.getMccMncByOperatorNameAnd3DigitCountryCode(SPRINT, US);
+		
+		assertEquals("310",mccMnc.getMCC());
+		assertEquals("010",mccMnc.getMNC());		
+	}
+	
+	private Map<String, Object> loadMap( String operatorName, String country,	int mcc, int mnc) {
+		
+		Map<String, Object> operatorQueryMap = new HashMap<String, Object>();
+		operatorQueryMap.put("NetworkOperatorName",operatorName);
+		operatorQueryMap.put("Alpha3", country);
+		operatorQueryMap.put("MCC", new Integer(mcc));
+		operatorQueryMap.put("MNC", new Integer(mnc));
+
+		return operatorQueryMap;
+	}
+}

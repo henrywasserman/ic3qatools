@@ -1,0 +1,70 @@
+package com.navteq.nmg.hashtable.renderers;
+
+import org.apache.commons.io.EndianUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.IHashDataType.HashDataType;
+import com.navteq.nmg.hashtable.renderers.BaseHashDataTypeRenderer;
+import com.navteq.nmg.hashtable.renderers.StringHashDataTypeRenderer;
+
+public class StringHashDataTypeRendererTest extends HashDataTypeTestHelper{
+
+	private static final String FIELD_NAME = "fieldName";
+	private static final String DATA = "bR549t%$#34@@Whooop's!"; 
+	private static final String MT_DATA = ""; 	
+	
+	@Test
+	public void verifyConstructor() throws Exception{
+		StringHashDataTypeRenderer bhdt = new StringHashDataTypeRenderer(FIELD_NAME, DATA);
+		assertConstructor(
+			FIELD_NAME, 
+			HashDataType.HASH_STRING,
+			StringHashDataTypeRenderer.SIZEOF_HEADER_FIELDNAME_LENGTH_FIELD
+			    +FIELD_NAME.length()
+			    +StringHashDataTypeRenderer.SIZEOF_DATATYPE_INDICATOR_SIZE
+			    +StringHashDataTypeRenderer.SIZEOF_VALUE_LENGTH_FIELD
+			    +DATA.length(), 
+			    bhdt);
+	}	
+	
+	@Test
+	public void verifyConstructorOnEmptyData() throws Exception{
+		StringHashDataTypeRenderer bhdt = new StringHashDataTypeRenderer(FIELD_NAME, MT_DATA);
+		assertConstructor(
+			FIELD_NAME, 
+			HashDataType.HASH_STRING,
+			StringHashDataTypeRenderer.SIZEOF_HEADER_FIELDNAME_LENGTH_FIELD
+			    +FIELD_NAME.length()
+			    +StringHashDataTypeRenderer.SIZEOF_DATATYPE_INDICATOR_SIZE
+			    +StringHashDataTypeRenderer.SIZEOF_VALUE_LENGTH_FIELD
+			    +MT_DATA.length(), 
+			bhdt);
+	}	
+	
+	
+	
+	@Test
+	public void verifyInjectStream() throws Exception{
+		StringHashDataTypeRenderer bhdt = new StringHashDataTypeRenderer(FIELD_NAME, DATA);
+
+		// make sure we are rendering properly
+		byte[] encodedFieldName = FIELD_NAME.getBytes(ENCODING);
+		byte[] fieldValue = DATA.getBytes(ENCODING);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		bhdt.injectStream(baos);
+		byte[] result = baos.toByteArray();
+		
+		byte[] valueLengthField = new byte[StringHashDataTypeRenderer.SIZEOF_VALUE_LENGTH_FIELD];
+		int valueLength = fieldValue.length;
+		EndianUtils.writeSwappedInteger(valueLengthField, 0, valueLength);
+		
+		assertRender(encodedFieldName,bhdt.getHashDataType(),valueLengthField,fieldValue,result);		
+	}		
+	
+	@Override
+	BaseHashDataTypeRenderer getNewInstanceForBoundsChecking(String fieldName) throws Exception{
+		return new StringHashDataTypeRenderer(fieldName, DATA);
+	}			
+}

@@ -1,0 +1,49 @@
+package com.navteq.nmg.hashtable.mapper.impl.nameformatter;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import com.navteq.nmg.hashtable.mapper.IIndexName;
+import com.navteq.nmg.hashtable.mapper.IIndexNameFormatter;
+
+public class ImageChildIndexNameFormatterTest {
+
+	// image names are a combination of the parent + the child (save the actual embedded images)
+	// under the data element in which the data name is just image+ a counter e.g. image1 and the
+	// rest of the items are image1url, etc,etc
+	
+	private static final String IMAGEURL = "url";
+	private static final String IMAGE1URL = "image1url";
+	private static final String IMAGE2URL = "image2url";
+	
+	private static final String IMAGEDATA = "data";
+	private static final String IMAGE1DATA = "image1";
+	private static final String IMAGE2DATA = "image2";
+	
+	@Test
+	public void testFormatting() throws Exception{
+		
+		IIndexNameFormatter formatter = new ImageChildIndexNameFormatter();
+		
+		formatter.bumpCounter();
+		
+		IIndexName name = formatter.getFormattedIndexName(IMAGEURL);
+		assertEquals(IMAGEURL,name.getBaseName());
+		assertEquals(IMAGE1URL,name.getIndexedName());
+
+		name = formatter.getFormattedIndexName(IMAGEDATA);
+		assertEquals(IMAGEDATA,name.getBaseName());
+		assertEquals(IMAGE1DATA,name.getIndexedName());
+		
+		formatter.bumpCounter();
+		
+		name = formatter.getFormattedIndexName(IMAGEURL);
+		assertEquals(IMAGEURL,name.getBaseName());
+		assertEquals(IMAGE2URL,name.getIndexedName());
+		
+		name = formatter.getFormattedIndexName(IMAGEDATA);
+		assertEquals(IMAGEDATA,name.getBaseName());
+		assertEquals(IMAGE2DATA,name.getIndexedName());		
+	}
+}

@@ -1,0 +1,767 @@
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20544/nmg-testing-tools/trunk/PerfMockServer/src/main
+END
+default.xml
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20511/nmg-testing-tools/trunk/PerfMockServer/src/main/default.xml
+END
+dealmap-long-advertiser-name.xml
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-long-advertiser-name.xml
+END
+citygrid_security_service.xml
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_security_service.xml
+END
+nimble_null_fields.xml
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/nimble_null_fields.xml
+END
+citygrid_2_ads.xml
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_2_ads.xml
+END
+tc_endusercheckin_pan_and_nms.headers
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_endusercheckin_pan_and_nms.headers
+END
+citygrid_home_and_garden.xml
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_home_and_garden.xml
+END
+perf_citygrid.xml
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20523/nmg-testing-tools/trunk/PerfMockServer/src/main/perf_citygrid.xml
+END
+nimble-multicategories.xml
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/nimble-multicategories.xml
+END
+tc_maxads_000002.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000002.xml
+END
+perf_citygrid.headers
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/perf_citygrid.headers
+END
+tc_maxads_000006.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000006.xml
+END
+nimble_default.xml
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/nimble_default.xml
+END
+tc_maxads_000008.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000008.xml
+END
+spinach-notexist-category.xml
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/spinach-notexist-category.xml
+END
+3deals.xml
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/3deals.xml
+END
+tc_maxads_000001.headers
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000001.headers
+END
+tc_sdkconfigxml.xml
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_sdkconfigxml.xml
+END
+citygrid_dialysis.xml
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_dialysis.xml
+END
+citygrid_jewelry.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_jewelry.xml
+END
+tc_maxads_000002.headers
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000002.headers
+END
+tc_maxads_000006.headers
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000006.headers
+END
+tc_maxads_000008.headers
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000008.headers
+END
+tc_maxads_000009.headers
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000009.headers
+END
+citygrid_home.xml
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_home.xml
+END
+citygrid_storage_facility.xml
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_storage_facility.xml
+END
+citygrid_doctor.xml
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_doctor.xml
+END
+error.xml
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20511/nmg-testing-tools/trunk/PerfMockServer/src/main/error.xml
+END
+MobileSpinach_1.xml
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/MobileSpinach_1.xml
+END
+citygrid_no_ads.xml
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_no_ads.xml
+END
+testcase123.xml
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20511/nmg-testing-tools/trunk/PerfMockServer/src/main/testcase123.xml
+END
+citygrid_lawyer.xml
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_lawyer.xml
+END
+dealmap-deal-jack-oyster-health.xml
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-deal-jack-oyster-health.xml
+END
+tc_maxads_000011.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000011.xml
+END
+dealmap-nocategory-jack-oyster.xml
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-nocategory-jack-oyster.xml
+END
+spinach-king-fung-garden.xml
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/spinach-king-fung-garden.xml
+END
+citygrid_tow_and_wrecker.xml
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_tow_and_wrecker.xml
+END
+tc_maxads_000011.headers
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000011.headers
+END
+tc_maxads_000012.headers
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000012.headers
+END
+citygrid_home_category.xml
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_home_category.xml
+END
+dealmap-deal-jack-oyster-albany-ny.xml
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-deal-jack-oyster-albany-ny.xml
+END
+citygrid_medical.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_medical.xml
+END
+dealmap-deal-MassMobileMassage.xml
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-deal-MassMobileMassage.xml
+END
+tc_Mobile_Spinach.xml
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_Mobile_Spinach.xml
+END
+citygrid_pizza_restaurant.xml
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_pizza_restaurant.xml
+END
+citygrid_plumber.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_plumber.xml
+END
+tc_enduserareacheckin_pan.xml
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_enduserareacheckin_pan.xml
+END
+citygrid_auto_repair.xml
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_auto_repair.xml
+END
+log4j.properties
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20524/nmg-testing-tools/trunk/PerfMockServer/src/main/log4j.properties
+END
+tc_Mobile_Spinach.headers
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_Mobile_Spinach.headers
+END
+tc_endusercheckin_pan.xml
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_endusercheckin_pan.xml
+END
+rules.properties
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20544/nmg-testing-tools/trunk/PerfMockServer/src/main/rules.properties
+END
+citygrid_travel_category.xml
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_travel_category.xml
+END
+tc_endusercheckin_pan.headers
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_endusercheckin_pan.headers
+END
+tc_007s.headers
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_007s.headers
+END
+spinach-aquitane.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/spinach-aquitane.xml
+END
+all-spinach.xml
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/all-spinach.xml
+END
+citygrid_cosmetic_dentist.xml
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_cosmetic_dentist.xml
+END
+citygrid_2_ads_one_without_city.xml
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_2_ads_one_without_city.xml
+END
+testcase701.xml
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/testcase701.xml
+END
+spinach-long-advertiser-name.xml
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/spinach-long-advertiser-name.xml
+END
+nimble-adrotation.xml
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/nimble-adrotation.xml
+END
+citygrid_college.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_college.xml
+END
+dealmap-turning-art.xml
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-turning-art.xml
+END
+tc_endusercheckin_pan_and_nms.xml
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_endusercheckin_pan_and_nms.xml
+END
+nimble-nocategory.xml
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/nimble-nocategory.xml
+END
+tc_endusercheckin_pan_images.headers
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_endusercheckin_pan_images.headers
+END
+dealmap-deal-jack-oyster-no-city.xml
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-deal-jack-oyster-no-city.xml
+END
+citygrid_default.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_default.xml
+END
+spinach-buccinis.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/spinach-buccinis.xml
+END
+citygrid_attorney_service.xml
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_attorney_service.xml
+END
+spinach-multicategories.xml
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/spinach-multicategories.xml
+END
+citygrid_nephrology.xml
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_nephrology.xml
+END
+citygrid_medical_care.xml
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_medical_care.xml
+END
+citygrid_missing_intro_text.xml
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_missing_intro_text.xml
+END
+dealmap-polygontest.xml
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-polygontest.xml
+END
+citygrid_locksmith.xml
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_locksmith.xml
+END
+spinach-nocategory.xml
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/spinach-nocategory.xml
+END
+citygrid_adrotation.xml
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_adrotation.xml
+END
+tc_maxads_000001.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000001.xml
+END
+dealmap-adrotation.xml
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-adrotation.xml
+END
+tc_maxads_000003.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000003.xml
+END
+citygrid_in_spa.xml
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_in_spa.xml
+END
+citygrid_dentist.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_dentist.xml
+END
+tc_maxads_000007.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000007.xml
+END
+tc_maxads_000009.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000009.xml
+END
+nimble_2_ads.xml
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/nimble_2_ads.xml
+END
+citygrid_diet.xml
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_diet.xml
+END
+tc_getroute.xml
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_getroute.xml
+END
+tc_enduseractions_response.xml
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_enduseractions_response.xml
+END
+field-mappings.properties
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20511/nmg-testing-tools/trunk/PerfMockServer/src/main/field-mappings.properties
+END
+tc_maxads_000010.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000010.xml
+END
+spinach-no-ads.xml
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/spinach-no-ads.xml
+END
+tc_maxads_000012.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_maxads_000012.xml
+END
+citygrid_salon.xml
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_salon.xml
+END
+spinach-polygontest.xml
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/spinach-polygontest.xml
+END
+tc_002s.xml
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_002s.xml
+END
+testcase123.headers
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20511/nmg-testing-tools/trunk/PerfMockServer/src/main/testcase123.headers
+END
+citygrid_day_spa.xml
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_day_spa.xml
+END
+tc_endusercheckin_2pan_and_1nms.xml
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_endusercheckin_2pan_and_1nms.xml
+END
+dealmap-no-ads.xml
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-no-ads.xml
+END
+dealmap-buywithme67-jacks.xml
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-buywithme67-jacks.xml
+END
+nimble_no_ads.xml
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/nimble_no_ads.xml
+END
+tc_endusercheckin_2pan_and_1nms.headers
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_endusercheckin_2pan_and_1nms.headers
+END
+citygrid_chiropractor.xml
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_chiropractor.xml
+END
+dealmap-multiple-ads.xml
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-multiple-ads.xml
+END
+spinach-bar-category.xml
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/spinach-bar-category.xml
+END
+enduseractions_response.xml
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20511/nmg-testing-tools/trunk/PerfMockServer/src/main/enduseractions_response.xml
+END
+2spinach.xml
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/2spinach.xml
+END
+dealmap-strayboots.xml
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-strayboots.xml
+END
+nimble-travel-category.xml
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/nimble-travel-category.xml
+END
+tc_007s.xml
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_007s.xml
+END
+dealmap-deal-truevalue.xml
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-deal-truevalue.xml
+END
+tc_enduserareacheckin_pan.headers
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_enduserareacheckin_pan.headers
+END
+tc_enduserareacheckin_nms.xml
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_enduserareacheckin_nms.xml
+END
+nimble-dining-category.xml
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/nimble-dining-category.xml
+END
+dealmap-multicategories-jack-oyster.xml
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-multicategories-jack-oyster.xml
+END
+nimble-notexist-category.xml
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/nimble-notexist-category.xml
+END
+citygrid_auto_mechanic.xml
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_auto_mechanic.xml
+END
+tc_endusercheckin_nms.xml
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_endusercheckin_nms.xml
+END
+tc_endusercheckin_pan_images.xml
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_endusercheckin_pan_images.xml
+END
+tc_enduserregistration_response.xml
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_enduserregistration_response.xml
+END
+dealmap-groupon5-jacks.xml
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/dealmap-groupon5-jacks.xml
+END
+citygrid_hair_studio.xml
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/citygrid_hair_studio.xml
+END
+2deals.xml
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/2deals.xml
+END
+tc_enduserregistration_secure_response.xml
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/tc_enduserregistration_secure_response.xml
+END
+spinach-fencersclub.xml
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svnroot/MediaDevelopment/Interactive%20Location%20Based%20Advertising/!svn/ver/20519/nmg-testing-tools/trunk/PerfMockServer/src/main/spinach-fencersclub.xml
+END
